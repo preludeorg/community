@@ -17,9 +17,9 @@ platforms:
     sh:
       command: |
         chmod +x pneuma-linux && nohup ./pneuma-linux &
-      payload: https://s3.amazonaws.com/operator.payloads/pneuma/pneuma-linux
+      payload: #{operator.payloads}/pneuma/pneuma-linux
   darwin:
     sh:
       command: |
         chmod +x pneuma-darwin && nohup ./pneuma-darwin &
-      payload: https://s3.amazonaws.com/operator.payloads/pneuma/pneuma-darwin
+      payload: #{operator.payloads}/pneuma/pneuma-darwin

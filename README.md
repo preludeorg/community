@@ -48,7 +48,7 @@ Some executor blocks may include a payload property, such as:
 sh:
   command: |
     chmod +x pneuma-darwin && nohup ./pneuma-darwin &
-  payload: https://s3.amazonaws.com/operator.payloads/pneuma/pneuma-darwin
+  payload: #{operator.payloads}/pneuma/pneuma-darwin
 ```
 This procedure expects the payload (found at the HTTP address) to be downloaded to the target before executing the command. All Prelude agents do this by default.
 
@@ -88,6 +88,7 @@ Automatic facts are environmental and are applied to an agent based on condition
 
 * **operator.session**: a unique key for your Operator session. The session key regenerates on each restart of the app and is used internally to help validate external connections originated in the app.
 * **operator.http**: callback address of your HTTP server
+* **operator.payloads**: path to where operator is accessing payloads (defaults to `https://s3.amazonaws.com/operator.payloads`)
 * **agent.name**: current name given to the agent
 * **agent.location**: absolute file path of the agent file on disk
 
