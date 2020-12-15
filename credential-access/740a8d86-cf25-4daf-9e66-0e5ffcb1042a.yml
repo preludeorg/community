@@ -1,0 +1,27 @@
+id: 740a8d86-cf25-4daf-9e66-0e5ffcb1042a
+name: Find credentials in files
+description: This procedure will extract plaintext credentials in files.
+tactic: credential-access
+technique:
+  id: T1552
+  name: Unsecured Credentials
+platforms:
+  linux:
+    sh:
+      command: 'grep -ri password #{file.path}'
+  windows:
+    cmd:
+      command: findstr /si password *.xml *.ini *.txt *.config 2>nul
+    pwsh:
+      command: |-
+        findstr /si pass *.xml *.doc *.txt *.xls
+        ls -R | select-string -Pattern password
+  darwin:
+    sh:
+      command: 'grep -ri password #{file.path}'
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
