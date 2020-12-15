@@ -8,7 +8,7 @@ technique:
 platforms:
   linux:
     sh:
-      command: 'grep -ri password #{file.path}'
+      command: 'grep -ri password #{directory.T1083}'
   windows:
     cmd:
       command: findstr /si password *.xml *.ini *.txt *.config 2>nul
@@ -18,7 +18,7 @@ platforms:
         ls -R | select-string -Pattern password
   darwin:
     sh:
-      command: 'grep -ri password #{file.path}'
+      command: 'grep -ri password #{directory.T1083}'
 metadata:
   authors:
     - bfuzzy1
