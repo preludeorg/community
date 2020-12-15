@@ -12,7 +12,7 @@ platforms:
   windows:
     cmd:
       command: findstr /si password *.xml *.ini *.txt *.config 2>nul
-    pwsh:
+    psh:
       command: |-
         findstr /si pass *.xml *.doc *.txt *.xls
         ls -R | select-string -Pattern password
