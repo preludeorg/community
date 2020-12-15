@@ -18,10 +18,8 @@ platforms:
         ls -R | select-string -Pattern password
   darwin:
     sh:
-      command: 'grep -ri password #{directory.T1083}'
+      command: grep -ri password #{directory.T1083}
 metadata:
   authors:
     - bfuzzy1
   tags: []
-  version: 1
-  enabled: true
