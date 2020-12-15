@@ -21,6 +21,3 @@ metadata:
     - bfuzzy1
   tags: []
   version: 1
-  enabled: true
-  latest:
-    version: 1
