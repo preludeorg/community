@@ -1,0 +1,19 @@
+id: f0b13547-6f1a-418a-9331-ce08b0fed707
+name: Disable macOS Gatekeeper
+description: >-
+  This procedure will disable Gatekeeper and allow execution of untrusted
+  software on the system.
+tactic: defense-evasion
+technique:
+  id: T1562.001
+  name: Disable or Modify Tools
+platforms:
+  darwin:
+    sh:
+      command: sudo spctl --master-disable
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
