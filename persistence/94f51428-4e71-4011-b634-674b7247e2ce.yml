@@ -1,0 +1,23 @@
+id: 94f51428-4e71-4011-b634-674b7247e2ce
+name: UserInitMprLogonScript Persistence
+description: >-
+  This procedure will add the pneuma agent to the UserInitMprLogonScript
+  registry key. Adversaries may use Windows logon scripts automatically executed
+  at logon initialization to establish persistence. Windows allows logon scripts
+  to be run whenever a specific user or group of users log into a system.
+tactic: persistence
+technique:
+  id: T1037
+  name: Boot or Logon Initialization Scripts
+platforms:
+  windows:
+    cmd:
+      command: >-
+        REG ADD HKCU\Environment /f /v UserInitMprLogonScript /t REG_MULTI_SZ /d
+        "#{agent.location}"
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
