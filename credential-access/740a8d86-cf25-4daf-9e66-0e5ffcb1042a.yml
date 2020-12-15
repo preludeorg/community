@@ -8,7 +8,7 @@ technique:
 platforms:
   linux:
     sh:
-      command: 'grep -ri password #{directory.T1083}'
+      command: grep -ri password #{directory.T1083}
   windows:
     cmd:
       command: findstr /si password *.xml *.ini *.txt *.config 2>nul
