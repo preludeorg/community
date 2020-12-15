@@ -1,6 +1,6 @@
 id: f2963403-37a5-46e6-9cd5-f1c255012055
 name: Replace binary of sticky keys
-description: This procedure will replace the sticky keys binary (sethc.exe) with cmd.exe.
+description: This procedure will replace the sticky keys binary (sethc.exe) with the pneuma agent.
 tactic: persistence
 technique:
   id: T1546.008
