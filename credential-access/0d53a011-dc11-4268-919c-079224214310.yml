@@ -1,0 +1,19 @@
+id: 0d53a011-dc11-4268-919c-079224214310
+name: Enumerate credentials in registry
+description: This procedure enumerates any registry key containing the word "password".
+tactic: credential-access
+technique:
+  id: T1552.002
+  name: Credentials in Registry
+platforms:
+  windows:
+    cmd:
+      command: |-
+        reg query HKLM /f password /t REG_SZ /s
+        reg query HKCU /f password /t REG_SZ /s
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
