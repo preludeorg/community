@@ -1,0 +1,24 @@
+id: 756b6e3d-aab7-4e9e-8bf0-0ccdcea2697f
+name: Local network share discovery
+description: >-
+  This procedure will look at all of the network share resources that are shared
+  on the local computer.
+tactic: discovery
+technique:
+  id: T1135
+  name: Network Share Discovery
+platforms:
+  linux:
+    sh:
+      command: mount -v | grep -i -e 'type smb' -e 'type cifs'
+  darwin:
+    sh:
+      command: mount -v | grep -i -e 'type smb' -e 'type cifs'
+  windows:
+    cmd:
+      command: net share
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
