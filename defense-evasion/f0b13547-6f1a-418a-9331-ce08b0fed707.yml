@@ -14,6 +14,6 @@ platforms:
 metadata:
   authors:
     - bfuzzy1
-  tags: []
+  tags:
+    - destructive
   version: 1
-  enabled: true
