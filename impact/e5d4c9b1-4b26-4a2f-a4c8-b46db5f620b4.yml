@@ -2,7 +2,7 @@ id: e5d4c9b1-4b26-4a2f-a4c8-b46db5f620b4
 name: Delete windows backup catalog
 description: >-
   This procedure will delete the windows backup catalog. This technique is used
-  by numerous ransomeware families and APT malware.
+  by numerous ransomware families and APT malware.
 tactic: impact
 technique:
   id: T1490
