@@ -1,6 +1,6 @@
 id: 7c42a30c-c8c7-44c5-80a8-862d364ac1e4
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
@@ -16,4 +16,35 @@ technique:
 platforms:
   windows:
     psh:
-      command: echo $(get-uac)
+      command: |
+        function Get-UAC {
+        &lt;#
+          .SYNOPSIS
+            Gets the current status of User Account Control (UAC) on a computer, locally or remote.
+          .DESCRIPTION
+            Gets the current status of User Account Control (UAC) on a computer, locally or remote.
+          .AUTHOR
+            Jeff Wouters
+          .NOTES
+            PowerShell 2.0 or higher is required for proper execution of this script.
+          .EXAMPLE
+            Get-UAC
+          .EXAMPLE
+            Get-UAC -ComputerName [ComputerName]
+          .INPUTS
+            N/A.
+        #&gt;
+          [cmdletBinding(SupportsShouldProcess = $true)];
+          param([parameter(ValueFromPipeline = $false, ValueFromPipelineByPropertyName = $true, Mandatory = $false)][Alias("Computer")][string]$ComputerName);
+          [string]$RegPath = "Software\Microsoft\Windows\CurrentVersion\Policies\System";
+          [string]$RegValue = "EnableLUA";
+          $AccessReg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine,$ComputerName);
+          $Subkey = $AccessReg.OpenSubKey($RegPath,$false);
+          $Subkey.ToString() | Out-Null;
+          $UAC = ($Subkey.GetValue($RegValue) -eq 1);
+          if ($UAC -eq 1){ $UACConfig = "Enabled" };
+          elseif ($UAC -eq 0) { $UACConfig = "Disabled" };
+          else {$UACConfig = "Unknown"};
+          return $UACConfig;
+        };
+        Get-UAC;
