@@ -14,7 +14,7 @@ platforms:
       command: findstr /si password *.xml *.ini *.txt *.config 2>nul
     psh:
       command: |-
-        findstr /si pass *.xml *.doc *.txt *.xls
+        findstr /si pass *.xml *.doc *.txt *.xls;
         ls -R | select-string -Pattern password
   darwin:
     sh:
