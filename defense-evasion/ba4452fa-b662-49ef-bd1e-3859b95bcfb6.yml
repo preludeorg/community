@@ -1,0 +1,18 @@
+id: ba4452fa-b662-49ef-bd1e-3859b95bcfb6
+name: Execute pneuma agent via Windows Shell Common Dll
+description: >-
+  This procedure uses rundll32.exe to call the ShellExec_RunDLL function of
+  shell32.dll to execute a pneuma agent on the host.
+tactic: defense-evasion
+technique:
+  id: T1218
+  name: Signed Binary Proxy Execution
+platforms:
+  windows:
+    cmd:
+      command: rundll32.exe shell32.dll,ShellExec_RunDLL "#{agent.location}"
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
