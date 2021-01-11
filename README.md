@@ -163,8 +163,7 @@ This is all experimental and not implement in the production code, it is just ge
 
 The goal of this overall approach would be Operator will translate `discoverable` variables into `tactic` variables for discrete
 atomic actions that don't make "forward progress". An idea (not the answer, this is experimental) of what this would look like in practice is:
-* Operator has 2 TTPs, one of which produces a `file.T1105` fact (ingressed a new tool), and another TTP that would want to  
-  try to execute a `file.T1564.004` fact because it is an executable stored in an ADS stream.
+* Operator has 2 TTPs, one of which produces a `file.T1105` fact (ingressed a new tool), and another TTP that would want to try to execute a `file.T1564.004` fact because it is an executable stored in an ADS stream.
 * Operator maps `file.T1105` to `defense-evasion.local.existing.file`, generates a `defense-evasion.local.new.file.ads` dynamically 
   for the target, then executes the copy command. 
 * If the copy is successful, then the `defense-evasion.local.new.file.ads` becomes a `defense-evasion.local.existing.file.ads` object that can be
