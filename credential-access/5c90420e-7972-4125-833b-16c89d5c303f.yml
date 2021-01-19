@@ -63,7 +63,7 @@ platforms:
         [CredUI]::Prompt();
   linux:
     sh:
-      command: read -sp "Enter Password: " T1187 && echo $T1187 > T1187.txt
+      command: 'read -sp "Enter Password: " T1187 && echo $T1187 > T1187.txt'
 metadata:
   authors:
     - khyberspache
