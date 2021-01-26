@@ -1,0 +1,20 @@
+id: 4c9a443f-796d-4b79-a452-9c68ec85188a
+name: Disable Security Updates
+description: This procedure disables the installation of security updates.
+tactic: defense-evasion
+technique:
+  id: T1562.001
+  name: Disable or Modify Tools
+platforms:
+  darwin:
+    sh:
+      command: >-
+        defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist
+        CriticalUpdateInstall -bool NO
+metadata:
+  authors:
+    - bfuzzy1
+  tags:
+    - destructive
+  version: 1
+  enabled: true

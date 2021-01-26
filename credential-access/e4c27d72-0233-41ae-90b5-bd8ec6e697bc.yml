@@ -1,0 +1,20 @@
+id: e4c27d72-0233-41ae-90b5-bd8ec6e697bc
+name: Dump Keychain
+description: >-
+  This procedure will dump all passwords stored in the default keychain. This
+  procedure will prompt for a password (unless the keychain is already
+  unlocked).
+tactic: credential-access
+technique:
+  id: T1555.001
+  name: Keychain
+platforms:
+  darwin:
+    sh:
+      command: security dump-keychain -d login.keychain > T1555_001.txt
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
