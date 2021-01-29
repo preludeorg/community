@@ -1,0 +1,21 @@
+id: 455118ab-fcd7-4a07-b7ff-d75ef4cd3e5f
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+name: Discover Windows Defender Firewall State
+description: |
+  Get the current state of the Windows Defender Firewall
+tactic: discovery
+technique:
+  id: T1518.001
+  name: "Software Discovery: Security Software Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        Get-NetFirewallProfile
+    cmd:
+      command: |
+        netsh advfirewall show allprofiles
