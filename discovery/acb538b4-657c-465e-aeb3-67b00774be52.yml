@@ -1,0 +1,18 @@
+id: acb538b4-657c-465e-aeb3-67b00774be52
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+name: Pending Updates Discovery
+description: |
+  Enumerates patches pending to be installed
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  windows:
+    psh:
+      command: |
+        (New-Object -ComObject Microsoft.Update.Session).CreateUpdateSearcher().Search("IsInstalled=0").Updates | select Title

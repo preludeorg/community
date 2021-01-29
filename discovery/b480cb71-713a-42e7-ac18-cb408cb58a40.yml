@@ -1,0 +1,21 @@
+id: b480cb71-713a-42e7-ac18-cb408cb58a40
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+name: Installed Patches Enumeration
+description: |
+  Enumerates installed patches on the system
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  windows:
+    psh:
+      command: |
+        (New-Object -ComObject Microsoft.Update.Session).CreateUpdateSearcher().Search("IsInstalled=1").Updates | select Title
+    cmd:
+      command: |
+        wmic qfe list brief
