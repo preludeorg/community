@@ -18,5 +18,6 @@ metadata:
   authors:
     - bfuzzy1
     - w0rk3r
-  tags: []
+  tags:
+    - destructive
   version: 2
