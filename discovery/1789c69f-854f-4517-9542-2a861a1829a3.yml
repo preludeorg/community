@@ -1,0 +1,21 @@
+id: 1789c69f-854f-4517-9542-2a861a1829a3
+name: Powershell Transcript Configuration Check
+description: |
+  Check if Powershell Transcript is Enabled
+tactic: discovery
+technique:
+  id: T1518.001
+  name: "Software Discovery: Security Software Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        [Bool](Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription' -ErrorAction SilentlyContinue).EnableTranscripting
+    cmd:
+      command: |
+        reg query HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription
+metadata:
+  authors:
+    - w0rk3r
+  tags: []
+  version: 1

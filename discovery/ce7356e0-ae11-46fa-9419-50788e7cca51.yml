@@ -1,0 +1,21 @@
+id: ce7356e0-ae11-46fa-9419-50788e7cca51
+name: Powershell Module Logging Configuration Check
+description: |
+  Check if Powershell Module Logging is Enabled
+tactic: discovery
+technique:
+  id: T1518.001
+  name: "Software Discovery: Security Software Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        [Bool](Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging' -ErrorAction SilentlyContinue).EnableModuleLogging
+    cmd:
+      command: |
+        reg query HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging
+metadata:
+  authors:
+    - w0rk3r
+  tags: []
+  version: 1

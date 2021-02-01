@@ -1,0 +1,21 @@
+id: e75c8d27-c7ff-4069-8f50-3ef4a159a131
+name: Powershell ScriptBlock Logging Configuration Check
+description: |
+  Check if Powershell ScriptBlock Logging is Enabled
+tactic: discovery
+technique:
+  id: T1518.001
+  name: "Software Discovery: Security Software Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        [Bool](Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging' -ErrorAction SilentlyContinue).EnableScriptBlockLogging
+    cmd:
+      command: |
+        reg query HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging
+metadata:
+  authors:
+    - w0rk3r
+  tags: []
+  version: 1
