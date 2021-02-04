@@ -19,5 +19,5 @@ platforms:
     sh:
       command: echo $PATH
   windows:
-    sh:
+    pwsh:
       command: $env:path
