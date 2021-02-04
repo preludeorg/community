@@ -1,0 +1,19 @@
+id: 76de9c5c-899f-4d48-8651-2a17e93c5bd9
+name: Disable EventLog Service Startup
+description: |
+  Modify the EventLog Service Startup Type to Disabled, preventing the service from starting after a reboot
+tactic: defense-evasion
+technique:
+  id: T1562.002
+  name: "Impair Defenses: Disable Windows Event Logging"
+platforms:
+  windows:
+    psh:
+      command: |
+        Set-Service EventLog -StartupType Disabled
+metadata:
+  authors:
+    - w0rk3r
+  tags: 
+    - destructive
+  version: 1
