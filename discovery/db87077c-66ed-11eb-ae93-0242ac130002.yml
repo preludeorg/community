@@ -4,7 +4,7 @@ metadata:
   authors: 
     - Abhishek S (abhiabhi2306)
   tags: []
-name: Lists the paths of directories which shell checks for executable files.
+name: Dump shell $PATH
 description: |
   The $PATH environment variable stores the path of directories which the shell checks for executables, and /etc/paths file holds the list of the same.
 tactic: discovery
