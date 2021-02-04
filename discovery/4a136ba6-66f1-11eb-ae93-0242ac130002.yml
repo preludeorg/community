@@ -6,7 +6,7 @@ metadata:
   tags: []
 name: Perform direct registry loot
 description: |
-  The registry can directly looted without using tools like wce,fgdump or external binaries.
+  The registry can directly looted without using tools like wce,fgdump or external binaries. The dump will be saved to c:\windows\temp\system.sa
 technique:
   id: T1082
   name: Command and Scripting Interpreter
