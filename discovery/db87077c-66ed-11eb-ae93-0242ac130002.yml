@@ -1,0 +1,23 @@
+id: db87077c-66ed-11eb-ae93-0242ac130002
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Lists the paths of directories which shell checks for executable files.
+description: |
+  The $PATH environment variable stores the path of directories which the shell checks for executables, and /etc/paths file holds the list of the same.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: cat /etc/paths
+  linux:
+    sh:
+      command: echo $PATH
+  windows:
+    sh:
+      command: $env:path
