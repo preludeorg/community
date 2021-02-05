@@ -13,4 +13,4 @@ technique:
 platforms:
   windows:
     cmd:
-      command: ciper /w:C:\
+      command: cipher /w:C:\
