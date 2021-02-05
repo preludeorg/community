@@ -1,0 +1,16 @@
+id:83c991b4-5ff0-4fe5-80ab-c78737ccef61
+metadata:
+  version: 1
+  authors: 
+    - Varun
+  tags: []
+name: List group password hashes
+description: |
+  The group hashes for all groups present will be displayed from /etc/gshadow file.
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: cat /etc/gshadow
