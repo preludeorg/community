@@ -1,0 +1,16 @@
+id: c9127250-9ec7-4d6c-b673-028a6191cbf9
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Shred deleted data
+description: |
+  This will perform shredding on C:/ drive on the deleted data and overwrite that making it impossible to recover the deleted data, this is helpful in scenarios where you need to make deleted data unrecoverable.
+technique:
+  id: T1082
+  name: Command and Scripting Interpreter
+platforms:
+  windows:
+    cmd:
+      command: ciper /w:C:\
