@@ -1,0 +1,19 @@
+id:8fc7de44-c830-47c9-b05b-b53b1352e874
+metadata:
+  version: 1
+  authors: 
+    - Varun
+  tags: []
+name: View the group file
+description: |
+  The group names of all groups present in the system will be displayed from /etc/group file
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: cat /etc/group
+  linux:
+    sh:
+      command: cat /etc/group
