@@ -1,9 +1,10 @@
 id: e82f39e2-56f8-4f19-8376-b007f9ac5f8a
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags: []
 name: Password policy
 description: |
@@ -23,6 +24,41 @@ platforms:
       command: |
         cat /etc/pam.d/common-password
   windows:
-    psh:
+    cmd:
       command: |
         net accounts
+    psh:
+      command: |
+        $GPOSearcher = New-Object System.DirectoryServices.DirectorySearcher;
+        $Filter = '(|(name={31B2F340-016D-11D2-945F-00C04FB984F9}))';
+        $GPOSearcher.filter = "(&(objectCategory=groupPolicyContainer)$Filter)";
+        $GPO = @{};
+        $Properties = $GPOSearcher.FindOne().Properties;
+        $Properties.PropertyNames | ForEach-Object {
+            if ($_ -eq 'objectguid') {
+                $GPO[$_] = (New-Object Guid (,$Properties[$_][0])).Guid
+            }
+            $GPO[$_] = $Properties[$_][0]
+        };
+        $GptTmplPath = $GPO.gpcfilesyspath + "\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf";
+        $ParseArgs =  @{
+            'GptTmplPath' = $GptTmplPath
+            'OutputObject' = $True
+        };
+        $SysVolPath = "\\$((New-Object System.Uri($GptTmplPath)).Host)\SYSVOL";
+        $TargetGptTmplPath = $GptTmplPath;
+        $Policy = New-Object PSObject;
+        Switch -Regex -File $TargetGptTmplPath {
+            "^\[(.+)\]"
+            {
+                $Session = $matches[1].Trim()
+                $Policy | Add-Member Noteproperty $Session (New-Object PSObject)
+            }
+            "(.+?)\s*=(.*)"
+            {
+                $Name, $Value = $matches[1..2]
+                $Values = $Value.split(',') | ForEach-Object { $_.Trim() }
+                $Policy.$Session | Add-Member Noteproperty $Name $Values
+            }
+        };
+        $Policy
