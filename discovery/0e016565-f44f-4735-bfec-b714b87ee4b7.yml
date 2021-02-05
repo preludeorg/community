@@ -4,7 +4,7 @@ metadata:
   authors: 
     - Abhishek S (abhiabhi2306)
   tags: []
-name: Retrieve in Memory Passwords.
+name: Retrieve in memory passwords
 description: |
   This technique can be used to retrieve passwords from the main memory character device image file (/dev/mem)
 technique:
