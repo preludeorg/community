@@ -3,7 +3,8 @@ metadata:
   version: 1
   authors: 
     - Abhishek S (abhiabhi2306)
-  tags: []
+  tags: 
+    - Destructive
 name: Shred deleted data
 description: |
   This will perform shredding on C:/ drive on the deleted data and overwrite that making it impossible to recover the deleted data, this is helpful in scenarios where you need to make deleted data unrecoverable.
