@@ -1,0 +1,21 @@
+id: c1f5e797-02c8-4756-9283-41b66498bad4
+name: Prevent scheduled shutdown
+description: >-
+  This procedure schedules a restart of the host 100 days in the future. Since
+  Windows can only have one restart scheduled at a time it can not force restart
+  the host to update using tools like SCCM.
+tactic: impact
+technique:
+  id: T1529
+  name: System Shutdown/Reboot
+platforms:
+  windows:
+    cmd:
+      command: shutdown /r /t 8640000
+metadata:
+  authors:
+    - bfuzzy1
+    - '@cryps1s'
+  tags:
+    - destructive
+  version: 1
