@@ -8,6 +8,7 @@ metadata:
 name: Shred deleted data
 description: |
   This will perform shredding on C:/ drive on the deleted data and overwrite that making it impossible to recover the deleted data, this is helpful in scenarios where you need to make deleted data unrecoverable.
+tactic: impact
 technique:
   id: T1082
   name: Command and Scripting Interpreter
