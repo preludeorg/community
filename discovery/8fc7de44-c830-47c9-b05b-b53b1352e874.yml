@@ -7,6 +7,7 @@ metadata:
 name: View the group file
 description: |
   The group names of all groups present in the system will be displayed from /etc/group file
+tactic: discovery
 technique:
   id: T1082
   name: System Information Discovery
