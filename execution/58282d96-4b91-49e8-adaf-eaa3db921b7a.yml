@@ -1,0 +1,27 @@
+id: 58282d96-4b91-49e8-adaf-eaa3db921b7a
+metadata:
+  version: 1
+  authors:
+    - 7h3M0nk
+  tags: []
+name: Testing
+description: |
+  Test TTP
+tactic: execution
+technique:
+  id: T1059.006
+  name: Command and Scripting Interpreter,Python
+platforms:
+  windows:
+    psh:
+      command: Get-Process
+    cmd:
+      command: tasklist
+  darwin:
+    pwsh:
+      command: Get-Process
+    sh:
+      command: ps aux
+  linux:
+    sh:
+      command: ps aux
