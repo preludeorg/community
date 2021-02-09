@@ -1,0 +1,19 @@
+id: 493da525-275b-4026-9390-751ba35e5c5b
+metadata:
+  version: 1
+  authors:
+    - c14dd49h
+  tags: []
+name: Sudo usage
+description: |
+  Common Sudo enumeration methods.
+tactic: privilege-escalation
+technique:
+  id: T1548.003
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    sh:
+      command: |
+        sudo -l
+        sudo cat /etc/sudoers
