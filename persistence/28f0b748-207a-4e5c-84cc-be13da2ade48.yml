@@ -7,7 +7,7 @@ metadata:
     - w0rk3r
   tags:
     - Powerview
-tactic: detection-validation
+tactic: persistence
 technique:
   id: T1136.001
   name: "Create Account: Local Account"
@@ -15,23 +15,10 @@ platforms:
   windows:
     psh:
       command: |
-        $AccountPassword = '#{passwd}'
-        $SamAccountName = '#{acc_name}'
-        $ComputerName =  '#{computer}'
+        $AccountPassword = '#{persistence.local.new.user.password}'
+        $SamAccountName = '#{persistence.local.new.user.name}'
+        $ComputerName =  '#{persistence.local.new.user.computer}'
         $ObjOu = [ADSI]"WinNT://$ComputerName"
         $ObjUser = $ObjOu.Create('User', $SamAccountName)
         $ObjUser.SetPassword($AccountPassword)
         $Null = $ObjUser.SetInfo()
-input_arguments:
-  computer:
-    description: Computer that the local user will be created
-    type: String
-    default: localhost
-  passwd:
-    description: Password for the user
-    type: String
-    default: Password123!
-  user:
-    description: User name
-    type: String
-    default: test1
