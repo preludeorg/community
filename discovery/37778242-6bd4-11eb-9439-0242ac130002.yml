@@ -1,0 +1,21 @@
+id: 37778242-6bd4-11eb-9439-0242ac130002
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Display SSH public keys
+description: |
+  This will list all the authorized SSH public keys of the machine for all users which you have access to.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: cat /home/*/.ssh/authorized_keys
+  linux:
+    sh:
+      command: cat /home/*/.ssh/authorized_keys
+   
