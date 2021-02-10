@@ -10,8 +10,8 @@ description: |
   This will perform shredding on C:/ drive on the deleted data and overwrite that making it impossible to recover the deleted data, this is helpful in scenarios where you need to make deleted data unrecoverable.
 tactic: impact
 technique:
-  id: T1082
-  name: Command and Scripting Interpreter
+  id: T1485
+  name: Data Destruction
 platforms:
   windows:
     cmd:
