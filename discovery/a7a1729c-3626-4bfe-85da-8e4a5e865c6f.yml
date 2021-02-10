@@ -1,0 +1,23 @@
+id: a7a1729c-3626-4bfe-85da-8e4a5e865c6f 
+metadata:
+  version: 1
+  authors: 
+    - Vivek Kamisetty (Mr@UnKnOwN)
+  tags: []
+name: Fetch Disk Space 
+description: |
+  Displays the free space on the machine.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: df -h
+  linux:
+    sh:
+      command: df -h
+  windows:
+    pwsh:
+      command: wmic diskdrive get size 
