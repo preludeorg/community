@@ -1,0 +1,17 @@
+id: ff54f104-6bd0-11eb-9439-0242ac130002
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Display all type of passwords
+description: |
+  This technique will dump all type of passwords available in the UNIX system including local, LDAP, NIS, whichever the system is using.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: getent passwd
