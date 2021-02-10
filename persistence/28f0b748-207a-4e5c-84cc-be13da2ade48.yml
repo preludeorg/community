@@ -3,7 +3,7 @@ name: Create Local User
 description: Creates a local user on the specified computer
 metadata:
   version: 1
-  author:
+  authors:
     - w0rk3r
   tags:
     - Powerview
