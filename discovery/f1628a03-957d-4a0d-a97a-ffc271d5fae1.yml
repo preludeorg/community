@@ -6,7 +6,7 @@ metadata:
     tags: []
 name: View hostname, machine-id and kernel-version
 description: |
-  hostnamectl is used to control the system hostname and its related settings and so it can be used to view the hostname and other things like kernel version, machine id and boot id of a linux computer.
+  hostnamectl is used to control the system hostname and its related settings and so it can be used to view hostname and other things like kernel version, machine id and boot id and Linux Distro installed in a linux computer.
 tactic: discovery
 technique:
   id: T1082
