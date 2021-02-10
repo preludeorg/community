@@ -1,0 +1,17 @@
+id: 5b4a7cf6-6bcf-11eb-9439-0242ac130002 
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Show whole network information
+description: |
+  This command will display you all the network information you want in one go, this approach is less likely to trigger blueteam monitoring systems.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: cat /proc/net/*
