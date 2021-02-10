@@ -1,0 +1,17 @@
+id: 64e88333-a622-432d-bf4d-71c309053b44
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Display unmounted partitions
+description: |
+  This will display all the mounted and unmounted partitions and shares.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: mount -l && cat /etc/fstab
