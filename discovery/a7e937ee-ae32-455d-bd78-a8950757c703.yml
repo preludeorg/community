@@ -4,9 +4,9 @@ metadata:
   authors:
     - Varun
   tags: []
-name: List sudo binaries under a user.
+name: List sudo binaries under a user
 description: |
-  All binaries which can run with sudo permissions will be listed.
+  All binaries which can run with sudo permissions will be listed
 tactic: discovery
 technique:
   id: T1082
