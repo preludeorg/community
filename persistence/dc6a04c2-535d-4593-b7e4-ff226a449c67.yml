@@ -7,7 +7,7 @@ metadata:
     - w0rk3r
   tags:
     - destructive
-tactic: detection-validation
+tactic: persistence
 technique:
   id: T1136.002
   name: "Create Account: Domain Account"
