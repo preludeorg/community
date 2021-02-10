@@ -1,0 +1,23 @@
+id: ef93e6f2-6bd1-11eb-9439-0242ac130002 
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Clear command history
+description: |
+  This will clear the command history of the current user, and will help cover tracks of what commands were used by the attacker.
+tactic: discovery
+technique:
+  id: T1070.003
+  name: Clear Command History
+platforms:
+ darwin:
+    sh:
+      command: history -c
+  linux:
+    sh:
+      command: history -c
+  windows:
+    pwsh:
+      command: Clear-History
