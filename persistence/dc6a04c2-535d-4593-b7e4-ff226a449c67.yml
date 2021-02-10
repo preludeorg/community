@@ -15,8 +15,8 @@ platforms:
   windows:
     psh:
       command: |
-        $SamAccountName = '#{ACC_NAME}'
-        $AccountPassword = ConvertTo-SecureString '#{PASSWD}' -AsPlainText -Force
+        $SamAccountName = '#{persistence.local.new.user.name}'
+        $AccountPassword = ConvertTo-SecureString '#{persistence.local.new.user.password}' -AsPlainText -Force
         Add-Type -AssemblyName System.DirectoryServices.AccountManagement
         $Context = New-Object -TypeName System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList ([System.DirectoryServices.AccountManagement.ContextType]::Domain)
         $User = New-Object -TypeName System.DirectoryServices.AccountManagement.UserPrincipal -ArgumentList ($Context)
@@ -30,11 +30,4 @@ platforms:
         $User
     cmd:
       command: |
-        net user #{ACC_NAME} #{PASSWD} /ADD /DOMAIN
-input_arguments:
-  ACC_NAME:
-    description: "Name of the Account to be created"
-    type: String
-  PASSWD:
-    description: "Password of the Account to be created"
-    type: String
+        net user #{persistence.local.new.user.name} #{persistence.local.new.user.password} /ADD /DOMAIN
