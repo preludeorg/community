@@ -22,3 +22,6 @@ platforms:
         $ObjUser = $ObjOu.Create('User', $SamAccountName)
         $ObjUser.SetPassword($AccountPassword)
         $Null = $ObjUser.SetInfo()
+    cmd:
+      command: |
+        net user #{persistence.local.new.user.name} #{persistence.local.new.user.password} /ADD
