@@ -1,0 +1,20 @@
+id:a7e937ee-ae32-455d-bd78-a8950757c703
+metadata:
+  version: 1
+  authors:
+    - Varun
+  tags: []
+name: List sudo binaries under a user.
+description: |
+  All binaries which can run with sudo permissions will be listed.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: sudo -l
+  linux:
+    sh:
+      command: sudo -l
