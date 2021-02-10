@@ -1,0 +1,21 @@
+id: 19d4a157-b388-44ff-9597-e61bfc44a3e7
+metadata:
+  version: 1
+  authors: 
+    - Abhishek S (abhiabhi2306)
+  tags: []
+name: Display last system boot information
+description: |
+  This will display all the information including error logs, bootloader module debug messages etc during the last system boot.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: dmseg
+  linux:
+    sh:
+      command: dmesg
+  
