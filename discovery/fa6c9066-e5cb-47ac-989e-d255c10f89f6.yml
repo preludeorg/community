@@ -1,0 +1,18 @@
+id: fa6c9066-e5cb-47ac-989e-d255c10f89f6
+metadata:
+  version: 1
+    authors:
+      - 231tr0n
+    tags:
+      - destructive
+name: Kill all the processes running on the machine
+description: |
+  Using killall5 command to kill all the processes on a machine
+tactic: impact
+technique:
+  id: T1082
+  name: Kill all processes
+platforms:
+  linux:
+    sh:
+      command: killall5 -9
