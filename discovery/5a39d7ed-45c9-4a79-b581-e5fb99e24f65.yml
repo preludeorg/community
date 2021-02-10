@@ -1,10 +1,13 @@
 id: 5a39d7ed-45c9-4a79-b581-e5fb99e24f65
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
-  tags: []
+    - khyberspache
+  tags:
+    - APT29
+    - APT29 Scenario 1
 name: System processes
 description: |
   Identify which processes are running on the local computer. This procedure is helpful to get a snapshot in time of
@@ -17,8 +20,18 @@ platforms:
   windows:
     psh:
       command: Get-Process
+      variants:
+        - command: |
+            $ps = get-process;
+            write-output $ps;
     cmd:
       command: tasklist
+      variants:
+        - command: tasklist /v
+    exec:
+      command: tasklist
+      variants:
+        - command: tasklist /v
   darwin:
     pwsh:
       command: Get-Process

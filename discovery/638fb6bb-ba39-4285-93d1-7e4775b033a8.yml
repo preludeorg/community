@@ -1,10 +1,13 @@
 id: 638fb6bb-ba39-4285-93d1-7e4775b033a8
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
-  tags: []
+    - khyberspache
+  tags:
+    - APT29
+    - APT29 Scenario 1
 name: Active network connections
 description: |
   Network connections are the persistent computer-to-computer pipelines which allow applications to talk to each other.
@@ -26,3 +29,9 @@ platforms:
     psh:
       command: |
         Get-NetTCPConnection
+    cmd:
+      command: |
+        netstat -ano
+    exec:
+      command: |
+        netstat -ano

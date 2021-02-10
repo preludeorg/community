@@ -1,10 +1,13 @@
 id: 85341c8c-4ecb-4579-8f53-43e3e91d7617
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
-  tags: []
+    - khyberspache
+  tags:
+    - APT29 Scenario 1
+    - APT29
 name: Collect ARP details
 description: |
   ARP is a protocol used to map IP addresses to the hardware addresses. This procedure runs a scan to identify which

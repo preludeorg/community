@@ -87,6 +87,7 @@ Prelude Operator parses the results from every run command, attempting to learn 
 Automatic facts are environmental and are applied to an agent based on conditional logic.
 
 * **operator.session**: a unique key for your Operator session. The session key regenerates on each restart of the app and is used internally to help validate external connections originated in the app.
+* **operator.payloads**: callback address of your HTTP payload server (defaults to operator.http)
 * **operator.http**: callback address of your HTTP server
 * **operator.tcp**: callback address of your TCP server
 * **operator.udp**: callback address of your UDP server

@@ -1,15 +1,16 @@
 id: 4a136ba6-66f1-11eb-ae93-0242ac130002 
 metadata:
-  version: 1
+  version: 2
   authors: 
     - Abhishek S (abhiabhi2306)
   tags: []
 name: Perform direct registry loot
 description: |
   The registry can directly looted without using tools like wce,fgdump or external binaries. The dump will be saved to c:\windows\temp\system.save
+tactic: credential-access
 technique:
-  id: T1082
-  name: Command and Scripting Interpreter
+  id: T1003.002
+  name: "OS Credential Dumping: Security Account Manager"
 platforms:
   windows:
     cmd:

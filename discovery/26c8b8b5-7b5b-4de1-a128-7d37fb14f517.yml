@@ -1,9 +1,10 @@
 id: 26c8b8b5-7b5b-4de1-a128-7d37fb14f517
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags: []
 name: Discover domain controller
 description: |
@@ -20,4 +21,4 @@ platforms:
         nltest /dsgetdc:%USERDOMAIN%
     psh:
       command: |
-        nltest /dsgetdc:$env:USERDOMAIN
+        ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
