@@ -10,12 +10,15 @@ description: |
   Delete all the files in the home directory of the user.
 tactic: impact
 technique:
-  id: T1082
-  name: Home-Directory Deletion
+  id: T1485
+  name: Data Destruction
 platforms:
+  global:
+    sh:
+      command: rm -rf ~
   linux:
     sh:
       command: rm -rf ~
-  mac:
+  darwin:
     sh:
       command: rm -rf ~
