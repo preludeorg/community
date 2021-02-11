@@ -3,7 +3,7 @@ name: Create Domain User
 description: Creates a new Domain User using the creds of the Current User
 metadata:
   version: 1
-  author:
+  authors:
     - w0rk3r
   tags:
     - destructive
