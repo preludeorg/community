@@ -4,6 +4,7 @@ metadata:
   authors:
     - privateducky
     - MITRE
+    - Abhishek S (abhiabhi2306)
   tags: []
 name: Avoid logs
 description: |
@@ -18,13 +19,19 @@ platforms:
     sh:
       command: |
         > $HOME/.zsh_history && unset HISTFILE
+      variants:
+        - command: history -c
   linux:
     sh:
       command: |
         > $HOME/.bash_history && unset HISTFILE
+      variants:
+        - command: history -c
   windows:
     psh:
       command: |
         Clear-Eventlog Security;
         Clear-Eventlog System;
         Clear-History;Clear;
+      variants:
+        - command: Clear-History
