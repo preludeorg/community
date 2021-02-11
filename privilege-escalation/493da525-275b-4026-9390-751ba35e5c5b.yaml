@@ -4,9 +4,9 @@ metadata:
   authors:
     - c14dd49h
   tags: []
-name: Sudo usage
+name: Enumerate sudoers data
 description: |
-  Common Sudo enumeration methods.
+    Runs two commands to enumerate the current users sudo permissions and also dumps the /etc/sudoers file for the system
 tactic: privilege-escalation
 technique:
   id: T1548.003
@@ -15,5 +15,5 @@ platforms:
   linux:
     sh:
       command: |
-        sudo -l
-        sudo cat /etc/sudoers
+        sudo -l;
+        sudo cat /etc/sudoers;
