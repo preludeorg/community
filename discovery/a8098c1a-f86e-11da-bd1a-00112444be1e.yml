@@ -1,0 +1,20 @@
+id: a8098c1a-f86e-11da-bd1a-00112444be1e
+metadata:
+  version: 1
+  authors: 
+    - Anurag (anukaal)
+  tags: []
+name: View the local file
+description: |
+  The group names of all groups present in the system will be displayed from /etc/group file
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  darwin:
+    sh:
+      command: cat /etc/local
+  linux:
+    sh:
+      command: cat /etc/local
