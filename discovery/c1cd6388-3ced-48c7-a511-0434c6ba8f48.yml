@@ -3,6 +3,7 @@ metadata:
   version: 1
   authors:
     - privateducky
+    - Abhishek S (abhiabhi2306)
     - MITRE
   tags: []
 name: Find local users
@@ -26,3 +27,5 @@ platforms:
     sh:
       command: |
         cut -d: -f1 /etc/passwd | grep -v '_' | grep -v '#'
+      variants:
+        - command: getent passwd
