@@ -4,17 +4,14 @@ metadata:
   authors: 
     - Abhishek S (abhiabhi2306)
   tags: []
-name: Display last system boot information
+name: Print kernel diagnostic information
 description: |
-  This will display all the information including error logs, bootloader module debug messages etc during the last system boot.
+      Prints the kernel diagnostic message buffer which includes bootloader information, debug messages, and more, from the current system boot.
 tactic: discovery
 technique:
   id: T1082
   name: System Information Discovery
 platforms:
-  darwin:
-    sh:
-      command: dmseg
   linux:
     sh:
       command: dmesg
