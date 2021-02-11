@@ -4,6 +4,7 @@ metadata:
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags: []
 name: Permission Groups Discovery
 description: |
@@ -18,6 +19,9 @@ platforms:
     psh:
       command: |
         gpresult /R
+    cmd:
+      command: |
+        whoami /groups
   darwin:
     sh:
       command: groups
