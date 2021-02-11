@@ -5,7 +5,7 @@ metadata:
       - 231tr0n
     tags:
       - destructive
-name: Kill all the processes running on the machine
+name: Kill all running processes
 description: |
   Using killall5 command to kill all the processes on a machine
 tactic: impact
