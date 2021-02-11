@@ -4,7 +4,7 @@ metadata:
     authors:
       - 231tr0n
     tags: []
-name: List of all packages installed
+name: List all installed packages
 description: |
   This command is used to get a list of all the packages installed in a computer.
 tactic: discovery
