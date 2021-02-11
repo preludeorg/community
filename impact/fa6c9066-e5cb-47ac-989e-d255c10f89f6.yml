@@ -10,8 +10,8 @@ description: |
   Using killall5 command to kill all the processes on a machine
 tactic: impact
 technique:
-  id: T1082
-  name: Kill all processes
+  id: T1489
+  name: Service Stop
 platforms:
   linux:
     sh:
