@@ -4,7 +4,7 @@ metadata:
   authors: 
     - Abhishek S (abhiabhi2306)
   tags: []
-name: Display SSH public keys
+name: Display authorized SSH keys
 description: |
   This will list all the authorized SSH public keys of the machine for all users which you have access to.
 tactic: discovery
@@ -14,7 +14,7 @@ technique:
 platforms:
   darwin:
     sh:
-      command: cat /home/*/.ssh/authorized_keys
+      command: cat /Users/*/.ssh/authorized_keys
   linux:
     sh:
       command: cat /home/*/.ssh/authorized_keys
