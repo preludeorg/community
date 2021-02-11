@@ -33,5 +33,5 @@ platforms:
         Clear-Eventlog Security;
         Clear-Eventlog System;
         Clear-History;Clear;
-      variants:
-        - command: Clear-History
+
+
