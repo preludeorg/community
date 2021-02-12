@@ -16,3 +16,4 @@ platforms:
   windows:
     cmd:
       command: reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MiniNt”
+  
