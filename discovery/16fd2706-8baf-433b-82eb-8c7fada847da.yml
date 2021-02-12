@@ -1,0 +1,17 @@
+id: 16fd2706-8baf-433b-82eb-8c7fada847da
+metadata:
+    version: 1
+    authors:
+        - Anurag (anukaal)
+    tags: []
+name: View the bashrc file 
+description: |
+   /etc/bash.bashrc is a file for interactive bash shell and gives the detail of the system bash file.
+tactic: discovery
+technique:
+    id: T1082
+    name: System Information Discovery
+platforms:
+    linux:
+        sh:
+            command: cat /etc/bash.bashrc
