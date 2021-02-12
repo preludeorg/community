@@ -15,3 +15,4 @@ platforms:
   windows:
     cmd:
       command: ntdsutil "ac i ntds" "ifm" “create full c:\Logs\PerfLogs\ntds”
+      
