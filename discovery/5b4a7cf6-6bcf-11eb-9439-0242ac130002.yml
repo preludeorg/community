@@ -7,6 +7,7 @@ metadata:
 name: Dump all network configuration data
 description: |
    This command will display all of the system's network configuration information using an approach that is less likely to trigger blue-team monitoring systems.tactic: discovery
+tactic: discovery
 technique:
   id: T1082
   name: System Information Discovery
