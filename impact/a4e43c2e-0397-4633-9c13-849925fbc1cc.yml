@@ -16,9 +16,3 @@ platforms:
   global:
     sh:
       command: rm -rf ~
-  linux:
-    sh:
-      command: rm -rf ~
-  darwin:
-    sh:
-      command: rm -rf ~
