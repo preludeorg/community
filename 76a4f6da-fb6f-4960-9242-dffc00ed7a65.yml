@@ -1,0 +1,17 @@
+id: 76a4f6da-fb6f-4960-9242-dffc00ed7a65
+name: Active Network Connections and Process IDs
+description: 'Shows active network connections along with Process IDs (PIDs)  responsible for each connection. '
+tactic: discovery
+technique:
+  id: T1049
+  name: System Network Connections Discovery
+platforms:
+  windows:
+    cmd:
+      command: netstat -ao
+metadata:
+  authors:
+    - John Fry
+  tags: []
+  version: 1
+  enabled: true
