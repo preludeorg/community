@@ -20,4 +20,6 @@ platforms:
       command: df -h
   windows:
     pwsh:
-      command: wmic diskdrive get size 
+      command: wmic diskdrive get size
+    pwh:
+      command: wmic diskdrive get size
