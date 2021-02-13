@@ -1,0 +1,17 @@
+id: 9fe853c0-2cd7-49dc-88b4-ccbc25029dd7
+metadata:
+    version: 1
+    authors:
+        - Anurag (anukaal)
+    tags: []
+name: View the password data
+description: |
+  Linux distributions use the /etc/shadow file to store encrypted password data and can show the name of user . 
+tactic: discovery
+technique:
+    id: T1082
+    name: System Information Discovery
+platforms:
+    linux:
+        sh:
+            command: sudo cat /etc/shadow 
