@@ -21,7 +21,7 @@ platforms:
   windows:
     psh:
       command: |
-        Copy-Item #{file.T1005} #{directory.T1074}
+        Copy-Item "#{file.T1005}" "#{directory.T1074}"
     cmd:
       command: |
-        copy #{file.T1005} #{directory.T1074}
+        copy "#{file.T1005}" "#{directory.T1074}"
