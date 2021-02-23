@@ -5,8 +5,7 @@ metadata:
   version: 1
   authors:
     - w0rk3r
-  tags:
-    - Seatbelt
+  tags: []
 tactic: discovery
 technique:
   id: T1518.001
