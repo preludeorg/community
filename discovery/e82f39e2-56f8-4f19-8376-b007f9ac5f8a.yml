@@ -62,3 +62,6 @@ platforms:
             }
         };
         $Policy
+      variants:
+        - command: |
+          (([xml](Get-GPOReport -Name "Default Domain Policy" -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber
