@@ -1,14 +1,15 @@
--id: 185d01e2-86ac-4d29-93d9-e4280a4f0f7c
+id: 621baa02-f18a-4bc0-bc61-822636a73bc8
 name: Find passwords file
   description: Recursively searches for a .txt file with "passwords" in its name
   tactic: discovery
   technique:T1083
-    attack_id: T1083
+    id: T1083
     name: File and Directory Discovery
     tags: 
-    authors: zsowa98
+    authors: 
+      - zsowa98
   platforms:
     windows:
-      psh,pwsh:
+      psh:
         command: |
           Get-ChildItem "C:\Users\" -recurse	-include *passwords*.txt
