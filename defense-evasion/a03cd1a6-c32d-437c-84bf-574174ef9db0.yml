@@ -1,4 +1,10 @@
 id: a03cd1a6-c32d-437c-84bf-574174ef9db0
+metadata:
+  authors: 
+    - webhead404
+  tags: []
+  version: 1
+  enabled: true
 name: Disable PowerShell event logging
 description: Remove the ETW provider for PowerShell event logging using logman
 tactic: defense-evasion
@@ -9,8 +15,3 @@ platforms:
   windows:
     cmd:
       command: logman update trace EventLog-Application --p Microsoft-Windows-PowerShell -ets
-metadata:
-  authors: []
-  tags: []
-  version: 1
-  enabled: true
