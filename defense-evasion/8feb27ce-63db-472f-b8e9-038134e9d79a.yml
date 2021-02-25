@@ -3,12 +3,12 @@ metadata:
   version: 1
   authors:
     - Archie Pocsedio
-  tags: destructive
+  tags: 
+    - destructive
 name: Disable Windows EventLog via EventCleaner
 description: |
   This procedure will stop eventlog using EventCleaner tools.
-tactic: 
-    -defense-evasion
+tactic: defense-evasion
 technique:
   id: T1562.002
   name: Impair Defenses: Disable Windows Event Logging
