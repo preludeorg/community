@@ -41,14 +41,8 @@ platforms:
             $GPO[$_] = $Properties[$_][0]
         };
         $GptTmplPath = $GPO.gpcfilesyspath + "\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf";
-        $ParseArgs =  @{
-            'GptTmplPath' = $GptTmplPath
-            'OutputObject' = $True
-        };
-        $SysVolPath = "\\$((New-Object System.Uri($GptTmplPath)).Host)\SYSVOL";
-        $TargetGptTmplPath = $GptTmplPath;
         $Policy = New-Object PSObject;
-        Switch -Regex -File $TargetGptTmplPath {
+        Switch -Regex -File $GptTmplPath {
             "^\[(.+)\]"
             {
                 $Session = $matches[1].Trim()
