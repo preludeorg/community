@@ -4,7 +4,7 @@ metadata:
     authors:
         - Anurag (anukaal)
     tags: []
-name: View the password data
+name: View linux shadow file
 description: |
   Linux distributions use the /etc/shadow file to store encrypted password data and can show the name of user . 
 tactic: discovery
