@@ -4,7 +4,7 @@ metadata:
     authors:
         - Anurag (anukaal)
     tags: []
-name: View the bashrc file 
+name: View system-wide bashrc configuration
 description: |
    /etc/bash.bashrc is a file for interactive bash shell and gives the detail of the system bash file.
 tactic: discovery
