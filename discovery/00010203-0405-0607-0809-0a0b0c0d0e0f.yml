@@ -6,7 +6,7 @@ metadata:
     tags: []
 name: View the hidden file
 description: |
-   ls -a in linux will show you the hidden files in your system. 
+  Use the ls tool to view all files (including hidden files) in the working directory 
 tactic: discovery
 technique:
     id: T1082
