@@ -8,7 +8,7 @@ technique:
 platforms:
   darwin:
     sh:
-      command: dscl . read /Users/#{T1087.001} ShadowHashData
+      command: dscl . read #{discovery.local.existing.user} ShadowHashData
 metadata:
   authors:
     - bfuzzy1
