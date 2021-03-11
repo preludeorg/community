@@ -1,0 +1,17 @@
+id: 867F02DB-11CA-4185-A8DC-7162615B2F69
+metadata:
+  version: 1
+  authors:
+    - Hafsa Nouiri
+  tags: []
+name: check last installed software updates
+description: |
+  Gets a list of installed Windows and software updates applied to the local computer using Windows Management Instrumentation Command
+tactic: DISCOVERY
+technique:
+  id: T1010
+  name: APPLICATION WINDOW DISCOVERY
+platforms:
+  windows:
+      command: |
+        wmic qfe get description,hotfixid,installedon
