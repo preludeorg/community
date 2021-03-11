@@ -8,7 +8,7 @@ technique:
 platforms:
   darwin:
     sh:
-      command: dsenableroot -u #{T1087.001} -p #{user.password.T1078} -r #{root.password.T1078}
+      command: dsenableroot -u #{discovery.local.existing.user} -p #{discovery.local.existing.user.password} -r #{privilege-escalation.local.new.user.password}
 metadata:
   authors:
     - bfuzzy1
