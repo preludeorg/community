@@ -1,0 +1,34 @@
+id: d7add940-1137-4975-b7d5-cab9a107a6c6
+name: Enumerate Local Groups
+description: Retrieve local group information on the target system.
+metadata:
+  version: 1
+  author:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1069.001
+  name: "Permission Groups Discovery: Local Groups"
+platforms:
+  windows:
+    psh:
+      command: |
+        $Computer = "#{discovery.computername}"
+        $ComputerProvider = [ADSI]"WinNT://$Computer,computer"
+        $ComputerProvider.psbase.children | Where-Object { $_.psbase.schemaClassName -eq 'group' } | ForEach-Object {
+        $LocalGroup = ([ADSI]$_)
+        $Group = New-Object PSObject
+        $Group | Add-Member Noteproperty 'ComputerName' $Computer
+        $Group | Add-Member Noteproperty 'GroupName' ($LocalGroup.InvokeGet('Name'))
+        $Group | Add-Member Noteproperty 'SID' ((New-Object System.Security.Principal.SecurityIdentifier($LocalGroup.InvokeGet('objectsid'),0)).Value)
+        $Group | Add-Member Noteproperty 'Comment' ($LocalGroup.InvokeGet('Description'))
+        $Group
+        }
+    cmd:
+      command: |
+        net localgroup
+  linux:
+    sh:
+      command: |
+        groups

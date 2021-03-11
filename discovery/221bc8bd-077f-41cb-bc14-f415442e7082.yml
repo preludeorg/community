@@ -1,0 +1,35 @@
+id: 221bc8bd-077f-41cb-bc14-f415442e7082
+name: AMSI Protection Providers Enumeration
+description: Enumerates Providers registered for AMSI (AntiMalware Scan Interface), which can be used to discover Security Software on the host
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1518.001
+  name: "Software Discovery: Security Software Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        $type=@"
+        using Microsoft.Win32;
+        using System;
+        
+        public static class AMSIEnum
+        {
+            public static void Main()
+            {
+                var providers = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\AMSI\Providers").GetSubKeyNames();
+                foreach (String provider in providers) {
+                    RegistryKey inproc = Registry.LocalMachine.OpenSubKey(String.Format("SOFTWARE\\Classes\\CLSID\\{0}\\InprocServer32", provider));
+                    Console.WriteLine("GUID: " + provider);
+                    Console.WriteLine("ProviderPath: " + inproc.GetValue(""));
+                }
+            }
+        }
+        "@
+        Add-Type -TypeDefinition $type;
+        [AMSIEnum]::Main();

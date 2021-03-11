@@ -1,6 +1,6 @@
 id: e82f39e2-56f8-4f19-8376-b007f9ac5f8a
 metadata:
-  version: 2
+  version: 3
   authors:
     - privateducky
     - MITRE
@@ -56,3 +56,6 @@ platforms:
             }
         };
         $Policy
+      variants:
+        - command: |
+          (([xml](Get-GPOReport -Name "Default Domain Policy" -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber
