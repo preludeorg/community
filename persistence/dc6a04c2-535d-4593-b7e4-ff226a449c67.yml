@@ -30,13 +30,13 @@ platforms:
         $User
       variants:
         - command: |
-          $Domain = #{persistence.domain}
-          [ADSI]$DN = "LDAP://CN=Users," + ([ADSI]"LDAP://$Domain").distinguishedName
-          $new = $DN.Create("user","CN=#{persistence.local.new.user.name}")
-          $new.put("samaccountname","#{persistence.local.new.user.name}")
-          $new.setinfo()
-          $new.put("userAccountControl",544)
-          $new.setpassword("#{persistence.local.new.user.password}")
+            $Domain = #{persistence.domain}
+            [ADSI]$DN = "LDAP://CN=Users," + ([ADSI]"LDAP://$Domain").distinguishedName
+            $new = $DN.Create("user","CN=#{persistence.local.new.user.name}")
+            $new.put("samaccountname","#{persistence.local.new.user.name}")
+            $new.setinfo()
+            $new.put("userAccountControl",544)
+            $new.setpassword("#{persistence.local.new.user.password}")
     cmd:
       command: |
         net user #{persistence.local.new.user.name} #{persistence.local.new.user.password} /ADD /DOMAIN

@@ -10,7 +10,7 @@ description: |
 tactic: credential-access
 technique:
   id: T1003.003
-  name: OS Credential Dumping: NTDS
+  name: 'OS Credential Dumping: NTDS'
 platforms:
   windows:
     cmd:

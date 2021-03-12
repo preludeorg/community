@@ -3,7 +3,7 @@ name: Enumerate Local Groups
 description: Retrieve local group information on the target system.
 metadata:
   version: 1
-  author:
+  authors:
     - w0rk3r
   tags: []
 tactic: discovery

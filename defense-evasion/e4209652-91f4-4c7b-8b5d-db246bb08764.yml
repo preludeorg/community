@@ -7,12 +7,12 @@ metadata:
     - destructive
 name: Disable Windows EventLog via MinNt Entry via Reg Command
 description: |
-  This procedure will add MiniNt registry key making Windows environment WinPE (Preinstallation Environment) 
-causing for eventlog to be disable once restart to load changes in the hive.
+  This procedure will add MiniNt registry key making Windows environment WinPE (Preinstallation Environment)
+  causing for eventlog to be disable once restart to load changes in the hive.
 tactic: defense-evasion
 technique:
   id: T1562.002
-  name: Impair Defenses: Disable Windows Event Logging
+  name: 'Impair Defenses: Disable Windows Event Logging'
 platforms:
   windows:
     cmd:
