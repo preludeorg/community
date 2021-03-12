@@ -12,7 +12,6 @@ platforms:
 metadata:
   authors:
     - '@OrOneEqualsOne'
-  tags:
-    - dridex
+  tags: []
   version: 1
   enabled: true
