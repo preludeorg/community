@@ -10,10 +10,15 @@ technique:
 platforms:
   windows:
     cmd:
-      command: vssadmin.exe delete shadows /all /quiet
+      command: |
+        vssadmin.exe delete shadows /all /quiet
+    psh:
+      command: |
+        wmic shadowcopy delete /nointeractive
 metadata:
   authors:
     - bfuzzy1
+    - w0rk3r
   tags:
     - destructive
-  version: 2
+  version: 3
