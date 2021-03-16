@@ -1,9 +1,10 @@
 id: 2488245e-bcbd-405d-920e-2de27db882b3
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags: []
 name: Simple registry query
 description: |
@@ -18,3 +19,6 @@ platforms:
     psh:
       command: |
         Get-ItemProperty -Path #{registry.key}
+    cmd:
+      command: |
+        reg query #{registry.key}
