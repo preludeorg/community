@@ -1,9 +1,10 @@
 id: c6607391-d02c-44b5-9b13-d3492ca58599
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags: []
 name: Discover system services
 description: |
@@ -17,5 +18,12 @@ platforms:
   windows:
     psh:
       command: Get-Service
+      variants:
+        - command: 'gwmi win32_service'
     cmd:
       command: services.msc
+      variants:
+        - command: 'sc.exe queryex type=service state=all'
+        - command: 'net start'
+        - command: 'tasklist.exe /svc'
+        - command: 'wmic.exe service get name,displayname,pathname,startmode'
