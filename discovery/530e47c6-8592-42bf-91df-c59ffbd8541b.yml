@@ -1,9 +1,10 @@
 id: 530e47c6-8592-42bf-91df-c59ffbd8541b
 metadata:
-  version: 1
+  version: 2
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags:
     - Crown Jewels
 name: View admin shares
@@ -17,5 +18,11 @@ technique:
   name: Network Share Discovery
 platforms:
   windows:
+    cmd:
+      command: |
+        wmic.exe path win32_Share get Name,path,Description
     psh:
-      command: Get-SmbShare | ConvertTo-Json
+      command: |
+        Get-SmbShare | ConvertTo-Json
+      variants:
+        - command: 'Get-WmiObject -Class Win32_Share'
