@@ -1,9 +1,10 @@
 id: 6469befa-748a-4b9c-a96d-f191fde47d89
 metadata:
-  version: 2
+  version: 3
   authors:
     - privateducky
     - MITRE
+    - w0rk3r
   tags:
     - Crown Jewels
 name: Create new directory
@@ -24,6 +25,13 @@ platforms:
       command: |
         mkdir -p /tmp/staged && echo /tmp/staged
   windows:
+    cmd:
+      command: |
+        mkdir staged && echo %cd%\staged
     psh:
       command: |
-        New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach {$_.FullName} | Select-Object
+        New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach
+        {$_.FullName} | Select-Object
+      variants:
+        - command: |
+          [System.IO.Directory]::CreateDirectory("staged");
