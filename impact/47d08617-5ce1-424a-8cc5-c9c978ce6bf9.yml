@@ -15,13 +15,6 @@ technique:
   id: T1491
   name: Defacement
 platforms:
-  global:
-    node:
-      command: |
-        let fs = require('fs');
-        fs.writeFile('instructions.txt', 'Please pay me to unlock all the files I encrypted.', function (err) {
-            console.log('Completed T1491 proof');
-        });
   darwin:
     sh:
       command: |
