@@ -13,6 +13,7 @@ technique:
   id: T1033
   name: System Owner/User Discovery
 platforms:
+  global:
     sh:
       command: who
     pwsh:
