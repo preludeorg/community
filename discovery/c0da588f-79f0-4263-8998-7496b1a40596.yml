@@ -13,9 +13,6 @@ technique:
   id: T1033
   name: System Owner/User Discovery
 platforms:
-  global:
-    node:
-      command: os.userInfo().username
     sh:
       command: who
     pwsh:
