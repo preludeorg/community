@@ -30,8 +30,7 @@ platforms:
         mkdir staged && echo %cd%\staged
     psh:
       command: |
-        New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach
-        {$_.FullName} | Select-Object
+        New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach {$_.FullName} | Select-Object
       variants:
         - command: |
-          [System.IO.Directory]::CreateDirectory("staged");
+            [System.IO.Directory]::CreateDirectory("staged");
