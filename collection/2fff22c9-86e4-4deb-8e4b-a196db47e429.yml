@@ -1,6 +1,6 @@
 id: 2fff22c9-86e4-4deb-8e4b-a196db47e429
 name: Collect Microsft Exchange mailbox data
-description: 'This procedure will add a PowerShell Exchange snap-in to the current session and execute the Get-Mailbox cmdlet, which will return the full list of mailbox objects residing on the Exchange server. '
+description: This procedure will add a PowerShell Exchange snap-in to the current session and execute the Get-Mailbox cmdlet, which will return the full list of mailbox objects residing on the Exchange server.
 tactic: collection
 technique:
   id: T1114
@@ -14,5 +14,4 @@ metadata:
     - bfuzzy1
   tags:
     - HAFNIUM
-  version: 1
-  enabled: true
+    - destructive
