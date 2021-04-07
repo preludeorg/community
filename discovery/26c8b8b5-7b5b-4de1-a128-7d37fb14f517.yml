@@ -1,11 +1,4 @@
 id: 26c8b8b5-7b5b-4de1-a128-7d37fb14f517
-metadata:
-  version: 2
-  authors:
-    - privateducky
-    - MITRE
-    - w0rk3r
-  tags: []
 name: Discover domain controller
 description: |
   A domain controller is a server in charge of authentication and configuration for a Windows computer domain. These
@@ -19,6 +12,23 @@ platforms:
     cmd:
       command: |
         nltest /dsgetdc:%USERDOMAIN%
+      variants:
+        - command: 'nltest /dclist:#{discovery.domain.name}'
     psh:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
+metadata:
+  version: 2
+  authors:
+    - privateducky
+    - MITRE
+    - w0rk3r
+    - bfuzzy1
+  tags:
+    - hafnium
+  license: community
+  enabled: true
+  checksum: aa2d710361112c97e6403465f5c4c7a71fbe186b1dd85c3fd77047ced74f4b64
+  latest:
+    version: 2
+    checksum: aa2d710361112c97e6403465f5c4c7a71fbe186b1dd85c3fd77047ced74f4b64
