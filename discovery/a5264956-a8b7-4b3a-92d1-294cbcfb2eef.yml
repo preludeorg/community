@@ -1,6 +1,6 @@
 id: a5264956-a8b7-4b3a-92d1-294cbcfb2eef
 name: Enumerate process information
-description: 'This procedure enumerates process information such a path, command line, and process id using wmic. Attackers will use this technique to gather information about specific processes on a system such as anti-virus or other security products in order to evade defenses.'
+description: This procedure enumerates process information such a path, command line, and process id using wmic. Attackers will use this technique to gather information about specific processes on a system such as anti-virus or other security products in order to evade defenses.
 tactic: discovery
 technique:
   id: T1057
@@ -8,7 +8,7 @@ technique:
 platforms:
   windows:
     cmd:
-      command: 'wmic process where name="smex_master.exe" get ExecutablePath,commandline'
+      command: wmic process where name="smex_master.exe" get ExecutablePath,commandline
       variants:
         - command: wmic process where name="unsecapp.exe" get ExecutablePath
         - command: wmic process where name="unsecapp.exe" get processid
@@ -18,4 +18,3 @@ metadata:
   tags:
     - hafnium
   version: 1
-  enabled: true
