@@ -8,6 +8,7 @@ metadata:
   tags:
     - APT29
     - APT29 Scenario 1
+    - hafnium
 name: System processes
 description: |
   Identify which processes are running on the local computer. This procedure is helpful to get a snapshot in time of
