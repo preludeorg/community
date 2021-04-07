@@ -13,12 +13,12 @@ platforms:
       command: |
         nltest /dsgetdc:%USERDOMAIN%
       variants:
-        - command: 'nltest /dclist:#{discovery.domain.name}'
+        - command: nltest /dclist:#{discovery.domain.name}
     psh:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
 metadata:
-  version: 2
+  version: 3
   authors:
     - privateducky
     - MITRE
@@ -26,9 +26,3 @@ metadata:
     - bfuzzy1
   tags:
     - hafnium
-  license: community
-  enabled: true
-  checksum: aa2d710361112c97e6403465f5c4c7a71fbe186b1dd85c3fd77047ced74f4b64
-  latest:
-    version: 2
-    checksum: aa2d710361112c97e6403465f5c4c7a71fbe186b1dd85c3fd77047ced74f4b64
