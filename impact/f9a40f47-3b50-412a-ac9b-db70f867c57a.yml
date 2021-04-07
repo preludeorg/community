@@ -1,0 +1,19 @@
+id: f9a40f47-3b50-412a-ac9b-db70f867c57a
+name: Remove account access
+description: 'This procedure removes the administrator user from the Exchange Organizations administrators group, beginning with the Domain Controller in the current domain. If the system is in a single-system domain, it will execute on the local computer.'
+tactic: impact
+technique:
+  id: T1531
+  name: Account Access Removal
+platforms:
+  windows:
+    cmd:
+      command: net group "Exchange Organization administrators" administrator /del /domain
+metadata:
+  authors:
+    - bfuzzy1
+  tags:
+    - hafnium
+    - destructive
+  version: 1
+  enabled: true
