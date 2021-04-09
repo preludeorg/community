@@ -9,10 +9,13 @@ platforms:
   windows:
     psh:
       command: Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn; Get-Mailbox
+      variants:
+        - command: Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn; Get-MailboxExportRequest –ResultSize 100
+        - command: Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn; Get-MailboxExportRequest | RemoveMailboxExportRequest –Confirm:$false
 metadata:
   authors:
     - bfuzzy1
   tags:
-    - HAFNIUM
+    - hafnium
     - destructive
-  version: 1
+  version: 2
