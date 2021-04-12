@@ -1,0 +1,29 @@
+id: 6dffb878-04aa-49e5-ac6d-abf3e4eabd47
+name: List listening ports
+description: List listening ports
+tactic: discovery
+technique:
+  id: T1049
+  name: System Network Connections Discovery
+platforms:
+  linux:
+    sh:
+      command: netstat -l
+      variants:
+        - command: lsof -i -P -n | grep -i "listen"
+  darwin:
+    sh:
+      command: netstat -l
+      variants:
+        - command: lsof -i -P -n | grep -i "listen"
+  windows:
+    pwsh:
+      command: netstat -an | select-string -pattern "listening"
+      variants:
+        - command: 'get-nettcpconnection | where {($_.State -eq "Listen") -and ($_.RemoteAddress -eq "0.0.0.0")}'
+metadata:
+  authors:
+    - dkoch144
+  tags: []
+  version: 1
+  enabled: true
