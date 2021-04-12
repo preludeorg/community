@@ -1,0 +1,23 @@
+id: f5209f1a-1548-402e-b3c5-444df6bd7e78
+name: List Environment Variables
+description: List Environment Variables
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: env
+  windows:
+    cmd:
+      command: set
+  darwin:
+    sh:
+      command: env
+metadata:
+  authors:
+    - dkoch144
+  tags: []
+  version: 1
+  enabled: true
