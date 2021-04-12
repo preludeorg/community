@@ -4,7 +4,8 @@ description: Identify all environment variables. Upon execution, environments va
 metadata:
   version: 2
   authors:
-    - wesley587, dkoch144
+    - wesley587
+    - dkoch144
   tags: []
 tactic: discovery
 technique:
