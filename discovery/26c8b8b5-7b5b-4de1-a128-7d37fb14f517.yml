@@ -13,7 +13,7 @@ platforms:
       command: |
         nltest /dsgetdc:%USERDOMAIN%
       variants:
-        - command: nltest /dclist:#{discovery.domain.name}
+        - command: nltest /dclist:#{domain.T1016}
     psh:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
