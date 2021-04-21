@@ -1,6 +1,6 @@
 id: 6dffb878-04aa-49e5-ac6d-abf3e4eabd47
 name: List listening ports
-description: List listening ports
+description: Lists all the TCP and UDP ports on which the computer is listening.
 tactic: discovery
 technique:
   id: T1049
