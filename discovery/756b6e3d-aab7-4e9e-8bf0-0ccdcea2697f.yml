@@ -21,10 +21,8 @@ platforms:
       command: |
         $ModuleName = [Guid]::NewGuid().ToString()
         $AppDomain = [Reflection.Assembly].Assembly.GetType('System.AppDomain').GetProperty('CurrentDomain').GetValue($null, @())
-        $LoadedAssemblies = $AppDomain.GetAssemblies()
         $DynAssembly = New-Object Reflection.AssemblyName($ModuleName)
-        $Domain = $AppDomain
-        $AssemblyBuilder = $Domain.DefineDynamicAssembly($DynAssembly, 'Run')
+        $AssemblyBuilder = $AppDomain.DefineDynamicAssembly($DynAssembly, 'Run')
         $Mod = $AssemblyBuilder.DefineDynamicModule($ModuleName, $False)
         $TypeHash = @{}
         $DllName = "netapi32"
@@ -115,7 +113,6 @@ platforms:
             $StructAttributes = $StructAttributes -bor [Reflection.TypeAttributes]::SequentialLayout
             $StructBuilder = $Module.DefineType($FullName, $StructAttributes, [ValueType], $PackingSize)
             $ConstructorInfo = [Runtime.InteropServices.MarshalAsAttribute].GetConstructors()[0]
-            $SizeConst = @([Runtime.InteropServices.MarshalAsAttribute].GetField('SizeConst'))
             $Fields = New-Object Hashtable[]($StructFields.Count)
             foreach ($Field in $StructFields.Keys)
             {
@@ -126,7 +123,6 @@ platforms:
             {
                 $FieldName = $Field['FieldName']
                 $FieldProp = $Field['Properties']
-                $Offset = $FieldProp['Offset']
                 $Type = $FieldProp['Type']
                 $MarshalAs = $FieldProp['MarshalAs']
                 $NewField = $StructBuilder.DefineField($FieldName, $Type, 'Public')
@@ -164,13 +160,6 @@ platforms:
             $ILGenerator2.Emit([Reflection.Emit.OpCodes]::Ret)
             $StructBuilder.CreateType()
         }
-        $Properties = [HashTable]@{
-            DllName = "netapi32"
-            FunctionName = "NetShareEnum"
-            ReturnType = [int]
-            ParameterTypes = @([String], [Int], [IntPtr].MakeByRefType(), [Int], [Int32].MakeByRefType(), [Int32].MakeByRefType(), [Int32].MakeByRefType())
-        }
-        $FunctionDefinitions = New-Object PSObject -Property $Properties
         $SHARE_INFO_1 = struct $Mod SHARE_INFO_1 @{
             Name = field 0 String -MarshalAs @('LPWStr')
             Type = field 1 UInt32
