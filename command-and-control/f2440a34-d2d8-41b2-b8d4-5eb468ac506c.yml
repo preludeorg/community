@@ -8,7 +8,7 @@ technique:
 platforms:
   global:
     keyword:
-      command: 'shell."#{operator.tcp_shell}"'
+      command: 'shell.["#{operator.tcp_shell}"]'
 metadata:
   authors:
     - khyberspache
