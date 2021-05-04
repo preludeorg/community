@@ -1,0 +1,21 @@
+id: 4d2c97ed-5464-4a27-9cc4-f76237526aea
+name: Discover System Geolocalization
+description: Retrieve Geolocalization data based on the Public IP address retrieved.
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1614
+  name: "System Location Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri "http://ifconfig.me/ip").Content)
+  linux:
+    sh:
+      command: |
+        wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1
