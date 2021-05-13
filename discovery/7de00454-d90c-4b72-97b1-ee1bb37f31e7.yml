@@ -1,0 +1,147 @@
+id: 7de00454-d90c-4b72-97b1-ee1bb37f31e7
+name: Retrive Domain Restrict Groups GPOs 
+description: Get all GPOs that modify local memberships through Restrict Groups
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1069.001
+  name: "Permission Groups Discovery: Local Groups"
+platforms:
+  windows:
+    psh:
+      command: |
+        function Get-F {
+            [CmdletBinding()]
+            Param (
+                [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+                [Alias('gpcfilesyspath', 'Path')]
+                [String]
+                $GptTmplPath
+            )
+            try {
+                $TargetGptTmplPath = $GptTmplPath
+                if (-not $TargetGptTmplPath.EndsWith('.inf')) {
+                    $TargetGptTmplPath += '\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf'
+                }
+                $Contents = Get-A -Path $TargetGptTmplPath -ErrorAction Stop
+                $Contents['Path'] = $TargetGptTmplPath
+                $Contents
+            }
+            catch {}
+        }
+        function Get-A {
+            [CmdletBinding()]
+            Param(
+                [Parameter(Position = 0, Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+                [Alias('FullName', 'Name')]
+                [ValidateNotNullOrEmpty()]
+                [String[]]
+                $Path
+            )
+            ForEach ($TargetPath in $Path) {
+                if (Test-Path -Path $TargetPath) {
+        			$IniObject = @{}
+                    Switch -Regex -File $TargetPath {
+                        "^\[(.+)\]" # Section
+                        {
+                            $Section = $matches[1].Trim()
+                            $IniObject[$Section] = @{}
+                        }
+                        "(.+?)\s*=(.*)" # Key
+                        {
+                            $Name, $Value = $matches[1..2]
+                            $Name = $Name.Trim()
+                            $Values = $Value.split(',') | ForEach-Object { $_.Trim() }
+        					$IniObject[$Section][$Name] = $Values
+                        }
+                    }
+                    $IniObject
+                }
+            }
+        }
+        function Convert-L {
+            [CmdletBinding()]
+            Param(
+                [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
+                [ValidateNotNullOrEmpty()]
+                $Properties
+            )
+            $ObjectProperties = @{}
+            $Properties.PropertyNames | ForEach-Object {
+                if ($_ -ne 'adspath') {
+                    if (($_ -eq 'objectsid') -or ($_ -eq 'sidhistory')) {
+                        $ObjectProperties[$_] = $Properties[$_] | ForEach-Object { (New-Object System.Security.Principal.SecurityIdentifier($_, 0)).Value }
+                    }
+                    elseif ($_ -eq 'objectguid') {
+                        $ObjectProperties[$_] = (New-Object Guid (,$Properties[$_][0])).Guid
+                    }
+                    elseif ($Properties[$_].count -eq 1) {
+                        $ObjectProperties[$_] = $Properties[$_][0]
+                    }
+                    else {
+                        $ObjectProperties[$_] = $Properties[$_]
+                    }
+                }
+            }
+            New-Object -TypeName PSObject -Property $ObjectProperties
+        }
+        $ConvertArguments = @{}
+        $SplitOption = [System.StringSplitOptions]::RemoveEmptyEntries
+        $GPOSearcher = New-Object System.DirectoryServices.DirectorySearcher
+        $GPOSearcher.filter = "(&(objectCategory=groupPolicyContainer)$Filter)"
+        $Results = $GPOSearcher.FindAll()
+        $ObjectProperties = @{}
+        $Results | Where-Object {$_} | ForEach-Object {
+        	$Properties = $_.Properties
+        	$Properties.PropertyNames | ForEach-Object {
+        			if ($Properties[$_].count -eq 1) {
+        				$ObjectProperties[$_] = $Properties[$_][0]
+        		}
+        	}
+        	$A = New-Object -TypeName PSObject -Property $ObjectProperties
+        	$A | ForEach-Object {
+        		$GPOdisplayName = $_.displayname
+        		$GPOname = $_.name
+        		$GPOPath = $_.gpcfilesyspath
+        		$ParseArgs =  @{ 'GptTmplPath' = "$GPOPath\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf" }
+        		$Inf = Get-F @ParseArgs
+        		if ($Inf -and ($Inf.psbase.Keys -contains 'Group Membership')) {
+        			$Memberships = @{}
+        			ForEach ($Membership in $Inf.'Group Membership'.GetEnumerator()) {
+        				$Group, $Relation = $Membership.Key.Split('__', $SplitOption) | ForEach-Object {$_.Trim()}
+        				$MembershipValue = $Membership.Value | Where-Object {$_} | ForEach-Object { $_.Trim('*') } | Where-Object {$_}
+        				if (-not $Memberships[$Group]) {
+        					$Memberships[$Group] = @{}
+        				}
+        				if ($MembershipValue -isnot [System.Array]) {$MembershipValue = @($MembershipValue)}
+        				$Memberships[$Group].Add($Relation, $MembershipValue)
+        			}
+        			ForEach ($Membership in $Memberships.GetEnumerator()) {
+        				if ($Membership -and $Membership.Key -and ($Membership.Key -match '^\*')) {
+        					$GroupSID = $Membership.Key.Trim('*')
+        					if ($GroupSID -and ($GroupSID.Trim() -ne '')) {
+        						$GroupName = ConvertFrom-SID -ObjectSID $GroupSID @ConvertArguments
+        					}
+        					else {
+        						$GroupName = $False
+        					}
+        				}
+        				$GPOGroup = New-Object PSObject
+        				$GPOGroup | Add-Member Noteproperty 'GPODisplayName' $GPODisplayName
+        				$GPOGroup | Add-Member Noteproperty 'GPOName' $GPOName
+        				$GPOGroup | Add-Member Noteproperty 'GPOPath' $GPOPath
+        				$GPOGroup | Add-Member Noteproperty 'GPOType' 'RestrictedGroups'
+        				$GPOGroup | Add-Member Noteproperty 'Filters' $Null
+        				$GPOGroup | Add-Member Noteproperty 'GroupName' $GroupName
+        				$GPOGroup | Add-Member Noteproperty 'GroupSID' $GroupSID
+        				$GPOGroup | Add-Member Noteproperty 'GroupMemberOf' $Membership.Value.Memberof
+        				$GPOGroup | Add-Member Noteproperty 'GroupMembers' $Membership.Value.Members
+        				$GPOGroup
+        			}
+        		}
+        	}
+        }
