@@ -15,10 +15,12 @@ platforms:
     psh:
       command: |
         wmic shadowcopy delete /nointeractive
+      variants:
+        - command: Get-WmiObject Win32_Shadowcopy | ForEach-Object {$_.Delete();}
 metadata:
   authors:
     - bfuzzy1
     - w0rk3r
   tags:
     - destructive
-  version: 3
+  version: 4
