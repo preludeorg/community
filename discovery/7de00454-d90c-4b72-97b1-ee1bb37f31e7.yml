@@ -1,6 +1,6 @@
 id: 7de00454-d90c-4b72-97b1-ee1bb37f31e7
 name: Retrive Domain Restrict Groups GPOs 
-description: Get all GPOs that modify local memberships through Restrict Groups
+description: Get all GPOs that modify local memberships through Restricted Groups
 metadata:
   version: 1
   authors:
