@@ -17,10 +17,9 @@ jobs:
         if [ -n "$GH_TOKEN" ]; then
           git config --global user.email "travis@travis-ci.org"
           git config --global user.name "Travis CI"
-          git add . *.yml
+          git add .
           git commit --allow-empty -m "Travis CI: Auto-update TTP (no-deploy)"
-          git remote add authenticated https://khyberspache:${GK_TOKEN}@github.com/preludeorg/community.git
-          git push --quiet authenticated HACK-407 &>/dev/null
+          git push --quiet https://khyberspache:$GK_TOKEN@github.com/preludeorg/community.git HACK-407 &>/dev/null
         fi
       if: type = push AND branch = HACK-407 AND commit_message !~ /no-deploy/
 on:
