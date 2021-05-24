@@ -1,0 +1,16 @@
+id: c9d6d995-2224-4b86-a8b0-50adc9ee85a5
+name: View Kernel Version
+description: 'hostnamectl (View basic OS Properties) already includes the system information in uname -a, except the kernel version.'
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  linux:
+    sh:
+      command: uname -v
+metadata:
+  authors: []
+  tags: []
+  version: 1
+  enabled: true
