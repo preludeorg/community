@@ -12,15 +12,15 @@ jobs:
       install:
         - pip install -r requirements.txt
       script:
+        - git checkout master
         - python ttp_handler.py
       after_success: |
         if [ -n "$GH_TOKEN" ]; then
           git config --global user.email "travis@travis-ci.org"
           git config --global user.name "Travis CI"
+          git remote set-url origin https://khyberspache:$GH_TOKEN@github.com/preludeorg/community.git
           git add .
           git commit --allow-empty -m "Travis CI: Auto-update TTP (no-deploy)"
-          git push --quiet https://khyberspache:$GK_TOKEN@github.com/preludeorg/community.git HACK-407 &>/dev/null
+          git push
         fi
-      if: type = push AND branch = HACK-407 AND commit_message !~ /no-deploy/
-on:
-  branch = HACK-407
+      if: type = push AND branch = master AND commit_message !~ /no-deploy/
