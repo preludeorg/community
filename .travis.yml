@@ -1,0 +1,27 @@
+os: linux
+dist: focal
+language: python
+python:
+  - "3.9"
+env:
+  global:
+    - secure: "NpnUgbcSwqH6E8NZv0GzRlL7Y33SbHxaYiMG6PM7uN22hph1FWBbAojbE6kyEGNU1bzpStoxHlKzDum0tYOdvnbezQQ/RoH+aq0q3piBO0Zr5FDD1Xd1cI9ag5v/C2b0bWYVviMVh06bLpdVB1mgYe0gPmmCgJhiKZJwGpOBAqJ4cW+jfgBdXoRs48daYoA+S/0TJadJT8WH8ah2ULCXL6jcwtV1vBUuJ5CGVvfhrgmUsymaYYlF3LeDWhuPSPBzHJlcfBpd9SS9FYdlt8X7edyAwG5UznCDv7h2Ag+v2+2Ze1UtinDuWkVYEObswa85RDVgoVJ95PX/vzBMthzA8h7r4QHo52zyIbq7TBMgv3xaLVSXS4bNshHiJNY+U8XuT/3yiIHgnH9A4sgtfBce7v+UFUAvt9wq0+tQaCUBSnTLi26G5/Vt3E2e0Z91ruKXepq2cPIR8C/C+nBVv6HZ2uXkTFOv2Xfb3+naqdRD9JnICxfpiWfWb0E8PSLpMHVxdgtR4BfaTmoFSHBTA+w4DlkRJPnVUJsYW6GquF+6ysz7+WQqWcsFuTbHh2JUSWB1Riw6/KqdeHKpgjoON7Wla77DuLsWibb1M6P2zSohdnzXm6n8wBeComFCigRp4EX4XJdrXvqac1sv3p6qM5JKCsvd6Uy+APUIz5etG8zOhTY="
+jobs:
+  include:
+    - name: Add TTP release date
+      install:
+        - pip install -r requirements.txt
+      script:
+        - python ttp_handler.py
+      after_success: |
+        if [ -n "$GH_TOKEN" ]; then
+          git config --global user.email "travis@travis-ci.org"
+          git config --global user.name "Travis CI"
+          git add . *.yml
+          git commit --allow-empty -m "Travis CI: Auto-update TTP (no-deploy)"
+          git remote add authenticated https://khyberspache:${GK_TOKEN}@github.com/preludeorg/community.git
+          git push --quiet authenticated HACK-407 &>/dev/null
+        fi
+      if: type = push AND branch = HACK-407 AND commit_message !~ /no-deploy/
+on:
+  branch = HACK-407
