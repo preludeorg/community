@@ -19,18 +19,18 @@ platforms:
     node:
       command: |
         let fs = require('fs');
-        fs.writeFile('instructions.txt', 'Please pay me to unlock all the files I encrypted.', function (err) {
+        fs.writeFile('~/Desktop/instructions.txt', 'Please pay me to unlock all the files I encrypted.', function (err) {
             console.log('Completed T1491 proof');
         });
   darwin:
     sh:
       command: |
-        echo "Please pay me to unlock all the files I encrypted." > instructions.txt
+        echo "Please pay me to unlock all the files I encrypted." > ~/Desktop/instructions.txt
   linux:
     sh:
       command: |
-        echo "Please pay me to unlock all the files I encrypted." > instructions.txt
+        echo "Please pay me to unlock all the files I encrypted." > ~/Desktop/instructions.txt
   windows:
     psh:
       command: |
-        Set-Content -Path 'instructions.txt' -Value 'Please pay me to unlock all the files I encrypted.'
+        Set-Content -Path '~/Desktop/instructions.txt' -Value 'Please pay me to unlock all the files I encrypted.'
