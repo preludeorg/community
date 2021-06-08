@@ -20,8 +20,9 @@ platforms:
     node:
       command: |
         let fs = require('fs');
-        fs.writeFile('~/Desktop/instructions.txt', 'Please pay me to unlock all the files I encrypted.', function (err) {
-            console.log('Completed T1491 proof');
+        const homeDir = require('os').homedir();
+        fs.writeFile(path.join(homeDir, 'Desktop', 'instructions.txt'), 'Please pay me to unlock all the files I encrypted.', function (err) {
+          console.log('Completed T1491 proof');
         });
   darwin:
     sh:
