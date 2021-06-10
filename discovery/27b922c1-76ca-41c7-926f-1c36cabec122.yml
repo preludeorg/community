@@ -1,0 +1,40 @@
+id: 27b922c1-76ca-41c7-926f-1c36cabec122
+name: Find Kerberoastable Accounts
+description: Find Accounts that might be vulnerable to Kerberoasting
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1087.002
+  name: "Account Discovery: Domain Account"
+platforms:
+  windows:
+    cmd:
+      command: setspn.exe -Q */*
+      variants:
+        - command: setspn.exe -T {discovery.domain} -Q */*
+    psh:
+      command: |
+        $searcher = New-Object System.DirectoryServices.DirectorySearcher
+        $searcher.PageSize = 1000
+        $searcher.Filter = "(&(!objectClass=computer)(servicePrincipalName=*))"
+        $ObjectProperties = @{}
+        $searcher.PropertiesToLoad.Add("serviceprincipalname")
+        $searcher.PropertiesToLoad.Add("name")
+        $searcher.PropertiesToLoad.Add("samaccountname")
+        $searcher.PropertiesToLoad.Add("memberof")
+        $searcher.PropertiesToLoad.Add("pwdlastset")
+        $searcher.SearchScope = "Subtree"
+        $Results = $searcher.FindAll()
+        $Results | Where-Object {$_} | ForEach-Object {
+          $Properties = $_.Properties
+          $Properties.PropertyNames | ForEach-Object {            
+            $ObjectProperties[$_] = $Properties[$_][0]
+          }
+          New-Object -TypeName PSObject -Property $ObjectProperties
+        }
+      variants:
+        - command: Get-ADUser -Properties ServicePrincipalNames |Select-Object -ExpandProperty ServicePrincipalNames
