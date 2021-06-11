@@ -1,0 +1,17 @@
+id: 5d18deaa-f32b-48f8-9ef6-71e3eb4d90c7
+name: Discover Kerberos Cached Tickets
+description: Displays a list of currently cached Kerberos tickets
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1049
+  name: "System Network Connections Discovery"
+platforms:
+  windows:
+    psh:
+      command: |
+        klist.exe
