@@ -1,6 +1,6 @@
 id: 27b922c1-76ca-41c7-926f-1c36cabec122
 name: Find Kerberoastable Accounts
-description: Find Accounts that might be vulnerable to Kerberoasting
+description: Find Active Directory user accounts with defined SPNs. These might be vulnerable to Kerberoasting
 metadata:
   version: 1
   authors:
