@@ -6,7 +6,7 @@ metadata:
   authors:
     - w0rk3r
   tags: []
-tactic: discovery
+tactic: credential-access
 technique:
   id: T1558.003
   name: "Steal or Forge Kerberos Tickets: Kerberoasting"
