@@ -1,6 +1,6 @@
 id: 3fe792b0-66eb-40fc-aea1-bd6de5a97083
 name: Retrieve instance AWS region from metadata
-description: Retrieve region data associated with the current instance
+description: AWS instances have a link-local address that return various types of metadata. This endpoint will return the region data associated with the current instance.
 metadata:
   version: 1
   authors:
