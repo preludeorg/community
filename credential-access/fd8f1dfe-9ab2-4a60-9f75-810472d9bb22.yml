@@ -15,4 +15,4 @@ platforms:
     psh:
       command: |
         Add-Type -AssemblyName System.IdentityModel
-        New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList '#{json.T1087.002.ServicePrincipalName}' | ConvertTo-Json
+        New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList '#{json.T1087.002.serviceprincipalname}' | ConvertTo-Json
