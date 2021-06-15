@@ -19,22 +19,22 @@ platforms:
     psh:
       command: |
         $searcher = New-Object System.DirectoryServices.DirectorySearcher
-        $searcher.PageSize = 1000
         $searcher.Filter = "(&(!objectClass=computer)(servicePrincipalName=*))"
         $ObjectProperties = @{}
-        $searcher.PropertiesToLoad.Add("serviceprincipalname")
-        $searcher.PropertiesToLoad.Add("name")
-        $searcher.PropertiesToLoad.Add("samaccountname")
-        $searcher.PropertiesToLoad.Add("memberof")
-        $searcher.PropertiesToLoad.Add("pwdlastset")
-        $searcher.SearchScope = "Subtree"
+        $Final = @()
+        $searcher.PropertiesToLoad.Add("serviceprincipalname") | Out-Null
+        $searcher.PropertiesToLoad.Add("name") | Out-Null
+        $searcher.PropertiesToLoad.Add("samaccountname") | Out-Null
+        $searcher.PropertiesToLoad.Add("memberof") | Out-Null
+        $searcher.PropertiesToLoad.Add("pwdlastset") | Out-Null
         $Results = $searcher.FindAll()
         $Results | Where-Object {$_} | ForEach-Object {
           $Properties = $_.Properties
           $Properties.PropertyNames | ForEach-Object {            
             $ObjectProperties[$_] = $Properties[$_][0]
           }
-          New-Object -TypeName PSObject -Property $ObjectProperties
+          $Final += $ObjectProperties
         }
+        $Final | ConvertTo-Json
       variants:
         - command: Get-ADUser -Properties ServicePrincipalNames |Select-Object -ExpandProperty ServicePrincipalNames
