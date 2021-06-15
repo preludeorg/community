@@ -6,6 +6,7 @@ metadata:
   authors:
     - w0rk3r
   tags: []
+  release_date: 2021-06-15
 tactic: discovery
 technique:
   id: T1049
