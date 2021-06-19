@@ -12,9 +12,4 @@ platforms:
 metadata:
   authors:
     - Logical
-  tags:
-    - bootkit
   version: 1
-  enabled: true
-  latest:
-    version: 1
