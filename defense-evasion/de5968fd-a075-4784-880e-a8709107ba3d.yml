@@ -1,0 +1,21 @@
+id: de5968fd-a075-4784-880e-a8709107ba3d
+name: 'Defensive Evasion: EDR Visibility Abuse'
+description: 'Most EDR solutions lack visibility on version 2 of WSL. Abusing WSL capability will allow you to stay undetected and execute files without being detected. Windows files can be accessed from "%AppData%/Local/Packages/$LinuxDistro/LocalState/rootfs" through WSL. Additionally, Metasploit agents can be used in WSL to hide from EDR solutions. Note: Microsoft Defender may need to be disabled prior to executing Metasploit agents.'
+tactic: defense-evasion
+technique:
+  id: T1562
+  name: Impair Defenses
+platforms:
+  windows:
+    pwsh:
+      command: |-
+        dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+        dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+        wsl --set-default-version 2
+metadata:
+  authors:
+    - Logical
+  tags:
+    - evasion
+  version: 1
+  enabled: true
