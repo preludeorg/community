@@ -1,0 +1,18 @@
+id: d411d3c1-28eb-458c-b83a-70bfd4aa95a0
+name: UEFI Modified Windows Boot Loader
+description: 'Adversaries will at times have to activate a hidden EFI partition that allows them to modfiy the windows boot loader. Additionally, this can be used to modify the windows boot loader and load their own drivers or payloads before the Windows operating system boots.'
+tactic: persistence
+technique:
+  id: T1542.003
+  name: Bootkit
+platforms:
+  windows:
+    cmd:
+      command: 'mountvol x: /s'
+metadata:
+  authors:
+    - Logical
+  tags:
+    - bootkit
+  version: 1
+  enabled: true
