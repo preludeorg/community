@@ -1,0 +1,39 @@
+id: d03901f3-8061-4c55-880b-034886788e68
+name: Enumerate RDP Connection History
+description: Enumerate users and servers used in recent RDP connections for all users of the local computer
+metadata:
+  version: 1
+  authors:
+  - w0rk3r
+  tags: []
+tactic: defense-evasion
+technique:
+  id: T1049
+  name: System Network Connections Discovery
+platforms:
+  windows:
+    psh:
+      command: |
+        $AllUsers = Get-WmiObject -Class Win32_UserAccount
+        foreach($User in $AllUsers)
+        {
+            $RegPath = "Registry::HKEY_USERS\"+$User.SID+"\Software\Microsoft\Terminal Server Client\Servers\"
+            Try  
+            { 
+        	    $QueryPath = dir $RegPath -Name -ErrorAction Stop
+            }
+            Catch
+            {
+        	    continue
+            }
+          foreach($Name in $QueryPath)
+            {   
+        	  Try  
+            {
+            	$User = (Get-ItemProperty -Path $RegPath$Name -ErrorAction Stop).UsernameHint
+            	Write-Host "Server:"$Name
+            	Write-Host "User:"$User
+            }
+            Catch{}
+            }
+        }
