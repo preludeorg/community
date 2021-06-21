@@ -1,0 +1,19 @@
+id: 11c8c5a7-81d2-43af-8b87-42cba6259790
+name: Disable Powershell Module Logging
+description: |
+  Module logging records pipeline execution details as PowerShell executes, including variable initialization and command invocations.
+  Attackers can disable logging to cover their activities on the host.
+metadata:
+  version: 1
+  authors:
+  - w0rk3r
+  tags: []
+tactic: defense-evasion
+technique:
+  id: T1562.002
+  name: 'Impair Defenses: Disable Windows Event Logging'
+platforms:
+  windows:
+    psh:
+      command: |
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging" -Name "EnableModuleLogging" -Value 0
