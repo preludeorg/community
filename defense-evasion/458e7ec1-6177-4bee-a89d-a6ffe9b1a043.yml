@@ -8,11 +8,12 @@ metadata:
   version: 1
   authors:
     - w0rk3r
-  tags: []
+  tags: 
+    - destructive
 tactic: defense-evasion
 technique:
-  id: T1089
-  name: "Disabling Security Tools"
+  id: T1562.001
+  name: "Impair Defenses: Disable or Modify Tools"
 platforms:
   windows:
     psh:
