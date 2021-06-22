@@ -23,4 +23,3 @@ jobs:
           git commit --allow-empty -m "Travis CI: Auto-update TTP (no-deploy)"
           git push
         fi
-      if: type = push AND branch = master AND commit_message !~ /no-deploy/
