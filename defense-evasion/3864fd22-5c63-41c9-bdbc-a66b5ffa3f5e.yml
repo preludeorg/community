@@ -5,7 +5,7 @@ metadata:
     - privateducky
     - MITRE
   tags: []
-name: Bypass ExecutionPolicy
+name: Bypass Execution Policy
 description: |
   Windows PowerShell is often disabled by default, not allowing users to execute untrusted commands. It gives an easy
   way to override this behavior though through the ExecutionPolicy bypass parameter.
@@ -18,4 +18,5 @@ platforms:
     psh:
       command: |
         Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\PowerShell -Name ExecutionPolicy -Value ByPass;
-        $shell = New-Object -ComObject Wscript.Shell Set-ExecutionPolicy Bypass | echo $shell.sendkeys("Y`r`n");
+      variants:
+        - command: $shell = New-Object -ComObject Wscript.Shell Set-ExecutionPolicy Bypass | echo $shell.sendkeys("Y`r`n");
