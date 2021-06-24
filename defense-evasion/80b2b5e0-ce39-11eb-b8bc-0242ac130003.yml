@@ -1,0 +1,21 @@
+id: 80b2b5e0-ce39-11eb-b8bc-0242ac130003
+metadata:
+  version: 1
+  authors:
+    - w09rkerbee
+  tags: []
+name: create Alternate Data Streams to hide malware or other data to avoid detection
+description: |
+  Alternate Data Streams of "C:\\*:zone.identifier*" are normal occurrences. However, alternate data streams for files can be created to hide executables. 
+  enigma0x3 details an example where nc.exe (netcat) is written to an alternate data stream for calc.exe. 
+  See https://enigma0x3.net/2015/03/05/using-alternate-data-streams-to-persist-on-a-compromised-machine/
+tactic: defense-evasion
+technique:
+  id: T1564.004
+  name: Hide Artifacts: NTFS File Attributes
+platforms:
+  windows:
+    psh:
+      command: |
+        Get-Content C:\windows\System32\cmd.exe -Raw | Set-content C:\Users\testuser\Downloads\ads.txt -Stream testStream;
+        wmic process call create '"c:\users\testuser\Downloads\ads.txt:testStream"'
