@@ -15,25 +15,29 @@ platforms:
     psh:
       command: |
         $AllUsers = Get-WmiObject -Class Win32_UserAccount
+        $Final = @()
         foreach($User in $AllUsers)
         {
             $RegPath = "Registry::HKEY_USERS\"+$User.SID+"\Software\Microsoft\Terminal Server Client\Servers\"
             Try  
             { 
-        	    $QueryPath = dir $RegPath -Name -ErrorAction Stop
+                $QueryPath = dir $RegPath -Name -ErrorAction Stop
             }
             Catch
             {
-        	    continue
+                continue
             }
-          foreach($Name in $QueryPath)
+            foreach($Name in $QueryPath)
             {   
-        	  Try  
-            {
-            	$User = (Get-ItemProperty -Path $RegPath$Name -ErrorAction Stop).UsernameHint
-            	Write-Host "Server:"$Name
-            	Write-Host "User:"$User
-            }
-            Catch{}
+                Try  
+                {
+                    $User = (Get-ItemProperty -Path $RegPath$Name -ErrorAction Stop).UsernameHint
+                    $Name = $Name | Out-String
+        	          $Name = $Name -replace "`t|`n|`r",""
+                    $Obj = @{"Server"=$Name;"User"=$User}
+                    $Final += $Obj 
+                }
+                Catch{}
             }
         }
+        $Final | ConvertTo-Json
