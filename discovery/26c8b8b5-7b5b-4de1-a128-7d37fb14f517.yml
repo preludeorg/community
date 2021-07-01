@@ -17,6 +17,15 @@ platforms:
     psh:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
+      variants:
+        - command: |
+            $DCs = ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers 
+            $Final = @()
+            ForEach	($DC in $DCs){
+                $Obj = $DC | Select-Object -Property Name
+                $Final += $Obj
+            }
+            $Final | ConvertTo-Json
 metadata:
   version: 3
   authors:
