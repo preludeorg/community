@@ -1,4 +1,5 @@
 import subprocess
+import os
 from ruamel.yaml import YAML
 from datetime import datetime
 
@@ -15,5 +16,5 @@ if __name__ == '__main__':
     modified_files = results.stdout.decode('utf-8').rstrip().split('\n')
     for file in modified_files:
         print(file)
-        if file.endswith('.yml') and file != '.travis.yml':
+        if file.endswith('.yml') and file != '.travis.yml' and os.path.exists(file):
             update_ttp(filename=file)
