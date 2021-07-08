@@ -7,6 +7,8 @@ metadata:
   tags:
     - Crown Jewels
     - Ransomware
+  chains:
+    - File Hunter
 name: Find recent files
 description: |
   Locate files modified in the last 24 hours. Recently modified files typically mean they carry some significance and

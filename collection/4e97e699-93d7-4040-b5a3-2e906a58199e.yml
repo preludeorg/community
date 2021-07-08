@@ -7,6 +7,8 @@ metadata:
     - MITRE
   tags:
     - Crown Jewels
+  chains:
+    - File Hunter
 name: Stage collected files
 description: |
   Copy files to a different directory. Hackers will often stage files instead of steal the original copies.
