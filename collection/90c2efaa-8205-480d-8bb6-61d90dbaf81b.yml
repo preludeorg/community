@@ -13,7 +13,7 @@ metadata:
 name: Find recent files
 description: |
   Locate files modified in the last 24 hours. Recently modified files typically mean they carry some significance and
-  a hacker can look for these versus looking at each file on a system to determine worth.
+  a hacker can look for these instead of looking at each file on a system to determine worth.
 tactic: collection
 technique:
   id: T1005

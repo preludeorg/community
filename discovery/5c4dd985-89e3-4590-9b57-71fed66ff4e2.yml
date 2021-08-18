@@ -12,7 +12,7 @@ metadata:
   release_date: 2021-08-18
 name: Permission Groups Discovery
 description: |
-  Computer users are put into groups, which control their security access on the computer. Identifying which groups
+  Computer users are put into groups, which control their access on the computer. Identifying which groups
   are assigned to the current user can show if they have administrator privileges or not.
 tactic: discovery
 technique:

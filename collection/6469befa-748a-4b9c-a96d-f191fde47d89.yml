@@ -12,7 +12,7 @@ metadata:
   release_date: 2021-07-08
 name: Create new directory
 description: |
-  Creating a staging directory is often a precursor to copying files into it. Hackers will do this action in order to
+  Creating a staging directory is often a precursor to copying files into it. Hackers will do this in order to
   exfiltrate important files without getting caught.
 tactic: collection
 technique:

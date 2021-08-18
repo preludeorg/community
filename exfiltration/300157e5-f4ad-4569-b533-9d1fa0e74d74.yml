@@ -12,7 +12,7 @@ metadata:
 name: Compress staged directory
 description: |
   Compressing a directory has many purposes, mainly making the contents smaller and condensing them to a single file.
-  A hacker will tend to do this before attempting to steal files from a computer because it is less noticeable to
+  A hacker will tend to do this before trying to steal files from a computer because it is less noticeable to
   steal a small file than a large number of bigger files.
 tactic: exfiltration
 technique:

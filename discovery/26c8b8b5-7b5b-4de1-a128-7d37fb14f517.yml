@@ -1,7 +1,7 @@
 id: 26c8b8b5-7b5b-4de1-a128-7d37fb14f517
 name: Discover domain controller
 description: |
-  A domain controller is a server in charge of authentication and configuration for a Windows computer domain. These
+  A domain controller is a server in charge of authentication and configuration for a Windows domain. These
   servers are "gold" to most hackers, so identifying where they are on the network is a common procedure.
 tactic: discovery
 technique:

@@ -12,7 +12,8 @@ metadata:
   release_date: 2021-07-08
 name: Stage collected files
 description: |
-  Copy files to a different directory. Hackers will often stage files instead of steal the original copies.
+  Copy files to a different directory. Hackers will often stage files instead of steal the original copies in order
+  to be less noticeable.
 tactic: collection
 technique:
   id: T1074

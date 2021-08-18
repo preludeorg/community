@@ -14,7 +14,7 @@ metadata:
   release_date: 2021-07-09
 name: Leave note
 description: |
-  Part of a ransomware attack includes leaving a note on a machine to give the user instructions on how to pay the
+  Part of a ransomware attack may include leaving a note behind with instructions on how to pay the
   ransom. This procedure emulates this behavior by dropping a note on the computer.
 tactic: impact
 technique:
