@@ -18,7 +18,7 @@ platforms:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
 metadata:
-  version: 3
+  version: 4
   authors:
     - privateducky
     - MITRE
@@ -26,3 +26,5 @@ metadata:
     - bfuzzy1
   tags:
     - hafnium
+  chains:
+  - Conti (Discovery)
