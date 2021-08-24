@@ -9,8 +9,8 @@ metadata:
   release_date: 2021-08-24
 name: Download pneuma
 description: |
-  pneuma is an open-source agent which accompanies the Prelude platform. This procedure downloads the agent to disk
-  and starts it in the background
+  Pneuma is an open-source agent which accompanies the Prelude platform. This procedure downloads the agent to disk
+  and starts it in the background.
 tactic: command-and-control
 technique:
   id: T1544
