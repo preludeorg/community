@@ -6,7 +6,7 @@ metadata:
   tags: []
 name: Enumerate file system partitions
 description: |
-  This will display all related informations corresponding to the the mounted and unmounted partitions/shares.
+  This will display all related information corresponding to the the mounted and unmounted partitions/shares.
 tactic: discovery
 technique:
   id: T1082

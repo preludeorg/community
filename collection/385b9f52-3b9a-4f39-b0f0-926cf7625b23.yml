@@ -5,14 +5,14 @@ metadata:
     - privateducky
   tags:
     - Crown Jewels
-name: Find files on removeable media
+name: Find files on removable media
 description: |
   Devices, such as USB drives, often hold important documents, as they've been intentionally copied to the drive at some
   point. This procedure determines what files are on external drives.
 tactic: collection
 technique:
   id: T1025
-  name: Data from Removeable Media
+  name: Data from Removable Media
 platforms:
   windows:
     psh:
