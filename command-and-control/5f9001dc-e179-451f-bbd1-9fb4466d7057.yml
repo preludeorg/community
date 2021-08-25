@@ -22,7 +22,7 @@ platforms:
       payload: '#{operator.payloads}/pneuma/pneuma-linux'
   darwin:
     sh:
-      command: nohup ./pneuma-darwin -address '#{operator.http}' -contact http >/dev/null
+      command: nohup ./pneuma-darwin -address "http://#{operator.http}" -contact http >/dev/null
         2>&1 &
       payload: '#{operator.payloads}/pneuma/pneuma-darwin'
   windows:

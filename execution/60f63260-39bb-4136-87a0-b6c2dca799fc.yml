@@ -20,7 +20,7 @@ platforms:
       command: |
         $wc=New-Object System.Net.WebClient;
         $output="PowerShellCore.msi";
-        $wc.DownloadFile("https://github.com/PowerShell/PowerShell/releases/download/v6.2.2/PowerShell-6.2.2-win-x64.msi", $output);
+        $wc.DownloadFile("#{operator.payloads}/powershell/PowerShell-6.2.2-win-x64.msi", $output);
         Start-Process msiexec.exe -ArgumentList "/package PowerShellCore.msi /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1" -Wait;
         $env:Path += ";C:\Program Files\Powershell\6";
         Start-Process pwsh -ArgumentList "-c #{agent.location}" -WindowStyle hidden;

