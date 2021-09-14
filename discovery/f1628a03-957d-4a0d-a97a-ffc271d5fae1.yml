@@ -11,6 +11,8 @@ tactic: discovery
 technique:
   id: T1082
   name: System Information Discovery
+  chains:
+     - B1-66ER
 platforms:
   linux:
     sh:
