@@ -5,10 +5,11 @@ metadata:
     - Archie Pocsedio
   tags: 
     - destructive
-name: Disable Windows EventLog via MinNt Entry via Reg Command
+name: Disable Windows EventLog via MiniNt Entry via Reg Command
 description: |
-  This procedure will add MiniNt registry key making Windows environment WinPE (Preinstallation Environment)
-  causing for eventlog to be disable once restart to load changes in the hive.
+  This procedure will add the MiniNt registry key, making various Windows components think they’re running in the
+  Windows Preinstallation Environment (WinPE), causing eventlog to be unable to write new events or display the current
+  ones on Event Viewer.
 tactic: defense-evasion
 technique:
   id: T1562.002

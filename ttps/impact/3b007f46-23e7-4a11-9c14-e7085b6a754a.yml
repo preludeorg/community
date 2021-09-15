@@ -4,11 +4,12 @@ metadata:
   authors:
   - privateducky
   - MITRE
-  tags: []
+  tags:
+  - destructive
   release_date: 2021-09-01
 name: Quit application
 description: |
-  This procedure immediately halts the an installed application, force closing it
+  This procedure immediately halts the an installed application, force closing it.
 tactic: impact
 technique:
   id: T1489
