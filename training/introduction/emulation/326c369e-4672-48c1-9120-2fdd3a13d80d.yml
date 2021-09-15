@@ -1,0 +1,33 @@
+id: 326c369e-4672-48c1-9120-2fdd3a13d80d
+name: Adversary goals
+challenge: |
+   Build an adversary that will locate a 'settings.yml' file on a target system, found by executing a T1005 technique.
+context: |
+    Cyber attacks can include multiple approaches and can be timely in order to achieve a successful outcome. There are
+    instances where the focus of an attack is on a single target and instead of issuing an extensive operation, a more
+    distinct tactic is utilized. Operator can fulfill this strategy through the use of it's goal feature for adversaries.
+    A goal allows an adversary to identify a clear objective and conclude its mission once that objective is completed. You
+    would attach a goal to an adversary if you are looking to collect a specific piece of information during your operation.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    T1005: https://attack.mitre.org/techniques/T1005/
+hints:
+  - Have you assigned a goal to the adversary?
+  - Have you read the docs about adversaries and chaining?
+  - Note that fact keys (such as ip.T1115) are case sensitive
+blocks:
+  What is a Goal: |
+    In the eyes of adversaries, a goal is the most important aspect of their mission. Because it prioritizes the fulfillment
+    of the assigned 'fact,' this feature can reduce the length of an adversary's deployment. Instead of searching and collecting
+    the files of a whole directory, the file collection TTP can focus on the item of significance, reducing execution time and
+    lowering the risk of compromise.
+  T1005: |
+    Referred as 'Data from Local System,' this technique specializes in collection.
+    This technique grants adversaries the ability to search the local database of users to find files and information of interest.
+    It is supported on Linux, Darwin and Windows which makes it a very versatile method of gathering data.
+answer:
+  script: Number(Object.keys(Adversary.adversaries).filter(a => Adversary.adversaries[a].goals[0]?.key === 'file.T1005' && Adversary.adversaries[a].goals[0]?.val === 'settings.yml').length > 0)
+  value: 1

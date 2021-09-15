@@ -1,0 +1,39 @@
+id: 5b94b4df-6fcd-45c8-9c32-01599a2a1d44
+name: Improving your technology
+challenge: |
+  Which solution should catch an adversary locating and exfiltrating sensitive files from an employee workstation?
+context: |
+  When you perform a security test (red team), you are really testing the defenses in place. This could be the people,
+  process or technology responsible for securing your organization. Let's say you build an adversary profile that
+  locates sensitive files, stages them into a new directory, compresses the new directory and exfiltrates the final ZIP
+  out of the company network. This common attack chain is hard for a defensive solution to detect because it's comprised
+  of benign actions commonplace on a regular computer: finding and copying files and zipping up directories. This attack
+  could work against even the most security-focused person in your organization - and it should be resolved with a technical
+  security recommendation. Technology improvements should be a common result of performing a test and could be things like
+  re-configuring detection tools, installing a new solution, patching an unpatched computer, changing a default password
+  on an application, or setting up a zero-trust architecture to lessen your surface area in case of a breach.
+template:
+  name: input
+  data: []
+resources:
+  audio:
+    link: https://s3.amazonaws.com/operator.recordings/improve-your-tech.m4a
+  links:
+    ATT&CK: https://attack.mitre.org/tactics/enterprise/
+hints:
+  - The answer is given in the recording
+blocks: 
+  Exfiltration:  |
+    Exfiltration consists of techniques that adversaries may use to steal data from your network. Once they’ve collected data, 
+    adversaries often package it to avoid detection while removing it. This can include compression and encryption. Techniques 
+    for getting data out of a target network typically include transferring it over their command and control channel or an alternate 
+    channel and may also include putting size limits on the transmission.
+  Reconnaissance:  |
+    Reconnaissance consists of techniques that involve adversaries actively or passively gathering information that can be used to 
+    support targeting. Such information may include details of the victim organization, infrastructure, or staff/personnel. 
+    This information can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as using gathered 
+    information to plan and execute Initial Access, to scope and prioritize post-compromise objectives, or to drive and lead further 
+    Reconnaissance efforts.
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('edr'))
+  value: 1

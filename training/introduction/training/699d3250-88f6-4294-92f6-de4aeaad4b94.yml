@@ -1,0 +1,38 @@
+id: 699d3250-88f6-4294-92f6-de4aeaad4b94
+name: Welcome to Operator training
+challenge: Orient yourself with the course sidebar
+context: |
+  Training is broken into Programs -> Courses -> Challenges. A program is like a never-ending school degree. Operator
+  takes on you a continuous-learning journey aimed at keeping your skills up to date. There are multiple programs available,
+  starting with a free Introduction program, teaching you how to get the most out of your Operator instance. Within each
+  programs are courses. Similar to being in school, an Operator course is a subset of the overall program, aimed at
+  teaching you a specific area. Within each course are challenges. A challenge is like a pop quiz, complete with hints,
+  supplemental information and more. Please click on the informational blocks within each challenge (see below) for
+  supplemental information. What you read in these blocks will help you later in this program!
+template:
+  name: submit
+  data: []
+resources: {}
+hints: []
+blocks:
+  Click the grey dots!: |
+    Every time you load a course, you'll automatically be presented with the next challenge
+    to complete (until you've done them all and are ready to move on to another course or program).
+    But if you look at the bottom right of most sections, you'll see a series of grey dots
+    allowing you to complete challenges within the section they apply. These are the same challenges you'll find
+    here in the Introduction courses - but they're available within their respective sections so you can do them
+    without hopping back and forth to the training section.
+  Create your own training: |
+    Did you know you can create your own training programs inside Operator? If you have an Enterprise license, you can
+    build your own programs, courses and challenges, accessible only to your organization. This can be a great way to
+    build onboarding and continuous education that is specific to your org.
+  Features = Flags: |
+    As you progress using Operator, you will see your training percentage go down. This is because the development
+    the team here aims to create new flags for all major features. Keep an eye out for new flags to stay up to date!
+  Pink Badge: |
+    Pink Badge is a self-paced program which aims to append basic red team skills onto those working in
+    IT or InfoSec. If this is you, consider taking this program to bolster your skills. Pink Badge is free and should
+    take a few hours per week to complete.
+answer:
+  script: Number(0)
+  value: 0

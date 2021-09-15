@@ -1,0 +1,33 @@
+id: 5dcf668b-b3ad-4ee5-b595-c716baf79b2c
+name: Understand chaining
+challenge: Find the procedure named FILE.IO EXFIL. Notice how the command has a variable inside, denoted by
+  the "#{variable}" syntax. What is a procedure name which could fill in this variable with a fact?
+context: In Operator, a chain is the full operation of an adversary. The chain is composed of links, which are individual
+  procedures used in the attack. While the adversary is in progress Operator continuously attempts to
+  learn about the computers it is attacking and parses out information from every executed command. These parsed results
+  are called facts. Each fact could potentially unlock another procedure in the adversary profile by matching the fact key to
+  any variables in the command field. This means, the output of a procedure can be fed as input to other procedures,
+  therefore creating a dynamic operation.
+template:
+  name: input
+  data: []
+resources:
+  links: 
+    MITRE ATT&CK: https://attack.mitre.org
+    What is an adversary: https://attack.mitre.org/groups
+hints:
+  - Edit any adversary to bring up the TTP search
+  - Search for FILE.IO EXFIL. Locate the variable and note the technique ID required to fill it in.
+  - Search for technique T1560.001. These procedures can fill in the variable
+blocks:
+  Understanding the chain: |
+    Prelude considers each attack a chain, which is composed of 1-or-many links. Each link is a procedure which was used
+    within the attack. Each link is given a unique ID, which allows Prelude to track it through the platform and determine
+    what happened and how useful it was. As you construct adversary profiles, keep an eye on the variables inside the commands.
+    By leveraging how these can connect, you can build chained adversaries that use learned information to execute.
+  Read the docs!: |
+    The documentation section about chaining is a great resource on the topic of chains, links, facts and variables.
+answer:
+  script: |
+    Object.values(Attack.attack).filter(atk => atk.technique.id === 'T1560.001' && atk.name.toLowerCase() === $('#answer').val().toLowerCase()).length
+  value: 1

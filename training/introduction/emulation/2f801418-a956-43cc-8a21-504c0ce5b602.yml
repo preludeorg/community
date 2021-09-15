@@ -1,0 +1,35 @@
+id: 2f801418-a956-43cc-8a21-504c0ce5b602
+name: Reverse-shell interaction
+challenge: Can you open a reverse-shell to any Pneuma agent connected over TCP?
+context: To establish a typical remote shell, a machine controlled by the attacker connects to a remote network host
+  and requests a shell session – this is called a bind shell. But what if the remote host is not directly accessible,
+  for example because it has no public IP or is protected by a firewall? In this situation, a reverse shell might be
+  used, where the target machine initiates an outgoing connection to a listening network host and a shell session is
+  established. Reverse shells are often the only way to perform remote maintenance on hosts behind a NAT, so they have
+  legitimate administrative uses. However, they can also be used by cybercriminals to execute operating system commands
+  on hosts protected from incoming connections by a firewall or other network security systems.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Pneuma: https://github.com/preludeorg/pneuma
+    What is a reverse shell?: https://www.acunetix.com/blog/web-security-zone/what-is-reverse-shell/
+    Get to know Netcat: https://linuxize.com/post/netcat-nc-command-with-examples/
+hints:
+  - Use the grey dots you learned about earlier to complete this challenge while your reverse shell is active
+  - Look for the reverse-shell icon in the top navigation bar
+blocks:
+  Meterpreter (Metasploit): |
+    Meterpreter is a Metasploit attack payload that provides an interactive shell from which an attacker can explore
+    the target machine and execute code. Meterpreter is deployed using in-memory DLL injection. As a result,
+    Meterpreter resides entirely in memory and writes nothing to disk. Metasploit is one of the most popular
+    command-and-control (C2) frameworks on the 'net but is also one of the most signatured, meaning it is tricky to
+    use successfully with today's defenses. You are likely to run across the Meterpreter agent in the future but for
+    now, think of it as the Metasploit version of the Pneuma agent.
+  Beacon (Cobalt Strike): |
+    Beacon is Cobalt Strike's agent to model advanced attackers. Use Beacon to egress a network over HTTP, HTTPS, or DNS.
+answer:
+  script: |
+    Number(Agent.agents.filter(function(a) { return a.shell}).length) > 0
+  value: True

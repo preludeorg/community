@@ -1,0 +1,31 @@
+id: 50bcb70f-86c8-4b62-aa58-611831866173
+name: Autonomous hacking
+challenge: |
+  Fill in the blank: Prelude Operator contains a __ to make decisions while attacking a computer
+context: When a hacker, using their command-and-control (C2) center launches commands against connected (i.e., pwned)
+  computers it is known as an attack, or operation. Operator allows you to launch such attacks.
+  Furthermore, when an adversary launches an attack with intelligence bundled in, this is known as autonomous hacking.
+  Otherwise known as machine learning, intelligence allows the hacker to leverage automated decision-making to offload the
+  normally manual process. This could be for efficiency or speed.
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints:
+  - Did you read the documentation about how the brain works?
+blocks:
+  Automated planning: |
+    Automated planning and scheduling, sometimes denoted as simply AI planning, is a branch of artificial intelligence
+    that concerns the realization of strategies or action sequences, typically for execution by intelligent agents,
+    autonomous robots and unmanned vehicles.
+  Manual vs Automated Hacking: |
+    Penetration testers and red team operators have historically worked in a manual way: they identify their targets,
+    determine their context and how to hack them. Then they methodically execute their attack. Automated hacking, like
+    Operator, is meant to replace the 80%+ manual work that used to be done manually. Operator brings
+    speed, consistency, automatic reporting and a large number of TTPs in a growing knowledge bank. Which is the right
+    approach, manual or automated? It depends on your use case but automated should make up the bulk of your security
+    posture.
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: brain

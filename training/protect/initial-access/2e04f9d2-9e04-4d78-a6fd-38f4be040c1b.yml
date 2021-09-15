@@ -1,0 +1,38 @@
+id: 2e04f9d2-9e04-4d78-a6fd-38f4be040c1b
+name: Someone staged a phishing email
+challenge: |
+  Can you find the malicious email in your Downloads folder and find the embedded link URL?
+context: |
+  Phishing emails are designed to trick you into clicking on a link or downloading a file. The attacker is hoping that you
+  will click on the link, download the file, then run the file on your system. This attack pattern is extremely common and
+  a large number of attacks begin this way. Can you find the malicious link that the attacker wants you to click on? Submit
+  just the URL to that malicious file.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    - Venture Beat Phishing article: https://venturebeat.com/2021/07/23/phishing-attacks-get-smarter-as-targets-struggle-to-keep-up/
+hints:
+  - The link should point to an excel document
+  - You can find the staged email in your downloads folder
+  - Don't click on the link, figure out a way to get the URL without clicking on it
+blocks:
+  In the news: |
+    Phising campaigns are extremely wide spread and happening far more often in 2021. A poll of 1000 IT professionals revealed
+    74% of their organizations had fallen victim to phishing attacks within the last year. Phishing attacks
+    are expanding in terms of the types of devices they target now too; mobile devices are now ubiquitous targets for SMS
+    and emails based phishing attacks.
+  Your take away: |
+    Do not click on links in emails, particularly emails that look suspicious. Instead of clicking the link, copy the URL
+    to a text editor and manually inspect the link. If it looks legimate (meaning it matches what you would expect to see
+    in your organization), then carefully consider whether you truly need to click on the link.
+    <ol>
+      <li>Keep an eye out for unfamiliar files and report them to your IT staff immediately.</li>
+      <li>Do not click links in emails unless you recognize the link</li>
+      <li>When in doubt, DO NOT CLICK.</li>
+      <li>Attackers can make malicious files look like your real files, but there will be signs of manipulation, like the icon not matching other files of that type.</li>
+    </ol>
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: 'https://s3.amazonaws.com/operator.payloads.open/payloads/protect/stagers/Contact%2BInformation%2B(latest).xlsm'

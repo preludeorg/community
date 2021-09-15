@@ -1,0 +1,38 @@
+id: e1d51b67-e9bb-483f-b4f1-2ca5b24706ad
+name: Fully. Autonomous. Security.
+challenge: What Prelude tool offers fully autonomous red teaming?
+context: |
+  Operator is a fully autonomous red team platform, allowing you to install and forget it like an antivirus. Of course,
+  if you have the time and skills you can also use Operator as a manual security tool. There are several human-in-the-loop
+  capabilities (outlined below) which allow for varying levels of manual control. If you want to go fully autonomous however,
+  you'll want to install __. This tool will select an adversary chain on a
+  random time schedule (usually once per week). An adversary chain is a focused hack which would be a single component
+  within a larger attack. Adversaries will only run safe attacks - so no damage will occur to your computer. Instead,
+  you'll experience a safe continuous adversarial attack to see how you and your technology would react in the real world.
+  This tool is aimed at training users at how to behave better while on their computers, encouraging them to be more
+  aware of what a cyber attack looks like.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Prelude: https://prelude.org
+hints:
+  - Head to prelude.org and look around
+blocks:
+  Scheduling: |
+    If you don't want to rely on the randomly selected micro adversaries, you can build your own custom adversary profiles
+    and schedule them at any interval you want inside Operator.
+  Agent locking: |
+    If you aren't ready to go fully autonomous, look for the lock icon on each agent. Clicking this will queue all attacks
+    for the agent until you are able to approve them.
+  Editor mode (advanced): |
+    If you work on an existing security team, you may want to build your own attacks (TTPs). The Editor section allows you
+    to hop into an Integrated Development Environment (IDE) for building individual TTPs. Here, you can also edit and manipulate
+    any existing TTPs. This is meant to be your database of attacks.
+  Reverse shell: |
+    Go fully human-in-the-loop by opening a reverse-shell to any connected agent. This allows you to run any arbitrary
+    shell command.
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: protect

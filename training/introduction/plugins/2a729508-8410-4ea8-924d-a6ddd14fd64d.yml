@@ -1,0 +1,48 @@
+id: 2a729508-8410-4ea8-924d-a6ddd14fd64d
+name: Understanding plugins
+challenge: Install the Agent Library plugin and enter the name of the default agent
+context: |
+  A plugin in Operator is an HTML file, containing valid JavaScript and CSS components. Plugins allow you to extend
+  or override various components within Operator, putting you in full control of the system. Cyber security engineers -
+  or those who have security and software engineering backgrounds - often want to customize and extend popular open-source
+  projects. This can be a time-consuming process and any changes may get wiped out in a future update. Plugins allow a
+  safe, easy alternative. Engineers can extend using defined interfaces, allowing them to create extendable components,
+  leveraging existing code to quickly iterate on new features. Some plugins are available to community members,
+  while others are available to Professional or Enterprise license holders.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Cloud plugin: https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors
+hints:
+  - Have you read the documentation on plugins?
+blocks:
+  Cloud plugin: |
+    The Cloud plugin offers 3 functions: deploying redirectors so agents can reach your Operator instance over the
+    internet, deploying test computers for you to practice attacks on, deploying full test ranges with
+    open-source SIEM products to test your analytics on.
+  Agent Library plugin: |
+    The Agent Library plugin lists the types of agents you can deploy against your targets. Agents can be written
+    in any computer language and Operator offers a few out-of-the-box for you to use.
+  ART plugin: |
+    The Atomic Red Team (ART) plugin provides a quick import of all attack files from the popular ART repository.
+    Simply clone the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) and enter your directory
+    path in the plugin to convert the files into Operator-format. They will be immediately usable in an attack.
+  Publisher plugin: |
+    The Publisher plugin allows you to proxy results from your agents to a variety of data sources, such as Splunk,
+    Elastic Search, VECTR or even messaging apps like Slack and Discord.
+  Reports plugin: |
+    The Reports plugin gives you a rich reporting experience designed to lessen the burden of turning red team results
+    into action. This plugin not only correlates the results across all your agents, it also analyzes them to
+    automatically create security recommendations that you may not be aware of.
+  Switchboard plugin: |
+    The Switchboard plugin super-charges the redirectors you deploy from the Cloud plugin. Switchboard provides a
+    management interface which makes it easy for a team to share an agent deployed in the field. Switchboard supports
+    re-routing the network connection for any agent, including which Operator instance to direct the agent into.
+  SIEM plugin: |
+    The SIEM plugin connects to your Splunk SIEM and supplies an interface to verify if your saved queries (analytics)
+    are working or not. Use this plugin to quickly write new analytics and launch adversaries to test them.
+answer:
+  script: Basic.exists(Settings.settings.local.workspace+'/plugins'+'/AgentLibrary/AgentLibrary.html') && $('#answer').val().toLowerCase()
+  value: pneuma

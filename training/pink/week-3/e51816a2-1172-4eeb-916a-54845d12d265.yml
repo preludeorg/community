@@ -1,0 +1,33 @@
+id: e51816a2-1172-4eeb-916a-54845d12d265
+name: After-action report
+challenge: |
+  How many sections does the audio recording suggest should be in your report?
+context: |
+  Reporting is the natural output of a red team exercise. You first evaluate your security, identifying technical and
+    people (i.e., training) issues, then you make a plan to improve it. This after-action report should be brief and
+    to the point. It should clearly articulate the problems you found and your recommendations. For the latter, the report
+    should focus on short-and-long term security recommendations which have a finite "definition of done." So, instead
+    of having a recommendation of "train our employees to be smarter about security" you should identify a focus area such as
+    "train our employees at being able to identify suspicious files." A report should be written with management in mind, as
+    both a summary of your security posture and an action-item list of things to make it better.
+template:
+  name: input
+  data: []
+resources:
+  audio:
+    link: https://s3.amazonaws.com/operator.recordings/reports.m4a
+  links:
+    Report templates: https://redteam.guide/docs/templates/report_template/
+hints:
+  - The answer is given in the recording
+blocks:
+  Compiling data:  |
+    A traditional red team report is a written document that outlines the found issues and recommended improvements.
+    However, a modern report can come in many formats and displayed in many ways, such as websites. Operator has two
+    ways of creating dynamic reports for you, including recommendations. The first is through a Reports plugin (available
+    to Professional license holders) which compiles red team reports for you inside Operator itself. The second is through
+    a web portal at <a href="https://login.prelude.org">login.prelude.org</a> (available to Enterprise license holders)
+    which displays a high-level view of all the Operator instances in your organization.
+answer:
+  script: $('#answer').val()
+  value: 6

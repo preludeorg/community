@@ -1,0 +1,27 @@
+id: 0b044323-bf6b-4856-8d70-372942983aab
+name: A stealthy attack
+challenge: Deploy any adversary against any range of agents using base64 stealth. Enter any base64 command string which was executed.
+context: Adversaries often use various defense evasion techniques to hide from defenders. One common one is to
+  obfuscate their commands, so they look different, but actually have the same net behavior. Prelude calls this type of
+  obfuscation stealth. Stealth modules are modular and there are several built into the platform. Stealth helps an
+  adversary bypass keyword based detection capabilities. One such way to do this is to encode all commands with
+  the popular base64 method. This hides any of the plain-text words and makes the command appear jumbled in the logs.
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints:
+  - Look for the bullseye icon to select stealth modules
+  - Make sure you deploy an adversary which runs either a bash or PowerShell command
+blocks:
+  Base64: |
+    When you have some binary data that you want to ship across a network, you generally don't do it by just streaming
+    the bits and bytes over the wire in a raw format. Why? because some media are made for streaming text.
+    You never know -- some protocols may interpret your binary data as control characters (like a modem), or your
+    binary data could be screwed up because the underlying protocol might think that you've entered a special character
+    combination (like how FTP translates line endings). So to get around this, people encode the binary data into
+    characters. Base64 is one of these types of encodings.
+answer:
+  script: Number(btoa(atob($('#answer').val())) === $('#answer').val())
+  value: 1

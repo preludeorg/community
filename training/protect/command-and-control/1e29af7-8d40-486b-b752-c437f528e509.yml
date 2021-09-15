@@ -1,0 +1,25 @@
+id: 1e29af7-8d40-486b-b752-c437f528e509
+name: Malicious file dropped!
+challenge: |
+  When the malicious file was dropped, an automatic back-up of the file was made. What is the file extension of the back-up
+  file (or full filename)?
+context: |
+  Many attackers gain initial access (or escalate privileges) by tricking you into clicking on files that they have specially
+  built. Sometimes the attacker will attack the file to an email and hope you click on it, other times they will replace
+  an existing file with their malicious version. We have simulated the later by replacing your most recently used file in
+  your home directory with malicious version. Before we did that, we created a back-up to preserve the original file. Can
+  you find the malicious file and the back-up file?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints: []
+blocks:
+  In the news: |
+    Elara Claring, a large US healthcare provider, was breached in December 2020 and it was determined that the initial
+    access vector was phishing. The employees did not pay attention to the file that they downloaded and clicked on it
+    regardless. This directly led to over 100,000 individuals potentially having their data compromised.
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('.prelude-bak'))
+  value: 1

@@ -1,0 +1,14 @@
+id: introduction
+name: Introduction
+description: Learn how to use the Prelude Operator from start to finish
+courses:
+  - name: training
+    description: Things to know about the continuous learning programs
+  - name: documentation
+    description: Take a terminology tour of what you need to know
+  - name: emulation
+    description: Deploy agents & build and launch adversaries
+  - name: editor
+    description: 'Editing, managing and searching through procedures'
+  - name: plugins
+    description: 'Discover, build and import plugins'

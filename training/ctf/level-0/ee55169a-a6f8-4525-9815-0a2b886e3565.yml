@@ -1,0 +1,22 @@
+id: ee55169a-a6f8-4525-9815-0a2b886e3565
+name: Can you capture the flag?
+challenge: |
+  What group does the ec2-user have that starts with a "b"?
+context: |
+  You've compromised a server in the AWS cloud account of a client. Before doing anything that will get you detected,
+  you want to check the privileges of the compromised account. One thing you need to know are the groups the Linux
+  user belongs to. Can you find them?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints:
+  - You should complete this challenge from the Editor section or from the built-in reverse-shell
+blocks:
+  How to create the level: |
+    Go to the Cloud plugin and deploy a new redirector, ensuring it is enabled.
+    Then deploy a new Linux machine with the CTF-LEVEL-0A tool installed.
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: bunny

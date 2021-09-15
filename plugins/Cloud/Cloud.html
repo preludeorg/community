@@ -1,0 +1,397 @@
+<div class="profile-heading-container">
+    <div class="body">
+        <strong class="profile-heading">Cloud provisioning</strong>
+        <p>
+            Deploy new redirector gateways to accept beacons over the internet or compromised servers in the cloud.
+        </p>
+    </div>
+</div>
+
+<div id="cloud-div" class="loader-container">
+    <div id="aws">
+        <div class="label-text">
+            <p>I want to deploy a</p>
+            <select id="aws-platform"></select>
+        </div>
+        <div id="range-configs" style="display: none">
+            <div id="redirectors" class="label-text">
+                <p>Redirector</p>
+                <select id="select-redirector"></select>
+            </div>
+        </div>
+        <div id="aws-tools" class="profile-heading-container" style="background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
+            <div class="body" style="margin-bottom: 10px;">
+                <strong class="profile-heading">Payloads</strong>
+                <p>Select the payloads you want installed as soon as the host becomes available.</p>
+            </div>
+            <div id="aws-tools-listing"></div>
+        </div>
+        <button id="aws-deploy">Deploy</button>
+    </div>
+    <div id="gcp" style="display: none;">
+        <div class="label-text">
+            <p>I want to deploy a...</p>
+            <select id="gcp-platform">
+                <option value="gateway">Linux redirector</option>
+            </select>
+        </div>
+        <div id="gcp-tools" class="profile-heading-container" style="display: none; background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
+            <div class="body" style="margin-bottom: 10px;">
+                <strong class="profile-heading">Tools</strong>
+                <p>Select the tools you want installed as soon as the host becomes available.</p>
+            </div>
+            <div id="gcp-tools-listing"></div>
+        </div>
+        <button id="gcp-deploy">Deploy</button>
+    </div>
+    <div class="loader"></div>
+</div>
+
+<div id="init-plugin">
+    <script>
+        $('#configure-plugin').off('click.populateConfiguration');
+        Requests.fetchOperator('/internal/config/settings', {method: 'GET'}).then(res => res.json()).then(settings => {
+            $(document).ready(function () {
+                Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                    Events.bus.listeners('redirector:destroy').map(listener => {
+                        Events.bus.off('redirector:destroy', listener);
+                    });
+
+                    Events.bus.on('redirector:destroy', (ev) => {
+                        const host = ev.host;
+                        new Promise((resolve, reject) => {
+                            if (/.*amazonaws\.com$/gi.exec(host)) {
+                                let request = {
+                                    token: settings.account.token,
+                                    email: settings.account.email,
+                                    host: host,
+                                    config: {
+                                        key_name: path.basename(config.aws.key_name),
+                                        access_key_id: config.aws.access_key_id,
+                                        secret_access_key: config.aws.secret_access_key
+                                    }
+                                }
+                                Requests.fetchGatekeeper('/range/aws/gateway', {
+                                    method: 'DELETE',
+                                    body: JSON.stringify(request)
+                                }).then(resolve).catch(reject);
+                            } else {
+                                let request = {
+                                    token: settings.account.token,
+                                    email: settings.account.email,
+                                    host: host,
+                                    config: {
+                                        user_id: config.gcp.user_id,
+                                        project: config.gcp.project,
+                                        key_name: config.gcp.ssh_key,
+                                        rsa_key: JSON.parse(Basic.loadData(config.gcp.rsa_key))['private_key']
+                                    }
+                                }
+                                Requests.fetchGatekeeper('/range/gcp/gateway', {
+                                    method: 'DELETE',
+                                    body: JSON.stringify(request)
+                                }).then(resolve).catch(reject);
+                            }
+                        }).then(() => {
+                            Events.bus.emit('redirector:destroyed', {
+                                host: host,
+                                error: null
+                            });
+                        }).catch((err) => {
+                            Events.bus.emit('redirector:destroyed', {
+                                host: host,
+                                error: err
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</div>
+
+<script>
+    Requests.fetchOperator('/internal/config/settings', {method: 'GET'}).then(res => res.json()).then(settings => {
+        $(document).ready(function () {
+            buildOptions();
+            refreshPage();
+
+            $('#configure-plugin').on('click.populateConfiguration', populateConfigurationSidebar);
+
+            $('#aws-deploy').click((ev) => {
+                $("#cloud-div .loader").addClass("loading")
+
+                Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                    function rangeSuccess(d, request){
+                        $("#cloud-div .loader").removeClass("loading")
+                        Basic.showNotification('Deployed!', d.instance + ' may take several minutes to show up')
+                    }
+                    function tunnelSuccess(d, request){
+                        $("#cloud-div .loader").removeClass("loading")
+                        const seconds = 30;
+                        let redirector = {
+                            user: 'ubuntu',
+                            key: config.aws.key_name,
+                            availableAt: new Date(Date.now() + (1000 * seconds))
+                        }
+                        if (settings.account.license === 'professional') {
+                            redirector['password'] = request['password'];
+                        }
+
+                        Requests.fetchOperator('/internal/global/redirectors', {method: 'POST', body: JSON.stringify({
+                                [d.instance]: redirector
+                            })});
+                        Basic.showNotification('Success!', `Redirector provisioned! It will be available in ${seconds} seconds.`);
+                        refreshPage();
+                    }
+                    function failure(d){
+                        $("#cloud-div .loader").removeClass("loading")
+                        Basic.showNotification('Failed', d.responseText)
+                    }
+
+                    let request = {
+                        token: settings.account.token,
+                        email: settings.account.email,
+                        agent: 'pneuma',
+                        platform: $('#aws-platform').val(),
+                        callback: $('#select-redirector option:selected').val()+':'+settings.local.tcp_port,
+                        instance_count: 1,
+                        tools: $('#aws-tools [data-tool] option[value="1"]:selected').parents('[data-tool]').toArray().map(t => $(t).attr('data-tool')),
+                        config: {
+                            key_name: path.basename(config.aws.key_name),
+                            access_key_id: config.aws.access_key_id,
+                            secret_access_key: config.aws.secret_access_key
+                        }
+                    }
+                    let uri, success;
+                    let platformTarget = $('#aws-platform').val();
+                    if (platformTarget === 'gateway') {
+                        if (settings.account.license === 'professional') {
+                            request['password'] = crypto.randomBytes(16).toString('hex');
+                        }
+                        uri = '/range/aws/gateway';
+                        success = tunnelSuccess;
+                    } else {
+                        uri = '/range/aws';
+                        success = rangeSuccess;
+                    }
+                    Requests.fetchGatekeeper(uri, {
+                        method: 'POST',
+                        body: JSON.stringify(request)
+                    }).then(res => {
+                        if (res.status == 200) {
+                            res.json().then(res => success(res, request));
+                        } else {
+                            failure();
+                        }
+                    }).catch(failure);
+                });
+            });
+
+            $('#gcp-deploy').click((ev) => {
+                $("#cloud-div .loader").addClass("loading")
+
+                Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                    function tunnelSuccess(d){
+                        $("#cloud-div .loader").removeClass("loading")
+                        const redirector = {
+                            user: config.gcp.ssh_user,
+                            key: config.gcp.ssh_key
+                        }
+                        Requests.fetchOperator('/internal/global/redirectors', {method: 'POST', body: JSON.stringify({
+                                [d.instance]: redirector
+                            })});
+                        Basic.showNotification('Success!', 'Your redirector is now available')
+                        refreshPage()
+                    }
+                    function failure(d){
+                        $("#cloud-div .loader").removeClass("loading")
+                        Basic.showNotification('Failed', d.responseText)
+                    }
+
+                    let request = {
+                        token: settings.account.token,
+                        email: settings.account.email,
+                        config: {
+                            user_id: config.gcp.user_id,
+                            project: config.gcp.project,
+                            key_name: config.gcp.ssh_key,
+                            rsa_key: JSON.parse(Basic.loadData(config.gcp.rsa_key))['private_key']
+                        }
+                    }
+                    const uri = '/range/gcp/gateway';
+                    Requests.fetchGatekeeper(uri, {
+                        method: 'POST',
+                        body: JSON.stringify(request)
+                    }).then(res => {
+                        if (res.status == 200) {
+                            res.json().then(res => tunnelSuccess(res, request));
+                        } else {
+                            failure();
+                        }
+                    }).catch(failure);
+                });
+            });
+        });
+
+        function populateConfigurationSidebar(ev) {
+            const rightSidebar = $('#right-sidebar-plugin-configure');
+            Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                rightSidebar.find('.adversary-heading-container').after(`
+                        <div id="credential-content" class="label-text">
+                        <br>
+                        <h4>Credentials</h4>
+                        <hr>
+                        <br>
+                        <div class="loader-container">
+                        <div class="label-text">
+                            <p>Provider</p>
+                            <select id="cloud-provider">
+                                <option value="aws">Amazon Web Services (AWS)</option>
+                                <option value="gcp">Google Cloud Platform (GCP)</option>
+                            </select>
+                        </div>
+                        <div id="creds-aws">
+                            <div class="label-text">
+                                <p>AWS access key</p>
+                                <div class="input-wrapper"><input id="aws-access-key" type="password" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>AWS secret key</p>
+                                <div class="input-wrapper"><input id="aws-secret-key" type="password" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>Private key path</p>
+                                <div class="input-wrapper"><input id="aws-key" type="text" spellcheck="false" placeholder=""/></div>
+                            </div>
+                        </div>
+                        <div id="creds-gcp" style="display: none;">
+                            <div class="label-text">
+                                <p>Project ID</p>
+                                <div class="input-wrapper"><input id="project" type="text" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>Service account</p>
+                                <div class="input-wrapper"><input id="user_id" type="text" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>Service account key file path</p>
+                                <div class="input-wrapper"><input id="rsa_key" type="text" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>Project-wide SSH user</p>
+                                <div class="input-wrapper"><input id="ssh_user" type="text" spellcheck="false"/></div>
+                            </div>
+                            <div class="label-text">
+                                <p>Project-wide SSH key file path</p>
+                                <div class="input-wrapper"><input id="ssh_key" type="text" spellcheck="false"/></div>
+                            </div>
+                        </div>
+                        <button id="set-credentials">Save</button>
+                        <div class="loader"></div>
+                        </div>
+                    </div>`);
+
+                setCloudConfigFields(config);
+
+                $('#cloud-provider').on('change', (ev) => {
+                    Array.from(ev.target).forEach(opt => $('#' + opt.value).hide())
+                    Array.from(ev.target).forEach(opt => $('#creds-' + opt.value).hide())
+                    $('#' + ev.target.value).show();
+                    $('#creds-' + ev.target.value).show();
+                });
+
+                $('#set-credentials').click((ev) => {
+                    Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                        config['aws'] = {
+                            key_name: $('#aws-key').val(),
+                            access_key_id: $('#aws-access-key').val(),
+                            secret_access_key: $('#aws-secret-key').val()
+                        }
+                        config['gcp'] = {
+                            user_id: $('#user_id').val(),
+                            project: $('#project').val(),
+                            ssh_user: $('#ssh_user').val(),
+                            ssh_key: $('#ssh_key').val(),
+                            rsa_key: $('#rsa_key').val()
+                        }
+                        Requests.fetchOperator('/plugin/Cloud', {
+                            method: 'POST',
+                            body: JSON.stringify(config)
+                        }).then(alert('Credentials saved!'));
+                    });
+                });
+            });
+        }
+
+        function buildOptions(){
+            Requests.fetchGatekeeper(Basic.constructEndpoint('/range', {
+                email: settings.account.email,
+                token: settings.account.token
+            }), {
+                method: 'GET'
+            }).then(res => res.json()).then(res => {
+                $('#aws-platform').empty().append(
+                    Object.entries(res).map(([name, option]) =>
+                        $(`<option value="${name}">${option.display_name}</option>`).data('config', option))).trigger('change');
+            });
+        }
+
+        function refreshPage(){
+            Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
+                setCloudConfigFields(config);
+                $("#select-redirector").empty();
+                Requests.fetchOperator('/internal/global/redirectors', {method: 'GET'}).then(res => res.json()).then(redirectors => {
+                    Object.keys(redirectors).forEach(host => {
+                        $('#select-redirector').append(`<option value="${host}">${host}</option>`);
+                    })
+                }).then(() => {
+                    if (!(config?.aws || config?.gcp)) $('#configure-plugin').click();
+                });
+            });
+        }
+
+        $('#aws-platform').on('change', function (ev) {
+            $('#aws-tools').find('#aws-tools-listing').empty();
+
+            if (ev.target.value === 'gateway') {
+                $('#aws #range-configs').hide();
+
+                Requests.fetchGatekeeper(Basic.constructEndpoint('/payloads', {
+                    email: settings.account.email,
+                    token: settings.account.token
+                }), {
+                    method: 'GET'
+                }).then(res => res.json()).then(payloads => {
+                    Object.keys(payloads).filter(a => payloads[a].metadata?.description && !payloads[a].metadata.protocols).forEach(p => {
+                        const tool = $(`<div id="aws-tool-${p}" class="label-text" data-tool="${p}">
+                                <p style="font-family: PF Din Mono; font-size: 11px; font-weight: 600 !important; line-height: 24px; text-transform: uppercase; letter-spacing: 2px;">${p}</p>
+                                <span style="display: block; color: #999; font-size: 14px; font-weight: 100; margin: 0 0 5px;">${payloads[p].metadata.description}</span>
+                                <select>
+                                    <option value="1">Enabled</option>
+                                    <option value="0" selected="true">Disabled</option>
+                                </select>
+                            </div>`);
+                        $('#aws-tools').find('#aws-tools-listing').append(tool);
+                    });
+                });
+
+            } else {
+                $('#aws #range-configs').show();
+            }
+        });
+
+        function setCloudConfigFields(config) {
+            $('#aws-key').val(config.aws?.key_name || '');
+            $('#aws-access-key').val(config.aws?.access_key_id || '');
+            $('#aws-secret-key').val(config.aws?.secret_access_key || '');
+            $('#user_id').val(config.gcp?.user_id || '');
+            $('#project').val(config.gcp?.project || '');
+            $('#rsa_key').val(config.gcp?.rsa_key || '');
+            $('#ssh_user').val(config.gcp?.ssh_user || '');
+            $('#ssh_key').val(config.gcp?.ssh_key || '');
+            $('#enrollment-token').val(config.elastic?.enrollment_token || '');
+        }
+
+    });
+</script>

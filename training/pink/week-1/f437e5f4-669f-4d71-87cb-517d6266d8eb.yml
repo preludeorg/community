@@ -1,0 +1,34 @@
+id: f437e5f4-669f-4d71-87cb-517d6266d8eb
+name: Endpoint Detection & Response
+challenge: |
+  Fill in the blank: there are two types of EDR available, agent and __
+context: |
+  Modern defensive products have sprung up to catch adversaries who use tactics and techniques that evade antivirus. These
+  products are known as EDR and are designed to look for adversarial behavior on a computer, not file signatures like AV.
+  EDR programs run constantly in the background of a computer and send results back to a centralized logging server,
+  where the results are analyzed and generate alerts if bad behavior is seen. EDR tools are also programmed to respond in
+  real-time, to shut down known bad behavior when it is seen. This is the "response" part of EDR and similar to an antivirus,
+  malicious activities are often put in a sandbox for an administrator to look at and either confirm or mark as a false positive.
+  Most of the time, you should not use both antivirus and EDR on a workstation (laptop or computer) because they perform overlapping
+  duties and can slow down a computer (or worse, they'll each think the other is malicious!).
+template:
+  name: input
+  data: []
+resources:
+  audio:
+    link: https://s3.amazonaws.com/operator.recordings/edr.m4a
+  links:
+    Overview of EDR: https://en.wikipedia.org/wiki/Endpoint_detection_and_response
+hints:
+  - The answer is given in the recording
+blocks: 
+  Endpoints:  |
+    An endpoint is any device that is physically an 'end' point on a network. Examples include laptops, desktops, mobile phones,
+    servers and virtual environments. 
+  Detection & Response: |
+    D&R refers to the part of cybersecurity that enables organizations to monitor network traffic for malicious actors and 
+    suspicious behavior. EDR tools allows organizations to detect malicious traffic and perform automated or manual responses to 
+    the unique threat. 
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('agentless'))
+  value: 1

@@ -1,0 +1,21 @@
+id: 78524da1-f347-4fbb-9295-209f1f408330
+name: Microphone audio captured!
+challenge: |
+  Can you figure out how many seconds of audio were captured by the attacker?
+context: |
+  An attacker used your built-in microphone to record the audio in your room! They used a stealthy technique that involves
+  hiding the recording in a recycle bin/trash can to avoid tipping you off. Can you find the file and determine
+  how many seconds of audio the attacker recorded?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints: []
+blocks:
+  In the news: |
+    North Korean threat group (APT37 - Reaper) have a capability called SOUNDWAVE that allows them to capture audio from Windows
+    Systems. They have been seen capturing up to 100 minutes of audio using this tool.
+answer:
+  script: Number($('#answer').val())
+  value: 30

@@ -1,0 +1,19 @@
+id: 04ceaeb4-db4a-4411-a75d-7baaf9e77984
+name: Becoming more secure
+challenge: Click to start this week
+context: |
+  In this third week you will learn how to take the results from security testing and create a more secure environment
+  within your organization. There are two types of improvements you'll learn to make: technology and people. Many organizations
+  that do security testing don't do a good job at converting the results into action, so understanding the content this
+  week is critical. A red team exercise is of no value if it doesn't result in improving security.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Advanced reporting: https://feed.prelude.org/p/action-oriented-red-teaming
+hints: []
+blocks: {}
+answer:
+  script: Number(0)
+  value: 0

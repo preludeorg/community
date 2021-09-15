@@ -1,0 +1,40 @@
+id: 9e7b2d08-21bd-4244-ab46-243d597e5d29
+name: Human in the loop
+challenge: |
+   Can you lock an agent, deploy an adversary and enter the name of a procedure that is pending your approval?
+context: |
+  Operator's dock provides a wealth of opportunities and capability. One of these examples is the ability to design
+  complex attacks using a wide range of accessible TTPs and agent compatibility.
+  In cyber warfare, each attack has a purpose and a goal in mind. When paired with the agent locking functionality, an
+  operation's flexibility is expanded. Locking an agent allows the user to accept or reject procedures
+  on an individual basis, allowing the operator to inject themselves into the decision-making process. You would use this
+  feature if you want full control over every command that is sent to the agent.
+template:
+  name: input
+  data: []
+resources:
+  links:
+      Human-in-the-loop: https://appen.com/blog/human-in-the-loop/
+hints:
+  - Look for the lock icon
+  - Did you create and deploy an adversary?
+  - Did you know you can click into the 'pending' procedures
+blocks:
+  Human-in-the-loop: |
+    Human-in-the-loop is a branch of artificial intelligence that creates machine learning models by combining
+    human and machine intelligence. People are involved in a virtuous circle where they train, tune, and test a particular
+    algorithm in a classic human-in-the-loop technique. To begin, humans assign labels to data. This provides a model
+    with a large quantity of high-quality training data from which a machine learning system can use to learn to make decisions.
+    The model is then fine-tuned by humans. This can happen in a variety of ways, but the most typical is for humans to assess
+    data to correct for overfitting, teach a classifier about edge cases, or add new categories to the model's scope.
+    Finally, users can score a model's outputs to test and validate it, especially in cases where an algorithm is unsure
+    about a judgment or overconfident about an inaccurate choice.
+  Phases of a Red Team: |
+    There are operations in a 'cyber killchain' that include both pre- and post- compromise phases which follow a methodology.
+    Both Recon and Initial Access are common steps in the pre-compromise phase. Discovery, Persistence, Movement, PrivEsc, Exfiltration,
+    and Reports are all part of the post-compromise phase. Each stage has a specific goal that must be completed in order
+    to continue the attack. This is not an exhaustive list, but rather a general guideline for strike strategy.
+answer:
+  script: |
+    Number(Agent.agents.filter(function (a) { return a.locked && a.queue.filter(i => Attack.attack[i.ttp].name.toLowerCase() === $('#answer').val().toLowerCase()).length > 0 }).length > 0)
+  value: 1

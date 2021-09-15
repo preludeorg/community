@@ -1,0 +1,27 @@
+id: 13147806-dda3-4f21-be18-42b9627e5e27
+name: Password prompt
+challenge: |
+  Protect recently tried to trick you into giving up your password. What is the MITRE ATT&CK Tactic for Input Capture?
+context: |
+  When you do something on your computer that requires extra permisison, an input box "pops" on your screen and asks you
+  to enter your password to prove you are, in fact, you. Recently, an adversary on your computer popped a similar input
+  box - but this time unprompted. They were trying to trick you into giving up your password to a fake credential input
+  box! This is a common technique an adversary will do in order to capture your password in a way they hope you don't notice.
+  Many people just enter their password when prompted, not thinking whether they initiated the prompt or not. Before you
+  enter your credentials - even on your own computer - think to yourself, did I do anything to prompt this?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints: []
+blocks:
+  In the news: |
+    TrendMicro followed a phishing campaign targeting high-ranking executives during May 2020. The attackers would leverage
+    compromised infrastructure to host fake Office 365 login pages in order to steal credentials from unsuspecting users.
+    The attackers were sending emails with fake Office 365 password expiration reports as lures, prompting targets to click
+    the embedded link in the email if they want to continue using the same password; choosing the “Keep Password” option
+    leads the user to the phishing page (Source: TrendMicro, see attached link).
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: 'credential access'

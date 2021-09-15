@@ -1,0 +1,33 @@
+id: ff6a1861-edf1-41a1-b00f-7a3d3ed58545
+name: Serve on all interfaces
+challenge: Can you ensure this desktop app is being served on all IPv4 interfaces?
+context: |
+  A network interface is the point of interconnection between a computer and a private or public network. A network
+  interface is generally a network interface card (NIC), but does not have to have a physical form.
+  Instead, the network interface can be implemented in software. By default, Prelude serves the desktop application
+  only on localhost, which means the listening posts (tcp/udp/http) can only be accessed by processes on the computer
+  itself. By serving on all interfaces, Prelude Operator is able to accept connections from other computers. This is a
+  requirement if you plan on running agents on computers that are different from the one running this application.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    localhost vs all zeros: https://www.howtogeek.com/225487/what-is-the-difference-between-127.0.0.1-and-0.0.0.0/
+    Understanding IP addresses: https://www.howtogeek.com/341307/how-do-ip-addresses-work/
+    The OSI model: https://en.wikipedia.org/wiki/OSI_model
+hints:
+  - Check your Exposed IP value
+  - Did you save your changes?
+blocks:
+  0.0.0.0: |
+    0.0.0.0 is a non-routable meta-address used to designate an invalid, unknown or non applicable target (a no
+    particular address placeholder). In the context of a route entry, it usually means the default route. In the
+    context of servers, 0.0.0.0 means "all IPv4 addresses on the local machine".
+  127.0.0.1: |
+    The IP address 127.0.0.1 is a special-purpose IPv4 address and is called the localhost or loopback address.
+    All computers use this address as their own, but it doesn't let computers communicate with other devices as a real
+    IP address does.
+answer:
+  script: Settings.settings.local.server
+  value: 0.0.0.0

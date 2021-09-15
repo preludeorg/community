@@ -1,0 +1,31 @@
+id: cceab224-9179-4e02-b7cd-96fe2f1bb001
+name: Scanning for vulnerabilities
+challenge: |
+  What is the acronym used to catalog known vulnerabilities?
+context: |
+  Vulnerability scanning is the process of locating known security vulnerabilities in applications. When security
+  researchers find a security issue in an application, they will work with the author of the app to resolve it, in a
+  process known as responsible disclosure. Once the author patches the vulnerability, they will release a patch to all
+  users and credit the researcher with finding the bug. Often the researcher will be paid through a "bug bounty" program.
+template:
+  name: input
+  data: []
+resources:
+  audio:
+    link: https://s3.amazonaws.com/operator.recordings/vulnerability-scanning.m4a
+  links:
+    Vulnerability scanner: https://en.wikipedia.org/wiki/Vulnerability_scanner
+    Cyber Security Education Problem: https://feed.prelude.org/p/the-cybersecurity-education-problem
+hints:
+  - The answer is given in the recording
+blocks: 
+  Authenticated scan:  |
+    These scans occur when permission is given to directly access network based assets using remote admin protocols (like SSH).
+    This allows the scanner to access lower-level data, such as configuration details. The accuracy of these scans tend to be high
+    because the low-level access provides fidelity into configuration issues and missing software patches. 
+  Unauthenticated scan:  |
+    These scans occur without permission to directly access network assets. Threat actors or security analysts will typically 
+    perform unauthenticated scans to determine the security posture of externally accessible assets. 
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('cve'))
+  value: 1

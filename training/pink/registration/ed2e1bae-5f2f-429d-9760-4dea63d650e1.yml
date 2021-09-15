@@ -1,0 +1,51 @@
+id: ed2e1bae-5f2f-429d-9760-4dea63d650e1
+name: Register for the course
+challenge: |
+  Fill out your profile details to register for this course
+context: |
+  In order for us to provide the best training experience, we request a few details about you and your professional background.
+  This not only helps us adjust our curriculum moving forward, we will reference your profile in future conversations
+  with you. Head to https://login.prelude.org and fill out your personal profile to get started.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Prelude Research: https://prelude.org
+    Discord server: https://discord.gg/NWURE99JzE
+    YouTube library: https://www.youtube.com/channel/UCZyx-PDZ_k7Vuzyqr4-qK9A
+    Blog: https://feed.prelude.org
+hints:
+  - Ensure your profile is saved at login.prelude.org
+blocks:
+  What will this program teach me?: |
+    By taking the Pink Badge training program, you will learn the basic components that make up cybersecurity. You will
+    learn the tools and processes that are commonly used to secure today's workplace and you will dive deeper into the
+    mysterious world of red teaming - or computer hacking for good. This multi-week, self-paced program will walk you
+    through deploying agents on target computers, crafting attacks, building adversary profiles and the process of converting the
+    results of a red team exercise into action. The program is geared toward existing IT or InfoSec professionals, who are
+    charged with securing organizations but may not have access or education in the cutting-edge tools and processes used
+    by larger enterprises or governments. Our goal is that you can use your new skills to secure your organization.
+  What is login.prelude.org? : |
+    The Operator platform leverages login.prelude.org as an authentication server and content provider. We call this server
+    GateKeeper. Aside from verifying your login info, GateKeeper supplies all training modules and keeps your TTP
+    database up-to-date by automatically pulling down TTPs from the Community and Professional repositories. Within
+    the GateKeeper UI, you can manage several personal details, such as your profile and what organizations you belong to.
+  What should I expect?: |
+    Each week, you will face multiple challenges in a capture-the-flag style. You will need to prove your knowledge by
+    "capturing" each flag. Some will be easy, and test your reading comprehension, others will be difficult and will
+    validate your capability behind the keyboard. Each week should take 1-2 hours to complete, with the exception of
+    week 2 which is more robust and can take 5-10 hours. Many flags will include recordings with first-hand
+    accounts of red team work in the field by experienced professionals.
+answer:
+  script: |
+    new Promise((resolve, reject) =>
+        Requests.fetchGatekeeper(Basic.constructEndpoint('/profile', {
+            email: Settings.settings.account.email,
+            token: Settings.settings.account.token
+        }), {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(res => resolve(Number(Boolean(res.title)))))
+  value: 1

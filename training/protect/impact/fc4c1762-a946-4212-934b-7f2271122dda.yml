@@ -1,0 +1,25 @@
+id: fc4c1762-a946-4212-934b-7f2271122dda
+name: Ransom note!
+challenge: |
+  A hacker dropped a ransom note on your computer. What's the name of the file?
+context: |
+  You should always be on the look out for unfamiliar files on your computer. If you notice a new
+  file in one of your common directories, such as Downloads or Documents, you should be cautious.
+  When an attacker executes a ransomware attack, they will encrypt all of your files and
+  leave a message behind with directions on how to pay in order to decrypt them. We simulated this behavior by leaving a ransom
+  note on your computer. Can you locate it and enter the name of the note?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints: []
+blocks:
+  In the news: |
+    In May 2021, Colonial Pipeline - who is in charge of half of the U.S. fuel supply on the East Coast - fell victim to a
+    ransomware attack. The hackers stole and then held a reported 100GB of data ransom, leaving a ransom note behind on
+    a computer an employee discovered shortly after the attack. Colonial Pipeline ended up paying the ransom, an estimated
+    $4.4 million, in order to unlock their files and restore order to the fuel supply.
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: instructions.txt

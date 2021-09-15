@@ -1,0 +1,56 @@
+id: 7ad84c09-dfa9-431d-a273-908cdbacbae2
+name: Get to know Pneuma
+challenge: Can you deploy 3 instances of Pneuma simultaneously, using HTTP, TCP, and UDP?
+context: |
+  The Pneuma agent is a multi-purpose agent which is written to be a full example of how you can build your own agents.
+  Without building your own, you can still use Pneuma to run highly effective red team assessments. Written in GoLang,
+  Pneuma supports all major operating systems and has a built-in TCP connector, meaning it can open up a persistent
+  connection between itself and Operator. TCP is the default protocol used by Pneuma, and is arguably the most common
+  protocol used by adversaries in the wild. Through TCP, Pneuma can do two things: allow a user to open reverse shells
+  to itself and allow an attacker to launch blazing-fast autonomous hacks. Aside from TCP, Pneuma offers the ability
+  to connect to Operator over HTTP, and UDP.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Pneuma: https://github.com/preludeorg/pneuma
+    HTTP explained: https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+    TCP vs UDP: https://www.privateinternetaccess.com/blog/tcp-vs-udp-understanding-the-difference/
+    Understanding TCP: https://en.wikipedia.org/wiki/Transmission_Control_Protocol
+    What is an API?: https://www.howtogeek.com/343877/what-is-an-api/
+hints:
+  - Have you downloaded the Pneuma agent from the Agent Library plugin?
+  - From a terminal, run the agent with the -help flag to see the options
+  - You will need to change the contact and address parameters for non-TCP agents
+  - The HTTP contact requires "http" to be part of the address
+blocks:
+  Remote Access Trojan: |
+    A Remote Access Trojan (RAT) is a type of malware that allows covert surveillance, a backdoor for
+    administrative control and unfettered and unauthorized remote access to a victim’s machine. The RAT is very dangerous
+    because it enables intruders to get remote control of the compromised computer. Attackers can use the exploited
+    machines to perform various malicious activities such as installing and removing programs, manipulating files,
+    hijacking the webcam, reading data from the keyboard, harvesting login credentials and monitoring the clipboard.
+  Download Pneuma: |
+    There are two ways you can download Pneuma. The Agent Library plugin within this app (easy) and compiling your
+    own agent from the GitHub source code (medium).
+  Name your agent: |
+    It is possible to pass values from the command line to Pneuma when it is started. These values are called
+    command line arguments and may be needed if you are switching contact points or other parameters. You can
+    view the optional arguments by passing -help to the agent when running it. One argument you can pass will give your
+    agent a custom name. If you don't use this, Pneuma will create a random name for you. Note: you can only have 1 agent in
+    Operator with a given name.
+  HTTP explained: |
+    One of recent trends in command-and-control operations is to hide C2 behind HTTP/HTTPS. Because most
+    computers do a heavy amount of network requests, both to the internet and locally, it is easy to hide in the
+    traffic. Attackers will often model their C2 over HTTP to look like a typical API, so it will blend in with all of
+    the desktop applications and other programs using APIs.
+answer:
+  script: |
+    function aPlatforms(a){ return a.platform; }
+    function aProtocols(a){ return a.handler.name; }
+    let online = Agent.agents.filter(a => a.state === Agent.StateEnum.online);
+    let platforms = new Set(online.map(aPlatforms));
+    let protocols = new Set(online.map(aProtocols));
+    Number(online.length >= 3 && protocols.size >= 3);
+  value: 1

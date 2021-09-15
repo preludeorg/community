@@ -1,0 +1,23 @@
+id: 6016ed-1e05-4e08-976e-44fdbdc9ef37
+name: Desktop screenshots captured!
+challenge: |
+  Can you figure out how many screenshots were taken of your system during the attack?
+context: |
+  Someone took several screenshots of your desktop! The attacker is hoping to find sensitive data (like passwords) in plain text
+  on your desktop, but the attacker still needs a way to view the screenshots. All of the screenshots were staged in a
+  folder, then the folder was archived somewhere where it would be easily accessible to the attacker. Can you find the archived
+  folder and determine how many screenshots the attacker managed to take?
+template:
+  name: input
+  data: []
+resources:
+  links: []
+hints: []
+blocks:
+  In the news: |
+    Advanced Persistent Threat (APT) 28, an attacker group from Russia's General Staff Main Intelligence Directorate (GRU),
+    have used their X-Agent malware's screenshot functionality to monitor and surveil the Democratic Congressional Campaign
+    Committee's (DCCC) computers in 2016.
+answer:
+  script: Number($('#answer').val())
+  value: 5

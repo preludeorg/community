@@ -1,0 +1,27 @@
+id: 03e3e43c-4cb3-4267-bfa9-4d0f63762032
+name: Breaking down security
+challenge: |
+  Click to start this week
+context: |
+  In this first week you will learn the overarching concepts that will continue through the entire Pink Badge program.
+  We will cover terminology, components of security and more. In this first week, you will learn about the different
+  categories that make up cybersecurity, from antivirus to vulnerability scanning to red team operations. Submit this flag when
+  you're ready to begin.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Getting started: https://feed.prelude.org/p/what-is-prelude-operator
+    Why Prelude exists: https://feed.prelude.org/p/why-prelude-exists
+    Bottom up: https://feed.prelude.org/p/serving-from-the-bottom-up
+    Typical use case: https://feed.prelude.org/p/holding-yourself-ransom
+hints: []
+blocks: 
+  The Security Skills Stack:  |
+    Security is becoming a core part of what has been known as the 'technology stack'. In the near future, security skills will be
+    required for developers to perform their day-to-day job. Pink Badge has been designed to append security skills onto any technical practitioner,
+    creating a new 'security skills stack'.
+answer:
+  script: Number(0)
+  value: 0

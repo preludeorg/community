@@ -1,0 +1,6 @@
+[submodule "payloads/pneuma"]
+	path = payloads/pneuma
+	url = git@github.com:preludeorg/pneuma.git
+[submodule "payloads/nicodemus"]
+	path = payloads/nicodemus
+	url = git@github.com:preludeorg/nicodemus.git

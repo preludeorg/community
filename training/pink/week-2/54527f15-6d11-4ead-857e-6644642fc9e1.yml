@@ -1,0 +1,20 @@
+id: 54527f15-6d11-4ead-857e-6644642fc9e1
+name: Agents, attacks and adversaries
+challenge: |
+  Click to start this week
+context: |
+  In this second week, you will learn all about the agents that carry out attacks while under the control of adversaries.
+  This week will be challenging. You'll capture more than 20 flags as you learn how to leverage Operator to conduct realistic
+  purple team exercises for your organization. You'll even dive into Cyber Threat Intelligence (CTI) and design your own
+  custom adversary profiles emulating real world attacks.
+template:
+  name: submit
+  data: []
+resources:
+  links:
+    Operator architecture: https://feed.prelude.org/p/the-architecture-of-it-all
+hints: []
+blocks: {}
+answer:
+  script: Number(0)
+  value: 0

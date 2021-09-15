@@ -1,0 +1,42 @@
+id: 79c1cf88-b321-45af-a157-a245de29ddc0
+name: Port check
+challenge: Which port is being used as the default TCP listening post?
+context: Prelude Operator serves several listening posts on the computer where it is running. A listening post is simply an
+  open port which accepts traffic over a specific protocol. Listening posts are the connection points that remote
+  access trojans use to talk to the command-and-control center. TCP is one of the most popular
+  connection-based protocols and as such, Operator opens a port for this protocol. Aside from TCP, the app
+  also opens up UDP and HTTP ports for agents to communicate over.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    About TCP: https://en.wikipedia.org/wiki/Transmission_Control_Protocol
+    About UDP: https://en.wikipedia.org/wiki/User_Datagram_Protocol
+    About HTTP: https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+hints:
+  - Check the Account section
+blocks:
+  TCP/IP: |
+    TCP/IP, or the Transmission Control Protocol/Internet Protocol, is a suite of communication protocols used to
+    interconnect network devices on the internet. TCP/IP can also be used as a communications protocol in a private
+    computer network (an intranet or an extranet). The entire Internet Protocol suite -- a set of rules and procedures
+    -- is commonly referred to as TCP/IP. TCP and IP are the two main protocols, though others are included in the suite.
+    The TCP/IP protocol suite functions as an abstraction layer between internet applications and the routing/switching
+    fabric.
+  UDP: |
+    In computer networking, the User Datagram Protocol is one of the core members of the Internet protocol suite.
+    The protocol was designed by David P. Reed in 1980.
+    UDP is a stateless connection protocol, which means that it is incapable of maintaining two-way
+    communications with an endpoint (like TCP). UDP is useful in communications where it is acceptable to lose some of the
+    messages in transit. Services like video conferencing and routers often use UDP. Prelude Operator serves a single UDP
+    listening post, so agents can send in beacons. The pneuma agent can send beacons into this post, which serve as
+    heart-beat messages (indications that the agent is still alive). At this time however, the pneuma agent cannot
+    receive messages back (the pong to the ping) through the UDP listening post.
+  HTTP: |
+    HTTP is simply the name of the most popular protocol for communicating on the web, and browsers mostly talk via
+    HTTP when communicating with servers. An HTTP exchange involves the client (our browser) sending a request, and the
+    server replying back with a response.
+answer:
+  script: $('#answer').val()
+  value: 2323

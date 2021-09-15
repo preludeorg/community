@@ -1,0 +1,32 @@
+id: e573a081-0fc3-49b3-b039-cd72e3772a62
+name: Community vs Professional
+challenge: Enter a TTP ID that is only available to professional license holders?
+context: |
+  You may have read about the Community and Professional licenses by now but here's a little bit more information. The
+  Community repository is the open-source arm of the Prelude Operator. It contains dozens of free procedures, all ready to
+  be used within the platform. These procedures are reloaded everytime you open the app and are accessible within a few
+  hours of them being merged into the GitHub repository. These procedures also have tags, which help group them into
+  usable collections to build adversary profiles. Operator also has a closed-source collection of procedures
+  and tags in the Professional license, which will auto-populate inside your platform if you have a license.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Community: https://www.prelude.org/platform/community
+    Professional: https://www.prelude.org/platform/professional
+hints:
+  - You can view TTPs within the Editor section
+  - Find a TTP marked with a professional tag
+  - Copy the ID, which should be a UUID string
+blocks:
+  Community license: |
+    The Community repository has dozens of TTPs, organized by ATT&CK tactics. This repository
+    gets new additions consistently and contributions are welcomed. Shortly after new TTPs get merged into Community,
+    they will appear here, in the desktop application, ready to be used.
+  Professional license: |
+    If you have a Professional license to Operator, in addition to the TTPs you get in the Community repository your
+    Operator instance will be continuously loaded with hundreds of closed-source procedures.
+answer:
+  script: Number(Attack.attack[$('#answer').val()].metadata.license === 'professional')
+  value: 1

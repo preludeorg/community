@@ -1,0 +1,53 @@
+id: 3abff28a-e1c0-498f-a273-0ab8e627d122
+name: Run your first operation
+challenge: |
+  Can you build an adversary and deploy it against your "home" computers? Enter the link ID of any completed TTP.
+context: |
+  Operator is a command-and-control (C2) platform that allows you to run threat assessments against any
+  computer - or range of computers. This process is known as red teaming and it is the backbone of advanced
+  cybersecurity. With a little bit of training, the red team process can also be executed by those on the defensive
+  side (blue teamers) or those working in Information Technology and Security (InfoSec). Operator includes
+  training to teach technical professionals how to do this. Complete this Capture The Flag (CTF) challenge to get
+  started. Use the extra info below for pointers and the resources for extended learning.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Understanding TTPs: https://attack.mitre.org
+    TTPs can include malware: https://attack.mitre.org/software
+    Adversary = Groups: https://attack.mitre.org/groups
+hints:
+  - Did you create an adversary and add at least 1 TTP?
+  - Make sure at least one TTP is completed. You should see it as a row when you click into the agent section.
+  - You will find the link ID when you click on a completed TTP (row) in the agent section.
+  - You should be looking for a UUID-4
+blocks:
+  What is a TTP?: |
+    TTP stands for Tactics, Techniques and Procedures, which is a military term used to describe different strategies
+    of an operation. In red teaming, a TTP is used as shorthand to describe a single micro-attack, sometimes referred
+    simply as a procedure. All TTPs inside Operator are safe to run by default. The ones that could
+    create an unintended effect on your computer are marked as "destructive" and require you to enable them before use.
+  What is an adversary?: |
+    An adversary is a collection of TTPs. Sometimes, and adversary is designed to emulate a known Advanced Persistent
+    Threat (APT) group. Other times, an adversary is simply an unorganized set of TTPs.
+  What is an agent?: |
+    An agent, otherwise known as a Remote Access Trojan, is a piece of malicious software running on a target computer.
+    The agent is responsible for executing an adversary's instructions - or TTPs. Operator includes a safe built-in
+    agent known as ThirdEye. ThirdEye will appear in your home computer range and will be labeled as the host name of your
+    computer.
+  What is an operation: |
+    In Operator lingo, an operation is a full execution of an adversary. When you click "Deploy" on an adversary, when
+    it completes, so does the operation.
+  Understanding a link ID: |
+    We like to think of each adversary as containing a "chain" of potential TTPs to run. And when each one completes we
+    refer to it as a link. Each link is given a unique identifier which you will see next to the output of the TTP itself.
+answer:
+  script: |
+    Agent.agents.filter(function(a) {
+        let links = a.links.filter(function(l) {
+            return l.unique.toLowerCase() === $('#answer').val().toLowerCase()
+        })
+        return links.length > 0
+    }).length
+  value: 1
