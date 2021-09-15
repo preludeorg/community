@@ -1,6 +1,6 @@
-# Community Bucket
+# Community
 
-The Prelude Community Bucket holds all open-source TTPs, payloads, plugins and training modules for the Operator platform.
+Prelude Community holds all open-source TTPs, payloads, plugins and training modules for the Operator platform.
 
 > Prelude Operator is a command-and-control (C2) center which allows you to run manual to semi-autonomous security assessments
 > Watch our quick [introduction video](https://www.youtube.com/watch?v=Hz8K-jdqpBY)
@@ -15,7 +15,7 @@ When you boot up Operator, it loads the resources from this repo into your appli
 
 If you'd like to use this repository outside of Operator, clone it recursively:
 ```
-git clone git@github.com:preludeorg/bucket.git --recursive
+git clone git@github.com:preludeorg/community.git --recursive
 ```
 
 ## Operator licenses
