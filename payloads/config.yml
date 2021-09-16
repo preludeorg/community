@@ -70,7 +70,7 @@ nicodemus:
   metadata:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
     build: |
-      docker run --rm -v REPO.CWD:/usr/local/src -w SRC.PATH chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
+      docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
       cp SRC.PATH/payloads/* DST.PATH;
     platforms:
       - windows
