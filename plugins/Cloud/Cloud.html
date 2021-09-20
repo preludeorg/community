@@ -143,7 +143,7 @@
                             key: config.aws.key_name,
                             availableAt: new Date(Date.now() + (1000 * seconds))
                         }
-                        if (settings.account.license === 'professional') {
+                        if (settings.account.license === 'professional' && request['password']) {
                             redirector['password'] = request['password'];
                         }
 
@@ -176,7 +176,9 @@
                     let platformTarget = $('#aws-platform').val();
                     if (platformTarget === 'gateway') {
                         if (settings.account.license === 'professional') {
-                            request['password'] = crypto.randomBytes(16).toString('hex');
+                            if ($('#aws-tools [data-tool] option[value="1"]:selected').parents('[data-tool]').toArray().map(t => $(t).attr('data-tool')).indexOf('switchboard/switchboard') > -1) {
+                                request['password'] = crypto.randomBytes(16).toString('hex');
+                            }
                         }
                         uri = '/range/aws/gateway';
                         success = tunnelSuccess;
