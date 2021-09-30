@@ -3,7 +3,7 @@ name: Dump tokens from secrets
 description: >-
   A Secret is an object that contains a small amount of sensitive data such as a
   password, a token, or a key. This ttp will grab all secrets on a container or
-  pod and parse out the "token", remove duplicates and output to a text files.
+  pod and parse out the "token", remove duplicates and output to a text file.
 tactic: credential-access
 technique:
   id: T1552.001
