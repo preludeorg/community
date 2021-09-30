@@ -1,0 +1,23 @@
+id: 69d9ec0d-1312-4c1b-94e6-246ddf8cce75
+name: Dump tokens from secrets
+description: >-
+  A Secret is an object that contains a small amount of sensitive data such as a
+  password, a token, or a key. This ttp will grab all secrets on a container or
+  pod and parse out the "token", remove duplicates and output to a text files.
+tactic: credential-access
+technique:
+  id: T1552.001
+  name: Credentials In Files
+platforms:
+  global:
+    sh:
+      command: >-
+        kubectl get secrets -A -o yaml | grep " token:" | sort | uniq >
+        tokenDump.txt
+metadata:
+  authors:
+    - bfuzzy1
+  tags:
+    - kubernetes
+  version: 1
+  enabled: true
