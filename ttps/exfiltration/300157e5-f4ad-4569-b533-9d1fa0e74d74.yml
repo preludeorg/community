@@ -7,7 +7,8 @@ metadata:
   tags:
   - Crown Jewels
   chains:
-  - File Hunter
+    operate:
+    - File Hunter
   release_date: 2021-08-19
 name: Compress staged directory
 description: |

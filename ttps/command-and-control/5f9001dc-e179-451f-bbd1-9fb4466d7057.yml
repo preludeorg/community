@@ -5,7 +5,8 @@ metadata:
   - privateducky
   tags: []
   chains:
-  - JXA access
+    operate:
+    - JXA access
   release_date: 2021-08-25
 name: Download pneuma
 description: |

@@ -27,5 +27,6 @@ metadata:
   tags:
   - hafnium
   chains:
-  - Conti (Discovery)
+    operate:
+    - Conti (Discovery)
   release_date: 2021-08-19
