@@ -7,7 +7,7 @@ description: >-
 tactic: credential-access
 technique:
   id: T1552.001
-  name: Credentials In Files
+  name: Unsecured Credentials: Credentials In Files
 platforms:
   global:
     sh:
@@ -20,4 +20,3 @@ metadata:
   tags:
     - kubernetes
   version: 1
-  enabled: true
