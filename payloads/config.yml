@@ -123,7 +123,7 @@ ttps:
     purpose: data
     src_path: ttps/
     build: |
-      zip -r DST.PATH/ttps-source.zip .
+      zip -r DST.PATH/community-ttps-source.zip .
   payloads:
-    ttps-source.zip:
+    community-ttps-source.zip:
       shortname: Community TTP Files
