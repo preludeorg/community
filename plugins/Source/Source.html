@@ -1,0 +1,44 @@
+<style>
+    #right-sidebar-readme pre code {
+        padding: 0;
+        box-shadow: none;
+        background: none;
+    }
+    #right-sidebar-readme pre {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    #right-sidebar-readme a {
+        color: #fff;
+    }
+</style>
+<div id="source-code-container" class="loader-container">
+    <div class="profile-heading-container">
+        <div class="body">
+            <strong class="profile-heading">Download source code</strong>
+            <p>
+                Words are hard.
+            </p>
+        </div>
+    </div>
+    <ul id="tools" class="horizontal-list cf"></ul>
+    <div class="loader"></div>
+</div>
+
+<li id="source-code-template" class="profile" style="position: relative; display:none;margin:10px 0">
+    <div class="description">
+        <h3 id="code-name" class="split"><span class="main"></span></h3>
+        <p id="code-url"></p>
+    </div>
+</li>
+
+<div id="right-sidebar-readme" class="right-sidebar-half loader-container doc-block" style="display:none">
+    <div id="readme"></div>
+    <div class="loader"></div>
+</div>
+
+<script>
+    Requests.fetchOperator('/internal/config/settings', {method: 'GET'}).then(res => res.json()).then(settings => {
+
+    });
+</script>

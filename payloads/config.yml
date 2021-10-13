@@ -50,6 +50,11 @@ pneuma:
         $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
         Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
+    source:
+      install: |
+        // git archive something something
+        // package up the source
+        // copy to the dst folder
 
 schism:
   metadata:
