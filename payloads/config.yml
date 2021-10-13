@@ -3,7 +3,8 @@ translators:
     description: Extra Operator listening posts for redirectors
     purpose: redirector
     build: |
-      tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
+      tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc && \
+      zip -r DST.PATH/ftp-source.zip SRC.PATH/ftp && zip -r DST.PATH/grpc-source.zip SRC.PATH/grpc;
   payloads:
     ftp.tar.gz:
       install: |
@@ -19,6 +20,8 @@ translators:
         tar xzf /tmp/translators/grpc.tar.gz -C /tmp/translators && \
         sudo pip3 install -r /tmp/translators/grpc/requirements.txt && \
         nohup sudo python3 /tmp/translators/grpc/server.py &
+    ftp-source.zip: {}
+    grpc-source.zip: {}
 
 pneuma:
   metadata:
@@ -28,7 +31,7 @@ pneuma:
       GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
       GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
       GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go && \
-      git archive --format zip --output "DST.PATH/pneuma-source.zip" master && cp SRC.PATH/pneuma-source.zip DST.PATH;
+      git archive --format zip --output "DST.PATH/pneuma-source.zip" master;
     platforms:
       - linux
       - windows
@@ -58,7 +61,7 @@ schism:
     description: Simple FTP agent (requires a translator)
     purpose: agent
     build: |
-      zip -r DST.PATH/schism-source.zip DST.PATH && \
+      zip -r DST.PATH/schism-source.zip SRC.PATH && \
       cp SRC.PATH/* DST.PATH;
     platforms: 
       - windows
@@ -78,7 +81,8 @@ nicodemus:
     purpose: agent
     build: |
       docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
-      cp SRC.PATH/payloads/* DST.PATH;
+      cp SRC.PATH/payloads/* DST.PATH && \
+      git archive --format zip --output "DST.PATH/nicodemus-source.zip" master;
     platforms:
       - windows
       - linux
@@ -91,15 +95,18 @@ nicodemus:
     nicodemus-darwin: {}
     nicodemus-linux: {}
     nicodemus-windows.exe: {}
+    nicodemus-source.zip: {}
 
 ctf:
   metadata:
     description: Create a vulnerable environment to practice against
     purpose: virtualmachine
     build: |
+      zip -r DST.PATH/ctf-source.zip SRC.PATH && \
       cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 
       - linux
   payloads:
     vulnerable.sh:
       install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
+    ctf-source.zip: {}
