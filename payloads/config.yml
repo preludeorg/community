@@ -4,7 +4,7 @@ translators:
     purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc && \
-      zip -r DST.PATH/ftp-source.zip SRC.PATH/ftp && zip -r DST.PATH/grpc-source.zip SRC.PATH/grpc;
+      zip -r DST.PATH/ftp-source.zip ftp && zip -r DST.PATH/grpc-source.zip grpc;
   payloads:
     ftp.tar.gz:
       install: |
