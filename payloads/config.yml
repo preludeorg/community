@@ -61,7 +61,7 @@ schism:
     description: Simple FTP agent (requires a translator)
     purpose: agent
     build: |
-      zip -r DST.PATH/schism-source.zip SRC.PATH && \
+      zip -r DST.PATH/schism-source.zip . && \
       cp SRC.PATH/* DST.PATH;
     platforms: 
       - windows
@@ -102,7 +102,7 @@ ctf:
     description: Create a vulnerable environment to practice against
     purpose: virtualmachine
     build: |
-      zip -r DST.PATH/ctf-source.zip SRC.PATH && \
+      zip -r DST.PATH/ctf-source.zip . && \
       cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 
       - linux
