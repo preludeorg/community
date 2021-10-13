@@ -104,6 +104,8 @@ team:
   metadata:
     description: Headless Opeator API / Team Server
     purpose: redirector
+    required: team
+    default: team
     build: |
       cp SRC.PATH/headless-linux DST.PATH
   payloads:
