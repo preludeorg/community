@@ -27,7 +27,8 @@ pneuma:
     build: |
       GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
       GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
-      GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go
+      GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go && \
+      git archive --format zip --output "DST.PATH/pneuma-source.zip" master
     platforms:
       - linux
       - windows
@@ -50,12 +51,9 @@ pneuma:
         $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
         Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
-    source:
+    pneuma-source.zip:
       install: |
-        // git archive something something
-        // package up the source
-        // copy to the dst folder
-
+        cp SRC.PATH/pneuma-source.zip DST.PATH
 schism:
   metadata:
     description: Simple FTP agent (requires a translator)
