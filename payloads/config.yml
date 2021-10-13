@@ -107,8 +107,8 @@ team:
     required: team
     default: team
     build: |
-      cp SRC.PATH/headless-linux DST.PATH
+      cp SRC.PATH/headless-linux DST.PATH/headless
   payloads:
-    headless-linux:
+    headless:
       install: |
         curl "PAYLOAD.URL" > /tmp/headless && chmod +x /tmp/headless && nohup sudo /tmp/headless --sessionToken "TOOL.PSK" &
