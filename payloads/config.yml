@@ -116,3 +116,14 @@ ctf:
       install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
     ctf-source.zip:
       shortname: Vulnerable server build script
+
+ttps:
+  metadata:
+    description: All of the TTP files available in the current repository
+    purpose: data
+    src_path: ttps/
+    build: |
+      zip -r DST.PATH/ttps.zip . &&
+  payloads:
+    ttps-source.zip:
+      shortname: Community TTP Files
