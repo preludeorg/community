@@ -119,11 +119,11 @@ ctf:
 
 ttps:
   metadata:
-    description: All of the TTP files available in the current repository
+    description: All of the TTP files available in the Community repository
     purpose: data
     src_path: ttps/
     build: |
-      zip -r DST.PATH/ttps.zip . &&
+      zip -r DST.PATH/ttps.zip .
   payloads:
     ttps-source.zip:
       shortname: Community TTP Files
