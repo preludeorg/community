@@ -21,15 +21,16 @@
             </p>
         </div>
     </div>
-    <ul id="tools" class="horizontal-list cf"></ul>
+    <ul id="source-code-list" class="horizontal-list cf"></ul>
     <div class="loader"></div>
 </div>
 
 <li id="source-code-template" class="profile" style="position: relative; display:none;margin:10px 0">
     <div class="description">
         <h3 id="code-name" class="split"><span class="main"></span></h3>
-        <p id="code-url"></p>
+        <p id="code-description"></p>
     </div>
+    <div id="source-code-actions" class="actions"></div>
 </li>
 
 <div id="right-sidebar-readme" class="right-sidebar-half loader-container doc-block" style="display:none">
@@ -38,7 +39,47 @@
 </div>
 
 <script>
-    Requests.fetchOperator('/internal/config/settings', {method: 'GET'}).then(res => res.json()).then(settings => {
+    const handleDownloadSource = (package) => {
+        $('#source-code-container .loader').toggleClass('loading', true);
+        function getDownloadDir() {
+            switch (os.platform()) {
+                case 'darwin':
+                    return `${process.env.HOME}/Downloads`
+                case 'linux':
+                    return '/tmp'
+                case 'win32':
+                    return 'C:\\Users\\Public'
+            }
+        }
 
+        Requests.hq.getPayload(package).then((res) => {
+            if (res.status === 200) {
+                return res.blob()
+            }
+        })
+        .then((blob) => blob.arrayBuffer())
+        .then((data) => {
+            let dir = getDownloadDir()
+            let target = path.join(dir, package.split('/').pop())
+            Basic.storeData(Buffer.from(data), target)
+            fs.chmodSync(target, '755')
+            Basic.showNotification('Downloaded File', `Downloaded ${package} to ${dir}`)
+        })
+        .catch((e) => Basic.showNotification('Download Failed', `Could not download ${package}`))
+        .finally(() => $('#source-code-container .loader').toggleClass('loading', false));
+    };
+
+    Requests.hq.getPayloads().then((payloads) => {
+        let sourceList = $('#source-code-list');
+        console.log(payloads);
+        Object.keys(payloads).filter(a => a.includes('-source.zip')).forEach(a => {
+            let codeTemplate = $('#source-code-template').clone();
+            codeTemplate.prop('id', a);
+            codeTemplate.find('#code-name .main').text(payloads[a]?.shortname || a);
+            codeTemplate.find('#code-description').text(payloads[a]?.metadata?.description || 'No description found');
+            codeTemplate.find('#source-code-actions').append($(`<a href="#">Download ${a.split('/')[1]}</a>`).click(ev => handleDownloadSource(a)))
+            codeTemplate.show();
+            sourceList.append(codeTemplate);
+        });
     });
 </script>
