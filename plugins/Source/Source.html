@@ -11,26 +11,89 @@
     #right-sidebar-readme a {
         color: #fff;
     }
+    .source-blocks {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        grid-gap: 10px;
+    }
+    .source-blocks .section {
+        flex-direction: column;
+        flex: 30%;
+    }
+    .source-blocks .section .block {
+        background-color: #10100f;
+        padding: 0 10px;
+        border-radius: 4px;
+    }
+    .source-blocks .section .block .header-info {
+        margin-top: 20px;
+    }
+    .source-blocks .section .block .header-info .name {
+        color: #999;
+        display: block;
+        font-family: PF Din Mono;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: 2px;
+        line-height: 11px;
+        margin: 0 0 10px;
+        padding: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    .boxed-selector .description {
+        display: block;
+        color: #999;
+        font-family: 'ITC Franklin Gothic Std';
+        font-size: 14px;
+        font-weight: 100;
+        margin-top: 10px;
+    }
+    .input-wrapper .main {
+        color: #999;
+        display: block;
+        font-family: PF Din Mono;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: 2px;
+        line-height: 11px;
+        margin: 0 0 10px 0;
+        padding: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
 </style>
 <div id="source-code-container" class="loader-container">
     <div class="profile-heading-container">
         <div class="body">
             <strong class="profile-heading">Download source code</strong>
             <p>
-                Words are hard.
+                Download source code for various Prelude respositories.
             </p>
         </div>
     </div>
-    <ul id="source-code-list" class="horizontal-list cf"></ul>
+    <div id="source-blocks-section" class="source-blocks"></div>
     <div class="loader"></div>
 </div>
 
-<li id="source-code-template" class="profile" style="position: relative; display:none;margin:10px 0">
-    <div class="description">
-        <h3 id="code-name" class="split"><span class="main"></span></h3>
-        <p id="code-description"></p>
+<div id="source-block-template" class="section">
+    <div class="block">
+        <div class="header-info">
+            <span class="name"></span>
+        </div>
+        <ul class="source-list"></ul>
     </div>
-    <div id="source-code-actions" class="actions"></div>
+</div>
+
+<li id="source-code-item-template" class="input-wrapper" style="display: none; background-color: #000000;">
+    <div class="boxed-selector">
+        <strong id="code-name" class="main"></strong>
+        <span id="code-description" class="description"></span>
+    </div>
 </li>
 
 <div id="right-sidebar-readme" class="right-sidebar-half loader-container doc-block" style="display:none">
@@ -70,16 +133,25 @@
     };
 
     Requests.hq.getPayloads().then((payloads) => {
-        let sourceList = $('#source-code-list');
         console.log(payloads);
+        const cloneNewBlock = (purpose) => {
+            let clone = $(`#source-block-template`).clone();
+            clone.prop('id', `${purpose}-source-block`);
+            clone.find('.block .name').text(`${purpose} source`);
+            clone.css('display', 'flex');
+            $('#source-blocks-section').append(clone);
+            return clone;
+        }
         Object.keys(payloads).filter(a => a.includes('-source.zip')).forEach(a => {
-            let codeTemplate = $('#source-code-template').clone();
+            let block = $(`#${payloads[a]?.metadata?.purpose}-source-block`);
+            block = block.length !==0 ? block : cloneNewBlock(payloads[a]?.metadata?.purpose || 'data');
+            let codeTemplate = $('#source-code-item-template').clone();
             codeTemplate.prop('id', a);
-            codeTemplate.find('#code-name .main').text(payloads[a]?.shortname || a);
+            codeTemplate.find('#code-name').text(payloads[a]?.shortname || a);
             codeTemplate.find('#code-description').text(payloads[a]?.metadata?.description || 'No description found');
-            codeTemplate.find('#source-code-actions').append($(`<a href="#">Download ${a.split('/')[1]}</a>`).click(ev => handleDownloadSource(a)))
+            codeTemplate.on('click', (ev) => handleDownloadSource(a));
             codeTemplate.show();
-            sourceList.append(codeTemplate);
+            block.find('.source-list').append(codeTemplate);
         });
     });
 </script>

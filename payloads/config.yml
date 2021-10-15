@@ -120,7 +120,7 @@ ctf:
 ttps:
   metadata:
     description: All of the TTP files available in the Community repository
-    purpose: data
+    purpose: ttps
     src_path: ttps/
     build: |
       zip -r DST.PATH/community-ttps-source.zip .
