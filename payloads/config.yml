@@ -1,6 +1,7 @@
 translators:
   metadata:
     description: Extra Operator listening posts for redirectors
+    purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
   payloads:
@@ -22,6 +23,7 @@ translators:
 pneuma:
   metadata:
     description: The default open-source agent written in GoLang
+    purpose: agent
     build: |
       GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
       GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
@@ -52,6 +54,7 @@ pneuma:
 schism:
   metadata:
     description: Simple FTP agent (requires a translator)
+    purpose: agent
     build: |
       cp SRC.PATH/schism.py DST.PATH
     platforms: 
@@ -68,6 +71,7 @@ schism:
 nicodemus:
   metadata:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
+    purpose: agent
     build: |
       docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
       cp SRC.PATH/payloads/* DST.PATH;
@@ -87,6 +91,7 @@ nicodemus:
 ctf:
   metadata:
     description: Create a vulnerable environment to practice against
+    purpose: virtualmachine
     build: |
       cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 

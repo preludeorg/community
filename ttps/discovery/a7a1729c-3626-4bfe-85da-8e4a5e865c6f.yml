@@ -3,7 +3,10 @@ metadata:
   version: 1
   authors: 
     - Vivek Kamisetty (Mr@UnKnOwN)
+    - Xanthonus
   tags: []
+  chains:
+    - sequoia
 name: Fetch Disk Space 
 description: |
   Displays the free space on the machine.
@@ -18,6 +21,8 @@ platforms:
   linux:
     sh:
       command: df -h
+      variants:
+        - command: df -i
   windows:
     pwsh:
       command: wmic diskdrive get size
