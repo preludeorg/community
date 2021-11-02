@@ -6,7 +6,8 @@ metadata:
     - Xanthonus
   tags: []
   chains:
-    - sequoia
+    operate:
+      - sequoia
 name: Fetch Disk Space 
 description: |
   Displays the free space on the machine.
