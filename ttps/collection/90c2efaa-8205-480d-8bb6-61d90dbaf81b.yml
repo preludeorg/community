@@ -26,7 +26,7 @@ platforms:
   linux:
     sh:
       command: |
-        find /home -mtime 1 -not -path '*/\.*'
+        find /home -mtime -1 -not -path '*/\.*'
   windows:
     psh:
       command: >
