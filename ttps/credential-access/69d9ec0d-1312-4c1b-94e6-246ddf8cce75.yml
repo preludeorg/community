@@ -7,7 +7,7 @@ description: >-
 tactic: credential-access
 technique:
   id: T1552.001
-  name: Unsecured Credentials: Credentials In Files
+  name: `Unsecured Credentials: Credentials In Files`
 platforms:
   global:
     sh:
