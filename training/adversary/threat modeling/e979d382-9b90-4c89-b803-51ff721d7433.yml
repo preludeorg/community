@@ -1,0 +1,17 @@
+id: e979d382-9b90-4c89-b803-51ff721d7433
+name: Flag 1
+challenge: |
+  placeholder
+context: |
+  placeholder
+template:
+  name: input
+  data: []
+resources: []
+hints: []
+blocks:
+  Block 1 placedholder:  |
+    placeholder
+answer:
+  script: $('#answer').val()
+  value: ''

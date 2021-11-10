@@ -1,0 +1,18 @@
+id: adversary
+name: Adversary Emulation
+description: |
+  Basics of setting up and using Operator to perform basic adversary emulation tasks and investigating how that can be used
+  to create a continuous defensive evaluation process.
+courses:
+  - name: Offensive Infrastructure
+    description: blah
+  - name: Threat Modeling
+    description: blah
+  - name: Using Operator
+    description: blah
+  - name: Building your adversary
+    description: blah
+  - name: Running your engagement
+    description: blah
+  - name: Process improvement
+    description: blah
