@@ -5,26 +5,26 @@ description: |
   to create a continuous defensive evaluation process.
 courses:
   - name: Offensive Infrastructure
-    description: blah
+    description: Basic concepts of offensive tools and infrastructure design
     challenges:
       - 387063c1-076e-4405-b5bc-455a4c9658a2
   - name: Threat Modeling
-    description: blah
+    description: Understanding relevant threats to your organization
     challenges:
       - e979d382-9b90-4c89-b803-51ff721d7433
   - name: Using Operator
-    description: blah
+    description: Basic concepts of Operator
     challenges:
       - 70408815-c06a-44ff-a2b7-84d94885dd30
   - name: Building your adversary
-    description: blah
+    description: Design and build your own adversary
     challenges:
       - 4f936586-dbfa-41e0-9df4-540c7ce9d9e2
   - name: Running your engagement
-    description: blah
+    description: Launch your engagement
     challenges:
       - 289185c5-6a5e-4693-a613-c67239db7a6e
   - name: Process improvement
-    description: blah
+    description: Building a process improvement cycle
     challenges:
       - abc8fc70-2503-4764-904b-e81d998166e5

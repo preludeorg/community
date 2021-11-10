@@ -1,17 +1,21 @@
 id: 387063c1-076e-4405-b5bc-455a4c9658a2
-name: Flag 1
+name: Basic concepts of Offensive Infrastructure
 challenge: |
-  placeholder
+  blah
 context: |
-  placeholder
+  blah
 template:
   name: input
   data: []
 resources: []
 hints: []
 blocks:
-  Block 1 placedholder:  |
-    placeholder
+  Command and Control (C2) Systems: |
+    A Command and Control (C2) system enables the centralized management of remote systems, generally for nefarious purposes.
+  Agents/Implants: |
+    Agents or Implants
+  Redirection: |
+    blah
 answer:
   script: $('#answer').val()
   value: ''
