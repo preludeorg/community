@@ -1,0 +1,21 @@
+id: d4309b3b-3a43-462f-9f38-520e3890697e
+name: TTP vs Chain vs Adversary
+challenge: |
+  placeholder
+context: |
+  placeholder
+template:
+  name: input
+  data: []
+resources: []
+hints: []
+blocks:
+  What is a TTP:  |
+    placeholder
+  What is a Chain: |
+    placeholder
+  What is an Adversary: |
+    placeholder
+answer:
+  script: $('#answer').val()
+  value: ''
