@@ -1,0 +1,44 @@
+id: e5a1622e-2e12-4f5a-9908-823af1642c08
+name: Learn about potential chains
+challenge: |
+  How many chains are available for the following TTP: ea713bc4-63f0-491c-9a6f-0b01d560b87e (file.io exfil)?
+context: |
+  Potential chains are helpful when building adversary profiles. You can think of adversaries as being
+  made up of multiple independent chains. Each chain typically contains 1-5 TTPs which, when run in sequence,
+  have a desired effect on the target system or network. Prelude security engineers use their collective experience
+  doing offensive work to define chains that are commonly seen "in the wild." You can view potential chains by clicking
+  the chains button on any TTP while building an adversary profile.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Automated decision making: https://feed.prelude.org/p/how-decisions-are-made
+    Mimicking evil: https://feed.prelude.org/p/mimicking-evil
+hints:
+  - Chain clusters are groups of chains by technique. Click into each cluster and count the number of chains.
+  - The Headquarters API can also be used to view adversary chains via the /protect endpoint
+blocks:
+  What is a malicious chain?: |
+    Operator includes a concept we call potential chains. These chains are pre-determined sequences of ATT&CK
+    techniques we have identified as being malicious and used in real world attacks. Operator tracks 80+ malicious
+    technique chains. Because Operator contains hundreds of procedures, it creates every possible variation of a
+    malicious chain (because we store multiple versions of a procedure for a single technique). Throughout this
+    application, you can view the potential chains a given procedure is a part of, which is helpful for composing
+    your own adversary profiles.
+  View chains from your own TTPs: |
+    Operator contains a REST API endpoint, located at https://login.prelude.org/protect, which allows you to submit a
+    set of your own TTPs - classified by the ATT&CK framework - and receive them back organized into chains of attack
+    we recommend you use.
+answer:
+  script: |
+    new Promise((resolve, reject) =>
+        Requests.fetchGatekeeper(Basic.constructEndpoint('/protect/ea713bc4-63f0-491c-9a6f-0b01d560b87e', {
+            email: Settings.settings.account.email,
+            token: Settings.settings.account.token
+        }), {method: 'GET'})
+            .then((res) => res.json())
+            .then((res => {
+                resolve(Number(Object.keys(res).length === parseInt($('#answer').val())))
+            })))
+  value: 1

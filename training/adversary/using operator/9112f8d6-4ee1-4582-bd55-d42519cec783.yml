@@ -1,0 +1,25 @@
+id: 9112f8d6-4ee1-4582-bd55-d42519cec783
+name: Create a new payload
+challenge: |
+  Can you create a new payload? It should be named "hello.txt" and its contents should be "world". You can attach it
+  to any TTP you like.
+context: |
+  Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, and can be thought of as 
+  malware. A payload can be written in any computer language and is commonly compiled into a single executable file or designed to 
+  be loaded into memory (to avoid detection). Inside Operator, you can attach a payload to any TTP and add instructions for executing it. 
+  Instead of writing TTPs which contain dozens or hundreds of lines of instructions, consider putting that code into a payload and writing
+  a simple TTP which can execute the payload file.
+template:
+  name: submit
+  data: []
+resources:
+  links: []
+hints:
+  - Look for the "Add a Payload" link at the bottom of the Editor window
+blocks:
+  How Payloads Work: |
+    Each TTP can offload part of its execution to an external attachment that will get automatically downloaded
+    before the TTP runs. The payload will be downloaded to whatever directory the agent is running from on the target.
+answer:
+  script: Listen.resolvePayloads("/uploads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
+  value: 1

@@ -1,0 +1,32 @@
+id: c8bfb952-828a-4331-8395-13fee2faf47d
+name: Modify a procedure
+challenge: |
+  Find the TTP called "1-min sleep" and change one of the executors to sleep for more than 60 seconds.
+context: |
+  Your Operator checks the Community repo every day for new or updated procedures, downloading them automatically
+  into your app. You can make changes yourself to any procedure by editing any adversary. Keep in mind that there is 1 copy of each procedure,
+  so if you change it, any adversaries using it will inherit the change. When you make a change manually or there is an
+  update to a procedure, you'll see the option to Rest or Update the procedure, which will put it back inline with what is
+  in Community.
+template:
+  name: submit
+  data: []
+resources:
+  links: 
+    Hide Artifacts: https://attack.mitre.org/techniques/T1564/
+hints:
+  - Use the search feature inside the Editor section
+  - Make sure you save the TTP after modifying it
+blocks:
+  Platforms & Executors: |
+    Each TTP includes a set of platforms (operating systems) and executors (programs) which the procedure can work on.
+    A procedure will usually have a different command for each operating system, despite the goal of it being the same.
+    The platform and executors design allows you to model attacks which are "cross-platform", meaning they will work
+    regardless of the target operating system.
+  Why sleep?: |
+    An adversary may choose to sleep for a period of time, to give the impression of inactivity. This is similar to
+    playing dead if a bear attacks you. The procedure used in this challenge is one example of how an adversary may
+    "play dead" on a computer to avoid detection.
+answer:
+  script: Number(Attack.attack['36eecb80-ede3-442b-8774-956e906aff02'].modified)
+  value: 1
