@@ -8,6 +8,7 @@ courses:
     description: Basic concepts of offensive tools and infrastructure design
     challenges:
       - 387063c1-076e-4405-b5bc-455a4c9658a2
+      - f15c367c-d966-480f-91dd-2f46841f490d
   - name: Threat Modeling
     description: Understanding relevant threats to your organization
     challenges:
