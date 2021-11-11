@@ -1,29 +1,24 @@
 id: 1655c859-17dd-4b53-9ae6-3e895afb8cc7
-name: Blue team
+name: Blue team | Purple team
 challenge: What Operator training program offers "man pages" for built-in TTPs?
 context: |
-  Blue teams should use Operator to test their ability to detect common attacks.
+  Blue teams should use Operator to test their ability to detect common attacks. Purple teams 
+  can accelerate this process through advanced adversary development and automation support.
   <ol>
     <li>
-      Review the adversaries at your disposal in the Operate section. Then head to chains.prelude.org to see them in more detail.
-      New ones come out every Tuesday.
+      Review the adversaries at your disposal. New ones are available every Tuesday.
     </li>
     <li>
-      Click into the Plugins section and install the Publisher plugin. This plugin allows you to forward attack results to your SIEM.
-      Once installed, select where you want to send your results.
+      Configure the Publisher plugin so your results forward to your SIEM.
     </li>
     <li>
-      Back in the Operate section, download a Pneuma agent and copy it to your target computers. Start it up and confirm you see the agents
-      beaconing into your red range. 
+      Deploy agents on your target computers.
     </li>
     <li>
-      Deploy any adversary against your target computers. You'll see the results pop into Operator but they're also forwarding to your 
-      configured publisher. Check your chosen SIEM and see if your detections are catching the attack.
+      Deploy any adversary against your target computers and check your SIEM. Did you catch it?
     </li>
     <li>
-      Consider purchasing an Enterprise license, which will give you the SIEM plugin. This plugin connects to your Splunk SIEM and gives
-      you the ability to quickly run attacks and monitor detections - even updating saved queries from within Operator itself. Think of 
-      the SIEM plugin as a more advanced version of the Publisher plugin.
+      Automate this process by using the API. Or get an enterprise license to fully integrate Operator with your SIEM.
     </li>
   </ol> 
 template:
@@ -37,7 +32,12 @@ blocks:
     mock attackers (i.e., the Red Team). Typically the Blue Team and its supporters must defend against real or simulated attacks 1) 
     over a significant period of time, 2) in a representative operational context (e.g., as part of an operational exercise), and 3) 
     according to rules established and monitored with the help of a neutral group refereeing the simulation or exercise.
-    (NIST, https://csrc.nist.gov/glossary/term/blue_team)
+    (NIST, https://csrc.nist.gov/glossary/term/blue_team).
+  What is a purple team?: |
+    Purple Teams exist to ensure and maximize the effectiveness of the Red and Blue teams. They do this by integrating 
+    the defensive tactics and controls from the Blue Team with the threats and vulnerabilities found by the Red Team into 
+    a single narrative that maximizes both. Ideally Purple shouldn’t be a team at all, but rather a permanent dynamic between 
+    Red and Blue (https://danielmiessler.com/study/red-blue-purple-teams/).
 answer:
   script: Number($('#answer').val().toLowerCase().includes('att&ck') 
   value: 1

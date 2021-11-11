@@ -1,0 +1,27 @@
+id: 4577e522-ad3b-44c0-bdd7-462660d98646
+name: Red team
+challenge: What Operator training program is designed for practicing red team skills?
+context: |
+  Red teams should use Operator as a manual command-and-control center that allows them to experiment with automation.
+  <ol>
+    <li>Download and start an agent on a target computer. Initial access is up to you.</li>
+    <li>Open a reverse-shell to take manual control.</li>
+    <li>Deploy a custom adversary to automate parts of your kill chain.</li>
+    <li>Click back to the Operate section, select your red range and deploy your new adversary against it.</li>
+    <li>Connect Operator to your teammates through the "team server" option.</li>
+  </ol> 
+template:
+  name: input
+  data: []
+resources: {}
+hints:
+  - Check the training section
+blocks:
+  What is a red team?: |
+    A group of people authorized and organized to emulate a potential adversary’s attack or exploitation capabilities against an 
+    enterprise’s security posture. The Red Team’s objective is to improve enterprise cybersecurity by demonstrating the impacts of 
+    successful attacks and by demonstrating what works for the defenders (i.e., the Blue Team) in an operational environment. 
+    Also known as Cyber Red Team. (NIST, https://csrc.nist.gov/glossary/term/red_team)
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('ctf') 
+  value: 1

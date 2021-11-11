@@ -7,15 +7,13 @@ context: |
   security training to the end users, ultimately helping improve their cyber hygenie.
   <ol>
     <li>
-      Start by taking the free Pink Badge training program, available in the Train section. This program walks you through
-      basic red team processes and thinking like an adversary.
+      Complete the free Pink Badge training program.
     </li>
     <li>
-      The final challenge of the Pink Badge includes working with the Protect (endpoint) app, which is intended for Windows or Mac
-      workstations. Once you've passed this challenge, head to login.prelude.org where you can see your results. 
+      Deploy Protect endpoints across your infrastructure.
     </li>
     <li>
-      Reach out to support@prelude.org to learn more about deploying Protect in your organization. 
+      Schedule adversaries to run weekly on all your endpoints. Monitor results.
     </li>
   </ol> 
 template:
