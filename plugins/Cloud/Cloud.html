@@ -130,7 +130,6 @@
 
             $('#aws-deploy').click((ev) => {
                 $("#cloud-div .loader").addClass("loading")
-		debugger;
 
                 Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
                     function rangeSuccess(d, request){
