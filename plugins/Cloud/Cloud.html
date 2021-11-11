@@ -1,41 +1,36 @@
-<div className="profile-heading-container">
-    <div className="body">
-        <strong className="profile-heading">Cloud provisioning</strong>
+<div class="profile-heading-container">
+    <div class="body">
+        <strong class="profile-heading">Cloud provisioning</strong>
         <p>
             Traditionally, red teams have used socat/netcat to proxy beacons from the internet to their desktop. These
             are known as gateway/redirector servers. This plugin replicates this behavior by provisioning
             new gateway servers (micro Linux instances) in your own cloud environment. You can also choose to provision
-            a new Linux or Windows server, which will include a running Pneuma agent pointed to any redirector, giving
-            you
+            a new Linux or Windows server, which will include a running Pneuma agent pointed to any redirector, giving you
             a quick practice environment.
         </p>
     </div>
 </div>
 
-<div id="cloud-div" className="loader-container">
+<div id="cloud-div" class="loader-container">
     <div id="aws">
-        <div className="label-text">
+        <div class="label-text">
             <p>I want to deploy a</p>
             <select id="aws-platform"></select>
         </div>
         <div id="range-configs" style="display: none">
-            <div id="redirectors" className="label-text">
+            <div id="redirectors" class="label-text">
                 <p>Redirector</p>
                 <select id="select-redirector"></select>
             </div>
         </div>
-        <div id="aws-tools" className="profile-heading-container"
-             style="background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
-            <div className="body" style="margin-bottom: 10px;">
-                <strong className="profile-heading">Payloads</strong>
+        <div id="aws-tools" class="profile-heading-container" style="background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
+            <div class="body" style="margin-bottom: 10px;">
+                <strong class="profile-heading">Payloads</strong>
                 <p>
-                    Enable any payload below to pre-install it on your deployed server. This allows you to customize the
-                    environment, either by
+                    Enable any payload below to pre-install it on your deployed server. This allows you to customize the environment, either by
                     creating a unique test lab or installing redirector tools, such as
-                    <a href="https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors">Switchboard</a> for team
-                    management, or
-                    <a href="https://feed.prelude.org/p/can-you-hear-me-now">translators</a>, which start listening
-                    posts for new network protocols.
+                    <a href="https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors">Switchboard</a> for team management, or
+                    <a href="https://feed.prelude.org/p/can-you-hear-me-now">translators</a>, which start listening posts for new network protocols.
                 </p>
             </div>
             <div id="aws-tools-listing"></div>
@@ -43,23 +38,22 @@
         <button id="aws-deploy">Deploy</button>
     </div>
     <div id="gcp" style="display: none;">
-        <div className="label-text">
+        <div class="label-text">
             <p>I want to deploy a...</p>
             <select id="gcp-platform">
                 <option value="gateway">Linux redirector</option>
             </select>
         </div>
-        <div id="gcp-tools" className="profile-heading-container"
-             style="display: none; background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
-            <div className="body" style="margin-bottom: 10px;">
-                <strong className="profile-heading">Tools</strong>
+        <div id="gcp-tools" class="profile-heading-container" style="display: none; background: #111; border-radius: 4px; margin: 10px 0;opacity:0.9;">
+            <div class="body" style="margin-bottom: 10px;">
+                <strong class="profile-heading">Tools</strong>
                 <p>Select the tools you want installed as soon as the host becomes available.</p>
             </div>
             <div id="gcp-tools-listing"></div>
         </div>
         <button id="gcp-deploy">Deploy</button>
     </div>
-    <div className="loader"></div>
+    <div class="loader"></div>
 </div>
 
 <div id="init-plugin">
@@ -136,13 +130,14 @@
 
             $('#aws-deploy').click((ev) => {
                 $("#cloud-div .loader").addClass("loading")
+		debugger;
 
                 Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
-                    function rangeSuccess(d, request) {
+                    function rangeSuccess(d, request){
                         $("#cloud-div .loader").removeClass("loading")
                         Basic.showNotification('Deployed!', d.instance + ' may take several minutes to show up')
                     }
-                    function tunnelSuccess(d, request) {
+                    function tunnelSuccess(d, request){
                         $("#cloud-div .loader").removeClass("loading")
                         const seconds = 30;
                         let redirector = {
@@ -154,16 +149,13 @@
                             redirector['password'] = request['password'];
                         }
 
-                        Requests.fetchOperator('/internal/global/redirectors', {
-                            method: 'POST', body: JSON.stringify({
+                        Requests.fetchOperator('/internal/global/redirectors', {method: 'POST', body: JSON.stringify({
                                 [d.instance]: redirector
-                            })
-                        });
+                            })});
                         Basic.showNotification('Success!', `Redirector provisioned! It will be available in ${seconds} seconds.`);
                         refreshPage();
                     }
-
-                    function failure(d) {
+                    function failure(d){
                         $("#cloud-div .loader").removeClass("loading")
                         Basic.showNotification('Failed', d.responseText)
                     }
@@ -173,7 +165,7 @@
                         email: settings.account.email,
                         agent: 'pneuma',
                         platform: $('#aws-platform').val(),
-                        callback: $('#select-redirector option:selected').val() + ':' + settings.local.tcp_port,
+                        callback: $('#select-redirector option:selected').val()+':'+settings.local.tcp_port,
                         instance_count: 1,
                         tools: $('#aws-tools [data-tool] option[value="1"]:selected').parents('[data-tool]').toArray().map(t => $(t).attr('data-tool')),
                         config: {
@@ -212,22 +204,19 @@
                 $("#cloud-div .loader").addClass("loading")
 
                 Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
-                    function tunnelSuccess(d) {
+                    function tunnelSuccess(d){
                         $("#cloud-div .loader").removeClass("loading")
                         const redirector = {
                             user: config.gcp.ssh_user,
                             key: config.gcp.ssh_key
                         }
-                        Requests.fetchOperator('/internal/global/redirectors', {
-                            method: 'POST', body: JSON.stringify({
+                        Requests.fetchOperator('/internal/global/redirectors', {method: 'POST', body: JSON.stringify({
                                 [d.instance]: redirector
-                            })
-                        });
+                            })});
                         Basic.showNotification('Success!', 'Your redirector is now available')
                         refreshPage()
                     }
-
-                    function failure(d) {
+                    function failure(d){
                         $("#cloud-div .loader").removeClass("loading")
                         Basic.showNotification('Failed', d.responseText)
                     }
@@ -380,7 +369,7 @@
             ].map(r => `<option value=${r} ${r === selected ? "selected" : ""}>${r}</option>`));
         }
 
-        function buildOptions() {
+        function buildOptions(){
             Requests.fetchGatekeeper(Basic.constructEndpoint('/range', {
                 email: settings.account.email,
                 token: settings.account.token
@@ -393,7 +382,7 @@
             });
         }
 
-        function refreshPage() {
+        function refreshPage(){
             Requests.fetchOperator('/plugin/Cloud', {method: 'GET'}).then(res => res.json()).then(config => {
                 setCloudConfigFields(config);
                 $("#select-redirector").empty();
@@ -417,13 +406,13 @@
             }
 
             Requests.fetchGatekeeper(Basic.constructEndpoint('/payloads', {
-                email: settings.account.email,
-                token: settings.account.token
-            }), {
-                method: 'GET'
-            }).then(res => res.json()).then(payloads => {
-                Object.keys(payloads).filter(a => payloads[a].metadata?.description && !payloads[a].metadata.protocols).forEach(p => {
-                    const tool = $(`<div id="aws-tool-${p}" class="label-text" data-tool="${p}">
+                    email: settings.account.email,
+                    token: settings.account.token
+                }), {
+                    method: 'GET'
+                }).then(res => res.json()).then(payloads => {
+                    Object.keys(payloads).filter(a => payloads[a].metadata?.description && !payloads[a].metadata.protocols).forEach(p => {
+                        const tool = $(`<div id="aws-tool-${p}" class="label-text" data-tool="${p}">
                                 <p style="font-family: PF Din Mono; font-size: 11px; font-weight: 600 !important; line-height: 24px; text-transform: uppercase; letter-spacing: 2px;">${p}</p>
                                 <span style="display: block; color: #999; font-size: 14px; font-weight: 100; margin: 0 0 5px;">${payloads[p].metadata.description}</span>
                                 <select>
@@ -431,9 +420,9 @@
                                     <option value="0" selected="true">Disabled</option>
                                 </select>
                             </div>`);
-                    $('#aws-tools').find('#aws-tools-listing').append(tool);
+                        $('#aws-tools').find('#aws-tools-listing').append(tool);
+                    });
                 });
-            });
         });
 
         function setCloudConfigFields(config) {
