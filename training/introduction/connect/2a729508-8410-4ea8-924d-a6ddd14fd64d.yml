@@ -44,4 +44,4 @@ blocks:
     This makes it easy for developers to spin up new environments and is a useful tool for to run test scenarios.
 answer:
   script: Number(Agent.agents.filter(function(a) { return a.metadata.redirector}).length) > 0
-value: 1
+  value: 1
