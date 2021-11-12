@@ -39,6 +39,5 @@ blocks:
     so no need to manually pull latest code. Just enter the address of any tool you want to track and Operator
     will clone it into your toolbox and keep it updated. This plugin requires that GIT be installed on this computer.
 answer:
-  script: 
-      Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
-value: 1
+  script: Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
+  value: 1
