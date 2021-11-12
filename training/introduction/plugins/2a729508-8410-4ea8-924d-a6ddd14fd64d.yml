@@ -1,6 +1,6 @@
 id: 2a729508-8410-4ea8-924d-a6ddd14fd64d
 name: Understanding plugins
-challenge: Load the ART plugin and enter the full path name which will allow you to import the ART attack files.
+challenge: Load the ART plugin and import the Atomic Red Team attack files.
 context: |
   A plugin in Operator is an HTML file, containing valid JavaScript and CSS components. Plugins allow you to extend
   or override various components within Operator, putting you in full control of the system. Cyber security engineers -
@@ -10,7 +10,7 @@ context: |
   leveraging existing code to quickly iterate on new features. Some plugins are available to community members,
   while others are available to Professional or Enterprise license holders.
 template:
-  name: input
+  name: submit
   data: []
 resources:
   links:
@@ -19,7 +19,6 @@ resources:
 hints:
   - Have you read the documentation on plugins?
   - Have you looked at the redcanaryco Github repository?
-  - Did you download the repository?
 blocks:
   ART plugin: |
     The Atomic Red Team (ART) plugin provides a quick import of all attack files from the popular ART repository.
@@ -40,5 +39,6 @@ blocks:
     so no need to manually pull latest code. Just enter the address of any tool you want to track and Operator
     will clone it into your toolbox and keep it updated. This plugin requires that GIT be installed on this computer.
 answer:
-  script: Number($('#answer').val().toLowerCase().includes('atomic-red-team-master')
+  script: 
+      Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
 value: 1
