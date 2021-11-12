@@ -15,6 +15,7 @@ resources:
     Connect plugin: https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors
     AWS: https://feed.prelude.org/p/how-to-set-up-aws-for-operator
     Translators: https://feed.prelude.org/p/can-you-hear-me-now
+    CTF: https://feed.prelude.org/p/capture-the-flag
 hints:
   - Is your AWS account connected?
   - Did you deploy a redirector and confirm it is connected? It should show a green status circle.
@@ -26,6 +27,10 @@ blocks:
     It works like this: provision and connect to a new redirector then send a teammate the generated host/password 
     information, which they can plug into their Connect plugin. Once connected, any agent that comes in to you, your 
     teammate or the new redirector will be mirrored across both of your Operator instances!
+  Capture the flag: |
+    Capture the flag (CTF) is a free multi-level program within Training that serves as a more interactive and hands on
+    test to navigate through environments that mimic real-world situations. Currently there are 3 levels that increasingly
+    grow in difficulty to test your prowess in navigation and collection through foreign environments.
   Amazon web services: |
     Amazon Web Services (AWS) offers a broad set of global cloud-based products, through a secure cloud serviced platform
     that caters to businesses looking to scale and grow. Their three main products include: EC2, Amazon’s virtual machine 
