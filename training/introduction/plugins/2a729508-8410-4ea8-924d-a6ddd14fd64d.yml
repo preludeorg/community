@@ -1,42 +1,44 @@
 id: 2a729508-8410-4ea8-924d-a6ddd14fd64d
-name: Understanding the Connect plugin
-challenge: Click into the Connect plugin and use it to deploy a redirector and virtual "compromised" machine.
+name: Understanding plugins
+challenge: Load the ART plugin and enter the full path name which will allow you to import the ART attack files.
 context: |
-  The Connect plugin offers three functions: deploying redirectors so agents can reach your Operator instance over 
-  the internet, deploying test computers for you to practice attacks on and offering the ability to link your Operator 
-  instance to your teammates so you can share agents. In this flag, you'll experience the first two functions first 
-  hand. Head to the Connect plugin, connect to your AWS account and see if you can deploy a redirector and virtual 
-  machine. This flag is completed once you've received a beacon from your compromised computer.
+  A plugin in Operator is an HTML file, containing valid JavaScript and CSS components. Plugins allow you to extend
+  or override various components within Operator, putting you in full control of the system. Cyber security engineers -
+  or those who have security and software engineering backgrounds - often want to customize and extend popular open-source
+  projects. This can be a time-consuming process and any changes may get wiped out in a future update. Plugins allow a
+  safe, easy alternative. Engineers can extend using defined interfaces, allowing them to create extendable components,
+  leveraging existing code to quickly iterate on new features. Some plugins are available to community members,
+  while others are available to Professional or Enterprise license holders.
 template:
-  name: submit
+  name: input
   data: []
 resources:
   links:
-    Connect plugin: https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors
-    AWS: https://feed.prelude.org/p/how-to-set-up-aws-for-operator
+    Toolbox: https://feed.prelude.org/p/maintain-your-toolbox
     Translators: https://feed.prelude.org/p/can-you-hear-me-now
 hints:
-  - Is your AWS account connected?
-  - Did you deploy a redirector and confirm it is connected? It should show a green status circle.
-  - Did you deploy a virtual machine? You must deploy a redirector first and after it is connected, 
-    deploy your VM. In the Operate section, check the ranges to see if you have any agents in a "cloud" range.
+  - Have you read the documentation on plugins?
+  - Have you looked at the redcanaryco Github repository?
+  - Did you download the repository?
 blocks:
-  Connect to your teammates: |
-    The Connect plugin has a professional feature allowing you to connect your Operator instance to your teammates. 
-    It works like this: provision and connect to a new redirector then send a teammate the generated host/password 
-    information, which they can plug into their Connect plugin. Once connected, any agent that comes in to you, your 
-    teammate or the new redirector will be mirrored across both of your Operator instances!
-  Amazon web services: |
-    Amazon Web Services (AWS) offers a broad set of global cloud-based products, through a secure cloud serviced platform
-    that caters to businesses looking to scale and grow. Their three main products include: EC2, Amazon’s virtual machine 
-    service, Glacier, a low-cost cloud storage service, and S3, Amazon’s storage system. In this scenario we will be using
-    EC2 to provision both our redirectors and virtual machines.
-  Virtual machine: |
-    Virtual machines (VMs) are "virtual" versions of a computer, with dedicated amounts of CPU, memory, and storage 
-    that are "borrowed" from a physical host computer- such as your personal computer. Existing as a computer file, 
-    usually called an image, they act like a real computer that can be run in window as a separate computing 
-    environment. Virtual machines can run different operating systems from your physical host computers. 
-    This makes it easy for developers to spin up new environments and is a useful tool for to run test scenarios.
+  ART plugin: |
+    The Atomic Red Team (ART) plugin provides a quick import of all attack files from the popular ART repository.
+    Simply clone the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) and enter your directory
+    path in the plugin to convert the files into Operator-format. They will be immediately usable in an attack.
+  Publisher plugin: |
+    The Publisher plugin allows you to proxy results from your agents to a variety of data sources, such as Splunk,
+    Elastic Search, VECTR or even messaging apps like Slack and Discord.
+  Reports plugin: |
+    The Reports plugin gives you a rich reporting experience designed to lessen the burden of turning red team results
+    into action. This plugin not only correlates the results across all your agents, it also analyzes them to
+    automatically create security recommendations that you may not be aware of.
+  SIEM plugin: |
+    The SIEM plugin connects to your Splunk SIEM and supplies an interface to verify if your saved queries (analytics)
+    are working or not. Use this plugin to quickly write new analytics and launch adversaries to test them.
+  Toolbox plugin: |
+    Your toolbox contains all the utilities you use on a regular basis. Operator will keep these tools updated
+    so no need to manually pull latest code. Just enter the address of any tool you want to track and Operator
+    will clone it into your toolbox and keep it updated. This plugin requires that GIT be installed on this computer.
 answer:
-  script: Number(Agent.agents.filter(function(a) { return a.metadata.redirector}).length) > 0
+  script: Number($('#answer').val().toLowerCase().includes('atomic-red-team-master')
 value: 1
