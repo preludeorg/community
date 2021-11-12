@@ -8,33 +8,50 @@ courses:
     description: Basic concepts of offensive tools and infrastructure design
     challenges:
       - 387063c1-076e-4405-b5bc-455a4c9658a2
+      - 1f2882d0-4375-11ec-81d3-0242ac130003
       - f15c367c-d966-480f-91dd-2f46841f490d
-  - name: Using Operator
-    description: Basic concepts of Operator
-    challenges:
-      - 70408815-c06a-44ff-a2b7-84d94885dd30
-      - 2a729508-8410-4ea8-924d-a6ddd14fd64d
-      - 2f801418-a956-43cc-8a21-504c0ce5b602
-      - 8fb4c5f2-2be1-4f54-a330-061992cc8a4f
-      - 9a6caab1-13a1-4b44-9eb4-b4994d860863
-      - d4309b3b-3a43-462f-9f38-520e3890697e
+      - 301f1ec8-4375-11ec-81d3-0242ac130003
+      - abc8fc70-2503-4764-904b-e81d998166e5
+      - fcd78744-4374-11ec-81d3-0242ac130003
   - name: Threat Modeling
     description: Understanding relevant threats to your organization
     challenges:
+      - 1f6b8240-4377-11ec-81d3-0242ac130003
+      - 10ee3456-4377-11ec-81d3-0242ac130003
+      - 370b21bc-4377-11ec-81d3-0242ac130003
+      - 439c6760-4377-11ec-81d3-0242ac130003
+      - 29801552-4377-11ec-81d3-0242ac130003
       - e979d382-9b90-4c89-b803-51ff721d7433
+  - name: Using Operator
+    description: Basic concepts of Operator
+    challenges:
+      - d4309b3b-3a43-462f-9f38-520e3890697e
+      - 6aef18e0-4376-11ec-81d3-0242ac130003
+      - 9a6caab1-13a1-4b44-9eb4-b4994d860863
+      - 2a729508-8410-4ea8-924d-a6ddd14fd64d
+      - 8fb4c5f2-2be1-4f54-a330-061992cc8a4f
+      - 7ad84c09-dfa9-431d-a273-908cdbacbae2
+      - f4e12e72-4375-11ec-81d3-0242ac130003
   - name: Building your adversary
     description: Design and build your own adversary
     challenges:
-      - 0b044323-bf6b-4856-8d70-372942983aab
-      - 2aac8660-191d-4617-a0b4-a02de8d19364
       - 4f936586-dbfa-41e0-9df4-540c7ce9d9e2
+      - 2aac8660-191d-4617-a0b4-a02de8d19364
       - 9112f8d6-4ee1-4582-bd55-d42519cec783
-      - c8bfb952-828a-4331-8395-13fee2faf47d
+      - 17896dcc-4376-11ec-81d3-0242ac130003
+      - 0b044323-bf6b-4856-8d70-372942983aab
+      - dde3b168-4375-11ec-81d3-0242ac130003
   - name: Running your engagement
     description: Launch your engagement
     challenges:
+      - 7b7458f6-4376-11ec-81d3-0242ac130003
+      - 2f801418-a956-43cc-8a21-504c0ce5b602
+      - 86a190ea-4376-11ec-81d3-0242ac130003
+      - 95609f5e-4376-11ec-81d3-0242ac130003
       - 289185c5-6a5e-4693-a613-c67239db7a6e
   - name: Process improvement
     description: Building a process improvement cycle
     challenges:
-      - abc8fc70-2503-4764-904b-e81d998166e5
+      - 002da5f8-4376-11ec-81d3-0242ac130003
+      - 23e87108-4376-11ec-81d3-0242ac130003
+      - 32b275b2-4376-11ec-81d3-0242ac130003

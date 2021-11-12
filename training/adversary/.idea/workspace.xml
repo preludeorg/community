@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd94e077-8ab6-4208-8635-3799ae0348c7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/building your adversary/4f936586-dbfa-41e0-9df4-540c7ce9d9e2.yml" beforeDir="false" afterPath="$PROJECT_DIR$/building your adversary/4f936586-dbfa-41e0-9df4-540c7ce9d9e2.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/building your adversary/c8bfb952-828a-4331-8395-13fee2faf47d.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/building your adversary/dde3b168-4375-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/building your adversary/dde3b168-4375-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/offensive infrastructure/1f2882d0-4375-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/offensive infrastructure/1f2882d0-4375-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/offensive infrastructure/301f1ec8-4375-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/offensive infrastructure/301f1ec8-4375-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/offensive infrastructure/bb58cd5a-4374-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/offensive infrastructure/bb58cd5a-4374-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/offensive infrastructure/fcd78744-4374-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/offensive infrastructure/fcd78744-4374-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/002da5f8-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/process improvement/002da5f8-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/17896dcc-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/building your adversary/17896dcc-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/23e87108-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/process improvement/23e87108-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/32b275b2-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/process improvement/32b275b2-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/abc8fc70-2503-4764-904b-e81d998166e5.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/process improvement/f4e12e72-4375-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/using operator/f4e12e72-4375-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/289185c5-6a5e-4693-a613-c67239db7a6e.yml" beforeDir="false" afterPath="$PROJECT_DIR$/running your engagement/289185c5-6a5e-4693-a613-c67239db7a6e.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/6aef18e0-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/using operator/6aef18e0-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/7b7458f6-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/running your engagement/7b7458f6-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/86a190ea-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/running your engagement/86a190ea-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/95609f5e-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/running your engagement/95609f5e-4376-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/running your engagement/a1ded0c0-4376-11ec-81d3-0242ac130003.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/10ee3456-4377-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/10ee3456-4377-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/1f6b8240-4377-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/1f6b8240-4377-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/29801552-4377-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/29801552-4377-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/370b21bc-4377-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/370b21bc-4377-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/439c6760-4377-11ec-81d3-0242ac130003.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/439c6760-4377-11ec-81d3-0242ac130003.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threat modeling/e979d382-9b90-4c89-b803-51ff721d7433.yml" beforeDir="false" afterPath="$PROJECT_DIR$/threat modeling/e979d382-9b90-4c89-b803-51ff721d7433.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/using operator/2f801418-a956-43cc-8a21-504c0ce5b602.yml" beforeDir="false" afterPath="$PROJECT_DIR$/running your engagement/2f801418-a956-43cc-8a21-504c0ce5b602.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="20nHDkHprESV7wn9pZ7UWUGxYQc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/threat modeling" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/threat modeling" />
+      <recent name="$PROJECT_DIR$/running your engagement" />
+      <recent name="$PROJECT_DIR$/process improvement" />
+      <recent name="$PROJECT_DIR$/offensive infrastructure" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/building your adversary" />
+      <recent name="$PROJECT_DIR$/using operator" />
+      <recent name="$PROJECT_DIR$/running your engagement" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd94e077-8ab6-4208-8635-3799ae0348c7" name="Changes" comment="" />
+      <created>1636673315160</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636673315160</updated>
+      <workItem from="1636673316711" duration="19072000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
