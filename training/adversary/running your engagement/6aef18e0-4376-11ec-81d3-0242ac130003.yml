@@ -1,0 +1,17 @@
+id: 6aef18e0-4376-11ec-81d3-0242ac130003
+name: Flag 1
+challenge: |
+  placeholder
+context: |
+  placeholder
+template:
+  name: input
+  data: []
+resources: []
+hints: []
+blocks:
+  Block 1 placedholder:  |
+    placeholder
+answer:
+  script: $('#answer').val()
+  value: ''

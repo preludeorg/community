@@ -15,10 +15,6 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    The technique: https://attack.mitre.org/techniques/T1059/006/
-    What is a sub-technique: https://medium.com/mitre-attack/attack-sub-techniques-preview-b79ff0ba669a
-    Python malware: https://www.cyborgsecurity.com/python-malware-on-the-rise/
 hints:
   - Look for the + button inside the Editor section
   - Did you save the TTP after creating it?
@@ -27,19 +23,17 @@ blocks:
     Each TTP requires a platform (operating system) and executor (program the agent uses to run the TTP). There are 3 supported
     platforms in Operator today: windows, linux and darwin (another word for MacOS). By default, each platform can use
     a specific set of executors. Check the documentation around TTPs for a list of options.
-  T1059: |
-    Adversaries may abuse Python commands and scripts for execution. Python is a very popular scripting/programming
-    language, with capabilities to perform many functions. Python can be executed interactively from the command-line
-    (via the python.exe interpreter) or via scripts (.py) that can be written and distributed to different systems.
-    Python code can also be compiled into binary executables.Python comes with many built-in packages to interact with
-    the underlying system, such as file operations and device I/O. Adversaries can use these libraries to download
-    and execute commands or other scripts as well as perform various malicious behaviors.
-  The sleep command: |
-    sleep is a command-line utility that allows you to suspend the calling process for a specified time. In other words,
-    the sleep command pauses the execution of the next command for a given number of seconds.
-  ART plugin: |
+  Adding Additional Proceedures: |
     Operator includes a plugin called ART, which allows you to import the hundreds of TTPs available in the open-source
     Atomic Red Team project. Use this to bolster the number of attacks in your Operator instance.
+  Additional Additions to Proceedures Outside Editor: |
+    When creating proceedures inside editor you can create additional information that the current editor does not support during creation. For example,
+    if you want your proceedure to be linked to a chain you will need to export the proceedure add "chains" to the yml file and then import the proceedure
+    which will update it inside Operator. 
+  Similar Proceedures: |
+    After you create a proceedure, within the information section, if Operator believes your proceedure has similar characteristics to an already created 
+    proceedure it will link to it. This helps avoid duplication of proceedures. If you linked proceedure is similar but not exact you can go into the linked 
+    proceedure and create a varrant.  
 answer:
   script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'fall asleep').length)
   value: 1

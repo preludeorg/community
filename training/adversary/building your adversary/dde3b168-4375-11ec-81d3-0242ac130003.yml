@@ -1,0 +1,17 @@
+id: f4e12e72-4375-11ec-81d3-0242ac130003
+name: Add your procedure to a chain
+challenge: |
+  
+context: |
+  Chains are the way we connect procedures  
+template:
+  name: input
+  data: []
+resources: []
+hints: []
+blocks:
+  Block 1 placedholder:  |
+    placeholder
+answer:
+  script: $('#answer').val()
+  value: ''

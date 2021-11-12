@@ -1,5 +1,5 @@
 id: adversary
-name: Adversary Emulation
+name: Adversary Emulation Workshop
 description: |
   Basics of setting up and using Operator to perform basic adversary emulation tasks and investigating how that can be used
   to create a continuous defensive evaluation process.
@@ -9,11 +9,6 @@ courses:
     challenges:
       - 387063c1-076e-4405-b5bc-455a4c9658a2
       - f15c367c-d966-480f-91dd-2f46841f490d
-      - 387063c1-076e-4405-b5bc-455a4c9658a2
-  - name: Threat Modeling
-    description: Understanding relevant threats to your organization
-    challenges:
-      - e979d382-9b90-4c89-b803-51ff721d7433
   - name: Using Operator
     description: Basic concepts of Operator
     challenges:
@@ -23,6 +18,10 @@ courses:
       - 8fb4c5f2-2be1-4f54-a330-061992cc8a4f
       - 9a6caab1-13a1-4b44-9eb4-b4994d860863
       - d4309b3b-3a43-462f-9f38-520e3890697e
+  - name: Threat Modeling
+    description: Understanding relevant threats to your organization
+    challenges:
+      - e979d382-9b90-4c89-b803-51ff721d7433
   - name: Building your adversary
     description: Design and build your own adversary
     challenges:
