@@ -27,7 +27,7 @@
         }).then(res => res.json()).then(config => {
             if(config.stylesheet){
                 $('#themes').append(`<option selected value="${config.stylesheet}">${config.stylesheet}</option>`);
-                $('head').append(`<link rel="stylesheet" type="text/css" href="${config.stylesheet}">`);
+                $('head').append(`<link rel="stylesheet" type="text/css" custom="true" href="${config.stylesheet}">`);
             }
         })
     </script>
@@ -55,9 +55,9 @@
                 method: 'POST',
                 body: JSON.stringify(config)
             }).then(() => {
-                $(`link[rel=stylesheet][href="${currentStylesheet}"]`).remove();
+                $(`link[rel=stylesheet][custom]`).remove();
                 if(config.stylesheet){
-                    $('head').append(`<link rel="stylesheet" type="text/css" href="${config.stylesheet}">`);
+                    $('head').append(`<link rel="stylesheet" type="text/css" custom="true" href="${config.stylesheet}">`);
                 } 
             });
         });
