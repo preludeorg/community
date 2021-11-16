@@ -27,6 +27,10 @@ blocks:
     It is part of information risk management. It typically involves preventing or reducing the probability of unauthorized/inappropriate 
     access to data, or the unlawful use, disclosure, disruption, deletion, corruption, modification, inspection, recording, or 
     devaluation of information. It also involves actions intended to reduce the adverse impacts of such incidents.
+  What license should I use?: |
+    If you work in InfoSec or IT you'll want to upgrade your license to Enterprise as soon as you feel comfortable with the Community version.
+    Your main goal is to get Protect on all the workstations in your org and you'll need the web portal (login.prelude.org) to schedule 
+    chains, monitor your endpoints and aggregate the results.
 answer:
   script: Number($('#answer').val().toLowerCase().includes('pink') 
   value: 1

@@ -38,6 +38,11 @@ blocks:
     the defensive tactics and controls from the Blue Team with the threats and vulnerabilities found by the Red Team into 
     a single narrative that maximizes both. Ideally Purple shouldn’t be a team at all, but rather a permanent dynamic between 
     Red and Blue (https://danielmiessler.com/study/red-blue-purple-teams/).
+  What license should I use?: |
+    If you work on a blue or purple team you'll want to upgrade your license to Professional if you want the Publisher or Reporting 
+    plugins. These allow you to get the most out of the blue/purple use case when using Operator as an individual. If you work on 
+    a larger team, you'd consider moving to an Enterprise license if you want to aggregate the results from multiple individual 
+    Operator instances or to do a deeper integration with your SIEM.
 answer:
   script: Number($('#answer').val().toLowerCase().includes('att&ck') 
   value: 1
