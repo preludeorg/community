@@ -10,5 +10,7 @@ courses:
     description: Deploy agents & build and launch adversaries
   - name: editor
     description: 'Editing, managing and searching through procedures'
+  - name: connect
+    description: 'Managing redirectors and remote resources'
   - name: plugins
     description: 'Discover, build and import plugins'
