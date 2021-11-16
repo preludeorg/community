@@ -111,4 +111,4 @@ team:
   payloads:
     headless:
       install: |
-        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key &
+        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://instance-data.ec2.internal/latest/meta-data/public-hostname) &
