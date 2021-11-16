@@ -4,22 +4,30 @@ challenge: |
   Can you create a new payload? It should be named "hello.txt" and its contents should be "world". You can attach it
   to any TTP you like.
 context: |
-  Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, and can be thought of as 
-  malware. A payload can be written in any computer language and is commonly compiled into a single executable file or designed to 
-  be loaded into memory (to avoid detection). Inside Operator, you can attach a payload to any TTP and add instructions for executing it. 
-  Instead of writing TTPs which contain dozens or hundreds of lines of instructions, consider putting that code into a payload and writing
-  a simple TTP which can execute the payload file.
+  Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, 
+  and can be thought of as malware. A payload can be written in any computer language and is commonly compiled into a 
+  single executable file or designed to be loaded into memory (to avoid detection). By default, Operator provides a variety
+  of payloads within the Editor's 'manage payloads' window, some of which include: translators, agents, and more.
+  Instead of writing TTPs which contain numerous lines of code, consider attaching a payload that contains the bulk of
+  instructions and ordering your TTP to execute the payload file.
 template:
   name: submit
   data: []
 resources:
-  links: []
+  links:
+    Translators: https://feed.prelude.org/p/can-you-hear-me-now
 hints:
   - Look for the "Add a Payload" link at the bottom of the Editor window
 blocks:
-  How Payloads Work: |
+  How payloads work: |
     Each TTP can offload part of its execution to an external attachment that will get automatically downloaded
     before the TTP runs. The payload will be downloaded to whatever directory the agent is running from on the target.
+  Automatic variables: |
+    Within the custom variables window on an agent you can find both agent specific and operator related variables. 
+    Operator distinguishes a callback address as an automatic variable (operator.payloads) for your use in retrieving and 
+    posting payloads. This can be utilized when instructing TTPs to download, upload or execute payloads. Take a look
+    at the adversary chains for examples in use.
+
 answer:
   script: Listen.resolvePayloads("/uploads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
   value: 1
