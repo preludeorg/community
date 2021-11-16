@@ -7,7 +7,8 @@ context: |
   several communication protocols. Headquarters, the Prelude authentication server, hosts precompiled versions of
   the Pneuma agent for all supported operating systems. You can download these directly to your computer, then move
   them to computers you want to run security assessments on. Pneuma can run on any operating system (Linux, MacOS and
-  Windows), requires no administrative privileges and does not need to be installed.
+  Windows), requires no administrative privileges and does not need to be installed. You can find all available 
+  agents in the Editor section, in the Manage Payloads sidebar. 
 template:
   name: input
   data: []

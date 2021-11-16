@@ -32,7 +32,7 @@ blocks:
     machines to perform various malicious activities such as installing and removing programs, manipulating files,
     hijacking the webcam, reading data from the keyboard, harvesting login credentials and monitoring the clipboard.
   Download Pneuma: |
-    There are two ways you can download Pneuma. The agent sidebar in the Operate section (easy) and compiling your
+    There are two ways you can download Pneuma. Through the Editor section's Manage Payloads sidebar (easy) and compiling your
     own agent from the GitHub source code (medium).
   Name your agent: |
     It is possible to pass values from the command line to Pneuma when it is started. These values are called
