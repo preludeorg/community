@@ -23,10 +23,10 @@ hints:
     deploy your VM. In the Operate section, check the ranges to see if you have any agents in a "cloud" range.
 blocks:
   Connect to your teammates: |
-    The Connect plugin has a professional feature allowing you to connect your Operator instance to your teammates. 
+    The Connect plugin has an enterprise feature allowing you to connect your Operator instance to your teammates. 
     It works like this: provision and connect to a new redirector then send a teammate the generated host/password 
-    information, which they can plug into their Connect plugin. Once connected, any agent that comes in to you, your 
-    teammate or the new redirector will be mirrored across both of your Operator instances!
+    information, which they can plug into their Connect plugin. Once connected, any agent that comes into the redirector 
+    will mirror across both of your Operator instances!
   Capture the flag: |
     Capture the flag (CTF) is a free multi-level program within Training that serves as a more interactive and hands on
     test to navigate through environments that mimic real-world situations. Currently there are 3 levels that increasingly
