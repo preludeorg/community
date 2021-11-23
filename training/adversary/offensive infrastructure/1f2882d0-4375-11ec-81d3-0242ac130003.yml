@@ -10,8 +10,35 @@ template:
 resources: []
 hints: []
 blocks:
-  Block 1 placedholder:  |
-    placeholder
+  Agents: |
+    Agents or Implants enable the communication between the target and the C2. The C2 then conducts the agent to perform
+    tasking.
+
+    Agents normally communicate back to the C2 in two ways. Beaconing allows the adversay to be stealthy by instructing
+    the agent to communicate back usually by an interval of time or in some cases when an action performed on the target
+    occurs. In this senario, an adversay normally has proceedures lined up ready for when the next beacon occurs.
+    Interactive is a less stealthy way to communicate to the agent but, provides a constant network stream allowing the
+    adversary to perform attacks live. In some cases, an agent has the ability to perform both beaconing and interactive
+    modes where an adversary will utilize beaconing to discover, plan, and setup the target and then if deemed necessary
+    uses interactive to complete the objective on the target swiftly.
+
+    Agents or implants of the past would harness all of their capabilities within the binary. An objective of any agent
+    developer is develop an agent that is small and has the ability to live on a wide varriety of targets. Advanced
+    agents today are developed more like frameworks and can load and unload capabilities to the binary when needed.
+    This cuts down on binary size and if the agent is discovered you are less likely to burn your capabilities.
+    The collection of agent capabilities within a single binary is usually denoted by a staging number. A Stage 0 agent
+    is usually denoted as a very small binary that is designed to just get on the target and beacon back. The adversay
+    loses little to nothing if the binary is discovered.
+
+    A Stage 1 agent
+    A Stage 2 agent
+    A Stage 3 agent
+
+  Selecting the best agent for the job: |
+
+  Communication Selection: |
+
+
 answer:
   script: $('#answer').val()
   value: ''
