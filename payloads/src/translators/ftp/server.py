@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
         def on_file_received(self, file):
             with self.fs.open(file, 'r') as beacon_file:
-                beacon = beacon_file.read()
+                beacon = beacon_file.read().strip()
                 res = requests.post(args.operator, data=beacon)
                 res.encoding = 'utf-8'
                 self.queue[file].put(res.text)
