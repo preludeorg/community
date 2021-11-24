@@ -40,5 +40,6 @@ if __name__ == '__main__':
     authorizer.add_user(args.user, args.password, os.getcwd(), perm='rw')
     handler = Handler
     handler.authorizer = authorizer
+    handler.masquerade_address = requests.get('http://checkip.amazonaws.com').text.strip()
     server = FTPServer((args.address, 21), handler)
     server.serve_forever()
