@@ -1,0 +1,57 @@
+id: bc6dc6de-f51f-4399-8cd1-ab82111e71a8
+name: Wi-Fi Network Detection
+description: Get a list of available access points around the client
+tactic: discovery
+technique:
+  id: T1018
+  name: Remote System Discovery
+platforms:
+  global: {}
+  windows:
+    python:
+      command: >-
+        import os
+
+        import subprocess
+
+        import json
+
+        import sys
+
+
+        command_to_run = "netsh wlan show networks mode=bssid"
+
+
+        wifi_networks = subprocess.run(command_to_run, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
+
+        networks = [l.strip() for l in
+        wifi_networks.stdout.decode("utf-8").splitlines()]
+
+        network_list = {"Networks": []}
+
+        new_network = {}
+
+        for line in networks:
+            if line == "" and new_network:
+                network_list["Networks"].append(new_network)
+                new_network = {}
+                continue
+            if "BSSID" in line:
+                new_network["BSSID"] = line.split(" ")[-1].strip()
+            elif "SSID" in line:
+                network_name = line.split(":")[-1].strip()
+                if network_name == "":
+                    new_network["SSID"] = "HIDDEN SSID"
+                else:
+                    new_network["SSID"] = network_name
+            else:
+                continue
+                
+        json.dump(network_list, sys.stdout)
+metadata:
+  authors:
+    - bartimus
+  tags:
+    - wireless
+  enabled: true

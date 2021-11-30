@@ -1,0 +1,55 @@
+<style>
+    td {
+        padding: 10px;
+    }
+    tr {
+        padding: 5px;
+    }
+    a {
+        color: lightgray
+    }
+</style>
+<div class="profile-heading-container">
+    <div class="body">
+        <strong class="profile-heading">CVExplorer</strong>
+        <p>Search for CVEs published on <a href="https://cve.mitre.org/">MITRE CVE Websute</a></p>
+    </div>
+    <br>
+    <p class="profile-heading" >Select your platform</p>
+    <select id="search-platform">
+        <option>Windows</option>
+        <option>Linux</option>
+        <option>MacOS (Darwin)</option>
+    </select>
+    <span>
+        <p>Application/Service Name</p>
+        <input type="text" id="search-application" />
+    </span>
+    <span>
+        <p>Version</p>
+        <input type="text" id="search-version" />
+    </span>
+</div>
+<button onclick="search_website()">
+    Search
+</button>
+<div id="table-holder">
+</div>
+<script>
+    function search_website() {
+        var app = $("#search-application").val();
+        var ver = $("#search-version").val();
+        var plat = $("#search-platform").val();
+        var search_url = `https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=${plat}%20${app}%20v${ver}`;
+        $()
+        fetch(search_url)
+            .then(result => result.text())
+            .then(html => {
+                var html_parser = new DOMParser();
+                var res_document = html_parser.parseFromString(html, "text/html");
+                var result_table = res_document.getElementById("TableWithRules");
+                $("#table-holder").html(result_table);
+                $("#TableWithRules").addClass("fact-table");
+            });
+    }
+</script>
