@@ -50,6 +50,9 @@
                 var result_table = res_document.getElementById("TableWithRules");
                 $("#table-holder").html(result_table);
                 $("#TableWithRules").addClass("fact-table");
+                $("#table-holder").find("a").each(function(p, e) {
+                    attr = e.setAttribute("href", "");
+                });
             });
     }
 </script>
