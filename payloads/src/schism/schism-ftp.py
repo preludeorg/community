@@ -40,6 +40,7 @@ class Beacon:
     def __init__(self, host, user, password, jitter):
         self.ftp = FTP(host)
         self.ftp.login(user, password)
+        self.ftp.set_pasv(False)
         self.jitter = jitter
         self.target = host
         self.links = []
