@@ -36,5 +36,5 @@ blocks:
     to continue the attack. This is not an exhaustive list, but rather a general guideline for strike strategy.
 answer:
   script: |
-    Number(Agent.agents.filter(function (a) { return a.locked && a.queue.filter(i => Attack.attack[i.ttp].name.toLowerCase() === $('#answer').val().toLowerCase()).length > 0 }).length > 0)
+    Number(Agent.agents.filter(function (a) { return a.locked && a.queue.filter(i => i.attack.name.toLowerCase() === $('#answer').val().toLowerCase()).length > 0 }).length > 0)
   value: 1
