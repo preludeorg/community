@@ -88,8 +88,20 @@
                 })))
             })
             .then(res => {
-              $('#art-plugin-container .loader').toggleClass('loading', false);
-              alert('Deleted! All Atomic Red Team TTPs have been deleted from your workspace.');
+              Requests.fetchOperator('/plugin/ART', {
+                method: 'GET'
+              }).then(res => res.json()).then(res => {
+                delete res.facts;
+                Requests.fetchOperator('/plugin/ART', {
+                  method: 'POST',
+                  body: JSON.stringify(res)
+                }).then(() => {
+                  ART_FACTS = {};
+                  $('#fact-table tbody').empty();
+                  $('#art-plugin-container .loader').toggleClass('loading', false);
+                  alert('Deleted! All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts');
+                });
+              });
             });
       });
 
