@@ -3,9 +3,9 @@ T1547.002:
     description: Dropper and payload for T1547.002
     purpose: payloads
   payloads:
-    https://github.com/tr4cefl0w/payloads/tree/master/T1547.002/package:
+    package:
       build: |
         cl.exe /W1 package.c package.def /MT /link /DLL /OUT:package.dll
-    https://github.com/tr4cefl0w/payloads/tree/master/T1547.002/install:
+    install:
       build: |
         dotnet publish -c Release -r win-x64
