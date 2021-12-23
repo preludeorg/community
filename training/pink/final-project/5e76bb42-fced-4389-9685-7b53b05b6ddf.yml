@@ -19,7 +19,7 @@ resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/protect-mode.m4a
   links:
-    Protect for MacOS: https://s3.amazonaws.com/protector.versions/dist/prelude-protect-1.0.0-beta.11.dmg
+    Protect for MacOS: https://s3.amazonaws.com/protector.versions/dist/prelude-protect-1.1.0-beta.11.dmg
     Protect for Windows: https://s3.amazonaws.com/protector.versions/dist/prelude-protect-1.1.0-beta.11.exe
 hints: []
 blocks:
