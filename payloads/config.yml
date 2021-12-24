@@ -1,6 +1,6 @@
 translators:
   metadata:
-    description: Extra Operator listening posts for redirectors
+    description: An extra Operator listening post for redirectors
     purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
