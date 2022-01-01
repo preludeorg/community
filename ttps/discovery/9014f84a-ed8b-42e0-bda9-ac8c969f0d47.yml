@@ -1,0 +1,22 @@
+id: 9014f84a-ed8b-42e0-bda9-ac8c969f0d47
+metadata:
+  version: 1
+  authors:
+    - Bhabesh Raj
+  tags:
+    - Oilrig
+    - OopsIE
+name: Check for virtualization environment
+description: |
+  Malware can use various system checks to detect and avoid virtualization and sandbox environments. 
+  They do this by searching, in results of the system checks, for presence of any artifacts that may indicate that the system is a virtual or sandbox environment.
+  This procedure will use WMI to query information on the physical disk drive and then search for VM artifacts.
+tactic: discovery
+technique:
+  id: T1497.001
+  name: System Checks
+platforms:
+  windows:
+    psh:
+      command: |
+        Get-WmiObject -Query "Select * from Win32_DiskDrive" | Out-String -Stream | Select-String "Virtual|VMware|VM|VBox|Oracle"
