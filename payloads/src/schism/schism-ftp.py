@@ -37,9 +37,10 @@ class Executor:
 
 class Beacon:
 
-    def __init__(self, host, user, password, jitter):
+    def __init__(self, host, user, password, jitter, passive_mode):
         self.ftp = FTP(host)
         self.ftp.login(user, password)
+        self.ftp.set_pasv(passive_mode)
         self.jitter = jitter
         self.target = host
         self.links = []
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     parser.add_argument('-A', '--address', required=False, default='127.0.0.1', help='IP of FTP server')
     parser.add_argument('-U', '--user', required=False, default='user', help='Username to auth')
     parser.add_argument('-P', '--password', required=False, default='password', help='Password to auth')
+    parser.add_argument('-M', '--passive-mode', required=False, default=True, action=argparse.BooleanOptionalAction, help='Disable passive mode')
     parser.add_argument('-J', '--jitter', required=False, default=10)
     args = parser.parse_args()
-
-    Beacon(args.address, args.user, args.password, int(args.jitter)).monitor()
+    Beacon(args.address, args.user, args.password, int(args.jitter), args.passive_mode).monitor()
