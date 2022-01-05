@@ -109,8 +109,9 @@ team:
     purpose: redirector
     required: team
     default: team
-    download:
-      headless: https://s3.amazonaws.com/operator.payloads.open/payloads/team/headless-linux
+    build: |
+      cp SRC.PATH/operator/modes/headless/package.json SRC.PATH/operator/package.json && cd SRC.PATH/operator && \
+      npm install && npm run package && cp SRC.PATH/dist/headless-linux DST.PATH/headless
   payloads:
     headless:
       install: |

@@ -6,3 +6,6 @@
 [submodule "payloads/src/nicodemus"]
 	path = payloads/src/nicodemus
 	url = git@github.com:preludeorg/nicodemus.git
+[submodule "payloads/src/team/operator"]
+	path = payloads/src/team/operator
+	url = git@github.com:preludeorg/operator.git
