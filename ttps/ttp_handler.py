@@ -18,3 +18,4 @@ if __name__ == '__main__':
         print(file)
         if file.endswith('.yml') and file != '.travis.yml' and os.path.exists(file):
             update_ttp(filename=file)
+ 

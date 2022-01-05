@@ -127,4 +127,5 @@ T1547.002:
      platforms:
        - windows
    payloads:
-     T1547.002: {}
+     AuthenticationPackage: {}
+     Install: {}
