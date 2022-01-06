@@ -123,8 +123,8 @@ plugins:
     purpose: plugin
     build: |
       npm install && npm run build && \
-      cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../plugins/Editor/Editor.html && \
-      cp SRC.PATH/build/package/Connect/Connect.html DST.PATH/Connect.html && cp DST.PATH/Connect.html DST.PATH/../../plugins/Connect/Connect.html
+      cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../../plugins/Editor/Editor.html && \
+      cp SRC.PATH/build/package/Connect/Connect.html DST.PATH/Connect.html && cp DST.PATH/Connect.html DST.PATH/../../../plugins/Connect/Connect.html
   payloads:
     Editor.html: {}
     Connect.html: {}
