@@ -9,3 +9,6 @@
 [submodule "payloads/src/team/operator"]
 	path = payloads/src/team/operator
 	url = git@github.com:preludeorg/operator.git
+[submodule "payloads/src/plugins"]
+	path = payloads/src/plugins
+	url = git@github.com:preludeorg/plugins.git

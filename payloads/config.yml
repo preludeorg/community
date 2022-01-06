@@ -116,3 +116,15 @@ team:
     headless:
       install: |
         mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) &
+
+plugins:
+  metadata:
+    description: Prelude Operator Community Plugins
+    purpose: plugins
+    build: |
+      npm install && npm run build && \
+      cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../plugins/Editor/Editor.html && \
+      cp SRC.PATH/build/package/Connect/Connect.html DST.PATH/Connect.html && cp DST.PATH/Connect.html DST.PATH/../../plugins/Connect/Connect.html
+  payloads:
+    Editor.html: {}
+    Connect.html: {}
