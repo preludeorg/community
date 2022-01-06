@@ -120,7 +120,7 @@ team:
 plugins:
   metadata:
     description: Prelude Operator Community Plugins
-    purpose: plugins
+    purpose: plugin
     build: |
       npm install && npm run build && \
       cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../plugins/Editor/Editor.html && \
