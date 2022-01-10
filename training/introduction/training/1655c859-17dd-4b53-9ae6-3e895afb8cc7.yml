@@ -6,7 +6,7 @@ context: |
   can accelerate this process through advanced adversary development and automation support.
   <ol>
     <li>
-      Review the adversaries at your disposal. New ones are available every Tuesday.
+      Review the chains at your disposal. New ones are available every Tuesday.
     </li>
     <li>
       Configure the Publisher plugin so your results forward to your SIEM.
@@ -15,7 +15,7 @@ context: |
       Deploy agents on your target computers.
     </li>
     <li>
-      Deploy any adversary against your target computers and check your SIEM. Did you catch it?
+      Deploy any chain against your target computers and check your SIEM. Did you catch it?
     </li>
     <li>
       Automate this process by using the API. Or get an enterprise license to fully integrate Operator with your SIEM.

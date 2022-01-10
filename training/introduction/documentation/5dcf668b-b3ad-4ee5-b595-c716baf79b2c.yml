@@ -1,11 +1,11 @@
 id: 5dcf668b-b3ad-4ee5-b595-c716baf79b2c
-name: Understand chaining
+name: Links in the chain
 challenge: Find the procedure named FILE.IO EXFIL. Notice how the command has a variable inside, denoted by
   the "#{variable}" syntax. What is a procedure name which could fill in this variable with a fact?
-context: In Operator, a chain is the full operation of an adversary. The chain is composed of links, which are individual
-  procedures used in the attack. While the adversary is in progress Operator continuously attempts to
+context: In Operator, a chain is a subset of an adversary's attack. The chain is composed of links, which are individual
+  procedures used in the attack. While the chain is executing, Operator continuously attempts to
   learn about the computers it is attacking and parses out information from every executed command. These parsed results
-  are called facts. Each fact could potentially unlock another procedure in the adversary profile by matching the fact key to
+  are called facts. Each fact could potentially unlock another procedure in the chain by matching the fact key to
   any variables in the command field. This means, the output of a procedure can be fed as input to other procedures,
   therefore creating a dynamic operation.
 template:
@@ -16,7 +16,7 @@ resources:
     MITRE ATT&CK: https://attack.mitre.org
     What is an adversary: https://attack.mitre.org/groups
 hints:
-  - Edit any adversary to bring up the TTP search
+  - Head into Editor and use the TTP search
   - Search for FILE.IO EXFIL. Locate the variable and note the technique ID required to fill it in.
   - Search for technique T1560.001. These procedures can fill in the variable
 blocks:

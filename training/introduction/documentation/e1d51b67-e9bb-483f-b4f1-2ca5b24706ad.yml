@@ -5,9 +5,9 @@ context: |
   Operator is a fully autonomous red team platform, allowing you to install and forget it like an antivirus. Of course,
   if you have the time and skills you can also use Operator as a manual security tool. There are several human-in-the-loop
   capabilities (outlined below) which allow for varying levels of manual control. If you want to go fully autonomous however,
-  you'll want to install __. This tool will select an adversary chain on a
-  random time schedule (usually once per week). An adversary chain is a focused hack which would be a single component
-  within a larger attack. Adversaries will only run safe attacks - so no damage will occur to your computer. Instead,
+  you'll want to install __. This tool will select a chain on a
+  random time schedule (usually once per week). A chain is a focused hack which would be a single component
+  within a larger attack. Chains will only run safe attacks - so no damage will occur to your computer. Instead,
   you'll experience a safe continuous adversarial attack to see how you and your technology would react in the real world.
   This tool is aimed at training users at how to behave better while on their computers, encouraging them to be more
   aware of what a cyber attack looks like.
@@ -21,8 +21,8 @@ hints:
   - Head to Prelude GitHub account and look around
 blocks:
   Scheduling: |
-    If you don't want to rely on the randomly selected micro adversaries, you can build your own custom adversary profiles
-    and schedule them at any interval you want inside Operator.
+    If you don't want to rely on the randomly selected chains, you can build your own custom chain
+    and schedule it at any interval you want over the Operator API.
   Agent locking: |
     If you aren't ready to go fully autonomous, look for the lock icon on each agent. Clicking this will queue all attacks
     for the agent until you are able to approve them.
