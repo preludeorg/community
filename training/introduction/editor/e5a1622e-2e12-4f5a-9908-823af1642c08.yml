@@ -35,12 +35,13 @@ blocks:
 answer:
   script: |
     new Promise((resolve, reject) =>
-        Requests.fetchGatekeeper(Basic.constructEndpoint('/protect/ea713bc4-63f0-491c-9a6f-0b01d560b87e', {
-            email: Settings.settings.account.email,
-            token: Settings.settings.account.token
-        }), {method: 'GET'})
-            .then((res) => res.json())
-            .then((res => {
-                resolve(Number(Object.keys(res).length === parseInt($('#answer').val())))
-            })))
+      Requests.hq.getPotentialChains('ea713bc4-63f0-491c-9a6f-0b01d560b87e').then(potential => {
+            return [...new Set(Object.values(potential).flat(1))];
+        }).then(totals => {
+            let unique = new Set();
+            totals.filter(ttp => !unique.has(ttp)).forEach(i => {
+                unique.add(i);
+            });
+            resolve(unique.size -1 === parseInt($('#answer').val())))
+        }));
   value: 1
