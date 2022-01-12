@@ -58,9 +58,7 @@ schism:
     purpose: agent
     zip: 1
     build: |
-      cp SRC.PATH/schism-ftp.py DST.PATH
-      cp SRC.PATH/schism-android.py DST.PATH
-      cp SRC.PATH/schism-http.py DST.PATH
+      cp SRC.PATH/schism-* DST.PATH
     platforms: 
       - windows
       - linux
