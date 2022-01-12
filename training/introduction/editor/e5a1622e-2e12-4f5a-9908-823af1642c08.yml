@@ -37,6 +37,6 @@ answer:
     new Promise((resolve, reject) =>
       Requests.hq.getPotentialChains('ea713bc4-63f0-491c-9a6f-0b01d560b87e').then((potential) => {
         const unique = new Set(Object.values(potential).flat());
-        resolve((unique.size - 1)=== parseInt($('#answer').val()));
+        resolve((unique.size - 1) === parseInt($('#answer').val()));
       }));
   value: 1
