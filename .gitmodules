@@ -6,8 +6,8 @@
 [submodule "payloads/src/nicodemus"]
 	path = payloads/src/nicodemus
 	url = git@github.com:preludeorg/nicodemus.git
-[submodule "payloads/src/team/operator"]
-	path = payloads/src/team/operator
+[submodule "payloads/src/headless"]
+	path = payloads/src/headless
 	url = git@github.com:preludeorg/operator.git
 [submodule "payloads/src/plugins"]
 	path = payloads/src/plugins

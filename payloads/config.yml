@@ -103,15 +103,15 @@ ctf:
     vulnerable.sh:
       install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
 
-team:
+headless:
   metadata:
     description: Headless Operator API / Team Server
     purpose: redirector
     required: team
     default: team
     build: |
-      cp SRC.PATH/operator/modes/headless/package.json SRC.PATH/operator/package.json && cd SRC.PATH/operator && \
-      npm install && npm run package && cp SRC.PATH/operator/dist/headless-linux DST.PATH/headless
+      cp SRC.PATH/modes/headless/package.json SRC.PATH/package.json && cd SRC.PATH && \
+      npm install && npm run package && cp SRC.PATH/dist/headless-linux DST.PATH/headless
   payloads:
     headless:
       install: |
