@@ -1,6 +1,5 @@
 id: 9014f84a-ed8b-42e0-bda9-ac8c969f0d47
 metadata:
-  version: 1
   authors:
     - Bhabesh Raj
   tags:
@@ -14,7 +13,7 @@ description: |
 tactic: discovery
 technique:
   id: T1497.001
-  name: System Checks
+  name: 'Virtualization/Sandbox Evasion: System Checks'
 platforms:
   windows:
     psh:
