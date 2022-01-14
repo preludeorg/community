@@ -119,7 +119,7 @@ headless:
   payloads:
     headless:
       install: |
-        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) &
+        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &
 
 plugins:
   metadata:
