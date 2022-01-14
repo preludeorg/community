@@ -12,7 +12,7 @@ template:
   data: []
 resources:
   links:
-    Connect plugin: https://feed.prelude.org/p/cloudy-with-a-chance-of-redirectors
+    Connect plugin: https://feed.prelude.org/p/connect-with-redirectors
     AWS: https://feed.prelude.org/p/how-to-set-up-aws-for-operator
     Translators: https://feed.prelude.org/p/can-you-hear-me-now
     CTF: https://feed.prelude.org/p/capture-the-flag

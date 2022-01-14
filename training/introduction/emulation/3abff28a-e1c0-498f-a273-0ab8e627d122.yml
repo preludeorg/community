@@ -1,7 +1,7 @@
 id: 3abff28a-e1c0-498f-a273-0ab8e627d122
 name: Run your first operation
 challenge: |
-  Can you deploy an adversary against your "home" computers? Enter the link ID of any completed TTP.
+  Can you deploy a chain against your "home" computers? Enter the link ID of any completed TTP.
 context: |
   Operator is a command-and-control (C2) platform that allows you to run threat assessments against any
   computer - or range of computers. This process is known as red teaming and it is the backbone of advanced
@@ -28,9 +28,9 @@ blocks:
     of an operation. In red teaming, a TTP is used as shorthand to describe a single micro-attack, sometimes referred
     simply as a procedure. All TTPs inside Operator are safe to run by default. The ones that could
     create an unintended effect on your computer are marked as "destructive" and require you to enable them before use.
-  What is an adversary?: |
-    An adversary is a collection of TTPs. Sometimes, and adversary is designed to emulate a known Advanced Persistent
-    Threat (APT) group. Other times, an adversary is simply an unorganized set of TTPs.
+  What is a chain?: |
+    A chain is a collection of TTPs. Sometimes a chain is designed to emulate a known Advanced Persistent
+    Threat (APT) group. Other times, a chain is simply an organized set of TTPs.
   What is an agent?: |
     An agent, otherwise known as a Remote Access Trojan, is a piece of malicious software running on a target computer.
     The agent is responsible for executing an adversary's instructions - or TTPs. Operator includes a safe built-in

@@ -9,25 +9,30 @@
   }
 </style>
 
-<div class="profile-heading-container">
-  <div class="body">
-    <strong class="profile-heading">Manage your Atomic Red Team attacks</strong>
-    <p>
-      Atomic Red Team (ART) contains hundreds of TTPs which can be used to validate the defenses on a system or within
-      a network. This plugin allows you to import these attacks into Operator and manage them as native TTPs. Importing them is a one time action.
-      Afterward, you can adjust any of the global input_arguments, which are used as Operator facts.
-    </p>
+<div id="art-plugin-container" class="loader-container">
+  <div class="profile-heading-container">
+    <div class="body">
+      <strong class="profile-heading">Manage your Atomic Red Team attacks</strong>
+      <p>
+        Atomic Red Team (ART) contains hundreds of TTPs which can be used to validate the defenses on a system or within
+        a network. This plugin allows you to import these attacks into Operator and manage them as native TTPs. Importing them is a one time action.
+        Afterward, you can adjust any of the global input_arguments, which are used as Operator facts.
+      </p>
+    </div>
   </div>
-</div>
 
-<input placeholder="Enter a local directory of ART attack files" id="art" onchange="ingest('art')"/>
-<br>
-<button id="save-facts">Re-save input arguments</button>
-<br>
-<div>
-  <table id="fact-table">
-      <tbody></tbody>
-  </table>
+  <input placeholder="Enter a local directory of ART attack files" id="art" onchange="ingest('art')"/>
+  <br>
+  <button id="save-facts">Re-save input arguments</button>
+  <br>
+  <div>
+    <table id="fact-table">
+        <tbody></tbody>
+    </table>
+  </div>
+  <br>
+  <button id="delete-ttps">Delete TTPs</button>
+  <div class="loader" style="position: fixed"></div>
 </div>
 
 <div id="init-plugin">
@@ -66,7 +71,38 @@
           ev.preventDefault();
           ev.stopPropagation();
           flushArtFacts();
-          alert('Saved! View the parsed input arguments below, which were saved along with the TTPs.');
+          Basic.showNotification('Saved!', 'View the parsed input arguments below, which were saved along with the TTPs.');
+      });
+
+      $('#delete-ttps').click((ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          $('#art-plugin-container .loader').toggleClass('loading', true);
+          Requests.fetchOperator('/attack')
+            .then(res => res.json())
+            .then(res => {
+              const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
+              return Promise.all(ttps.map(ttp =>
+                Requests.fetchOperator(`/attack/${ttp.id}`, {
+                  method: 'DELETE'
+                })))
+            })
+            .then(res => {
+              Requests.fetchOperator('/plugin/ART', {
+                method: 'GET'
+              }).then(res => res.json()).then(res => {
+                delete res.facts;
+                Requests.fetchOperator('/plugin/ART', {
+                  method: 'POST',
+                  body: JSON.stringify(res)
+                }).then(() => {
+                  ART_FACTS = {};
+                  $('#fact-table tbody').empty();
+                  $('#art-plugin-container .loader').toggleClass('loading', false);
+                  Basic.showNotification('Deleted!', 'All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts');
+                });
+              });
+            });
       });
 
       Requests.fetchOperator('/plugin/ART', {
@@ -83,22 +119,29 @@
   function ingest(directory) {
       $("#listing").empty();
       new Promise((resolve, reject) => {
-        Promise.allSettled(Basic.recursiveFiles(Basic.normalizePath($('#'+directory).val()), [])
-                .filter((file) => file.endsWith('.yml') || file.endsWith('.yaml'))
-                .map(file => convertRedCanary(file).then((procedures) =>
-                        procedures.forEach(ttp => {
-                          Requests.fetchOperator('/attack', {
-                            method: 'POST',
-                            body: JSON.stringify(ttp)
-                          });
-                        })
-                )));
+        Promise.resolve(Requests.hq.getAttackSchema().catch(err => ({})))
+          .then(schema => Object.entries(schema).reduce((acc, [tactic, techniques]) =>
+            Object.keys(techniques).reduce((acc, technique) => ({
+              ...acc,
+              [technique]: tactic
+            }), acc), {}))
+          .then(schema =>
+            Promise.allSettled(Basic.recursiveFiles(Basic.normalizePath($('#'+directory).val()), [])
+                    .filter((file) => file.endsWith('.yml') || file.endsWith('.yaml'))
+                    .map(file => convertRedCanary(file, schema).then((procedures) =>
+                            procedures.forEach(ttp => {
+                              Requests.fetchOperator('/attack', {
+                                method: 'POST',
+                                body: JSON.stringify(ttp)
+                              });
+                            })
+                    ))));
       });
       flushArtFacts();
       Basic.showNotification('Complete', 'Your TTPs are now accessible in the Editor section');
   }
 
-  function convertRedCanary(file) {
+  function convertRedCanary(file, schema) {
     return new Promise((resolve, reject) => {
       try {
         let procedures = [];
@@ -109,7 +152,7 @@
             name: ttp.name,
             description: ttp.description,
             metadata: {version: 1, authors: ['Atomic Red Team'], tags: [], source: 'Red Canary'},
-            tactic: 'ART',
+            tactic: schema[data.attack_technique] || 'ART',
             technique: {id: data.attack_technique, name: data.display_name},
             platforms: {}
           };

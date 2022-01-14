@@ -24,7 +24,6 @@ blocks:
     your payloads directory (referenced through the automatic fact of #{operator.payloads}). Then Operator ships the TTP 
     to the receiving agent, along with the address of the payload on disk. The agent makes an HTTP request back to Operator 
     to retrieve the payload before executing the TTP itself.
-
 answer:
   script: Listen.resolvePayloads("/uploads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
   value: 1

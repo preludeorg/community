@@ -4,7 +4,7 @@ challenge: |
   Select any TTP and write a base64 variant for it. Use the DEPLOY button in the Editor section 
   to send it to any agent. Enter the base64 command which was executed.
 context: |
-  Adversaries use various defense evasion techniques to hide from defenders. One common one is to
+  Adversaries use various defense evasion techniques to hide from defenders. A common one is to
   obfuscate their commands, so they look different, but actually have the same net behavior. Encoding a 
   command with base64 and executing it as such is an approach often seen in the wild. If the defense has a 
   SIEM looking for keywords being executed in the network, an encoded version of a keyword very well may

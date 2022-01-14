@@ -17,7 +17,7 @@ resources:
       Human-in-the-loop: https://appen.com/blog/human-in-the-loop/
 hints:
   - Look for the lock icon
-  - Did you create and deploy an adversary?
+  - Did you create and deploy a chain?
   - Did you know you can click into the 'pending' procedures
 blocks:
   Human-in-the-loop: |

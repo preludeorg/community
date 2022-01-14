@@ -5,7 +5,9 @@ import os
 import socket
 import subprocess
 import stat
+import sys
 import time
+
 import requests
 
 
@@ -63,9 +65,9 @@ class Beacon:
         return dict(
             Name=socket.gethostname(),
             Location=__file__,
-            Platform='linux',
+            Platform=sys.platform,
             Executors=['sh'],
-            Range='android',
+            Range='dynamic',
             Pwd=os.getcwd(),
             Target=target,
             Links=links,
