@@ -146,7 +146,7 @@
                 if(url){
                     exec(`git clone ${url} --recursive`, {cwd: path.join(TOOLBOX, "")}, (error, stdout, stderr) => {
                         if (error) {
-                            Basic.showNotification('Failed to download!', stderr);
+                            Basic.announce(`Failed to download Toolbox repo: ${stderr}`);
                             resolve();
                             return;
                         }

@@ -51,7 +51,7 @@
                 techniques: data
             }, null, 2);
             Basic.storeData(layer, `${adversary.name}.json`);
-            Basic.showNotification('Generated layer', process.cwd());
+            Basic.announce(`Generated layer: ${process.cwd()}`);
         };
 
         function inputFunction() {
@@ -77,7 +77,7 @@
               })
             })
             .then(() => {
-                Basic.showNotification('Generated Adversary');
+                Basic.announce('Generated Adversary');
                 document.getElementById('file').value = '';
             });
         };

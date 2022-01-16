@@ -71,7 +71,6 @@
           ev.preventDefault();
           ev.stopPropagation();
           flushArtFacts();
-          Basic.showNotification('Saved!', 'View the parsed input arguments below, which were saved along with the TTPs.');
       });
 
       $('#delete-ttps').click((ev) => {
@@ -99,7 +98,7 @@
                   ART_FACTS = {};
                   $('#fact-table tbody').empty();
                   $('#art-plugin-container .loader').toggleClass('loading', false);
-                  Basic.showNotification('Deleted!', 'All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts');
+                  Basic.announce('All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts');
                 });
               });
             });
@@ -138,7 +137,7 @@
                     ))));
       });
       flushArtFacts();
-      Basic.showNotification('Complete', 'Your TTPs are now accessible in the Editor section');
+      Basic.announce('Your ART TTPs are now accessible in the Editor section');
   }
 
   function convertRedCanary(file, schema) {
