@@ -1,6 +1,7 @@
 translators:
   metadata:
     description: An extra Operator listening post for redirectors
+    technique: T1090
     purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
@@ -23,6 +24,7 @@ translators:
 pneuma:
   metadata:
     description: The default open-source agent written in GoLang
+    technique: T1219
     purpose: agent
     zip: 1
     build: |
@@ -55,6 +57,7 @@ pneuma:
 schism:
   metadata:
     description: Simple Python agent (FTP requires a translator)
+    technique: T1071
     purpose: agent
     zip: 1
     build: |
@@ -77,6 +80,7 @@ schism:
 nicodemus:
   metadata:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
+    technique: T1219
     purpose: agent
     zip: 1
     build: |
@@ -98,6 +102,7 @@ nicodemus:
 ctf:
   metadata:
     description: Create a vulnerable environment to practice against
+    technique: T1584
     purpose: virtualmachine
     build: |
       cp SRC.PATH/vulnerable.sh DST.PATH
@@ -110,6 +115,7 @@ ctf:
 headless:
   metadata:
     description: Headless Operator API / Team Server
+    technique: T1587
     purpose: redirector
     required: team
     default: team
@@ -124,6 +130,7 @@ headless:
 plugins:
   metadata:
     description: Prelude Operator Community Plugins
+    technique: T1588
     purpose: plugin
     build: |
       npm install && \
