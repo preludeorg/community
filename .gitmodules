@@ -9,6 +9,10 @@
 [submodule "payloads/src/headless"]
 	path = payloads/src/headless
 	url = git@github.com:preludeorg/operator.git
+	update = merge
+	checkout = master
 [submodule "payloads/src/plugins"]
 	path = payloads/src/plugins
 	url = git@github.com:preludeorg/plugins.git
+	update = merge
+	checkout = master
