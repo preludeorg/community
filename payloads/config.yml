@@ -130,7 +130,6 @@ headless:
 plugins:
   metadata:
     description: Prelude Operator Community Plugins
-    technique: T1588
     purpose: plugin
     build: |
       npm install && \
