@@ -32,9 +32,9 @@ major operating systems and 3 different protocols (TCP, UDP, HTTP).
 
 ---
 
-Ranges are logical groupings of agents. For example, a range can be used to cluster agents from various platforms
-(darwin, linux, windows) in order to run a cross-platform chain against all the agents. Agents can be
-moved between ranges using either command line flags or the Update Agent Configuration modal in the Operate section.
+Ranges are logical groupings of agents. For example, a range can be used to cluster agents from various platforms (darwin, 
+linux, windows) in order to run a cross-platform chain against all the agents. Agents can be moved between ranges using 
+either command line flags or the Update Agent Configuration modal in the Operate section.
 
 ### Reverse shell
 
@@ -87,9 +87,9 @@ agent to completely block it.
 ---
 
 Looking to connect an agent over a non-supported protocol? We have open-sourced the concept of translators, which
-are simple Python servers you can deploy anywhere to accept traffic (beacons) over one protocol and
-translate/proxy them to Operator over a supported one. You can get to know the existing translators in our
-[open-source](https://github.com/preludeorg/community/) space.
+are simple Python servers you can deploy anywhere to accept traffic (beacons) over one protocol and translate/proxy them 
+to Operator over a supported one. You can get to know the existing translators in our [open-source](https://github.com/preludeorg/community/) 
+space.
 
 ### Build your own agent
 

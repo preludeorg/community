@@ -5,9 +5,9 @@
 
 ---
 
-The Operator platform is built on top of an internal API. You can view all available endpoints by going to your
-local Swagger website in your browser. To build on top of the API, either use the cURL examples given with each endpoint or use the built-in
-`Requests.fetchOperator(endpoint, params)` function inside Operator, which communicates safely from JavaScript.
+The Operator platform is built on top of an internal API. You can view all available endpoints by going to your local Swagger website in your browser. 
+To build on top of the API, either use the cURL examples given with each endpoint or use the built-in `Requests.fetchOperator(endpoint, params)` 
+function inside Operator, which communicates safely from JavaScript.
     
 #### Example: Get a list of your chains over the API
 

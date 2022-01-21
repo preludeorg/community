@@ -34,8 +34,6 @@ From the plugins section, Professional license holders have access to a handful 
 
 ---
 
-Professional license holders gain access to a private Discord channel where they can get 
-1-on-1 support from the Prelude team. Additionally, those in the channel are invited to our cohort
-meeting - every 6 weeks - where the Prelude team demos upcoming features and talks about the 
-roadmap.
+Professional license holders gain access to a private Discord channel where they can get 1-on-1 support from the Prelude team. Additionally, those in the channel are invited to our cohort
+meeting - every 6 weeks - where the Prelude team demos upcoming features and talks about the roadmap.
 

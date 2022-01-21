@@ -15,8 +15,8 @@ with the technical team available on the Discord server.
 ---
 
 While it can be used to conduct initial access, Operator focuses mainly on post-compromise. In other words,
-it assumes that a bad actor has found their way into your network (i.e., you deploy an agent on a chosen
-"compromised" computer) and it tests your defenses from that moment forward.
+it assumes that a bad actor has found their way into your network (i.e., you deploy an agent on a chosen "compromised" 
+computer) and it tests your defenses from that moment forward.
 
 ### How do I use my Operator?
 

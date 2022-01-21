@@ -17,8 +17,8 @@ including the custom keyword executor. Pneuma is written in GoLang in order to r
 
 ---
 
-You can find Pneuma on [GitHub](https://github.com/preludeorg/pneuma), as it is fully open-source. We also automatically recompile the agent hourly with a fresh file hash 
-(to help evade detection), which you can download from the Editor section via the Manage Payloads
+You can find Pneuma on [GitHub](https://github.com/preludeorg/pneuma), as it is fully open-source. We also automatically recompile 
+the agent hourly with a fresh file hash (to help evade detection), which you can download from the Editor section via the Manage Payloads
 sidebar.
 
 ### How to use it
@@ -37,7 +37,7 @@ The most popular parameters to use are:
 ---
 
 Professional license holders get access to PneumaEX, an extended version of the open-source Pneuma
-agent. PneumaEX can be accessed through the Editor section's payload download 
-(both source and pre-compiled options) and is a drop-in replacement of Pneuma.
+agent. PneumaEX can be accessed through the Editor section's payload download (both source and 
+pre-compiled options) and is a drop-in replacement of Pneuma.
 
 
