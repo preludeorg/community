@@ -36,7 +36,7 @@ Now on your system that you wish to use Operator desktop app, we will add this n
 
 #### Example redirector format
 
-```
+```yaml
 redirectors:
     valid.domain.tld:
         key: /full/path/.ssh/operator_key
