@@ -5,8 +5,7 @@
 
 ---
 
-A redirector is a headless version of Operator, that can deploy without the full electron application and user interface. Through Connect, we already provide the ability to create and connect redirectors that are hosted on third party cloud services. This guide is for those that want to stand up their own 
-redirectors either locally or without support of cloud services.
+A redirector is a headless version of Operator, that can deploy without the full electron application and user interface. Through Connect, we already provide the ability to create and connect redirectors that are hosted on third party cloud services. This guide is for those that want to stand up their own redirectors either locally or without support of cloud services.
 
 #### Download headless Operator
 
@@ -30,9 +29,7 @@ nohup ./headless-linux --sshKey /tmp/headless_ssh_key --hostName 'valid.domain.t
 
 ---
 
-Now on your system that you wish to use Operator desktop app, we will add this new redirector into your workspace. Open your workspace settings.yml 
-(~/Library/Application\ Support/Operator/login.prelude.org/settings.yml or 
-~/.config/Operator/login.prelude.org/settings.yml) and add information about your remote system in the following format:
+Now on your system that you wish to use Operator desktop app, we will add this new redirector into your workspace. Open your workspace settings.yml (see docs) and add information about your remote system in the following format:
 
 #### Example redirector format
 
