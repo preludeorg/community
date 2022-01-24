@@ -17,8 +17,7 @@ resources:
     Understanding IP addresses: https://www.howtogeek.com/341307/how-do-ip-addresses-work/
     The OSI model: https://en.wikipedia.org/wiki/OSI_model
 hints:
-  - Check your Exposed IP value
-  - Did you save your changes?
+  - Check the Settings section
 blocks:
   0.0.0.0: |
     0.0.0.0 is a non-routable meta-address used to designate an invalid, unknown or non applicable target (a no

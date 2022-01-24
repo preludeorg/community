@@ -1,8 +1,8 @@
 id: 326c369e-4672-48c1-9120-2fdd3a13d80d
-name: Adversary vs Chain
+name: Defining chains
 challenge: |
    There were several high-profile ransomware attacks in 2020. We wrote chains to emulate 
-   several of them. Enter the chain name of one.
+   several of them. Enter the name of one.
 context: |
     There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
     of them all. Inside Operator, we try to use as few custom terms as possible and try to over explain terminology
@@ -10,9 +10,8 @@ context: |
     up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
     in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
     individual TTPs, which work together to achieve some type of output. The term adversary is a common cybersecurity term, 
-    often referring to the attacker overall. Inside Operator, we refer to an adversary as being composed of n-number of chains.
-    An adversary in the real-world may know how to execute dozens of chained attacks. We emulate this by allowing you to pick
-    a prebuilt chain and then append more TTPs to it.
+    often referring to the attacker overall. An adversary in the real-world may know how to execute dozens of chained attacks. 
+    We emulate this by allowing you to pick a prebuilt chain and then append more TTPs to it.
 template:
   name: input
   data: []

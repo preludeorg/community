@@ -15,7 +15,7 @@ resources:
     About UDP: https://en.wikipedia.org/wiki/User_Datagram_Protocol
     About HTTP: https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
 hints:
-  - Check the Account section
+  - Check the Settings section
 blocks:
   TCP/IP: |
     TCP/IP, or the Transmission Control Protocol/Internet Protocol, is a suite of communication protocols used to

