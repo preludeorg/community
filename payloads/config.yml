@@ -2,7 +2,7 @@ translators:
   metadata:
     description: An extra Operator listening post for redirectors
     technique: T1071.001
-    purpose: Command and Control/Application Layer Protocol
+    purpose: redirector
     build: |
       tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
   payloads:
@@ -25,7 +25,7 @@ pneuma:
   metadata:
     description: The default open-source agent written in GoLang
     technique: T1219
-    purpose: Command And Control/Remote Access Software
+    purpose: agent
     zip: 1
     build: |
       GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
@@ -58,7 +58,7 @@ schism:
   metadata:
     description: Simple Python agent (FTP requires a translator)
     technique: T1219
-    purpose: Command And Control/Remote Access Software
+    purpose: agent
     zip: 1
     build: |
       cp SRC.PATH/schism-* DST.PATH
@@ -81,7 +81,7 @@ nicodemus:
   metadata:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
     technique: T1219
-    purpose: Command And Control/Remote Access Software
+    purpose: agent
     zip: 1
     build: |
       docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
@@ -103,7 +103,7 @@ ctf:
   metadata:
     description: Create a vulnerable environment to practice against
     technique: T1059.004
-    purpose: Execution/Unix Shell
+    purpose: script
     build: |
       cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 
@@ -116,7 +116,7 @@ headless:
   metadata:
     description: Headless Operator API / Team Server
     technique: T1583.003
-    purpose: Resource Development/Aquire Infrastructure/Virtual Private Server
+    purpose: redirector
     required: team
     default: team
     build: |
