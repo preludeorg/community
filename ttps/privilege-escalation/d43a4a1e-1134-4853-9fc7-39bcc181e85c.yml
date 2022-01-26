@@ -18,7 +18,7 @@ metadata:
   authors:
     - VVX7
   chains:
-    - CVE-2021-4034
+    - LPE in polkit (CVE-2021-4034)
   references:
     - https://twitter.com/bl4sty
     - https://haxx.in/files/blasty-vs-pkexec.c
