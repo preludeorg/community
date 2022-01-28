@@ -103,7 +103,7 @@ ctf:
   metadata:
     description: Create a vulnerable environment to practice against
     technique: T1059.004
-    purpose: script
+    purpose: virtualmachine
     build: |
       cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 
