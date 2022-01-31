@@ -1,0 +1,149 @@
+<div id="init-plugin"><script type="text/javascript">
+
+  const initFacts = () => {
+    return Requests.fetchOperator('/plugin/ART', {
+      method: 'GET'
+    }).then(res => res.json()).then(res => {
+      if (res.facts){
+        Object.keys(res.facts).forEach(name => {
+          let temp = res.facts[name];
+          res.facts[name] = temp;
+        })
+        return Requests.fetchOperator('/internal/global/facts', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: 'art',
+            facts: res.facts
+          })
+        });
+      }
+    });
+  };
+
+  const fetchTTPs = () => {
+    return Promise.resolve(Requests.hq.getAttackSchema().catch(err => ({})))
+      .then(schema => Object.entries(schema).reduce((acc, [tactic, techniques]) =>
+        Object.keys(techniques).reduce((acc, technique) => ({
+          ...acc,
+          [technique]: tactic
+        }), acc), {}))
+      .then(schema => {
+        const yaml = Basic.require('js-yaml');
+        const facts = {};
+        return fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`)
+          .then(res => res.json())
+          .then(res => {
+            return Promise.all(res.tree.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml'))
+              .map(file => {
+                return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`)
+                  .then(res => res.text())
+                  .then(yaml.safeLoad)
+                  .then(res => {
+                    return convertRedCanary(res, schema, facts);
+                  })
+                  .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/attack', {
+                    method: 'POST',
+                    body: JSON.stringify(ttp)
+                  }))))
+                  .catch(err => null);
+              }));
+          })
+          .then(() => {
+            return Requests.fetchOperator('/plugin/ART', {
+              method: 'GET'
+            }).then(res => res.json()).then(res => {
+              res['facts'] = Object.assign({}, res.facts, facts);
+              Requests.fetchOperator('/plugin/ART', {
+                method: 'POST',
+                body: JSON.stringify(res)
+              }).then(initFacts)
+            });
+          })
+          .then(() => {
+            Events.bus.emit('chat:message', `Your ART TTPs are now accessible in the Editor section`);
+          });
+      });
+  };
+
+  Requests.fetchOperator('/attack')
+    .then(res => res.json())
+    .then(res => {
+      debugger;
+      const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
+      if (!ttps.length) {
+        return fetchTTPs();
+      }
+    }).then(initFacts);
+
+  function convertRedCanary(data, schema, facts) {
+    return new Promise((resolve, reject) => {
+      try {
+        let procedures = [];
+        data.atomic_tests.forEach((ttp, idx) => {
+          let atk = {
+            id: ttp.auto_generated_guid,
+            name: ttp.name,
+            description: ttp.description,
+            metadata: {version: 1, authors: ['Atomic Red Team'], tags: [], source: 'Red Canary'},
+            tactic: schema[data.attack_technique] || 'ART',
+            technique: {id: data.attack_technique, name: data.display_name},
+            platforms: {}
+          };
+          const replacements = Object.keys(ttp?.input_arguments || {}).map(arg => {
+            const key = `${data.attack_technique}.${idx}.${arg}`
+            facts[key] = ttp.input_arguments[arg].default;
+            return [`#{${arg}}`, `#{${key}}`];
+          });
+          ttp.supported_platforms.forEach(p => {
+            const platform = normalize(p);
+            const executor = normalize(ttp.executor.name)
+            atk.platforms[platform] = atk.platforms[platform] || {};
+            atk.platforms[platform][executor] = {
+              command: escapeTtpCommand(executor, ttp.executor.command ? ttp.executor.command : ttp.executor.steps, replacements)
+            };
+          });
+          procedures.push(atk);
+        });
+        resolve(procedures);
+      } catch (e) {
+        reject()
+      }
+    });
+  }
+
+  function normalize(n) {
+    const mapper = {macos: 'darwin', command_prompt: 'cmd', powershell: 'psh'};
+    return mapper.hasOwnProperty(n) ? mapper[n] : n;
+  }
+
+  const escapeTtpCommand = function(executor, command, replacements) {
+    const DELIMITERS = {
+      "psh": ";\n",
+      "pwsh": ";\n",
+      "cmd": " &\n",
+      "sh": ";\n",
+      "bash": ";\n",
+      "python": "\n",
+      "manual": ";\n"
+    };
+    const CONTINUATIONS = {
+      "psh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
+      "pwsh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
+      "cmd": [new RegExp(`[\\^&]\\s*$`)],
+      "sh": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
+      "bash": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
+      "python": [],
+      "manual": []
+    };
+    command = replacements.reduce((command, [match, replacement]) =>
+      command.replaceAll(match, replacement), command).replaceAll(/#{([a-zA-Z0-9_\.\|]+)}/g, "#{art.$1}");
+    return command.trim().split('\n').reduce((acc, part, idx) => {
+      if (!idx || CONTINUATIONS[executor].filter(r => r.exec(acc.trim())).length) {
+        return acc + (idx ? "\n" : "") + part;
+      } else {
+        return acc + DELIMITERS[executor] + part;
+      }
+    }, '');
+  };
+
+</script></div>
