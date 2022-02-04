@@ -36,6 +36,11 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains" | json_pp
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains/printnightmare" | json_pp
 ```
+#### Create a new chain
+
+#### Modify an existing chain
+
+#### Delete a chain
 
 --- 
 
@@ -48,6 +53,7 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents" | json_pp
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents/test" | json_pp
 ```
+#### Update an Agent's configuration
 
 ---
 
@@ -61,16 +67,17 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures" | json_pp
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
 ```
+#### Create a new procedure (TTP) in Operator
+
+#### Modify a chain in Operator
+
+#### Delete a chain in Operator
 
 ---
 
 ### Operations
 
-#### Get all operations in Operator
-```
-curl -X GET -H $TOKEN -sk  | json_pp
-```
-#### Get a specific operation in Operator
+#### Create an operation in Operator
 ```
 curl -X GET -H $TOKEN -sk  | json_pp
 ```
@@ -79,11 +86,13 @@ curl -X GET -H $TOKEN -sk  | json_pp
 
 ### Settings
 
-#### Get Operator Settings
+#### Get Operator's Settings
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/settings" | json_pp
 ```
 ---
+#### Update Operator's Settings
+
 
 ### Command
 
