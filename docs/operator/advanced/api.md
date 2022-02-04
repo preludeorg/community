@@ -32,11 +32,11 @@ Operator -> Settings -> Network -> Token. In the following commands replace
 ---
 #### Get all chains loaded in Operator
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains" | json_pp
+curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/chains" | json_pp
 ```
 #### Get a specific chain by identifier
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains/printnightmare" | json_pp
+curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/chains/printnightmare" | json_pp
 ```
 #### Create a new chain
 
@@ -49,61 +49,105 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains/printnightmare" | js
 ---
 #### Get all Agents in Operator
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents" | json_pp
+curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/agents" | json_pp
 ```
 #### Get a specific Agent in Operator
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents/test" | json_pp
+curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/agents/test" | json_pp
 ```
 #### Update an Agent's configuration
 
-### Procedures (TTPs)
+### TTPs
 
 ---
-#### Get all procedures (TTPs) in Operator
+#### Get all TTPs in Operator
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures" | json_pp
+curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/ttps" | json_pp
 ```
-#### Get a specific procedure (TTP) in Operator
+#### Get a specific TTP in Operator
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
+curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
 ```
-#### Create a new procedure (TTP) in Operator
+#### Create a new TTP in Operator
 
-#### Modify a chain in Operator
+#### Modify a TTP in Operator
 
-#### Delete a chain in Operator
+#### Delete a TTP in Operator
 
 ### Operations
 
 ---
-#### Give an agent an operation(s) in Operator
+#### Send Operation(s) to an agent in Operator
 
-A task object:
-```
-{ "instruction"
-```
+An operation will task an agent to run TTP(s).
 
+The simplest type of operation looks like this:
 ```
-curl -X POST -H $TOKEN -sk "https://localhost:8888/v1/operations/A | json_pp
+[
+    {
+        "name": "operation_one",
+        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    }
+]
+```
+An operation can take an **OPTIONAL** list of facts with this optional field an operation would look like this:
+```
+[
+    {
+        "name": "operation_two",
+        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+        "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
+    }
+]
+```
+You can queue up multiple Operations by adding them to the array.
+```
+[
+    {
+        "name": "operation_one",
+        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    },
+    {
+        "name": "operation_two",
+        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    }
+]
+```
+A cURL command for queueing two operations:
+```
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations/AgentName" -d '[
+    {
+    "name": "operation_two",
+    "ttp": "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
+    "facts": []
+    },
+    {
+    "name": "operation_three",
+    "ttp": "0cfcc788-b9e2-4c8c-a06b-8d365f33803e",
+    "facts": []
+    }
+]'| json_pp
 ```
 
 ### Settings
 
 ---
-#### Get Operator's Settings
+#### Get Operator's Local Settings
 ```
-curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/settings" | json_pp
+curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/settings" | json_pp
 ```
 ---
-#### Update Operator's Settings
+#### Update Operator's Local Settings
+```
+curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/settings" -d '{"token": "new_token_value"}' | json_pp
+```
 
 ### Command
 
 ---
 #### Run a command on the Operator host machine
 ```
-curl -X POST $TOKEN -sk "https://localhost:8888/v1/command" --header 'Content-Type: application/json' --data-raw '{"command": "whoami"}' | json_pp
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/command" -d '{"command": "ifconfig"}' | json_pp
 ```
 
 ---
