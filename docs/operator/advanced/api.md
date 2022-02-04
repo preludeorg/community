@@ -7,27 +7,29 @@
 
 The Operator platform is built on top of an internal API.
 
-## Configuration 
 
 ### SSL
 
 ---
-
 The internal API uses a self-signed certificate by default, as it is only accessible on localhost. Since
 you own both sides of the connection (client and server) we are optimizing for preventing network sniffing, 
 not trust between the client and server.
 
 ### Authentication 
 
---- 
+---
+The API requires a token to be passed with the request. Your token can be found in:
+Operator -> Settings -> Network -> Token. In the following commands replace
+`$TOKEN` with `'Authorization: YOURTOKEN'`
 
-Your API token, found in the network settings, is used to authenticate your API requests. Use this as an
-Authorization header for each request.
 
 ## Endpoints 
 
+---
+
 ### Chains
 
+---
 #### Get all chains loaded in Operator
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains" | json_pp
@@ -42,9 +44,9 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/chains/printnightmare" | js
 
 #### Delete a chain
 
---- 
-
 ### Agents
+
+---
 #### Get all Agents in Operator
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents" | json_pp
@@ -55,10 +57,9 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/agents/test" | json_pp
 ```
 #### Update an Agent's configuration
 
----
-
 ### Procedures (TTPs)
 
+---
 #### Get all procedures (TTPs) in Operator
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures" | json_pp
@@ -73,19 +74,23 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/procedures/ff9bbd7f-871e-4d
 
 #### Delete a chain in Operator
 
----
-
 ### Operations
 
-#### Create an operation in Operator
+---
+#### Give an agent an operation(s) in Operator
+
+A task object:
 ```
-curl -X GET -H $TOKEN -sk  | json_pp
+{ "instruction"
 ```
 
----
+```
+curl -X POST -H $TOKEN -sk "https://localhost:8888/v1/operations/A | json_pp
+```
 
 ### Settings
 
+---
 #### Get Operator's Settings
 ```
 curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/settings" | json_pp
@@ -93,12 +98,12 @@ curl -X GET -H $TOKEN -sk "https://localhost:8888/v1/settings" | json_pp
 ---
 #### Update Operator's Settings
 
-
 ### Command
 
+---
 #### Run a command on the Operator host machine
 ```
-curl -X GET -H $TOKEN -sk  | json_pp
+curl -X POST $TOKEN -sk "https://localhost:8888/v1/command" --header 'Content-Type: application/json' --data-raw '{"command": "whoami"}' | json_pp
 ```
 
 ---
