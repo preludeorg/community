@@ -25,8 +25,6 @@ Operator -> Settings -> Network -> Token. In the following commands replace
 
 ## Endpoints 
 
----
-
 ### Chains
 
 ---
@@ -39,11 +37,36 @@ curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/chains" | json_pp
 curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/chains/printnightmare" | json_pp
 ```
 #### Create a new chain
+```
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/chains" -d '{
+    "name": "my_new_adversary",
+    "ttps": [
+        "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
+        "0cfcc788-b9e2-4c8c-a06b-8d365f33803e"
+    ],
+    "ordered": true,
+    "summary": true
+}' | json_pp
+```
 
 #### Modify an existing chain
-
+You can modify an existing chain by sending an updated chain body to the `/chains/YourChainID` endpoint:
+```
+curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8" -d '{
+    "name": "my_newer_adversary",
+    "ttps": [
+        "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
+        "0cfcc788-b9e2-4c8c-a06b-8d365f33803e",
+        "b007fe0c-c6b0-4fda-915c-255bbc070de2"
+    ],
+    "ordered": true,
+    "summary": true
+}' | json_pp
+```
 #### Delete a chain
-
+```
+curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8"
+```
 ### Agents
 
 ---
@@ -56,6 +79,13 @@ curl -X GET -sk -H $TOKEN  "https://localhost:8888/v1/agents" | json_pp
 curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/agents/test" | json_pp
 ```
 #### Update an Agent's configuration
+You can update your agent's configuration by passing it updated fields.
+```
+curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/agents/test" -d '{
+    "range": "new_range",
+    "label": "new_agent_name"
+}' | json_pp
+```
 
 ### TTPs
 
@@ -69,19 +99,56 @@ curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/ttps" | json_pp
 curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
 ```
 #### Create a new TTP in Operator
-
+Create a new TTP by posting a TTP body to the endpoint:
+```
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps" -d '{
+    "id" : "ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf",
+    "name" : "Who Dat",
+    "description" : "Get the current username",
+    "tactic" : "discovery",
+    "metadata" : {
+        "version" : 1,
+        "authors" : [
+            "bartimus"
+        ],
+        "tags" : []
+    },
+    "technique" : {
+        "id" : "T1082",
+        "name" : "System Information Discovery"
+    },
+    "platforms" : {
+        "darwin" : {
+            "sh" : {
+                "command" : "whoami"
+            }
+        }
+    }
+}'
+```
 #### Modify a TTP in Operator
-
+```
+curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf" -d '{
+    "name" : "Who is That",
+    "metadata" : {
+        "version" : 2,
+        "authors" : [
+            "bartimus"
+        ],
+        "tags" : []
+    }
+}'
+```
 #### Delete a TTP in Operator
-
+```
+curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
+```
 ### Operations
 
 ---
 #### Send Operation(s) to an agent in Operator
 
-An operation will task an agent to run TTP(s).
-
-The simplest type of operation looks like this:
+An operation will task an agent to run TTP(s). The simplest type of operation looks like this:
 ```
 [
     {
