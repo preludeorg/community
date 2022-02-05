@@ -59,8 +59,8 @@ curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost
         "0cfcc788-b9e2-4c8c-a06b-8d365f33803e",
         "b007fe0c-c6b0-4fda-915c-255bbc070de2"
     ],
+    "summary": "A set of ttps that checks for user groups and identifies the user's home directory, and copies the clipboard",
     "ordered": true,
-    "summary": true
 }' | json_pp
 ```
 #### Delete a chain
