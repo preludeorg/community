@@ -44,8 +44,8 @@ curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhos
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
         "0cfcc788-b9e2-4c8c-a06b-8d365f33803e"
     ],
+    "summary": "adversary that does adversarial type things",
     "ordered": true,
-    "summary": true
 }' | json_pp
 ```
 
