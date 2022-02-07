@@ -19,16 +19,6 @@ that work together achieving a goal. The chains load into Operator automatically
 Chains may come bundled with custom agents or designed for specific operating systems and many come with "man pages" explaining them in detail.
 The idea is simple: every Tuesday review the new chain and run a focused security assessment in your environment. 
 
-### Advanced plugins
-
----
-
-From the plugins section, Professional license holders have access to a handful of advanced plugins:
-
-- Publisher: automatically publish your security results to the SIEM of your choice
-- Planner: reorder your chain by overriding Prelude's built-in planning engine
-- Reports: view and export red team reports from your usage
-
 
 ### Private support
 

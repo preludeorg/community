@@ -49,6 +49,6 @@ you can either submit pull requests to Community or create similar YML files loc
 
 ---
 
-There is a closed-source Professional license which is available under our licensing options in the Account section. This repository contains
+There is a closed-source Professional license which is available under our licensing options in the Settings section. This repository contains
 additional TTPs. The TTPs also contain additional non-shell executors not available in Community.
 
