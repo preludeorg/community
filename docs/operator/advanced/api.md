@@ -44,8 +44,8 @@ curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhos
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
         "0cfcc788-b9e2-4c8c-a06b-8d365f33803e"
     ],
-    "summary": "A set of ttps that checks for user groups and identifies the user's home directory",
-    "ordered": true,
+    "summary": "A set of ttps that checks for user groups and identifies the users home directory",
+    "ordered": true
 }' | json_pp
 ```
 
@@ -148,7 +148,7 @@ curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-
 ---
 #### Send Operation(s) to an agent in Operator
 
-An operation will task agent(s) or range(s) to run a TTP. The simplest type of operation for an agent looks like this:
+An operation will task agent(s) or range(s) to run a TTP or Chain. The simplest type of operation for an agent looks like this:
 ```
 [
     {
@@ -158,13 +158,13 @@ An operation will task agent(s) or range(s) to run a TTP. The simplest type of o
     }
 ]
 ```
-The simplest type of operation for a range looks like this:
+The simplest type of operation for a range looks like this (running a chain instead of a TTP):
 ```
 [
     {
         "name": "operation_one",
         "ranges": ["my_range"],
-        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+        "chain": "File Hunter",
     }
 ]
 ```
@@ -186,7 +186,7 @@ You can queue up multiple Operations by adding them to the array.
     {
         "name": "operation_one",
         "agents": ["agent_one", "agent_two"],
-        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+        "chain": "File Hunter",
     },
     {
         "name": "operation_two",
@@ -207,7 +207,7 @@ curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhos
     {
     "name": "operation_three",
     "ranges": ["home"],
-    "ttp": "0cfcc788-b9e2-4c8c-a06b-8d365f33803e",
+    "chain": "File Hunter",
     "facts": []
     }
 ]'| json_pp
