@@ -1,4 +1,3 @@
-
 # How the planner works
 
 #### Intelligent Decision-Making At Scale
@@ -14,19 +13,12 @@ all TTP files in a given chain.
 
 ---
 
-When a chain executes, it collects information which Prelude Operator can learn from. As this info is
+When a chain executes, it collects information which Operator can learn from. As this info is
 processed, it is fed back into the planner, often opening up a previously closed state. For example, say the planner
 is currently busy executing decisions for a chain, which has completed the first two tactical states above,
 and it is executing procedures under Discovery. If the planner learns something which can unlock a "defense evasion"
 procedure it will instruct the chain to drop out of the discovery state and into the defense evasion one in
 order to do the newly discovered action.
-
-### Available planners
-
----
-
-Operator contains a built-in planner which can be configured through the Settings section. The built-in
-planner uses a multi-layered finite-state machine to iterate over ATT&CK tactics when executing a chain.
 
 ### Build your own planner
 
@@ -34,7 +26,8 @@ planner uses a multi-layered finite-state machine to iterate over ATT&CK tactics
 
 You can write your own API-based planner by standing up an API with a /planner/decide endpoint. Your API
 will be sent a list of decisions each time Operator loops through an agent's queued instructions. You will
-need to output the identifier(s) you want to run next.
+need to output the identifier(s) you want to run next. You can point Operator to your custom planner 
+by going to Settings and entering the FQDN of your API.
 
 #### Example: Write your own planner in Python
 

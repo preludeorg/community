@@ -8,19 +8,32 @@
 A chain is an unordered collection of procedures files. Think of a chain in video game terms; it is
 an empty profile or shell, and it gets more powerful as you add specific abilities to it.
 
-### Scheduling
+### TTP Tuesday
 
 ---
 
-You can schedule a chain to run on a specific day of the week at a specific time and against a specific range.
-Scheduling can only occur from the API.
+Every Tuesday, Prelude security engineers release a new chain in an event called TTP Tuesday. These chains
+typically align to threat intelligence and are loaded into Operator automatically for Professional license 
+holders. You can view past chains on our [chains website](https://chains.prelude.org).
 
 ### Build your own chain
 
 ---
 
-You can construct your own chains through the Editor plugin. You can
-build your chain based on a real-world threat actor (APT group) or based on custom
-attack patterns you want to test. Construct your chain using tags, which organize procedures by categories.
-Note that the TTPs you add are unordered. It is the role of the planner to determine which order they are executed, if at all.
-Each week, we release a new chain on our [chains website](https://chains.prelude.org), for Professional license holders.
+You can build your own chains through the Launch Chain sidebar inside Operator. 
+Design your chains on real-world threat actors (APT group) or detection rules you want to test.
+Alternatively, you can build chains manually by applying a chain property to any TTP YML file manually.
+Example below.
+
+```yml
+id: 4e707752-4abc-4799-9ff3-0caddc032bc2
+metadata:
+  license: community
+  authors:
+  - khyberspache
+  tags: []
+  chains:
+  - My Custom Chain
+
+...
+```
