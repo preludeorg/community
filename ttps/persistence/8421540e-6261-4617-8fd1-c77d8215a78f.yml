@@ -22,6 +22,7 @@ platforms:
         $FilterToConsumerBinding = New-CimInstance -Namespace root/subscription -ClassName __FilterToConsumerBinding -Property $FilterToConsumerArgs
       variants:
         - command: |
+            <# Cleanup #>
             Get-WMIObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'TestFilter'" | Remove-WmiObject
             Get-WMIObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'TestConsumer'" | Remove-WmiObject
             Get-WMIObject -Namespace root\Subscription -Class __FilterToConsumerBinding -Filter "__Path LIKE '%Test%'" | Remove-WmiObject
