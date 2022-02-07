@@ -148,20 +148,33 @@ curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-
 ---
 #### Send Operation(s) to an agent in Operator
 
-An operation will task an agent to run TTP(s). The simplest type of operation looks like this:
+An operation will task a agents or ranges to run TTP(s). The simplest type of operation for an agent looks like this:
 ```
 [
     {
         "name": "operation_one",
+        "agents": ["my_agent"],
         "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
     }
 ]
 ```
+The simplest type of operation for a range looks like this:
+```
+[
+    {
+        "name": "operation_one",
+        "ranges": ["my_range"],
+        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    }
+]
+```
+
 An operation can take an **OPTIONAL** list of facts with this optional field an operation would look like this:
 ```
 [
     {
         "name": "operation_two",
+        "agents": ["agent1", "agent2"]
         "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
         "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
     }
@@ -172,24 +185,28 @@ You can queue up multiple Operations by adding them to the array.
 [
     {
         "name": "operation_one",
+        "agents": ["agent_one", "agent_two"],
         "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
     },
     {
         "name": "operation_two",
+        "ranges": ["red", "home", "cloud"],
         "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
     }
 ]
 ```
-A cURL command for queueing two operations:
+A cURL command for queueing two operations one for an agent, one for a range:
 ```
-curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations/AgentName" -d '[
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations" -d '[
     {
     "name": "operation_two",
+    "agents": ["agent_one"],
     "ttp": "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
     "facts": []
     },
     {
     "name": "operation_three",
+    "ranges": ["home"],
     "ttp": "0cfcc788-b9e2-4c8c-a06b-8d365f33803e",
     "facts": []
     }
