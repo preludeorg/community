@@ -148,7 +148,7 @@ curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-
 ---
 #### Send Operation(s) to an agent in Operator
 
-An operation will task a agents or ranges to run TTP(s). The simplest type of operation for an agent looks like this:
+An operation will task agent(s) or range(s) to run a TTP. The simplest type of operation for an agent looks like this:
 ```
 [
     {
