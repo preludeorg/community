@@ -148,69 +148,41 @@ curl -X DELETE -sk -H $TOKEN "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-
 ---
 #### Send Operation(s) to an agent in Operator
 
-An operation will task agent(s) or range(s) to run a TTP or Chain. The simplest type of operation for an agent looks like this:
+An operation will task agent(s) or range(s) to run a collection of TTPs or a Chain. The simplest type of operation for an agent looks like this:
 ```
-[
-    {
-        "name": "operation_one",
-        "agents": ["my_agent"],
-        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
-    }
-]
+{
+    "name": "operation_one",
+    "agents": ["my_agent"],
+    "ttps": ["ff9bbd7f-871e-4db4-bedb-4e7a64a309bf"]
+}
 ```
 The simplest type of operation for a range looks like this (running a chain instead of a TTP):
 ```
-[
-    {
-        "name": "operation_one",
-        "ranges": ["my_range"],
-        "chain": "File Hunter",
-    }
-]
+{
+    "name": "operation_one",
+    "ranges": ["my_range"],
+    "chain": "File Hunter",
+}
+```
+#### **OPTIONAL** Fields:
+***Facts***:
+```
+{
+    "name": "operation_two",
+    "agents": ["agent1", "agent2"]
+    "ttps": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
+}
 ```
 
-An operation can take an **OPTIONAL** list of facts with this optional field an operation would look like this:
+A cURL command for queueing an operation that runs 3 ttps for two agents:
 ```
-[
-    {
-        "name": "operation_two",
-        "agents": ["agent1", "agent2"]
-        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
-        "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
-    }
-]
-```
-You can queue up multiple Operations by adding them to the array.
-```
-[
-    {
-        "name": "operation_one",
-        "agents": ["agent_one", "agent_two"],
-        "chain": "File Hunter",
-    },
-    {
-        "name": "operation_two",
-        "ranges": ["red", "home", "cloud"],
-        "ttp": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
-    }
-]
-```
-A cURL command for queueing two operations one for an agent, one for a range:
-```
-curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations" -d '[
-    {
+curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations" -d '{
     "name": "operation_two",
-    "agents": ["agent_one"],
-    "ttp": "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
-    "facts": []
-    },
-    {
-    "name": "operation_three",
-    "ranges": ["home"],
-    "chain": "File Hunter",
-    "facts": []
-    }
-]'| json_pp
+    "agents": ["agent_one", "agent_two"],
+    "ttps": ["5c4dd985-89e3-4590-9b57-71fed66ff4e2","0cfcc788-b9e2-4c8c-a06b-8d365f33803e","b007fe0c-c6b0-4fda-915c-255bbc070de2"],
+    "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
+    }' | json_pp
 ```
 
 ### Settings
