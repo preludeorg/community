@@ -166,11 +166,12 @@ The simplest type of operation for a range looks like this (running a chain inst
 ```
 #### **OPTIONAL** Fields:
 ***Facts***:
+Attaching facts allows you to run Chains/TTPs that require certain facts to be known before executing.
 ```
 {
     "name": "operation_two",
     "agents": ["agent1", "agent2"]
-    "ttps": "ff9bbd7f-871e-4db4-bedb-4e7a64a309bf",
+    "ttps": ["ff9bbd7f-871e-4db4-bedb-4e7a64a309bf"],
     "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
 }
 ```
