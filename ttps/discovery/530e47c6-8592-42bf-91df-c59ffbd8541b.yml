@@ -1,11 +1,11 @@
 id: 530e47c6-8592-42bf-91df-c59ffbd8541b
 metadata:
   authors:
-    - privateducky
-    - MITRE
-    - w0rk3r
+  - privateducky
+  - MITRE
+  - w0rk3r
   tags:
-    - Crown Jewels
+  - Crown Jewels
 name: View admin shares
 description: |
   Admin shares are hidden directories on networked computers. These "share drive" often contain files which sysadmins
@@ -24,4 +24,5 @@ platforms:
       command: |
         Get-SmbShare | ConvertTo-Json
       variants:
-        - command: 'Get-WmiObject -Class Win32_Share'
+      - command: 'Get-WmiObject -Class Win32_Share'
+        id: 54603317-b81a-4afb-8c4c-3381fc1b71bf

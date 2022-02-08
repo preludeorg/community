@@ -1,12 +1,12 @@
-id: a7a1729c-3626-4bfe-85da-8e4a5e865c6f 
+id: a7a1729c-3626-4bfe-85da-8e4a5e865c6f
 metadata:
-  authors: 
-    - Vivek Kamisetty (Mr@UnKnOwN)
-    - Xanthonus
+  authors:
+  - Vivek Kamisetty (Mr@UnKnOwN)
+  - Xanthonus
   tags: []
   chains:
-    - sequoia
-name: Fetch Disk Space 
+  - sequoia
+name: Fetch Disk Space
 description: |
   Displays the free space on the machine.
 tactic: discovery
@@ -21,7 +21,8 @@ platforms:
     sh:
       command: df -h
       variants:
-        - command: df -i
+      - command: df -i
+        id: 4c9c289d-8c63-47a6-be69-fd2d0ecb032a
   windows:
     pwsh:
       command: wmic diskdrive get size

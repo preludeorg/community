@@ -1,9 +1,9 @@
 id: e82f39e2-56f8-4f19-8376-b007f9ac5f8a
 metadata:
   authors:
-    - privateducky
-    - MITRE
-    - w0rk3r
+  - privateducky
+  - MITRE
+  - w0rk3r
   tags: []
 name: Password policy
 description: |
@@ -56,5 +56,6 @@ platforms:
         };
         $Policy
       variants:
-        - command: |
-            (([xml](Get-GPOReport -Name "Default Domain Policy" -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber
+      - command: |
+          (([xml](Get-GPOReport -Name "Default Domain Policy" -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber
+        id: f9299a4a-f90d-4993-8a05-215fb1702224

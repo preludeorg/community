@@ -1,8 +1,8 @@
 id: 3864fd22-5c63-41c9-bdbc-a66b5ffa3f5e
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: Bypass Execution Policy
 description: |
@@ -18,4 +18,6 @@ platforms:
       command: |
         Set-ItemProperty -Path HKLM:\Software\Policies\Microsoft\Windows\PowerShell -Name ExecutionPolicy -Value ByPass;
       variants:
-      - command: $shell = New-Object -ComObject Wscript.Shell Set-ExecutionPolicy Bypass | echo $shell.sendkeys("Y`r`n");
+      - command: $shell = New-Object -ComObject Wscript.Shell Set-ExecutionPolicy
+          Bypass | echo $shell.sendkeys("Y`r`n");
+        id: be0cdd58-6aed-4391-adf9-477bd63ccab3

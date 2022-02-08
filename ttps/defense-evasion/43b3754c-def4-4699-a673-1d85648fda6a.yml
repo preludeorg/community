@@ -1,11 +1,11 @@
 id: 43b3754c-def4-4699-a673-1d85648fda6a
 metadata:
   authors:
-    - privateducky
-    - MITRE
-    - Abhishek S (abhiabhi2306)
+  - privateducky
+  - MITRE
+  - Abhishek S (abhiabhi2306)
   tags:
-    - destructive
+  - destructive
 name: Avoid logs
 description: |
   Every command a user runs from a terminal window is logged to a file. A hacker who is using the terminal to conduct
@@ -20,18 +20,18 @@ platforms:
       command: |
         > $HOME/.zsh_history && unset HISTFILE
       variants:
-        - command: history -c
+      - command: history -c
+        id: c34e5fed-8dc4-4d41-bab6-d3d9a89a7b76
   linux:
     sh:
       command: |
         > $HOME/.bash_history && unset HISTFILE
       variants:
-        - command: history -c
+      - command: history -c
+        id: b0b36fef-8709-4a89-b91a-0e1c2a52033f
   windows:
     psh:
       command: |
         Clear-Eventlog Security;
         Clear-Eventlog System;
         Clear-History;Clear;
-
-

@@ -21,11 +21,12 @@ platforms:
         $FilterToConsumerArgs = @{ Filter = [Ref] $Filter; Consumer = [Ref] $Consumer; }
         $FilterToConsumerBinding = New-CimInstance -Namespace root/subscription -ClassName __FilterToConsumerBinding -Property $FilterToConsumerArgs
       variants:
-        - command: |
-            <# Cleanup #>
-            Get-WMIObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'TestFilter'" | Remove-WmiObject
-            Get-WMIObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'TestConsumer'" | Remove-WmiObject
-            Get-WMIObject -Namespace root\Subscription -Class __FilterToConsumerBinding -Filter "__Path LIKE '%Test%'" | Remove-WmiObject
+      - command: |
+          <# Cleanup #>
+          Get-WMIObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'TestFilter'" | Remove-WmiObject
+          Get-WMIObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'TestConsumer'" | Remove-WmiObject
+          Get-WMIObject -Namespace root\Subscription -Class __FilterToConsumerBinding -Filter "__Path LIKE '%Test%'" | Remove-WmiObject
+        id: c636b681-8677-4937-8957-e860c2df5cfb
     cmd:
       command: >-
         wmic /NAMESPACE:"\\root\subscription" PATH __EventFilter CREATE
@@ -42,6 +43,6 @@ platforms:
         Consumer="CommandLineEventConsumer.Name=\"TestConsumer\""
 metadata:
   authors:
-    - traceflow
+  - traceflow
   tags: []
   chains: []

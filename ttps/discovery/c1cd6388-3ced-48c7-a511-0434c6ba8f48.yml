@@ -1,9 +1,9 @@
 id: c1cd6388-3ced-48c7-a511-0434c6ba8f48
 metadata:
   authors:
-    - privateducky
-    - Abhishek S (abhiabhi2306)
-    - MITRE
+  - privateducky
+  - Abhishek S (abhiabhi2306)
+  - MITRE
   tags: []
 name: Find local users
 description: |
@@ -27,4 +27,5 @@ platforms:
       command: |
         cut -d: -f1 /etc/passwd | grep -v '_' | grep -v '#'
       variants:
-        - command: getent passwd
+      - command: getent passwd
+        id: 939fd498-925b-4c43-9a84-111aa648d05d
