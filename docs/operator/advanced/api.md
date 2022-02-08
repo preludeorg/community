@@ -1,4 +1,3 @@
-
 # Operator API
 
 #### Interact with the underlying Operator functionality
@@ -206,5 +205,3 @@ curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost
 ```
 curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/command" -d '{"command": "ifconfig"}' | json_pp
 ```
-
----

@@ -1,4 +1,3 @@
-
 # All about Pneuma
 
 #### The default agent supported by Operator
@@ -17,9 +16,8 @@ including the custom keyword executor. Pneuma is written in GoLang in order to r
 
 ---
 
-You can find Pneuma on [GitHub](https://github.com/preludeorg/pneuma), as it is fully open-source. We also automatically recompile 
-the agent hourly with a fresh file hash (to help evade detection), which you can download from the Editor section via the Manage Payloads
-sidebar.
+You can find Pneuma on [GitHub](https://github.com/preludeorg/pneuma), as it is fully open-source. 
+Alternatively, you can download a pre-compiled version from the main section.
 
 ### How to use it
 

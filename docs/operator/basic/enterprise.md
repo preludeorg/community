@@ -28,7 +28,7 @@ training progress of your team.
 
 Each time you boot up Operator, it contacts Prelude's [Outpost servers](https://feed.prelude.org/p/a-drop-in-the-bucket)
 which are simple wrapper APIs for our community and professional git repositories. The TTPs, payloads, plugins and training 
-programs (we call these "resources") available to you load into your app. Enterprise license holders 
+programs (we call this a "bucket repo") available to you load into your app. Enterprise license holders 
 get a copy of the Outpost source code and the ability to attach it to their account. This allows you to host your own private
 collection of resources. Create your own TTPs or even your own training programs.
 You can even attach a database to ensure all security results are stored only on your servers, not ours.
@@ -41,12 +41,3 @@ From the Connect section, Enterprise license holders can connect to their teamma
 Operator instances. By doing this, they are able to create a "mesh C2" where any agent beaconing to
 a shared Operator instance will instantly mirror on all apps simultaneously. This allows
 a red team to work more efficiently as a unit.
-
-### SIEM plugin
-
----
-
-From the plugins section, Enterprise license holders can install the SIEM plugin. This plugin
-connects to your existing Splunk SIEM and pulls in all saved searches. As you deploy adversaries,
-you can quickly monitor which detections are catching which TTPs. Moreso, you can adjust your 
-detections on the fly and retest immediately, all without leaving Operator.

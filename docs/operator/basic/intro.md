@@ -1,7 +1,7 @@
 
-# Meet the Prelude Operator
+# Meet Prelude Operator
 
-#### Unlock continuous security and execute like a pro
+#### Where manual security testing meets automation
 
 ---
 
@@ -25,16 +25,7 @@ computer) and it tests your defenses from that moment forward.
 Start by reading these docs, to get familiar with the tool and terminology. Then head to the Train section and
 take the Introduction program which brings the documentation to life. The program walks you through all major components
 of the system and has you deploying agents, building adversaries and executing operations. Once complete, you should
-be ready to start running your own security assessments through Operator. 
-
-Operator includes an optional light mode. Open your dev console and enter the script below to use it.
-
-
-#### Enable light mode
-
-```javascript
-$("body").addClass("inverted");
-```
+be ready to start running your own security assessments through Operator.
 
 ### Community license
 
@@ -42,9 +33,10 @@ $("body").addClass("inverted");
 
 Each time Operator boots, it loads the resources from our [Community](https://github.com/preludeorg/community) repository.
 This repo contains all open-source TTPs, adversaries, plugins and training modules. Please contribute, as 
-anything here is picked up automatically for all Operator members! Community members gain access to more than 100
+anything here is picked up automatically for all Operator members! Community members gain access to more than 130
 TTPs, free and open-source agents, training programs and a set of plugins which integrate with other technology 
-and security tools. What's unique about Operator is that there's no "full" version of the platform: what you see is what you get. Read the doc pages for Professional and Enterprise licenses for details on upgrading. 
+and security tools. What's unique about Operator is that there's no "full" version of the platform: what you see is what you get. 
+Read the doc pages for Professional and Enterprise licenses for details on upgrading. 
 
 ### Resources
 
