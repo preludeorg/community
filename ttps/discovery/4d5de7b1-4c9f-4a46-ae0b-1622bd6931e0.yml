@@ -4,7 +4,6 @@ description: AWS instances have a link-local address that return various types o
   metadata. This endpoint returns a JSON containing instance attributes, such as instance-id,
   private IP address, etc.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []

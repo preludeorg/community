@@ -3,8 +3,7 @@ metadata:
   authors: 
     - webhead404
   tags: []
-  version: 1
-name: Disable PowerShell event logging
+  me: Disable PowerShell event logging
 description: Remove the ETW provider for PowerShell event logging using logman
 tactic: defense-evasion
 technique:

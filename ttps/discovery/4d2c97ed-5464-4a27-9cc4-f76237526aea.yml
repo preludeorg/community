@@ -2,7 +2,6 @@ id: 4d2c97ed-5464-4a27-9cc4-f76237526aea
 name: Discover System Geolocalization
 description: Retrieve Geolocalization data based on the Public IP address retrieved.
 metadata:
-  version: 1
   authors:
     - w0rk3r
   tags: []

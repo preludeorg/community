@@ -4,7 +4,6 @@ description: |
   Transcription creates a unique record of every PowerShell session, including all input and output, exactly as it appears in the session.
   Attackers can disable logging to cover their activities on the host.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags:

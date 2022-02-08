@@ -3,7 +3,6 @@ name: Find Kerberoastable Accounts
 description: Find Active Directory user accounts with defined SPNs. These might be
   vulnerable to Kerberoasting
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []

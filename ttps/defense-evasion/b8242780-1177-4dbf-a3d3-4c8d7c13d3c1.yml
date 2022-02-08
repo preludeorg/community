@@ -4,7 +4,6 @@ description: |
   Windows Defender allows Administrators to create exclusion lists that can be abused to make malware and Unwanted software run undetected.
   This procedure Adds the given folder to this list, causing the subfolders and files in the directory not to be inspected by Windows Defender AV.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags:

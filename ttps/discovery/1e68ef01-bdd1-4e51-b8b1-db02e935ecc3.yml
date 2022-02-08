@@ -2,7 +2,6 @@ id: 1e68ef01-bdd1-4e51-b8b1-db02e935ecc3
 name: Environment variables discovery
 description: Identify all environment variables. Upon execution, environments variables and your path info will be displayed.
 metadata:
-  version: 1
   authors:
     - wesley587
     - dkoch144

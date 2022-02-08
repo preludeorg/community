@@ -2,7 +2,6 @@ id: 5d18deaa-f32b-48f8-9ef6-71e3eb4d90c7
 name: Discover cached kerberos tickets
 description: Displays a list of currently cached Kerberos tickets
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []

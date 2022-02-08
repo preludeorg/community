@@ -19,4 +19,3 @@ metadata:
     - bfuzzy1
   tags:
     - kubernetes
-  version: 1

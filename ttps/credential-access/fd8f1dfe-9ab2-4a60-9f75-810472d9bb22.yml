@@ -3,7 +3,6 @@ name: Request RC4 encrypted Kerberos TGS Service Ticket
 description: Retrieves RC4 encrypted Kerberos TGS for a given SPN for further extraction,
   then attacker can crack them.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []

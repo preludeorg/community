@@ -2,7 +2,6 @@ id: d7add940-1137-4975-b7d5-cab9a107a6c6
 name: Enumerate Local Groups
 description: Retrieve local group information on the target system.
 metadata:
-  version: 3
   authors:
   - w0rk3r
   tags: []

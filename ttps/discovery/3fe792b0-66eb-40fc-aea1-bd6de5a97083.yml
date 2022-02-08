@@ -4,7 +4,6 @@ description: AWS instances have a link-local address that return various types o
   metadata. This endpoint will return the region data associated with the current
   instance.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []

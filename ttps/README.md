@@ -13,7 +13,6 @@ executors: psh (PowerShell), cmd (command-line), and sh (bash).
 ```
 id: 5a39d7ed-45c9-4a79-b581-e5fb99e24f65
 metadata:
-  version: 1
   authors:
     - privateducky
   tags: []

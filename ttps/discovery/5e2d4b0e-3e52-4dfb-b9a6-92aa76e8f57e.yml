@@ -2,7 +2,6 @@ id: 5e2d4b0e-3e52-4dfb-b9a6-92aa76e8f57e
 name: Dump Environment Variables
 description: Enumerate environment variables associated with the current user profile and environment.
 metadata:
-  version: 1
   authors:
     - w0rk3r
   tags: []

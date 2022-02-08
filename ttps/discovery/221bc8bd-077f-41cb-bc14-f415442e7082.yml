@@ -2,7 +2,6 @@ id: 221bc8bd-077f-41cb-bc14-f415442e7082
 name: AMSI Protection Providers Enumeration
 description: Enumerates Providers registered for AMSI (AntiMalware Scan Interface), which can be used to discover Security Software on the host
 metadata:
-  version: 1
   authors:
     - w0rk3r
   tags: []

@@ -5,7 +5,6 @@ description: |
   This procedure Adds the given extension to this list, causing it not to be inspected by Windows Defender AV.
   Extension must be provided in the following format: .extension
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags:

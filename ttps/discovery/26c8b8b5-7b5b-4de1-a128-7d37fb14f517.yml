@@ -18,7 +18,6 @@ platforms:
       command: |
         ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).DomainControllers
 metadata:
-  version: 4
   authors:
   - privateducky
   - MITRE

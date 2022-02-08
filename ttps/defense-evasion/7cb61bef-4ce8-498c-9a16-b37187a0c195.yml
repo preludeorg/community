@@ -4,7 +4,6 @@ description: |
   ScriptBlock Logging records blocks of code as they are executed by the PowerShell engine, thereby capturing the full contents of code executed by an attacker, including scripts and commands.
   Attackers can disable logging to cover their activities on the host.
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags:

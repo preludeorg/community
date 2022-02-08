@@ -2,7 +2,6 @@ id: d03901f3-8061-4c55-880b-034886788e68
 name: Enumerate RDP Connection History
 description: Enumerate users and servers used in recent RDP connections for all users of the local computer
 metadata:
-  version: 1
   authors:
   - w0rk3r
   tags: []
