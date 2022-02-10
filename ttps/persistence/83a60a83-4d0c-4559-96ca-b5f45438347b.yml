@@ -35,5 +35,5 @@ metadata:
   tags: []
   enabled: true
   payloads:
-    package.dll:
-    install.exe:
+    package.dll: ''
+    install.exe: ''
