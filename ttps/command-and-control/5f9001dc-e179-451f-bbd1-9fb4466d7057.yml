@@ -18,13 +18,13 @@ platforms:
   linux:
     sh:
       command: nohup ./pneuma-linux >/dev/null 2>&1 &
-      payload: '#{operator.payloads}/pneuma/pneuma-linux'
+      payload: 'pneuma-linux'
   darwin:
     sh:
       command: nohup ./pneuma-darwin -address "#{operator.http}" -contact http
         >/dev/null 2>&1 &
-      payload: '#{operator.payloads}/pneuma/pneuma-darwin'
+      payload: 'pneuma-darwin'
   windows:
     psh:
       command: Start-Process .\pneuma-windows.exe
-      payload: '#{operator.payloads}/pneuma/pneuma-windows.exe'
+      payload: 'pneuma-windows.exe'

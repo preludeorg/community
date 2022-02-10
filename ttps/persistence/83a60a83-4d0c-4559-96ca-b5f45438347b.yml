@@ -14,7 +14,7 @@ platforms:
       command: |-
         # Installer
         Start-Process .\install.exe "#{operator.payloads}/uploads/T1547.002/package.dll"
-      payload: '#{operator.payloads}/uploads/T1547.002/install.exe'
+      payload: 'install.exe'
       variants:
       - command: >-
           # Install using PowerShell
@@ -22,7 +22,7 @@ platforms:
           reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa" /v
           "Authentication Packages" /t REG_MULTI_SZ /d "msv1_0"\0"package.dll"
           /f
-        payload: '#{operator.payloads}/uploads/T1547.002/package.dll'
+        payload: 'package.dll'
         id: c7dce87f-fb66-46c8-9e47-19d5c775bcb6
       - command: >-
           # Cleanup
