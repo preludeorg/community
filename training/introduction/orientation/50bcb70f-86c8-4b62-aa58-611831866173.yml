@@ -27,7 +27,7 @@ blocks:
     approach, manual or automated? It depends on your use case but automated should make up the bulk of your security
     posture.
   The Planner plugin: |
-    Professional license holders can use the Planner plugin, which allows you to manipulate Operator's built in planner. 
+    All license holders can use the Planner plugin, which allows you to manipulate Operator's built in planner. 
     You can also use this plugin to write your own custom planner, to make adversarial decisions however you'd like.
 answer:
   script: $('#answer').val().toLowerCase()
