@@ -1,9 +1,9 @@
 id: a4e43c2e-0397-4633-9c13-849925fbc1cc
 metadata:
   authors:
-    - 231tr0n
+  - 231tr0n
   tags:
-    - destructive
+  - destructive
 name: Delete home directory
 description: |
   Delete all the files in the home directory of the user.

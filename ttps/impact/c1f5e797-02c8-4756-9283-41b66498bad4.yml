@@ -14,7 +14,7 @@ platforms:
       command: shutdown /r /t 8640000
 metadata:
   authors:
-    - bfuzzy1
-    - '@cryps1s'
+  - bfuzzy1
+  - '@cryps1s'
   tags:
-    - destructive
+  - destructive

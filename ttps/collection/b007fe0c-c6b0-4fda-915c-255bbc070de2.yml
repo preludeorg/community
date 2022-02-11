@@ -1,10 +1,10 @@
 id: b007fe0c-c6b0-4fda-915c-255bbc070de2
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags:
-    - Surveillance
+  - Surveillance
 name: Copy Clipboard
 description: |
   Copy the contents for the clipboard. Individuals often copy/paste as they do normal work. A hacker can look to

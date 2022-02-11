@@ -1,8 +1,8 @@
 id: 7c42a30c-c8c7-44c5-80a8-862d364ac1e4
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: UAC Status
 description: |

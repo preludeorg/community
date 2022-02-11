@@ -15,6 +15,6 @@ platforms:
       command: find -name "*~" -print -delete
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags:
-    - destructive
+  - destructive

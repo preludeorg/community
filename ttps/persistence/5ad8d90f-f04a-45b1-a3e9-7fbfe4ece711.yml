@@ -45,6 +45,6 @@ platforms:
         NT\CurrentVersion\SilentProcessExit\notepad.exe" /f
 metadata:
   authors:
-    - traceflow
+  - traceflow
   tags: []
   enabled: true

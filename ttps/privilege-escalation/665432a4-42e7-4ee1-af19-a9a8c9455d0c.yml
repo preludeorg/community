@@ -1,8 +1,8 @@
 id: 665432a4-42e7-4ee1-af19-a9a8c9455d0c
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: UAC bypass registry
 description: |

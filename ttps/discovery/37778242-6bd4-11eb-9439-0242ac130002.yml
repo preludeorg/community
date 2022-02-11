@@ -1,7 +1,7 @@
 id: 37778242-6bd4-11eb-9439-0242ac130002
 metadata:
-  authors: 
-    - Abhishek S (abhiabhi2306)
+  authors:
+  - Abhishek S (abhiabhi2306)
   tags: []
 name: Display authorized SSH keys
 description: |
@@ -17,4 +17,3 @@ platforms:
   linux:
     sh:
       command: cat /home/*/.ssh/authorized_keys
-   

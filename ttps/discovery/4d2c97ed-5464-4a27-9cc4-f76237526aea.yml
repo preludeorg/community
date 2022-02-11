@@ -3,12 +3,12 @@ name: Discover System Geolocalization
 description: Retrieve Geolocalization data based on the Public IP address retrieved.
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags: []
 tactic: discovery
 technique:
   id: T1614
-  name: "System Location Discovery"
+  name: System Location Discovery
 platforms:
   windows:
     psh:
@@ -16,5 +16,5 @@ platforms:
         Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri "http://ifconfig.me/ip").Content)
   linux:
     sh:
-      command: |
+      command: |-
         wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1

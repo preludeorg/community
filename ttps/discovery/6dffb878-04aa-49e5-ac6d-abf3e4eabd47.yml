@@ -22,8 +22,8 @@ platforms:
     pwsh:
       command: netstat -an | select-string -pattern "listening"
       variants:
-      - command: 'get-nettcpconnection | where {($_.State -eq "Listen") -and ($_.RemoteAddress
-          -eq "0.0.0.0")}'
+      - command: get-nettcpconnection | where {($_.State -eq "Listen") -and ($_.RemoteAddress
+          -eq "0.0.0.0")}
         id: d60bcedb-5ad2-4d20-a853-02b9bbd707a2
 metadata:
   authors:

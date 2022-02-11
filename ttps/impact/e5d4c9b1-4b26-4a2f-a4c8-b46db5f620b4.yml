@@ -13,6 +13,6 @@ platforms:
       command: wbadmin.exe delete catalog -quiet
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags:
-    - destructive
+  - destructive

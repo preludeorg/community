@@ -6,10 +6,10 @@ metadata:
 name: Update agent beacon protocol
 description: |
   Tasks agent to swap C2 protocol to a different protocol.
-tactic: 'command-and-control'
+tactic: command-and-control
 technique:
   id: T1573.001
-  name: "Encrypted Channel: Symmetric Cryptography"
+  name: 'Encrypted Channel: Symmetric Cryptography'
 platforms:
   windows:
     keyword:

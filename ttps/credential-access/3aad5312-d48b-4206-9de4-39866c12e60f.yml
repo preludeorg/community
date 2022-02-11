@@ -1,9 +1,9 @@
 id: 3aad5312-d48b-4206-9de4-39866c12e60f
 metadata:
   authors:
-    - privateducky
-    - MITRE
-    - w0rk3r
+  - privateducky
+  - MITRE
+  - w0rk3r
   tags: []
 name: Credentials in Registry
 description: |
@@ -19,7 +19,7 @@ platforms:
       command: |
         reg query #{registry.hive} /f password /s
     psh:
-      command: |
+      command: |-
         $RegKeyFields = "KeyName","ValueName","Value";
         [System.Collections.ArrayList]$RegKeysArray  = $RegKeyFields;
         $Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $env:computername);

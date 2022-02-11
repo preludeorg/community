@@ -1,16 +1,17 @@
 id: 5e2d4b0e-3e52-4dfb-b9a6-92aa76e8f57e
 name: Dump Environment Variables
-description: Enumerate environment variables associated with the current user profile and environment.
+description: Enumerate environment variables associated with the current user profile
+  and environment.
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags: []
 tactic: discovery
 technique:
   id: T1082
-  name: "System Information Discovery"
+  name: System Information Discovery
 platforms:
   windows:
     cmd:
-      command: |
+      command: |-
         wmic.exe path win32_environment get UserName,Name,VariableValue

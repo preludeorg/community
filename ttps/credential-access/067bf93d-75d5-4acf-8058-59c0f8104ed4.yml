@@ -1,7 +1,7 @@
 id: 067bf93d-75d5-4acf-8058-59c0f8104ed4
 metadata:
   authors:
-    - Archie Pocsedio
+  - Archie Pocsedio
   tags: []
 name: Use of NTDS for Copying DC Database
 description: |
@@ -14,4 +14,3 @@ platforms:
   windows:
     cmd:
       command: ntdsutil "ac i ntds" "ifm" “create full c:\Logs\PerfLogs\ntds”
-      

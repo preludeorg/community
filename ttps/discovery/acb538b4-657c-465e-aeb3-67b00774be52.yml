@@ -1,7 +1,7 @@
 id: acb538b4-657c-465e-aeb3-67b00774be52
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags: []
 name: Pending Updates Discovery
 description: |
@@ -13,5 +13,5 @@ technique:
 platforms:
   windows:
     psh:
-      command: |
+      command: |-
         (New-Object -ComObject Microsoft.Update.Session).CreateUpdateSearcher().Search("IsInstalled=0").Updates | select Title

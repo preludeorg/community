@@ -1,10 +1,10 @@
 id: 9014f84a-ed8b-42e0-bda9-ac8c969f0d47
 metadata:
   authors:
-    - Bhabesh Raj
+  - Bhabesh Raj
   tags:
-    - Oilrig
-    - OopsIE
+  - Oilrig
+  - OopsIE
 name: Check for virtualization environment
 description: |
   Malware can use various system checks to detect and avoid virtualization and sandbox environments. 
@@ -17,5 +17,5 @@ technique:
 platforms:
   windows:
     psh:
-      command: |
+      command: |-
         Get-WmiObject -Query "Select * from Win32_DiskDrive" | Out-String -Stream | Select-String "Virtual|VMware|VM|VBox|Oracle"

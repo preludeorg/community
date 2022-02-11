@@ -1,8 +1,8 @@
 id: 9b007f62-daa1-44bd-a57d-00c5315ec6fe
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: USB Device Discovery
 description: |

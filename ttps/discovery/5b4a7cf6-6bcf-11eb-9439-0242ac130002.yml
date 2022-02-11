@@ -1,11 +1,11 @@
-id: 5b4a7cf6-6bcf-11eb-9439-0242ac130002 
+id: 5b4a7cf6-6bcf-11eb-9439-0242ac130002
 metadata:
-  authors: 
-    - Abhishek S (abhiabhi2306)
+  authors:
+  - Abhishek S (abhiabhi2306)
   tags: []
 name: Dump all network configuration data
 description: |
-   This command will display all of the system's network configuration information using an approach that is less likely to trigger blue-team monitoring systems.
+  This command will display all of the system's network configuration information using an approach that is less likely to trigger blue-team monitoring systems.
 tactic: discovery
 technique:
   id: T1082

@@ -5,7 +5,7 @@ description: |
 tactic: defense-evasion
 technique:
   id: T1562.002
-  name: "Impair Defenses: Disable Windows Event Logging"
+  name: 'Impair Defenses: Disable Windows Event Logging'
 platforms:
   windows:
     psh:
@@ -13,6 +13,6 @@ platforms:
         Set-Service EventLog -StartupType Disabled
 metadata:
   authors:
-    - w0rk3r
-  tags: 
-    - destructive
+  - w0rk3r
+  tags:
+  - destructive

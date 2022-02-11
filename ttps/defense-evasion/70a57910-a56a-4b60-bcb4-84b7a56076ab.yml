@@ -1,5 +1,5 @@
 id: 70a57910-a56a-4b60-bcb4-84b7a56076ab
-name: 'Disable Microsoft Defender firewall'
+name: Disable Microsoft Defender firewall
 description: >-
   This procedure will disable the Microsoft Defender Firewall for all profiles.
 tactic: defense-evasion
@@ -16,7 +16,7 @@ platforms:
         Set-NetFirewallProfile -All -Enabled False
 metadata:
   authors:
-    - bfuzzy1
-    - w0rk3r
+  - bfuzzy1
+  - w0rk3r
   tags:
-    - destructive
+  - destructive

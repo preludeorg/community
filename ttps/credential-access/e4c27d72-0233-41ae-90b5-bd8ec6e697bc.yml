@@ -14,5 +14,5 @@ platforms:
       command: security dump-keychain -d login.keychain > T1555_001.txt
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags: []

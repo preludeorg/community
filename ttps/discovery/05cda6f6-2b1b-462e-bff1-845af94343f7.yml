@@ -1,8 +1,8 @@
 id: 05cda6f6-2b1b-462e-bff1-845af94343f7
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: Discover injectable process
 description: |
@@ -16,7 +16,7 @@ technique:
 platforms:
   windows:
     psh:
-      command: |
+      command: |-
         $owners = @{};
         gwmi win32_process |% {$owners[$_.handle] = $_.getowner().user};
         $ps = get-process | select processname,Id,@{l="Owner";e={$owners[$_.id.tostring()]}};

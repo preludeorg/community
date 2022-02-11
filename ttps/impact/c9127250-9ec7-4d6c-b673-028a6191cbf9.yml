@@ -1,9 +1,9 @@
 id: c9127250-9ec7-4d6c-b673-028a6191cbf9
 metadata:
-  authors: 
-    - Abhishek S (abhiabhi2306)
-  tags: 
-    - destructive
+  authors:
+  - Abhishek S (abhiabhi2306)
+  tags:
+  - destructive
 name: Shred deleted data
 description: |
   This will perform shredding on C:/ drive on the deleted data and overwrite that making it impossible to recover the deleted data, this is helpful in scenarios where you need to make deleted data unrecoverable.

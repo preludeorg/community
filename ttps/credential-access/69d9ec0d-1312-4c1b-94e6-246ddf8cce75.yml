@@ -16,6 +16,6 @@ platforms:
         tokenDump.txt
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags:
-    - kubernetes
+  - kubernetes

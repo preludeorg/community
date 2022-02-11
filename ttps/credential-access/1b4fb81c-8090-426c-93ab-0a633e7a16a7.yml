@@ -1,10 +1,10 @@
 id: 1b4fb81c-8090-426c-93ab-0a633e7a16a7
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags:
-    - Surveillance
+  - Surveillance
 name: Sniff network traffic
 description: |
   Spend 60 seconds sniffing all packets going in/out from this computer. The goal here is to learn something about

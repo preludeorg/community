@@ -1,16 +1,16 @@
 id: 16fd2706-8baf-433b-82eb-8c7fada847da
 metadata:
-    authors:
-        - Anurag (anukaal)
-    tags: []
+  authors:
+  - Anurag (anukaal)
+  tags: []
 name: View system-wide bashrc configuration
 description: |
-   /etc/bash.bashrc is a file for interactive bash shell and gives the detail of the system bash file.
+  /etc/bash.bashrc is a file for interactive bash shell and gives the detail of the system bash file.
 tactic: discovery
 technique:
-    id: T1082
-    name: System Information Discovery
+  id: T1082
+  name: System Information Discovery
 platforms:
-    linux:
-        sh:
-            command: cat /etc/bash.bashrc
+  linux:
+    sh:
+      command: cat /etc/bash.bashrc

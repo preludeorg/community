@@ -1,10 +1,10 @@
 id: 316251ed-6a28-4013-812b-ddf5b5b007f8
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags:
-    - Surveillance
+  - Surveillance
 name: Screen Capture
 description: |
   This procedure takes a series of screen shots of what is on the computer screen
@@ -16,7 +16,8 @@ platforms:
   darwin:
     sh:
       command: >
-        for i in {1..2}; do screencapture -t png /tmp/screen-$i.png; sleep 30; done; echo /tmp/screen-*
+        for i in {1..2}; do screencapture -t png /tmp/screen-$i.png; sleep 30; done;
+        echo /tmp/screen-*
   windows:
     psh:
       command: |

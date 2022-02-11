@@ -3,14 +3,14 @@ name: Sysmon Driver Check
 description: Checks whether the Sysmon driver is present through the driver's altitude
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags: []
 tactic: discovery
 technique:
   id: T1518.001
-  name: "Software Discovery: Security Software Discovery"
+  name: 'Software Discovery: Security Software Discovery'
 platforms:
   windows:
     psh:
-      command: |
+      command: |-
         (fltMC.exe | Out-String).Contains("385201")

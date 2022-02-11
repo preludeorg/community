@@ -3,12 +3,12 @@ name: Create Local User
 description: Creates a local user on the specified computer
 metadata:
   authors:
-    - w0rk3r
+  - w0rk3r
   tags: []
 tactic: persistence
 technique:
   id: T1136.001
-  name: "Create Account: Local Account"
+  name: 'Create Account: Local Account'
 platforms:
   windows:
     psh:

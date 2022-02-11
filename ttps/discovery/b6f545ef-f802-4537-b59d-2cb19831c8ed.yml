@@ -1,8 +1,8 @@
 id: b6f545ef-f802-4537-b59d-2cb19831c8ed
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: Snag broadcast IP
 description: |

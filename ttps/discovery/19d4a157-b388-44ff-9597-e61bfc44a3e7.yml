@@ -1,11 +1,11 @@
 id: 19d4a157-b388-44ff-9597-e61bfc44a3e7
 metadata:
-  authors: 
-    - Abhishek S (abhiabhi2306)
+  authors:
+  - Abhishek S (abhiabhi2306)
   tags: []
 name: Print kernel diagnostic information
 description: |
-      Prints the kernel diagnostic message buffer which includes bootloader information, debug messages, and more, from the current system boot.
+  Prints the kernel diagnostic message buffer which includes bootloader information, debug messages, and more, from the current system boot.
 tactic: discovery
 technique:
   id: T1082
@@ -14,4 +14,3 @@ platforms:
   linux:
     sh:
       command: dmesg
-  

@@ -16,7 +16,7 @@ platforms:
     cmd:
       command: setspn.exe -Q */*
       variants:
-      - command: setspn.exe -T   #{domain.T1018} -Q */*
+      - command: setspn.exe -T
         id: 179c15d2-3789-4297-86a1-f6131649e3f5
     psh:
       command: |

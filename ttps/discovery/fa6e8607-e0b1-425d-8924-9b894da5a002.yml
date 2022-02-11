@@ -1,8 +1,8 @@
 id: fa6e8607-e0b1-425d-8924-9b894da5a002
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags: []
 name: Get system time
 description: |
@@ -18,5 +18,5 @@ platforms:
         date -u +"%Y-%m-%dT%H:%M:%SZ"
   windows:
     psh:
-      command: |
+      command: |-
         Get-Date -UFormat '+%Y-%m-%dT%H:%M:%SZ'

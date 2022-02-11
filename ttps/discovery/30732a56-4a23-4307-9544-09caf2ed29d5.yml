@@ -1,10 +1,10 @@
 id: 30732a56-4a23-4307-9544-09caf2ed29d5
 metadata:
   authors:
-    - privateducky
-    - MITRE
+  - privateducky
+  - MITRE
   tags:
-    - Ransomware
+  - Ransomware
 name: Find deletable dirs
 description: |
   A computer is made up of files and directories, each owned by a user or group. This procedure will discover all

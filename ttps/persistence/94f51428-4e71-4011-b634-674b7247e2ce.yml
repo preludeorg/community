@@ -16,5 +16,5 @@ platforms:
         REG ADD HKCU\Environment /f /v UserInitMprLogonScript /t REG_MULTI_SZ /d "#{agent.location}"
 metadata:
   authors:
-    - bfuzzy1
+  - bfuzzy1
   tags: []

@@ -11,6 +11,6 @@ platforms:
       command: 'ipconfig /all & whoami /all & nslookup -type=any #{domainname}'
 metadata:
   authors:
-    - '@OrOneEqualsOne'
+  - '@OrOneEqualsOne'
   tags: []
   enabled: true

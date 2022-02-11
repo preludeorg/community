@@ -1,16 +1,16 @@
 id: 00010203-0405-0607-0809-0a0b0c0d0e0f
 metadata:
-    authors:
-        - Anurag (anukaal)
-    tags: []
+  authors:
+  - Anurag (anukaal)
+  tags: []
 name: View hidden files in working directory
 description: |
   Use the ls tool to view all files (including hidden files) in the working directory 
 tactic: discovery
 technique:
-    id: T1082
-    name: System Information Discovery
+  id: T1082
+  name: System Information Discovery
 platforms:
-    linux:
-        sh:
-            command: ls -a
+  linux:
+    sh:
+      command: ls -a

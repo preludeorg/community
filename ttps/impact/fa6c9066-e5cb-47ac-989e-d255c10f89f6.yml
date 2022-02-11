@@ -1,9 +1,9 @@
 id: fa6c9066-e5cb-47ac-989e-d255c10f89f6
 metadata:
   authors:
-    - 231tr0n
+  - 231tr0n
   tags:
-    - destructive
+  - destructive
 name: Kill all running processes
 description: |
   Using killall5 command to kill all the processes on a machine
