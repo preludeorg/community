@@ -1,7 +1,7 @@
 id: 326c369e-4672-48c1-9120-2fdd3a13d80d
 name: Defining chains
 challenge: |
-   There were several high-profile ransomware attacks in 2020. We wrote chains to emulate 
+   There were several high-profile ransomware attacks in 2021. We wrote chains to emulate 
    several of them. Enter the name of one.
 context: |
     There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
