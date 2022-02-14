@@ -5,8 +5,7 @@
 ---
 
 To get the most out of Operator, you'll need to deploy an agent on a remote computer 
-in order to run a security test against it. Unfamiliar with agents? Check out the 
-doc sections below about terminology. Pneuma is the default agent that ships with Operator. 
+in order to run a security test against it. Pneuma is the default agent that ships with Operator. 
 It is intended to support most of the core features available in Operator. As such, you'll
 see that it allows you to connect to this app over any built-in protocol (TCP, HTTP, UDP),
 connect a reverse shell with 1-click and leverage any executor in the Community repository 

@@ -1,4 +1,3 @@
-
 # Meet Prelude Operator
 
 #### Where manual security testing meets automation
@@ -22,7 +21,7 @@ computer) and it tests your defenses from that moment forward.
 
 ---
 
-Start by reading these docs, to get familiar with the tool and terminology. Then head to the Train section and
+Start by reading the docs to get familiar with the tool and terminology. Then head to the Train section and
 take the Introduction program which brings the documentation to life. The program walks you through all major components
 of the system and has you deploying agents, building adversaries and executing operations. Once complete, you should
 be ready to start running your own security assessments through Operator.
