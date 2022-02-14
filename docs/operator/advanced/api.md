@@ -235,13 +235,3 @@ curl -X GET -sk -H $TOKEN "https://localhost:8888/v1/settings" | json_pp
 ```bash
 curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/settings" -d '{"token": "new_token_value"}' | json_pp
 ```
-
-### Command
-
----
-
-#### Run a command on the Operator host machine
-
-```bash
-curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/command" -d '{"command": "ifconfig"}' | json_pp
-```
