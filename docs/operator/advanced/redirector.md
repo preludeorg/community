@@ -19,24 +19,31 @@ to your redirector instead of your Operator IP address.
 
 If you want to manually provision a redirector, follow these steps.
 
-#### Download headless Operator
+#### The Setup
 
 ---
 
 Start by downloading a headless version of Operator from the [Prelude website](https://www.prelude.org/download/current) 
-to the location of your desired server. 
+to the location of your desired server. Once you have accomplished this, next you will have to create a compatible SSH key 
+for your redirector.
+
+#### Example: Generating SSH key
+
+```shell
+ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N
+```
 
 #### Starting your redirector
 
 ---
 
 Once the prelude-headless-linux file is in the desired location you can now start it through the following command, 
-after inputting your proper hostName and sessionToken.
+after inputting your proper hostName, sessionToken and newly created SSH key.
 
 #### Example: Start your headless operator
 
 ```shell
-./headless-linux --sshKey /tmp/headless_ssh_key --hostName 'valid.domain.tld' --sessionToken 'random character string'
+nohup sudo /tmp/headless/bin --sessionToken 'random character string' --sshKey /tmp/headless/ssh_key --hostName 'valid.domain.tld' >/tmp/headless/headless.log 2>&1  &
 ```
 
 #### Adding your redirector
