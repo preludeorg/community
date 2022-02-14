@@ -38,7 +38,8 @@ ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N
 ---
 
 Once the prelude-headless-linux file is in the desired location you can now start it through the following command, 
-after inputting your proper hostName, sessionToken and newly created SSH key.
+after inputting your proper hostName, sessionToken and newly created SSH key. Note: when inputting for hostName, use 
+the DNS not IP address.
 
 #### Example: Start your headless operator
 
