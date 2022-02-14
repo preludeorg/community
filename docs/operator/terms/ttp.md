@@ -1,4 +1,3 @@
-
 # What is a TTP
 
 #### ATT&CK-based tactics, techniques and procedures

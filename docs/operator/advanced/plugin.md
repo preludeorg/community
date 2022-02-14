@@ -57,10 +57,18 @@ Plugins are stored in your workspace.
 
 #### Example: Save this plugin as hello.html and add it to your workspace
 
+A plugin HTML file.
+
 ```html
 <div id="init-plugin"><script type="text/javascript">
     <script>
         alert('Hello world!')    
     </script>
 </div>
+```
+
+A corresponding configuration file for this plugin.
+```yml
+name: Hello
+description: Say hello when you start Operator
 ```

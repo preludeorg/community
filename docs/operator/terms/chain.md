@@ -1,4 +1,3 @@
-
 # What is a chain
 
 #### Executing an organized attack

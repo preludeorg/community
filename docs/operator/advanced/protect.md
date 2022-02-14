@@ -22,12 +22,9 @@ not be able to decrypt your data without the key.
 
 ---
 
-Publishers allow you to control what you want leaving your computer. There are three default publishers:
-Local, Prelude and Custom. The Local publisher will save results to your local workspace, on disk. 
-The Prelude publisher will forward the attack classification of your deployed adversaries, 
-such as the tactic and technique of each TTP, to a Prelude database which will use this information to create 
-security recommendations. The Custom publisher will send data to http://localhost:4400, which you can intercept
-and direct elsewhere (such as to a SIEM).
+Publishers allow you to control what you want leaving your computer. By default, Operator only saves your attack
+data locally, in your workspace. However, you can configure additional locations to publish your data - such as a SIEM
+or external database - by going to the plugins section and making selections.
 
 ### Telemetry
 
