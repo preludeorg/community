@@ -1,0 +1,22 @@
+id: e22b3ca7-6181-49ca-ab14-52ff9b7f49be
+metadata:
+  authors:
+  - privateducky
+  tags: []
+  chains: []
+name: Install Headless Operator
+description: |
+  The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
+tactic: resource-development
+technique:
+  id: T1583
+  name: Acquire Infrastructure
+platforms:
+  linux:
+    sh:
+      command: |
+        mkdir -p /tmp/headless && 
+        curl #{payload.url} > /tmp/headless/bin && 
+        chmod +x /tmp/headless/bin && 
+        ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && 
+        nohup sudo /tmp/headless/bin --sessionToken '#{tool.psk}' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &

