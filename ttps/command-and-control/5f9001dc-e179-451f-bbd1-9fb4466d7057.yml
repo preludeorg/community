@@ -2,7 +2,8 @@ id: 5f9001dc-e179-451f-bbd1-9fb4466d7057
 metadata:
   authors:
   - privateducky
-  tags: []
+  tags:
+    - agent
   chains:
   - JXA access
   release_date: 2021-08-25
