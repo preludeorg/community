@@ -50,6 +50,14 @@ either command line flags or the Update Config sidebar in the main section.
 Lock an agent in order to approve or reject each instruction (TTP) before it is picked up and executed. 
 When an agent is locked, all instructions will enter pending state where you can approve or reject them one at a time.
 
+### Simulation mode
+
+---
+
+You can set agents to "Simulation Mode" via the agent config sidebar. Simulation mode will run TTPs using output data from
+the Expected Output section of the TTP's man page. When you toggle this mode, the chain will run as normal, but not actually
+execute tasks on the endpoint.
+
 ### Agent facts
 
 ---
