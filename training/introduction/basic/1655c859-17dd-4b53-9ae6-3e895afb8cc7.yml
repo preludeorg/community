@@ -1,9 +1,13 @@
 id: 1655c859-17dd-4b53-9ae6-3e895afb8cc7
 name: Blue team | Purple team
-challenge: What Operator training program offers "man pages" for built-in TTPs?
+challenge: Can you find the "man pages" on following TTP 'Collect ARP details'?
 context: |
   Blue teams should use Operator to test their ability to detect common attacks. Purple teams 
-  can accelerate this process through advanced adversary development and automation support.
+  can accelerate this process through advanced adversary development and automation support. To
+  help you achieve the following tasks, we provide in-depth documentation on build in TTPs. Within
+  the reference manual pages you will find a TTPs context, output, use, and known detection and 
+  preventation information. Once you find and read the desired documentation come back and verify the
+  flag.
   <ol>
     <li>
       Review the chains at your disposal. New ones are available every Tuesday.
@@ -17,15 +21,13 @@ context: |
     <li>
       Deploy any chain against your target computers and check your SIEM. Did you catch it?
     </li>
-    <li>
-      Automate this process by using the API. Or get an enterprise license to fully integrate Operator with your SIEM.
-    </li>
   </ol> 
 template:
   name: input
   data: []
 resources: {}
-hints: []
+hints:
+  - Did you check the docs section?
 blocks:
   What is a blue team?: |
     The group responsible for defending an enterprise’s use of information systems by maintaining its security posture against a group of 
@@ -38,11 +40,6 @@ blocks:
     the defensive tactics and controls from the Blue Team with the threats and vulnerabilities found by the Red Team into 
     a single narrative that maximizes both. Ideally Purple shouldn’t be a team at all, but rather a permanent dynamic between 
     Red and Blue (https://danielmiessler.com/study/red-blue-purple-teams/).
-  What license should I use?: |
-    If you work on a blue or purple team you'll want to upgrade your license to Professional if you want the Publisher or Reporting 
-    plugins. These allow you to get the most out of the blue/purple use case when using Operator as an individual. If you work on 
-    a larger team, you'd consider moving to an Enterprise license if you want to aggregate the results from multiple individual 
-    Operator instances or to do a deeper integration with your SIEM.
 answer:
-  script: Number($('#answer').val().toLowerCase().includes('att&ck')) 
+  script: Number($("#doc-content .sidebar-canvas").find('h1').text() === 'Collect ARP details')
   value: 1
