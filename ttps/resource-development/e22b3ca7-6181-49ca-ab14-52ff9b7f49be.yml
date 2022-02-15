@@ -2,8 +2,12 @@ id: e22b3ca7-6181-49ca-ab14-52ff9b7f49be
 metadata:
   authors:
   - privateducky
-  tags: []
+  tags:
+    - connect
+    - required
   chains: []
+  payloads:
+    headless: cb01547d2ad40c544cfbb69e6f08158a312256eb
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
@@ -16,7 +20,8 @@ platforms:
     sh:
       command: |
         mkdir -p /tmp/headless && 
-        curl #{operator.http}/cb01547d2ad40c544cfbb69e6f08158a312256eb/headless > /tmp/headless/bin && 
+        curl #{payload.url} > /tmp/headless/bin && 
         chmod +x /tmp/headless/bin && 
         ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && 
         nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &
+      payload: headless
