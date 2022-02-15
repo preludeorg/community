@@ -23,18 +23,18 @@ platforms:
   linux:
     sh:
       command: |
-        curl #{operator.http}/cea74c95ce1366db3d0d8fb1fc2f9b871fdd1e92/pneuma-linux > /tmp/pneuma && 
+        curl #{operator.http}/7b3f4018328085e865c5b72ca98e77691ce710c1/pneuma-linux > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
         nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{operator.tcp} &
   darwin:
     sh:
       command: |
-        curl #{operator.http}/26b3acb4ca6dfd4df3f604ddfa0575a14f9e010d/pneuma-darwin > /tmp/pneuma && 
+        curl #{operator.http}/ced4d6dcc1d11f41db6289039d1fa565e1399ec1/pneuma-darwin > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
         nohup /tmp/pneuma -name $(echo $HOSTNAME) -address #{operator.tcp} &
   windows:
     psh:
       command: |
         $wc = New-Object System.Net.WebClient; 
-        $wc.DownloadFile("#{operator.http}/a470d3d08cab9af036c39652cec1096015f4570a/pneuma-windows.exe","C:\aws\download\pneuma-windows.exe"); 
+        $wc.DownloadFile("#{operator.http}/9b08575263c7d30c79b5a05ad979d8476e68ff9b/pneuma-windows.exe","C:\aws\download\pneuma-windows.exe"); 
         Start-Process -FilePath .\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{operator.tcp}"
