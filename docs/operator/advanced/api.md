@@ -104,10 +104,10 @@ curl -X PUT -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost
 
 #### Add multiple facts to an agent
 
-You can add multiple facts to an agent by passing facts
+You can add multiple facts to an agent by passing facts. Replace agent_name with the name of the agent.
 
 ```bash
-curl -X POST -sk -H 'Authorization:blue' "https://localhost:8888/v1/agents/privateducky/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
+curl -X POST -sk -H $TOKEN "https://localhost:8888/v1/agents/agent_name/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
 ```
 
 ### TTPs
