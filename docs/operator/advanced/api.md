@@ -18,7 +18,7 @@ not trust between the client and server.
 
 ---
 The API requires a token to be passed with the request. Your token can be found in:
-Operator -> Settings -> Network -> Token. Replace YOUR_API_TOKEN in the Authorization header with your token.
+Operator -> Settings -> Network -> Token. Set the variable $TOKEN to your token.
 
 
 ## Endpoints 
@@ -29,18 +29,18 @@ Operator -> Settings -> Network -> Token. Replace YOUR_API_TOKEN in the Authoriz
 #### Get all chains loaded in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/chains" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains" | json_pp
 ```
 
 #### Get a specific chain by identifier
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/chains/printnightmare" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains/printnightmare" | json_pp
 ```
 #### Create a new chain
 
 ```bash
-curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains" -d '{
+curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains" -d '{
     "name": "my_new_adversary",
     "ttps": [
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
@@ -56,7 +56,7 @@ curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: applicatio
 You can modify an existing chain by sending an updated chain body to the `/chains/YourChainID` endpoint:
 
 ```bash
-curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8" -d '{
     "name": "my_newer_adversary",
     "ttps": [
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
@@ -71,7 +71,7 @@ curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application
 #### Delete a chain
 
 ```bash
-curl -X DELETE -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8"
+curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8"
 ```
 
 ### Agents
@@ -81,13 +81,13 @@ curl -X DELETE -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1
 #### Get all Agents in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN"  "https://localhost:8888/v1/agents" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN"  "https://localhost:8888/v1/agents" | json_pp
 ```
 
 #### Get a specific Agent in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/agents/test" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/test" | json_pp
 ```
 
 #### Update an Agent's configuration
@@ -95,7 +95,7 @@ curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/ag
 You can update your agent's configuration by passing it updated fields.
 
 ```bash
-curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/agents/test" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/agents/test" -d '{
     "range": "new_range",
     "label": "new_agent_name"
 }' | json_pp
@@ -106,7 +106,7 @@ curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application
 You can add multiple facts to an agent by passing facts. Replace agent_name with the name of the agent.
 
 ```bash
-curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/agents/agent_name/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
+curl -X POST -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/agent_name/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
 ```
 
 ### TTPs
@@ -115,13 +115,13 @@ curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/a
 #### Get all TTPs in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/ttps" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps" | json_pp
 ```
 
 #### Get a specific TTP in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
 ```
 
 #### Create a new TTP in Operator
@@ -129,7 +129,7 @@ curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/tt
 Create a new TTP by posting a TTP body to the endpoint:
 
 ```bash
-curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps" -d '{
+curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps" -d '{
     "id" : "ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf",
     "name" : "Who Dat",
     "description" : "Get the current username",
@@ -157,7 +157,7 @@ curl -X POST -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: applicatio
 #### Modify a TTP in Operator
 
 ```bash
-curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf" -d '{
     "name" : "Who is That",
     "metadata" : {
         "version" : 2,
@@ -172,7 +172,7 @@ curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application
 #### Delete a TTP in Operator
 
 ```bash
-curl -X DELETE -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
+curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
 ```
 
 ### Operations
@@ -232,7 +232,7 @@ curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhos
 #### Get Operator's Local Settings
 
 ```bash
-curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/settings" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/settings" | json_pp
 ```
 
 ---
@@ -240,5 +240,5 @@ curl -X GET -sk -H "Authorization: YOUR_API_TOKEN" "https://localhost:8888/v1/se
 #### Update Operator's Local Settings
 
 ```bash
-curl -X PUT -sk -H "Authorization: YOUR_API_TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/settings" -d '{"token": "new_token_value"}' | json_pp
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/settings" -d '{"token": "new_token_value"}' | json_pp
 ```
