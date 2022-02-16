@@ -1,6 +1,6 @@
 id: e573a081-0fc3-49b3-b039-cd72e3772a62
 name: Chain subscription
-challenge: What is the name of our most recently published chain?
+challenge: How many TTPs are included in our most recently published chain?
 context: |
   You may have read about the Community and Professional licenses by now but here's a little more information.
   The Community repository is the open-source arm of Operator. It contains dozens of free procedures, all ready to
@@ -30,5 +30,8 @@ blocks:
     real-world cyberattacks, can be safely used to test your internal defenses. You can access these chains from
     within Operator or over our API.
 answer:
-  script: $('#answer').val()
-  value: 10
+  script: 
+    new Promise((resolve, reject) => {
+      Requests.hq.getChains()
+      .then(chains => resolve(Number(chains[1].ttps.length === $('#answer').val())))})
+  value: 1
