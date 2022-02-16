@@ -1,24 +1,22 @@
 id: 9e7b2d08-21bd-4244-ab46-243d597e5d29
-name: Human in the loop
+name: Agent states
 challenge: |
-   Can you lock an agent, deploy an adversary and enter the name of a procedure that is pending your approval?
+   Can you lock an agent, deploy a chain and enter the name of a procedure that is pending your approval?
 context: |
-  Operator's dock provides a wealth of opportunities and capability. One of these examples is the ability to design
-  complex attacks using a wide range of accessible TTPs and agent compatibility.
-  In cyber warfare, each attack has a purpose and a goal in mind. When paired with the agent locking functionality, an
-  operation's flexibility is expanded. Locking an agent allows the user to accept or reject procedures
-  on an individual basis, allowing the operator to inject themselves into the decision-making process. You would use this
-  feature if you want full control over every command that is sent to the agent.
+  An agent can be in a variety of states: locked, unlocked, simulated or live. A locked agent requires you, the human,
+  to approve or discard each instruction before it is sent to the agent. If unlocked (the default) the instructions are
+  sent automatically. An agent in a simulated state will never receive instructions - instead Operator will simulate 
+  realistic responses so you can see what might happen if you were to send a particular chain to a particular agent.
+  A live agent (the default) is when instructions are sent to the agent.
 template:
   name: input
   data: []
 resources:
-  links:
-      Human-in-the-loop: https://appen.com/blog/human-in-the-loop/
+  links: {}
 hints:
-  - Look for the lock icon
-  - Did you create and deploy a chain?
-  - Did you know you can click into the 'pending' procedures
+  - Look for the lock option on an agent
+  - Did you deploy a chain against the locked agent?
+  - After deploying a chain, check the agent's queue.
 blocks:
   Human-in-the-loop: |
     Human-in-the-loop is a branch of artificial intelligence that creates machine learning models by combining

@@ -18,7 +18,6 @@ resources:
     link: https://s3.amazonaws.com/operator.recordings/red-team.m4a
   links:
     Purple is the new red: https://feed.prelude.org/p/purple-is-the-new-red
-    The definition of a purple team: https://danielmiessler.com/study/purple-team/
     Understanding the industry: https://feed.prelude.org/p/beware-of-the-snake-oil
 hints:
   - The answer is given in the recording

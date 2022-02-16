@@ -13,7 +13,7 @@ template:
 resources:
   links: []
 hints:
-  - Did you read the documentation about how the planner works?
+  - Did you read the documentation about how the decision making works?
 blocks:
   Automated planning: |
     Automated planning and scheduling, sometimes denoted as simply AI planning, is a branch of artificial intelligence
@@ -26,9 +26,6 @@ blocks:
     speed, consistency, automatic reporting and a large number of TTPs in a growing knowledge bank. Which is the right
     approach, manual or automated? It depends on your use case but automated should make up the bulk of your security
     posture.
-  The Planner plugin: |
-    All license holders can use the Planner plugin, which allows you to manipulate Operator's built in planner. 
-    You can also use this plugin to write your own custom planner, to make adversarial decisions however you'd like.
 answer:
   script: $('#answer').val().toLowerCase()
   value: planner

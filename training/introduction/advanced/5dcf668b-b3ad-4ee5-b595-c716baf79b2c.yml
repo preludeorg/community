@@ -12,12 +12,9 @@ template:
   name: input
   data: []
 resources:
-  links: 
-    MITRE ATT&CK: https://attack.mitre.org
-    What is an adversary: https://attack.mitre.org/groups
+  links: {}
 hints:
-  - Head into Editor and use the TTP search
-  - Search for FILE.IO EXFIL. Locate the variable and note the technique ID required to fill it in.
+  - Use the Launch Chain search bar to find the TTP named FILE.IO EXFIL. Locate the variable and note the technique ID required to fill it in.
   - Search for technique T1560.001. These procedures can fill in the variable
 blocks:
   Understanding the chain: |
@@ -27,6 +24,8 @@ blocks:
     By leveraging how these can connect, you can build chained adversaries that use learned information to execute.
   Read the docs!: |
     The documentation section about chaining is a great resource on the topic of chains, links, facts and variables.
+    The topic of linking TTPs together, using the output of one TTP as the input to another, is an advanced topic 
+    but well worth getting familiar with.
 answer:
   script: |
     Object.values(Attack.attack).filter(atk => atk.technique.id === 'T1560.001' && atk.name.toLowerCase() === $('#answer').val().toLowerCase()).length

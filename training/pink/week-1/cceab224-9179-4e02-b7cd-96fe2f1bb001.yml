@@ -14,7 +14,6 @@ resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/vulnerability-scanning.m4a
   links:
-    Vulnerability scanner: https://en.wikipedia.org/wiki/Vulnerability_scanner
     Cyber Security Education Problem: https://feed.prelude.org/p/the-cybersecurity-education-problem
 hints:
   - The answer is given in the recording

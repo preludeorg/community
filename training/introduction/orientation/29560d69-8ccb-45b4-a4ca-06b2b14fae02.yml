@@ -11,7 +11,7 @@ template:
 resources:
   links: []
 hints:
-  - Did you read the documentation about adversaries?
+  - Did you read the documentation about chains?
 blocks:
   Script kiddie: |
     In programming and hacking cultures, a script kiddie, skiddie or skid, is an unskilled individual who uses scripts

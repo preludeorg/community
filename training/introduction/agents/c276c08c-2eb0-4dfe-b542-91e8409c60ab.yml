@@ -17,10 +17,7 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    Pneuma: https://github.com/preludeorg/pneuma
-    GoLang: https://github.com/golang/go
-    Check your MD5: https://knowledge.autodesk.com/search-result/caas/sfdcarticles/sfdcarticles/Checking-the-MD5-checksum-of-a-Downloaded-File.html
+  links: {}
 hints:
   - You cannot use the pre-compiled Pneuma agents to complete this challenge
   - Did you download or clone the Pneuma repository and read the README about compiling the code?

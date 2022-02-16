@@ -18,7 +18,6 @@ resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/asset-inventory.m4a
   links:
-    NIST: https://www.nist.gov
     Understanding the industry: https://feed.prelude.org/p/beware-of-the-snake-oil
     Dichotomy of buttons: https://feed.prelude.org/p/dichotomy-of-buttons
 hints:

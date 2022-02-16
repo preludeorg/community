@@ -1,21 +1,21 @@
 id: 2a729508-8410-4ea8-924d-a6ddd14fd64d
 name: Understanding plugins
-challenge: Load the ART plugin and import the Atomic Red Team attack files.
+challenge: Install the ART plugin to import all Atomic Red Team TTPs.
 context: |
   A plugin in Operator is an HTML file, containing valid JavaScript and CSS components. Plugins allow you to extend
   or override various components within Operator, putting you in full control of the system. Cyber security engineers -
   or those who have security and software engineering backgrounds - often want to customize and extend popular open-source
   projects. This can be a time-consuming process and any changes may get wiped out in a future update. Plugins allow a
   safe, easy alternative. Engineers can extend using defined interfaces, allowing them to create extendable components,
-  leveraging existing code to quickly iterate on new features. Some plugins are available to community members,
-  while others are available to Professional or Enterprise license holders.
+  leveraging existing code to quickly iterate on new features. Clicking on a plugin will install it - clicking it again
+  will uninstall it.
 template:
   name: submit
   data: []
 resources:
-  links:
-    Translators: https://feed.prelude.org/p/can-you-hear-me-now
+  links: {}
 hints:
+  - Plugins are available in the Settings sidebar.
   - Have you read the documentation on plugins?
 blocks:
   ART plugin: |

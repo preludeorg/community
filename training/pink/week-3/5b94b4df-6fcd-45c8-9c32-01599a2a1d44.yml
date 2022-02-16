@@ -18,8 +18,7 @@ template:
 resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/improve-your-tech.m4a
-  links:
-    ATT&CK: https://attack.mitre.org/tactics/enterprise/
+  links: {}
 hints:
   - The answer is given in the recording
 blocks: 

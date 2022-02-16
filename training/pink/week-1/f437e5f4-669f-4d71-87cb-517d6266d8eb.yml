@@ -17,8 +17,7 @@ template:
 resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/edr.m4a
-  links:
-    Overview of EDR: https://en.wikipedia.org/wiki/Endpoint_detection_and_response
+  links: {}
 hints:
   - The answer is given in the recording
 blocks: 

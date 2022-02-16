@@ -12,12 +12,9 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    localhost vs all zeros: https://www.howtogeek.com/225487/what-is-the-difference-between-127.0.0.1-and-0.0.0.0/
-    Understanding IP addresses: https://www.howtogeek.com/341307/how-do-ip-addresses-work/
-    The OSI model: https://en.wikipedia.org/wiki/OSI_model
+  links: {}
 hints:
-  - Check the Settings section
+  - Capture this flag from the Settings sidebar
 blocks:
   0.0.0.0: |
     0.0.0.0 is a non-routable meta-address used to designate an invalid, unknown or non applicable target (a no

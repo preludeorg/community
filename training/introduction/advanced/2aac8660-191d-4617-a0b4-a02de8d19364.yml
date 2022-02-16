@@ -1,24 +1,18 @@
 id: 2aac8660-191d-4617-a0b4-a02de8d19364
 name: Create a new procedure
 challenge: |
-  Can you create a new TTP? It should have a name of 'fall asleep' and be
-  classified as an Execution tactic with a technique of 'Command and Scripting Interpreter'.
+  Create a new TTP and deploy it against one of your connected agents. What is the ID of the TTP you created?
 context: |
   One of the unique aspects of Operator is the ability to quickly create your own TTPs and load them in the system.
   By simply creating a new YML file and ensuring the format matches that of other files in the Community repository, you
-  are able to import them either manually or through Operator itself (can you find the import button?). TTPs
-  are written in a format which allows for you to describe 1+ platforms and 1+ executors per platform. Read
-  about the TTP files in the documentation for a full tutorial. The point of this flag is to teach you how to create a TTP
-  within Operator - not train you on writing custom attacks. In your new TTP, see if you can figure out the syntax to
-  make the agent executing it pause for 5 seconds.
+  are able to add them to Operator. The easiest way to create TTPs is through the Launch Chain sidebar, which will create
+  a structured YML file and allow you to just fill in the blanks. In your new TTP, you can create any type of attack 
+  you want - just be sure that it is valid YML and it contains at least 1 platform and 1 executor so it can run.
 template:
-  name: submit
+  name: input
   data: []
 resources:
-  links:
-    The technique: https://attack.mitre.org/techniques/T1059/006/
-    What is a sub-technique: https://medium.com/mitre-attack/attack-sub-techniques-preview-b79ff0ba669a
-    Python malware: https://www.cyborgsecurity.com/python-malware-on-the-rise/
+  links: {}
 hints:
   - Look for the + button inside the Editor section
   - Did you save the TTP after creating it?
@@ -27,19 +21,6 @@ blocks:
     Each TTP requires a platform (operating system) and executor (program the agent uses to run the TTP). There are 3 supported
     platforms in Operator today: windows, linux and darwin (another word for MacOS). By default, each platform can use
     a specific set of executors. Check the documentation around TTPs for a list of options.
-  T1059: |
-    Adversaries may abuse Python commands and scripts for execution. Python is a very popular scripting/programming
-    language, with capabilities to perform many functions. Python can be executed interactively from the command-line
-    (via the python.exe interpreter) or via scripts (.py) that can be written and distributed to different systems.
-    Python code can also be compiled into binary executables.Python comes with many built-in packages to interact with
-    the underlying system, such as file operations and device I/O. Adversaries can use these libraries to download
-    and execute commands or other scripts as well as perform various malicious behaviors.
-  The sleep command: |
-    sleep is a command-line utility that allows you to suspend the calling process for a specified time. In other words,
-    the sleep command pauses the execution of the next command for a given number of seconds.
-  ART plugin: |
-    Operator includes a plugin called ART, which allows you to import the hundreds of TTPs available in the open-source
-    Atomic Red Team project. Use this to bolster the number of attacks in your Operator instance.
 answer:
   script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'fall asleep').length)
   value: 1

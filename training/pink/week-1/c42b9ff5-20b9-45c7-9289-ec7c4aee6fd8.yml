@@ -16,9 +16,7 @@ template:
 resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/antivirus.m4a
-  links:
-    Antivirus software overview: https://en.wikipedia.org/wiki/Antivirus_software
-    History of malware: https://en.wikipedia.org/wiki/Timeline_of_computer_viruses_and_worms
+  links: {}
 hints:
   - The answer is given in the recording
 blocks: 

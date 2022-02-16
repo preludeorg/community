@@ -1,27 +1,13 @@
 id: 1655c859-17dd-4b53-9ae6-3e895afb8cc7
 name: Blue team | Purple team
-challenge: Can you find the "man pages" on following TTP 'Collect ARP details'?
+challenge: Can you find the "man page" on following TTP 'Collect ARP details'?
 context: |
   Blue teams should use Operator to test their ability to detect common attacks. Purple teams 
   can accelerate this process through advanced adversary development and automation support. To
   help you achieve the following tasks, we provide in-depth documentation on build in TTPs. Within
   the reference manual pages you will find a TTPs context, output, use, and known detection and 
-  preventation information. Once you find and read the desired documentation come back and verify the
-  flag.
-  <ol>
-    <li>
-      Review the chains at your disposal. New ones are available every Tuesday.
-    </li>
-    <li>
-      Configure the Publisher plugin so your results forward to your SIEM.
-    </li>
-    <li>
-      Deploy agents on your target computers.
-    </li>
-    <li>
-      Deploy any chain against your target computers and check your SIEM. Did you catch it?
-    </li>
-  </ol> 
+  preventation information. Once you find and read the desired documentation - leave it open - and come back here
+  to verify.
 template:
   name: input
   data: []

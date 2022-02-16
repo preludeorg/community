@@ -12,11 +12,7 @@ template:
   name: input
   data: []
 resources:
-  links:
-    Learning ATT&CK: https://attack.mitre.org
-    IoC is not enough: https://blog.eclecticiq.com/why-iocs-are-not-enough
-    Threat-driven security: https://www.lockheedmartin.com/content/dam/lockheed-martin/rms/documents/cyber/LM-White-Paper-Threat-Driven-Approach.pdf
-    Kill chain: https://en.wikipedia.org/wiki/Kill_chain
+  links: {}
 hints:
   - Did you read the documentation about TTPs?
 blocks:

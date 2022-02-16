@@ -16,9 +16,7 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    Programming languages: https://www.gnu.org/software/bash/manual/bash.html
-    Keys to the kingdom: https://feed.prelude.org/p/keywords-to-the-kingdom-simple-modular
+  links: {}
 hints:
   - Did you update the agent's configuration?
 blocks:

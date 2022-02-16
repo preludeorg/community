@@ -16,11 +16,11 @@ resources:
   links:
     Understanding TTPs: https://attack.mitre.org
     TTPs can include malware: https://attack.mitre.org/software
-    Adversary = Groups: https://attack.mitre.org/groups
+    Chain = Group: https://attack.mitre.org/groups
 hints:
-  - Did you create an adversary and add at least 1 TTP?
-  - Make sure at least one TTP is completed. You should see it as a row when you click into the agent section.
-  - You will find the link ID when you click on a completed TTP (row) in the agent section.
+  - Did you create a chain and add at least 1 TTP?
+  - Make sure at least one TTP is completed. You should see the result on the agent dashboard.
+  - You will find the link ID when you click on a completed TTP (row) in the agent dashboard.
   - You should be looking for a UUID-4
 blocks:
   What is a TTP?: |
@@ -37,10 +37,10 @@ blocks:
     agent known as ThirdEye. ThirdEye will appear in your home computer range and will be labeled as the host name of your
     computer.
   What is an operation: |
-    In Operator lingo, an operation is a full execution of an adversary. When you click "Deploy" on an adversary, when
+    In Operator lingo, an operation is a full execution of a chain. When you click "Deploy" on a chain, when
     it completes, so does the operation.
   Understanding a link ID: |
-    We like to think of each adversary as containing a "chain" of potential TTPs to run. And when each one completes we
+    We like to think of each chain as containing a set of potential TTPs to run. And when each one completes we
     refer to it as a link. Each link is given a unique identifier which you will see next to the output of the TTP itself.
 answer:
   script: |

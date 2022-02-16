@@ -16,8 +16,7 @@ template:
 resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/reports.m4a
-  links:
-    Report templates: https://redteam.guide/docs/templates/report_template/
+  links: {}
 hints:
   - The answer is given in the recording
 blocks:

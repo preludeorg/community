@@ -1,17 +1,17 @@
 id: 326c369e-4672-48c1-9120-2fdd3a13d80d
 name: Defining chains
 challenge: |
-   There were several high-profile ransomware attacks in 2021. We wrote chains to emulate 
-   several of them. Enter the name of one.
+  There were several high-profile ransomware attacks in 2021. We wrote chains to emulate 
+  several of them. Enter the name of one.
 context: |
-    There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
-    of them all. Inside Operator, we try to use as few custom terms as possible and try to over explain terminology
-    wherever possible to make it easier to onboard and make sense of an already complex industry. Two terms come
-    up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
-    in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
-    individual TTPs, which work together to achieve some type of output. The term adversary is a common cybersecurity term, 
-    often referring to the attacker overall. An adversary in the real-world may know how to execute dozens of chained attacks. 
-    We emulate this by allowing you to pick a prebuilt chain and then append more TTPs to it.
+  There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
+  of them all. Inside Operator, we try to use as few custom terms as possible and try to over explain terminology
+  wherever possible to make it easier to onboard and make sense of an already complex industry. Two terms come
+  up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
+  in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
+  individual TTPs, which work together to achieve some type of output. The term adversary is a common cybersecurity term, 
+  often referring to the attacker overall. An adversary in the real-world may know how to execute dozens of chained attacks. 
+  We emulate this by allowing you to pick a prebuilt chain and then append more TTPs to it.
 template:
   name: input
   data: []
@@ -24,7 +24,7 @@ hints:
 blocks:
   CALDERA: |
     The CALDERA framework is an open-source C2 framework, supported by the MITRE Corporation, to conduct research in 
-    autonomous, adversarial decision-making. Fun fact: the core developers of CALDERA version 2+ also work on the Operator platform.
+    autonomous, adversarial decision-making. Fun fact: the core developers of CALDERA version 2+ also built the Operator platform.
   An example chain: |
     We often highlight the "File Hunter" chain in Operator demonstrations because it's a cross-platform chain that highlights the
     concept well. In this chain, the included TTPs will locate recently-modified files, create a staging directory, copy the found

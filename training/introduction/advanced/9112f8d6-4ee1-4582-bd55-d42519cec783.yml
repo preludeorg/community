@@ -1,8 +1,8 @@
 id: 9112f8d6-4ee1-4582-bd55-d42519cec783
 name: Create a new payload
 challenge: |
-  Can you create a new payload? It should be named "hello.txt" and its contents should be "world". You can attach it
-  to any TTP you like.
+  Can you create a new payload? It should be named "hello.txt" and its contents should be 'echo "world"'. Create a 
+  new TTP called Hello World and attach your payload to it. Finally, ensure your command uses the payload.
 context: |
   Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, 
   and can be thought of as malware. A payload can be written in any computer language and is commonly compiled into a 
@@ -14,16 +14,16 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    Translators: https://feed.prelude.org/p/can-you-hear-me-now
+  links: {}
 hints:
-  - Look for the "Add a Payload" link at the bottom of the Editor window
+  - When looking at your TTP, note the upload icon at the top right. Use this to attach your payload.
+  - When attaching a payload it will be added to the metadata, which shows which payloads are available to the TTP.
+  - Look around for other TTPs with payloads to see how they use/refer to them.
 blocks:
-  How payloads work in operations: |
+  How payloads work: |
     When you deploy TTPs containing payloads, Operator first downloads them to your Prelude workspace, specifically into 
-    your payloads directory (referenced through the automatic fact of #{operator.payloads}). Then Operator ships the TTP 
-    to the receiving agent, along with the address of the payload on disk. The agent makes an HTTP request back to Operator 
-    to retrieve the payload before executing the TTP itself.
+    your payloads directory. Then Operator ships the TTP to the receiving agent, along with the URL of where to find the 
+    payload. The agent makes an HTTP request back to Operator to download the payload before executing the TTP itself.
 answer:
-  script: Listen.resolvePayloads("/uploads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
+  script: Listen.resolvePayloads("/payloads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
   value: 1

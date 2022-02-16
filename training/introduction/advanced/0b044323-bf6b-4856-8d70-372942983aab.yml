@@ -1,34 +1,28 @@
 id: 0b044323-bf6b-4856-8d70-372942983aab
 name: A (variant) attack
 challenge: |
-  Select any TTP and write a base64 variant for it. Use the DEPLOY button in the Editor section 
-  to send it to any agent. Enter the base64 command which was executed.
+  Locate the TTP named "Find recent files" and write a variant for your platform that searches your /tmp (or TEMP)
+  directory for recently modified files. Then deploy the TTP against your Thirdeye agent.
 context: |
-  Adversaries use various defense evasion techniques to hide from defenders. A common one is to
-  obfuscate their commands, so they look different, but actually have the same net behavior. Encoding a 
-  command with base64 and executing it as such is an approach often seen in the wild. If the defense has a 
-  SIEM looking for keywords being executed in the network, an encoded version of a keyword very well may
-  fly under the radar.
+  Just as there are numberable procedures for any given ATT&CK technique, each procedure may have variations itself.
+  For example, a procedure that does a port scan may look like this: nmap -Pn example.com. This will scan example.com
+  for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
+  of this command may be: nmap -Pn -sV example.com. Instead of creating a new TTP for each of these variations you can
+  outline each variant in a single TTP file.
 template:
   name: input
   data: []
 resources:
   links: []
 hints:
-  - Just enter just the base64 part of the command that ran, not the full command.
+  - Use the search feature in Launch Chain to locate the TTP
+  - You may want to search other TTPs to find examples of variants so you can copy the syntax.
+  - Note that each variant has its own unique identifier
 blocks:
-  Base64: |
-    When you have some binary data that you want to ship across a network, you generally don't do it by just streaming
-    the bits and bytes over the wire in a raw format. Why? because some media are made for streaming text.
-    You never know -- some protocols may interpret your binary data as control characters (like a modem), or your
-    binary data could be screwed up because the underlying protocol might think that you've entered a special character
-    combination (like how FTP translates line endings). So to get around this, people encode the binary data into
-    characters. Base64 is one of these types of encodings.
-  Variants: |
-    Inside Editor you can create variants of TTPs. Variants are simply commands which have the same exact output or 
-    expected response but may have a different syntax. You can create as many variants to TTPs as you'd like. During an
-    operation, Operator will attempt to use the first variant (called the base) first. If that fails, it will then attempt
-    other variants in order until one succeeds. 
+  The /tmp directory: |
+    The /tmp (or TEMP) directory on a computer stores temporary files that will be removed automatically by your operating
+    system over time or after a reboot. Adversaries will often store malicious code here or use it as a "home base" of 
+    sorts because it's an often overlooked directory.
 answer:
   script: Number(btoa(atob($('#answer').val())) === $('#answer').val())
   value: 1

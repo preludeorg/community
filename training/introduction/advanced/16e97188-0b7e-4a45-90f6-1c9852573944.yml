@@ -3,34 +3,26 @@ name: Understanding the Connect plugin
 challenge: Click into the Connect plugin and use it to deploy a redirector and virtual "compromised" machine.
 context: |
   The Connect plugin offers three functions: deploying redirectors so agents can reach your Operator instance over 
-  the internet, deploying test computers for you to practice attacks on and offering the ability to link your Operator 
-  instance to your teammates so you can share agents. In this flag, you'll experience the first two functions first 
-  hand. Head to the Connect plugin, connect to your AWS account and see if you can deploy a redirector and virtual 
+  the internet, deploying test computers for you to practice attacks on and the ability to link Operator 
+  to your teammates so you can share agents. In this flag, you'll experience the first two functions. 
+  Head to the Connect plugin, add your AWS account and see if you can deploy a redirector and virtual 
   machine. This flag is completed once you've received a beacon from your compromised computer.
 template:
   name: submit
   data: []
 resources:
-  links:
-    Connect plugin: https://feed.prelude.org/p/connect-with-redirectors
-    AWS: https://feed.prelude.org/p/how-to-set-up-aws-for-operator
-    Translators: https://feed.prelude.org/p/can-you-hear-me-now
-    CTF: https://feed.prelude.org/p/capture-the-flag
+  links: {}
 hints:
   - Is your AWS account connected?
   - Did you deploy a redirector and confirm it is connected? It should show a green status circle.
   - Did you deploy a virtual machine? You must deploy a redirector first and after it is connected, 
-    deploy your VM. In the Operate section, check the ranges to see if you have any agents in a "cloud" range.
+    deploy your VM.
 blocks:
   Connect to your teammates: |
     The Connect plugin has an enterprise feature allowing you to connect your Operator instance to your teammates. 
     It works like this: provision and connect to a new redirector then send a teammate the generated host/password 
     information, which they can plug into their Connect plugin. Once connected, any agent that comes into the redirector 
     will mirror across both of your Operator instances!
-  Capture the flag: |
-    Capture the flag (CTF) is a free multi-level program within Training that serves as a more interactive and hands on
-    test to navigate through environments that mimic real-world situations. Currently there are 3 levels that increasingly
-    grow in difficulty to test your prowess in navigation and collection through foreign environments.
   Amazon web services: |
     Amazon Web Services (AWS) offers a broad set of global cloud-based products, through a secure cloud serviced platform
     that caters to businesses looking to scale and grow. Their three main products include: EC2, Amazon’s virtual machine 
@@ -42,6 +34,11 @@ blocks:
     usually called an image, they act like a real computer that can be run in window as a separate computing 
     environment. Virtual machines can run different operating systems from your physical host computers. 
     This makes it easy for developers to spin up new environments and is a useful tool for to run test scenarios.
+  Redirectors: |
+    Redirectors are standard micro Linux servers that run a "headless" version of Operator. When you provision a 
+    redirector, the Operator on your desktop forms a connection over GRPC to the headless Operator on the redirector so
+    any agent which beacons to the redirector gets forwarded to your local Operator. Since your headless Operator is the
+    same as your local Operator, you can also interact with it over the HTTPS API.
 answer:
   script: Number(Agent.agents.filter(function(a) { return a.metadata.redirector}).length > 0)
   value: 1

@@ -18,10 +18,7 @@ template:
 resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/improve-your-people.m4a
-  links:
-    CISA - Cyber Essentials: https://www.cisa.gov/cyber-essentials
-    Poor cyber hygiene leads to cloud compromise: https://us-cert.cisa.gov/ncas/current-activity/2021/01/13/attackers-exploit-poor-cyber-hygiene-compromise-cloud-security
-    Initial Access: https://attack.mitre.org/tactics/TA0001/
+  links: {}
 hints:
   - The answer is given in the recording
 blocks: 

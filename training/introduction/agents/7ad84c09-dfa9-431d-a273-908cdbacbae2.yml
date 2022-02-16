@@ -13,12 +13,7 @@ template:
   name: submit
   data: []
 resources:
-  links:
-    Pneuma: https://github.com/preludeorg/pneuma
-    HTTP explained: https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
-    TCP vs UDP: https://www.privateinternetaccess.com/blog/tcp-vs-udp-understanding-the-difference/
-    Understanding TCP: https://en.wikipedia.org/wiki/Transmission_Control_Protocol
-    What is an API?: https://www.howtogeek.com/343877/what-is-an-api/
+  links: {}
 hints:
   - Have you downloaded the Pneuma agent?
   - From a terminal, run the agent with the -help flag to see the options
@@ -32,7 +27,7 @@ blocks:
     machines to perform various malicious activities such as installing and removing programs, manipulating files,
     hijacking the webcam, reading data from the keyboard, harvesting login credentials and monitoring the clipboard.
   Download Pneuma: |
-    There are two ways you can download Pneuma. Through the Editor section's Manage Payloads sidebar (easy) and compiling your
+    There are two ways you can download Pneuma. Through the links available in the agent sidebar (easy) and compiling your
     own agent from the GitHub source code (medium).
   Name your agent: |
     It is possible to pass values from the command line to Pneuma when it is started. These values are called

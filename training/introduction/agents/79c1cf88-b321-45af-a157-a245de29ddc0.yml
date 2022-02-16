@@ -10,12 +10,9 @@ template:
   name: input
   data: []
 resources:
-  links:
-    About TCP: https://en.wikipedia.org/wiki/Transmission_Control_Protocol
-    About UDP: https://en.wikipedia.org/wiki/User_Datagram_Protocol
-    About HTTP: https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+  links: {}
 hints:
-  - Check the Settings section
+  - Head to the Settings sidebar to capture this flag.
 blocks:
   TCP/IP: |
     TCP/IP, or the Transmission Control Protocol/Internet Protocol, is a suite of communication protocols used to

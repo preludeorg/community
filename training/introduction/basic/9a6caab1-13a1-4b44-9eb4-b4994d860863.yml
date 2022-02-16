@@ -19,8 +19,7 @@ resources:
     Tactics: https://attack.mitre.org/tactics/enterprise/
     Techniques: https://attack.mitre.org/techniques/enterprise/
 hints:
-  - Have you found the TTP inside the Editor section?
-  - Clicking the ID will copy it to your clipboard
+  - Search for the TTP in the Launch Chain sidebar
   - The TTP identifier is a UUID-4 string
 blocks:
   ATT&CK: |
