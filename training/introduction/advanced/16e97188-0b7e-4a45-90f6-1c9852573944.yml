@@ -5,7 +5,7 @@ context: |
   The Connect plugin offers three functions: deploying redirectors so agents can reach your Operator instance over 
   the internet, deploying test computers for you to practice attacks on and the ability to link Operator 
   to your teammates so you can share agents. In this flag, you'll experience the first two functions. 
-  Head to the Connect plugin, add your AWS account and see if you can deploy a redirector and virtual 
+  Head to the Connect plugin, add your GCP or AWS account and see if you can deploy a redirector and virtual 
   machine. This flag is completed once you've received a beacon from your compromised computer.
 template:
   name: submit

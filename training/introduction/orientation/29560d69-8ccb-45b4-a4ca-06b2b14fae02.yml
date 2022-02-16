@@ -1,7 +1,8 @@
 id: 29560d69-8ccb-45b4-a4ca-06b2b14fae02
 name: Cyber Threat Intelligence (CTI)
 challenge: In adversary emulation, what is the acronym for an advanced threat group?
-context: Adversaries are out there. They come in many forms, from script kiddies to advanced nation-state divisions
+context: |
+  Adversaries are out there. They come in many forms, from script kiddies to advanced nation-state divisions
   which hack for political or financial motivations. An adversary can be thought of as any person or group running
   unauthorized code on a computer. Even an insider threat could be an adversary. In Operator, you can build your own
   adversaries, designed after any real life or made up threat you're interested in replicating.

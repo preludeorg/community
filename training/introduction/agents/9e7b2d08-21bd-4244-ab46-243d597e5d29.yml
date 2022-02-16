@@ -1,7 +1,7 @@
 id: 9e7b2d08-21bd-4244-ab46-243d597e5d29
 name: Agent states
 challenge: |
-   Can you lock an agent, deploy a chain and enter the name of a procedure that is pending your approval?
+  Can you lock an agent, deploy a chain against it and enter the name of a procedure that is pending your approval?
 context: |
   An agent can be in a variety of states: autonomous, locked or simulated. A locked agent requires you, the human,
   to approve or discard each instruction before it is sent to the agent. If autonomous (the default) the instructions are

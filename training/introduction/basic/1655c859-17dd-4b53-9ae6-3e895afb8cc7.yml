@@ -9,11 +9,12 @@ context: |
   preventation information. Once you find and read the desired documentation - leave it open - and come back here
   to verify.
 template:
-  name: input
+  name: submit
   data: []
 resources: {}
 hints:
   - Did you check the docs section?
+  - The doc page must be open when you capture this flag
 blocks:
   What is a blue team?: |
     The group responsible for defending an enterprise’s use of information systems by maintaining its security posture against a group of 

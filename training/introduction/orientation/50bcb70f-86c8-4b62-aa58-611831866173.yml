@@ -2,7 +2,8 @@ id: 50bcb70f-86c8-4b62-aa58-611831866173
 name: Autonomous hacking
 challenge: |
   Fill in the blank: Prelude Operator contains a __ to make decisions while attacking a computer.
-context: When a hacker, using their command-and-control (C2) center launches commands against connected (i.e., pwned)
+context: |
+  When a hacker, using their command-and-control (C2) center launches commands against connected (i.e., pwned)
   computers it is known as an attack, or operation. Operator allows you to launch such attacks.
   Furthermore, when an adversary launches an attack with intelligence bundled in, this is known as autonomous hacking.
   Otherwise known as machine learning, intelligence allows the hacker to leverage automated decision-making to offload the

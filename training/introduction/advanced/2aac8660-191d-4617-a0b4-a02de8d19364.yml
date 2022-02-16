@@ -1,7 +1,7 @@
 id: 2aac8660-191d-4617-a0b4-a02de8d19364
 name: Create a new procedure
 challenge: |
-  Create a new TTP and deploy it against one of your connected agents. What is the ID of the TTP you created?
+  Create a new TTP named 'My First TTP' and deploy it against one of your connected agents.
 context: |
   One of the unique aspects of Operator is the ability to quickly create your own TTPs and load them in the system.
   By simply creating a new YML file and ensuring the format matches that of other files in the Community repository, you
@@ -9,7 +9,7 @@ context: |
   a structured YML file and allow you to just fill in the blanks. In your new TTP, you can create any type of attack 
   you want - just be sure that it is valid YML and it contains at least 1 platform and 1 executor so it can run.
 template:
-  name: input
+  name: submit
   data: []
 resources:
   links: {}
@@ -22,5 +22,5 @@ blocks:
     platforms in Operator today: windows, linux and darwin (another word for MacOS). By default, each platform can use
     a specific set of executors. Check the documentation around TTPs for a list of options.
 answer:
-  script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'fall asleep').length)
+  script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)
   value: 1

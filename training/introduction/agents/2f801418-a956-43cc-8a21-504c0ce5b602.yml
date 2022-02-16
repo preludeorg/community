@@ -3,7 +3,7 @@ name: Reverse-shell interaction
 challenge: Can you open a reverse-shell to any Pneuma agent connected over TCP?
 context: To establish a typical remote shell, a machine controlled by the attacker connects to a remote network host
   and requests a shell session – this is called a bind shell. But what if the remote host is not directly accessible,
-  for example because it has no public IP or is protected by a firewall? In this situation, a reverse shell might be
+  for example, because it has no public IP or is protected by a firewall? In this situation, a reverse shell might be
   used, where the target machine initiates an outgoing connection to a listening network host and a shell session is
   established. Reverse shells are often the only way to perform remote maintenance on hosts behind a NAT, so they have
   legitimate administrative uses. However, they can also be used by cybercriminals to execute operating system commands

@@ -1,7 +1,7 @@
 id: be82d7a7-bb60-47a0-834d-655318c08369
 name: Available resources
 challenge: |
-  What is the account ID of the Operator bot inside Discord?
+  What is the name of one of our admins within the official Prelude Discord channel?
 context: |
   There are a multitude of tasks within both the Introduction and Pink Badge curriculum that may prove to be
   a challenge. If you are at a standstill in your efforts, consider exploring the various resources provided by the team.
@@ -11,10 +11,11 @@ template:
   name: input
   data: []
 resources:
-  links: []
+  links: 
+    Discord: https://discord.com/invite/NWURE99JzE
 hints:
   - Look at both online and offline users
-  - Check the docs
+  - Admin users are highlighted in red
 blocks:
   Prelude blog: |
     If you want to learn how to become a better cyber user or are looking for more information on the tools in Operator,
@@ -29,5 +30,6 @@ blocks:
     all working through challenges within Operator. Don't be afraid to ask questions!
     In addition, look for the Q&A schedule where you can hop on video calls with the Prelude team and interface directly with us.
 answer:
-  script: Number($('#answer').val().toLowerCase().includes('6217'))
+  script: Number($('#answer').val().toLowerCase().includes('privateducky') || $('#answer').val().toLowerCase().includes('xanthonus') ||
+          $('#answer').val().toLowerCase().includes('khyberspache') || $('#answer').val().toLowerCase().includes('lzimm'))
   value: 1

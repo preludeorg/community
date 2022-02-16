@@ -20,8 +20,8 @@ hints:
 blocks:
   ART plugin: |
     The Atomic Red Team (ART) plugin provides a quick import of all attack files from the popular ART repository.
-    Simply clone the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) and enter your directory
-    path in the plugin to convert the files into Operator-format. They will be immediately usable in an attack.
+    By installing the plugin, you are importing the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) 
+    which provides numerous TTPs that will be immediately usable in an attack.
 answer:
   script: Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
   value: 1

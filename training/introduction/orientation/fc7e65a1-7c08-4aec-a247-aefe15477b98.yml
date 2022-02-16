@@ -1,7 +1,8 @@
 id: fc7e65a1-7c08-4aec-a247-aefe15477b98
 name: A common security language
 challenge: Fill in the blank. The MITRE __ framework is a classification system used to describe tactics, techniques and procedures.
-context: For years, Cyber Threat Intelligence (CTI) analysts used Indicators of Compromise (IOC) - think an IP address, website
+context: |
+  For years, Cyber Threat Intelligence (CTI) analysts used Indicators of Compromise (IOC) - think an IP address, website
   or other objective piece of data - to determine who was attacking them. For example, if they knew the IP address 1.2.3.4
   was owned by the FIN6 hacking group and they saw an attack originating from that address, they could draw the conclusion
   that FIN6 was behind the attack. This was not foolproof however, as IOCs can be spoofed. Behavior-driven attribution, or

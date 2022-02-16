@@ -4,7 +4,7 @@ challenge: Can you find the TTP named "Credentials in Registry" and enter its TT
 context: |
   A TTP in Operator is really the procedure, in the Tactics Techniques and Procedures acronym. Tactics are
   top-level goals. Techniques are specific categories of implementation to accomplish the goal and procedures are
-  the actual commands to execute, achieving the technique. There are likely 1000s of procedure variations for each
+  the actual commands to execute, achieving the technique. There are likely thousands of procedure variations for each
   technique, as hackers will often modify and craft variations of commands to avoid detection. Learning how to
   identify, write and handle procedures is a valuable skill to have. TTPs inside Operator are designed to be easy to
   understand and work with. Prelude stores them in a separate open-source repository, called Community.
@@ -20,6 +20,7 @@ resources:
     Techniques: https://attack.mitre.org/techniques/enterprise/
 hints:
   - Search for the TTP in the Launch Chain sidebar
+  - Click on the TTP to reveal its properties
   - The TTP identifier is a UUID-4 string
 blocks:
   ATT&CK: |

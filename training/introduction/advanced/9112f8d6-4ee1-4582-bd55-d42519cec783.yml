@@ -2,7 +2,7 @@ id: 9112f8d6-4ee1-4582-bd55-d42519cec783
 name: Create a new payload
 challenge: |
   Can you create a new payload? It should be named "hello.txt" and its contents should be 'echo "world"'. Create a 
-  new TTP called Hello World and attach your payload to it. Finally, ensure your command uses the payload.
+  new TTP called "Hello World" and attach your payload to it. Finally, ensure your command uses the payload.
 context: |
   Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, 
   and can be thought of as malware. A payload can be written in any computer language and is commonly compiled into a 

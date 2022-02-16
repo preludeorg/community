@@ -4,13 +4,13 @@ challenge: |
   Locate the TTP named "Find recent files" and write a variant for your platform that searches your /tmp (or TEMP)
   directory for recently modified files. Then deploy the TTP against your Thirdeye agent.
 context: |
-  Just as there are numberable procedures for any given ATT&CK technique, each procedure may have variations itself.
+  Just as there are numerable procedures for any given ATT&CK technique, each procedure may have variations itself.
   For example, a procedure that does a port scan may look like this: nmap -Pn example.com. This will scan example.com
   for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
   of this command may be: nmap -Pn -sV example.com. Instead of creating a new TTP for each of these variations you can
   outline each variant in a single TTP file.
 template:
-  name: input
+  name: submit
   data: []
 resources:
   links: []
@@ -24,5 +24,7 @@ blocks:
     system over time or after a reboot. Adversaries will often store malicious code here or use it as a "home base" of 
     sorts because it's an often overlooked directory.
 answer:
-  script: Number(btoa(atob($('#answer').val())) === $('#answer').val())
+  script: Number(Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.darwin.sh.command.toLowerCase().includes('tmp') || 
+          Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.linux.sh.command.toLowerCase().includes('tmp') ||
+          Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.windows.psh.command.toLowerCase().includes('temp'))
   value: 1
