@@ -3,18 +3,17 @@ name: Agent states
 challenge: |
    Can you lock an agent, deploy a chain and enter the name of a procedure that is pending your approval?
 context: |
-  An agent can be in a variety of states: locked, unlocked, simulated or live. A locked agent requires you, the human,
-  to approve or discard each instruction before it is sent to the agent. If unlocked (the default) the instructions are
+  An agent can be in a variety of states: autonomous, locked or simulated. A locked agent requires you, the human,
+  to approve or discard each instruction before it is sent to the agent. If autonomous (the default) the instructions are
   sent automatically. An agent in a simulated state will never receive instructions - instead Operator will simulate 
   realistic responses so you can see what might happen if you were to send a particular chain to a particular agent.
-  A live agent (the default) is when instructions are sent to the agent.
 template:
   name: input
   data: []
 resources:
   links: {}
 hints:
-  - Look for the lock option on an agent
+  - You can change an agent's mode from their Config sidebar.
   - Did you deploy a chain against the locked agent?
   - After deploying a chain, check the agent's queue.
 blocks:
@@ -34,5 +33,5 @@ blocks:
     to continue the attack. This is not an exhaustive list, but rather a general guideline for strike strategy.
 answer:
   script: |
-    Number(Agent.agents.filter(function (a) { return a.locked && a.queue.filter(i => i.attack.name.toLowerCase() === $('#answer').val().toLowerCase()).length > 0 }).length > 0)
+    Number(Agent.agents.filter(function (a) { return a.mode && a.queue.filter(i => i.attack.name.toLowerCase() === $('#answer').val().toLowerCase()).length > 0 }).length > 0)
   value: 1
