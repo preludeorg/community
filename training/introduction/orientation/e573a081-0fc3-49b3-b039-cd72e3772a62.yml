@@ -33,5 +33,5 @@ answer:
   script: 
     new Promise((resolve, reject) => {
       Requests.hq.getChains()
-      .then(chains => resolve(Number(chains[1].ttps.length === $('#answer').val())))})
+      .then(chains => resolve(Number(chains[0].ttps.length === $('#answer').val())))})
   value: 1
