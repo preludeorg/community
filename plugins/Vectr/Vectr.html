@@ -48,7 +48,7 @@
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   }
 
-  const createCampaign = (operation_id, parent_assessment_id, org_id) => {
+  const createCampaign = (campaign_name, operation_id, parent_assessment_id, org_id) => {
     const query = `mutation ($input: CreateCampaignInput!) {
       campaign {
         create(input: $input) {
@@ -59,7 +59,7 @@
       }
     }`;
     const variables = {input: {db: vectr.database, assessmentId: parent_assessment_id,
-        campaignData: [{name: `Prelude Operation - ${new Date().toLocaleString()}`, description: operation_id, organizationIds: [org_id]}]}};
+        campaignData: [{name: campaign_name, description: operation_id, organizationIds: [org_id]}]}};
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   };
 
@@ -119,22 +119,22 @@
   };
 
   let PUBLISH_CAMPAIGN_LOCK = Promise.resolve(true);
-  const publishCampaign = (operationId) => {
+  const publishCampaign = (operation) => {
     return PUBLISH_CAMPAIGN_LOCK = PUBLISH_CAMPAIGN_LOCK.then(() => new Promise((resolve, reject) => {
-      if(operationsToCampaign.hasOwnProperty(operationId)) {
-        resolve(operationsToCampaign[operationId]);
+      if(operationsToCampaign.hasOwnProperty(operation)) {
+        resolve(operationsToCampaign[operation]);
       } else {
-        createCampaign(operationId, baseAssessment.id, orgId)
+        createCampaign(vectr.campaign === 'automatic' ? `Prelude Operation - ${new Date().toLocaleString()}` : operation, operation, baseAssessment.id, orgId)
           .then(res => {
-            operationsToCampaign[operationId] = res.data.campaign.create.campaigns[0].id;
-            resolve(operationsToCampaign[operationId]);
+            operationsToCampaign[operation] = res.data.campaign.create.campaigns[0].id;
+            resolve(operationsToCampaign[operation]);
           })
       }
     }));
   }
 
   const publishLink = (link) => {
-    publishCampaign(link.operation)
+    publishCampaign(vectr.campaign === 'automatic' ? link.operation : vectr.campaign)
       .then(campaignId => {
         Requests.fetchOperator(`/v1/ttps/${link.ttp}`)
           .then(res => res.json())
