@@ -165,8 +165,6 @@
     return tactics[tactic];
   }
 
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-
   let PUBLISH_CAMPAIGN_LOCK = Promise.resolve(true);
   function publishCampaign (operation){
     return PUBLISH_CAMPAIGN_LOCK = PUBLISH_CAMPAIGN_LOCK.then(() => new Promise((resolve, reject) => {
