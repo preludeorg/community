@@ -249,7 +249,11 @@
           initializeOperationCampaignMap()
             .then(campaignMap => {
               operationsToCampaign = campaignMap;
-              Events.bus.on('publish:vectr', (link) => publishLink(link));
+              Events.bus.on('publish:vectr', (link, enabled) => {
+                if (enabled) {
+                  publishLink(link)
+                }
+              });
             })
         })
         .catch(err => Basic.showNotification('Error!', err));
