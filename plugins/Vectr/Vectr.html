@@ -165,6 +165,8 @@
     return tactics[tactic];
   }
 
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
   let PUBLISH_CAMPAIGN_LOCK = Promise.resolve(true);
   function publishCampaign (operation){
     return PUBLISH_CAMPAIGN_LOCK = PUBLISH_CAMPAIGN_LOCK.then(() => new Promise((resolve, reject) => {
@@ -180,15 +182,21 @@
     }));
   }
 
+  let PUBLISH_LINK_LOCK = Promise.resolve(true);
+  function publishLinkData(link, campaignId) {
+    return PUBLISH_LINK_LOCK = PUBLISH_LINK_LOCK.then(() => new Promise(((resolve, reject) => {
+      Requests.fetchOperator(`/attack/${link.ttp}`)
+        .then(res => res.json())
+        .then(ttp => {
+          createTestCase(link, ttp, campaignId).then(resolve).catch((err) => console.log(err))
+        });
+    })));
+  }
+
   function publishLink(link){
     publishCampaign(vectr.campaign === 'automatic' ? link.operation : vectr.campaign)
       .then(campaignId => {
-        Requests.fetchOperator(`/attack/${link.ttp}`)
-          .then(res => res.json())
-          .then(ttp => {
-            createTestCase(link, ttp, campaignId)
-              .catch((err) => console.log(err))
-          });
+        publishLinkData(link, campaignId)
       });
   }
 
