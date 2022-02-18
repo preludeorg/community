@@ -93,7 +93,7 @@
       }
     }`;
     const variables = {input: {db: vectr.database, assessmentId: parent_assessment_id,
-        campaignData: [{name: `Prelude Operation - ${operation_id}`, description: operation_id, organizationIds: [org_id]}]}};
+        campaignData: [{name: `Prelude Operation - ${new Date().toLocaleString()}`, description: operation_id, organizationIds: [org_id]}]}};
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   }
 
@@ -250,7 +250,7 @@
             .then(campaignMap => {
               operationsToCampaign = campaignMap;
               Events.bus.on('publish:vectr', (link, enabled) => {
-                if (enabled) {
+                if(enabled) {
                   publishLink(link)
                 }
               });
