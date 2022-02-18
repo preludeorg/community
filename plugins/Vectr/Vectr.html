@@ -118,8 +118,9 @@
     return tactics[tactic];
   };
 
+  let PUBLISH_CAMPAIGN_LOCK = Promise.resolve(true);
   const publishCampaign = (operationId) => {
-    return new Promise((resolve, reject) => {
+    return PUBLISH_CAMPAIGN_LOCK = PUBLISH_CAMPAIGN_LOCK.then(() => new Promise((resolve, reject) => {
       if(operationsToCampaign.hasOwnProperty(operationId)) {
         resolve(operationsToCampaign[operationId]);
       } else {
@@ -129,7 +130,7 @@
             resolve(operationsToCampaign[operationId]);
           })
       }
-    });
+    }));
   }
 
   const publishLink = (link) => {
