@@ -33,6 +33,10 @@
 </div>
 
 <div id="init-plugin"><script type="text/javascript">
+  let vectr;
+  let orgId;
+  let baseAssessment;
+  let operationsToCampaign = {};
 
   function  getOrganizationIdByName (name) {
     const query = `query {
@@ -46,7 +50,7 @@
   function  getAssessmentByName (name) {
     const query = `query {
       assessments(db: \"${vectr.database}\", filter: {name: {eq: \"${name}\"}}) {
-        nodes { id, name, description, campaigns{id}, tags{id}, offset, createTime, updateTime }
+        nodes { id, name, description, campaigns{id, description}, tags{id}, offset, createTime, updateTime }
       }
     }`;
     return fetchVectr({body: JSON.stringify({query: query})});
@@ -89,7 +93,7 @@
       }
     }`;
     const variables = {input: {db: vectr.database, assessmentId: parent_assessment_id,
-        campaignData: [{name: `Prelude Operation - ${new Date().toLocaleString()}`, description: operation_id, organizationIds: [org_id]}]}};
+        campaignData: [{name: `Prelude Operation - ${operation_id}`, description: operation_id, organizationIds: [org_id]}]}};
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   }
 
@@ -170,7 +174,7 @@
           .then(res => res.json())
           .then(ttp => {
             createTestCase(link, ttp, campaignId)
-              .catch((err) => Events.bus.emit('chat:message',err))
+              .catch((err) => console.log(err))
           });
       });
   }
