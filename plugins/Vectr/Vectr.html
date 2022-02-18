@@ -11,7 +11,7 @@
 <div>
     <div class="label-text">
         <p>Vectr URL</p>
-        <div class="input-wrapper"><input id="vectr-url" type="text" placeholder="https://sravectr.internal:8081/sra-purpletools-rest"/></div>
+        <div class="input-wrapper"><input id="vectr-url" type="text" placeholder="https://sravectr.internal:8081"/></div>
     </div>
     <div class="label-text">
         <p>Database Name</p>
@@ -28,6 +28,19 @@
     <div class="label-text">
       <p>API Secret Key</p>
       <div class="input-wrapper"><input id="vectr-secret-key" type="password"/></div>
+    </div>
+    <div class="label-text">
+        <p>Determine Campaign</p>
+        <div class="input-wrapper">
+            <select id="campaign-selector" onchange="campaignSelection()">
+                <option value="default" selected>Automatically create campaign</option>
+                <option value="manual">Specify a campaign</option>
+            </select>
+        </div>
+    </div>
+    <div id="manual-campaign" class="label-text" style="display:none">
+        <p>Campaign Name</p>
+        <div class="input-wrapper"><input id="vectr-campaign" type="text"/></div>
     </div>
     <button onclick="saveVectr()">Save</button>
 </div>
@@ -82,7 +95,7 @@
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   }
 
-  function createCampaign(operation_id, parent_assessment_id, org_id) {
+  function createCampaign(campaign_name, operation_id, parent_assessment_id, org_id) {
     const query = `mutation ($input: CreateCampaignInput!) {
       campaign {
         create(input: $input) {
@@ -93,7 +106,7 @@
       }
     }`;
     const variables = {input: {db: vectr.database, assessmentId: parent_assessment_id,
-        campaignData: [{name: `Prelude Operation - ${new Date().toLocaleString()}`, description: operation_id, organizationIds: [org_id]}]}};
+        campaignData: [{name: campaign_name, description: operation_id, organizationIds: [org_id]}]}};
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
   }
 
@@ -118,7 +131,7 @@
 
   function fetchVectr(params) {
     return new Promise(((resolve, reject) => {
-      fetch(`${vectr.url}/graphql`, {
+      fetch(`${vectr.url}/sra-purpletools-rest/graphql`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -153,22 +166,22 @@
   }
 
   let PUBLISH_CAMPAIGN_LOCK = Promise.resolve(true);
-  function publishCampaign (operationId){
+  function publishCampaign (operation){
     return PUBLISH_CAMPAIGN_LOCK = PUBLISH_CAMPAIGN_LOCK.then(() => new Promise((resolve, reject) => {
-      if(operationsToCampaign.hasOwnProperty(operationId)) {
-        resolve(operationsToCampaign[operationId]);
+      if(operationsToCampaign.hasOwnProperty(operation)) {
+        resolve(operationsToCampaign[operation]);
       } else {
-        createCampaign(operationId, baseAssessment.id, orgId)
+        createCampaign(vectr.campaign === 'automatic' ? `Prelude Operation - ${new Date().toLocaleString()}` : operation, operation, baseAssessment.id, orgId)
           .then(res => {
-            operationsToCampaign[operationId] = res.data.campaign.create.campaigns[0].id;
-            resolve(operationsToCampaign[operationId]);
+            operationsToCampaign[operation] = res.data.campaign.create.campaigns[0].id;
+            resolve(operationsToCampaign[operation]);
           })
       }
     }));
   }
 
   function publishLink(link){
-    publishCampaign(link.operation)
+    publishCampaign(vectr.campaign === 'automatic' ? link.operation : vectr.campaign)
       .then(campaignId => {
         Requests.fetchOperator(`/attack/${link.ttp}`)
           .then(res => res.json())
@@ -216,6 +229,11 @@
     })
   }
 
+  function campaignSelection() {
+      const campaign = $('#campaign-selector option:selected').val();
+      (campaign === 'manual') ? $('#manual-campaign').show() : $('#manual-campaign').hide();
+  }
+
   function saveVectr(){
     let vectrConn = {
       url: $("#vectr-url").val(),
@@ -223,6 +241,7 @@
       org_name: $("#vectr-org").val(),
       key_id: $("#vectr-key-id").val(),
       secret_key: $("#vectr-secret-key").val(),
+      campaign: $('#campaign-selector option:selected').val() === 'manual' ? $('#vectr-campaign').val() : 'automatic',
       enabled: true
     }
     Requests.fetchOperator('/internal/config/settings', {method: 'GET'}).then(res => res.json()).then(settings => {
@@ -241,6 +260,11 @@
     $("#vectr-org").val(config?.org_name);
     $("#vectr-key-id").val(config?.key_id);
     $("#vectr-secret-key").val(config?.secret_key);
+    if (config?.campaign !== 'automatic') {
+      $('#campaign-selector').val('manual');
+      campaignSelection();
+      $('#vectr-campaign').val(config.campaign);
+    }
     vectr = config;
     if (vectr?.url !== '' && vectr?.database !== '' && vectr?.org_name !== '' && vectr.key_id !== '' && vectr.secret_key !== '' && vectr.enabled === true) {
       initializeVectrAssessment()
