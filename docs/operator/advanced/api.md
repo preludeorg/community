@@ -242,3 +242,9 @@ curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/settings" 
 ```bash
 curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/settings" -d '{"token": "new_token_value"}' | json_pp
 ```
+
+#### Upload a new payload
+
+```bash
+curl -X PUT -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/payload" -F upload=@payload.txt -X PUT
+```
