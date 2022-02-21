@@ -74,6 +74,36 @@ curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "
 curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8"
 ```
 
+#### Schedule a chain for deployment
+
+A cURL command for queueing an operation that runs the File Hunter chain against your home range. Note that the chain
+ID is used (not name) in the URI:
+
+```bash
+curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
+    '{"ranges": ["home"]}' | json_pp
+```
+
+Alternatively, if you want to select individual agents, swap "ranges" for "agents" and pass in specific agent names.
+
+#### Optional: delay deployment
+
+Using the schedule endpoint deploys the chain 10 seconds after the request is received. You can delay this by passing
+an epoch time that you want the chain to run.
+```bash
+curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
+    '{"agents": ["red", "blue", "green"]}, "epoch": 1708531792' | json_pp
+```
+
+#### Optional: add itinerary
+
+You can link chains together through the itinerary argument. Pass in an ordered list of chain identifiers and they will
+run one after the other, with a 10-second delay between.
+```bash
+curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
+    '{"ranges": [home"]}, "itinerary": ["ransom note", "89f19f8d-f299-448c-81b3-9ba8c6ee67d2"]' | json_pp
+```
+
 ### Agents
 
 ---
@@ -173,56 +203,6 @@ curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "
 
 ```bash
 curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
-```
-
-### Operations
-
----
-
-#### Send Operation(s) to an agent in Operator
-
-An operation will task agent(s) or range(s) to run a collection of TTPs or a Chain. The simplest type of operation for an agent looks like this:
-
-```json
-{
-    "name": "operation_one",
-    "agents": ["my_agent"],
-    "ttps": ["ff9bbd7f-871e-4db4-bedb-4e7a64a309bf"]
-}
-```
-
-The simplest type of operation for a range looks like this (running a chain instead of a TTP):
-
-```json
-{
-    "name": "operation_one",
-    "ranges": ["my_range"],
-    "chain": "File Hunter",
-}
-```
-
-#### **OPTIONAL** Fields:
-##### ***Facts***:
-Attaching facts allows you to run Chains/TTPs that require certain facts to be known before executing.
-
-```json
-{
-    "name": "operation_two",
-    "agents": ["agent1", "agent2"]
-    "ttps": ["ff9bbd7f-871e-4db4-bedb-4e7a64a309bf"],
-    "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
-}
-```
-
-A cURL command for queueing an operation that runs 3 ttps for two agents:
-
-```bash
-curl -X POST -sk -H $TOKEN -H 'Content-Type: application/json' "https://localhost:8888/v1/operations" -d '{
-    "name": "operation_two",
-    "agents": ["agent_one", "agent_two"],
-    "ttps": ["5c4dd985-89e3-4590-9b57-71fed66ff4e2","0cfcc788-b9e2-4c8c-a06b-8d365f33803e","b007fe0c-c6b0-4fda-915c-255bbc070de2"],
-    "facts": [{"fact1_name": "fact1_value"}, {"fact2_name": "fact2_value"}]
-    }' | json_pp
 ```
 
 ### Settings
