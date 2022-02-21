@@ -13,14 +13,14 @@ of reporting information or displaying data.
 
 ---
 
-Because plugins are arbitrary HTML files, you should never upload a plugin from someone you do
+Because plugins are arbitrary javascript files, you should never upload a plugin from someone you do
 not trust, unless you have personally read and understood the code.
 
 ### Create your own plugin
 
 ---
 
-You can write your own custom plugin easily. Plugins must be HTML files, which can contain JavaScript (jQuery
+You can write your own custom plugin easily. Plugins must be javascript files, which can contain JavaScript (jQuery
 and NodeJS supported). You can view open-source plugins in the [Community](https://github.com/preludeorg/community) repository. 
 Plugins can interact with the core system through the internal REST API or the Basic interface. Basic interface 
 methods are shown below.
@@ -51,20 +51,15 @@ methods are shown below.
 
 ---
 
-You can create your own plugins quickly by writing HTML files with embedded JavaScript. The HTML
-file must have a DIV with the id="init-plugin", which is what Operator loads when booting up.
+You can create your own plugins quickly by writing javascript files, which Operator loads when booting up.
 Plugins are stored in your workspace. 
 
-#### Example: Save this plugin as hello.html and add it to your workspace
+#### Example: Save this plugin as hello.js and add it to your workspace
 
-A plugin HTML file.
+A plugin javascript file.
 
-```html
-<div id="init-plugin"><script type="text/javascript">
-    <script>
-        alert('Hello world!')    
-    </script>
-</div>
+```javascript
+alert('Hello world!');
 ```
 
 A corresponding configuration file for this plugin.
