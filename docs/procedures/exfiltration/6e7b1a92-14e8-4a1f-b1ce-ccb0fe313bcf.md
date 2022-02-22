@@ -3,9 +3,11 @@
 
 ---
 
-#### Metadata
+### Metadata
 
-- *Prelude ID*: 6e7b1a92-14e8-4a1f-b1ce-ccb0fe313bcf
+This is a man page for a TTP available in Operator. Man pages provide additional context around procedures and should be consulted if you are looking to learn about a particular chain.
+
+- *TTP Identifier*: 6e7b1a92-14e8-4a1f-b1ce-ccb0fe313bcf
 - *MITRE Technique ID*: [T1048.003](https://attack.mitre.org/techniques/T1048/003/)
 
 ---
