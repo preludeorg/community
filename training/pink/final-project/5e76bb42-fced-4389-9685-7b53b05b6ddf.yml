@@ -1,17 +1,34 @@
 id: 5e76bb42-fced-4389-9685-7b53b05b6ddf
 name: Your final project
 challenge: |
-  Install the Protect application and pass the first challenge. Please re-enter the answer here.
+  You work in the IT department of a small furniture store. Your boss walks up to you with a CISA report that shows 
+  ransomware was last year's fastest growing cyber threat. She asks you how well prepared the store is against such
+  an attack. Can you provide an answer?
 context: |
-  Protect is a lightweight endpoint product that continously tests your cyber hygiene. It does this by running safe
-  adversary attacks, monitoring how you react, and supplying you with quick training modules when you make a mistake.
-  The goal of Protect is to improve your security through better education. It will do things such
-  as look for plain-text passwords, try to trick you into giving it permissions, see if you notice it turning on your
-  microphone and more. Where Operator is intended for security pros, Protect is intended to help strengthen the security
-  of everyone inside an organization, technical or not.
-  To complete your final project, install Protect, log in, then leave your computer on for at least 4 hours
-  (you can do other things). Then click the Prelude icon in your system tray to view the available training module.
-  Pass this flag, then refresh Operator and verify you have completed Pink Badge.
+  Start by reading the linked report. This will set the stage for what you will need to do in this final project. 
+  Then select either a Windows or MacOS computer to act as your test environment. Get an agent running on this computer, 
+  attached to your test environment, then write the following TTPs based on the mitigations section of the report:
+  <ol>
+      <li>
+        Check if the computer is up-to-date with its security settings and patches.
+      </li>
+      <li>
+        Check if RDP or SSH is installed and/or running on the computer.
+      </li>
+      <li>
+        List all active network connections on the computer, so you can look for abnormal activity.
+      </li>
+      <li>
+        Look for plain-text passwords held in text or CSV files on the computer.
+      </li>
+      <li>
+        List all file shares the computer is connected to, like SMB or even iCloud.
+      </li>
+  </ol>
+  Once you've written the TTPs, create a chain and attach them to it. You can have more than one TTP per category above,
+  if you'd like. Then deploy the chain against your test agent adn collect the results. All TTPs must successfully 
+  complete. When you're finished, click verify to see if Operator can validate your results. If you'd like additional
+  feedback on your test... 
 template:
   name: input
   data: []
@@ -19,16 +36,12 @@ resources:
   audio:
     link: https://s3.amazonaws.com/operator.recordings/protect-mode.m4a
   links:
-    Protect for MacOS: https://s3.amazonaws.com/protector.versions/dist/prelude-protect-1.1.0-beta.11.dmg
-    Protect for Windows: https://s3.amazonaws.com/protector.versions/dist/prelude-protect-1.1.0-beta.11.exe
+    CISA report: https://www.cisa.gov/uscert/ncas/alerts/aa22-040a
 hints: []
 blocks:
   What happens when I finish?: |
     Once you complete your final project, the Prelude team will be notified and you will receive an email containing
     your Pink Badge certificate.
-  Is Protect safe?:  |
-    Yes. Protect only runs safe commands. It will not run anything destructive nor will it send any results or sensitive
-    data off your computer.
 answer:
   script: $('#answer').val()
   value: instructions.txt
