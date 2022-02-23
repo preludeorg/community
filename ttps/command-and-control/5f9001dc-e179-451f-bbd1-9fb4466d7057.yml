@@ -3,7 +3,7 @@ metadata:
   authors:
   - privateducky
   tags:
-    - agent
+  - agent
   chains:
   - JXA access
   release_date: 2021-08-25

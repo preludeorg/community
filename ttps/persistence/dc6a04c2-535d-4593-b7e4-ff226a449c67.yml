@@ -36,7 +36,6 @@ platforms:
           $new.setinfo()
           $new.put("userAccountControl",544)
           $new.setpassword("#{persistence.local.new.user.password}")
-        id: ccfe55f9-b01c-4497-b885-78d9e2481760
     cmd:
       command: |
         net user #{persistence.local.new.user.name} #{persistence.local.new.user.password} /ADD /DOMAIN

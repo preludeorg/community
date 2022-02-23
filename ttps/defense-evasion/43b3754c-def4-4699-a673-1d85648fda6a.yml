@@ -21,14 +21,12 @@ platforms:
         > $HOME/.zsh_history && unset HISTFILE
       variants:
       - command: history -c
-        id: c34e5fed-8dc4-4d41-bab6-d3d9a89a7b76
   linux:
     sh:
       command: |
         > $HOME/.bash_history && unset HISTFILE
       variants:
       - command: history -c
-        id: b0b36fef-8709-4a89-b91a-0e1c2a52033f
   windows:
     psh:
       command: |

@@ -36,4 +36,3 @@ platforms:
       variants:
       - command: |-
           [System.IO.Directory]::CreateDirectory("staged");
-        id: 9258543f-0082-45e3-93a6-02a770b96bee

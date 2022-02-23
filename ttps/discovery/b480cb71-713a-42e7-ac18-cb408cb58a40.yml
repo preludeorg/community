@@ -21,4 +21,3 @@ platforms:
         wmic qfe list brief
       variants:
       - command: wmic qfe get description,hotfixid,installedon
-        id: 13bf7396-dab5-4cd2-964f-f6b306ca4b64

@@ -16,28 +16,19 @@ platforms:
       command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
       - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-        id: de5790b6-8631-4d18-ab62-a011c52ec6f8
       - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-        id: cde9ffcb-2574-4c03-a940-385eabc32d32
       - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
-        id: c81a062c-6c44-4db7-863f-d69543da1ee9
   darwin:
     keyword:
       command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
       - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-        id: c0dc8d9a-2027-402d-b069-c1f3f1a2156b
       - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-        id: 9abf4804-9b9f-4915-b05d-7afd473e7b5d
       - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
-        id: d8a7408e-671f-4f88-a435-fa44dd5fa4b8
   linux:
     keyword:
       command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
       - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-        id: b6e9b434-8e07-428a-8976-e3d95d52b1fa
       - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-        id: 26a6fbd1-df7a-4e80-be8f-24cd9316c56d
       - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
-        id: c6462298-61fa-47bd-9388-768418e31e37

@@ -14,9 +14,7 @@ platforms:
       command: wmic process where name="smex_master.exe" get ExecutablePath,commandline
       variants:
       - command: wmic process where name="unsecapp.exe" get ExecutablePath
-        id: e7648afb-9272-4096-8611-d2d2de175215
       - command: wmic process where name="unsecapp.exe" get processid
-        id: 22afc750-5e4c-4268-a95e-5b503cd503b8
 metadata:
   authors:
   - bfuzzy1

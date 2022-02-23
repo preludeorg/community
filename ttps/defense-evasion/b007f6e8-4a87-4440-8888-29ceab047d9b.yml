@@ -51,4 +51,3 @@ platforms:
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set PUAProtection=0;
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set DisableAntiSpyware=TRUE;
           wmic /namespace:\\root\microsoft\windows\defender path MSFT_MpPreference call set TamperProtection=0;
-        id: 63bea820-7b32-418b-9eb6-a1b65c9c85c1
