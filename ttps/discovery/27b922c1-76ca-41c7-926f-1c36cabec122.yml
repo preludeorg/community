@@ -16,7 +16,7 @@ platforms:
     cmd:
       command: setspn.exe -Q */*
       variants:
-      - command: setspn.exe -T
+      - command: setspn.exe -T #{domain.T1018} -Q */*
     psh:
       command: |
         $searcher = New-Object System.DirectoryServices.DirectorySearcher
