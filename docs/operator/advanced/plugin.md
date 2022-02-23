@@ -63,6 +63,7 @@ alert('Hello world!');
 ```
 
 A corresponding configuration file for this plugin.
+
 ```yml
 name: Hello
 description: Say hello when you start Operator
