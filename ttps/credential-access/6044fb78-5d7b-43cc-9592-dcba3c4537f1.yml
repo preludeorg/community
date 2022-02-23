@@ -9,7 +9,7 @@ technique:
 platforms:
   darwin:
     sh:
-      command: dscl . read
+      command: dscl . read #{discovery.local.existing.user} ShadowHashData
 metadata:
   authors:
   - bfuzzy1
