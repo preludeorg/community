@@ -80,26 +80,31 @@ If none are found, the TTP is skipped.
 
 You can leverage facts by sprinkling variables throughout your procedure commands. For example, instead of
 writing a procedure that looks like this:
+
 ```shell
 cp /etc/hosts.conf /tmp
 ```
 
 You could write it like this, which will copy any file found earlier in the chain:
+
 ```shell
 cp #{file} /tmp
 ```
 
 Getting more specific, you could specify you only want to include files found from a prior discovery tactic:
+
 ```shell
 cp #{file.discovery} /tmp
 ```
 
 Getting even more specific, you could specify you only want to include files found from a prior T1005 technique:
+
 ```shell
 cp #{file.T1005} /tmp
 ```
 
 Or you may want to pipe the output of a specific TTP (e75c8d27-c7ff-4069-8f50-3ef4a159a131) into your command:
+
 ```shell
 cp #{file.e75c8d27-c7ff-4069-8f50-3ef4a159a131} /tmp
 ```
