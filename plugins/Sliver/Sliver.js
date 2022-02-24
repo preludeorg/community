@@ -5,6 +5,7 @@ const path = require('path');
 const protoBuf = require("protobufjs");
 const tls = require('tls');
 
+const Events = require('../lib/events');
 const Listen = require('../lib/listen');
 const Listener = require('../objects/listener');
 
@@ -108,7 +109,7 @@ class mTLS extends Listener {
                 });
                 this.listening.mtls_sockets = sockets;
                 this.listening.mtls.listen(this.mtls_port, Settings.settings.local.server, ()=> {
-                    console.log('Listening...')
+                    Events.bus.emit('chat:message', `Attached mTLS listener on ${this.mtls_port}.`);
                 });
             });
         });
@@ -187,9 +188,9 @@ class mTLS extends Listener {
         return new DataView(ab).getInt32(0, true);
     }
     toBytesInt32 (num) {
-        let arr = new ArrayBuffer(4); // an Int32 takes 4 bytes
+        let arr = new ArrayBuffer(4);
         let view = new DataView(arr);
-        view.setUint32(0, num, true); // byteOffset = 0; litteEndian = false
+        view.setUint32(0, num, true);
         return arr;
     }
 }
@@ -217,7 +218,7 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 }, {[`${PLUGIN_NAME}_LISTENER`]: true}));
 
 try{
-    Listen.listeners.add(mTLS);
+    setTimeout(() => Listen.listeners.add(mTLS), 1000);
 } catch(e) {
     console.log(e)
 }
