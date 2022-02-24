@@ -58,4 +58,3 @@ platforms:
       variants:
       - command: |
           (([xml](Get-GPOReport -Name "Default Domain Policy" -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber
-        id: f9299a4a-f90d-4993-8a05-215fb1702224

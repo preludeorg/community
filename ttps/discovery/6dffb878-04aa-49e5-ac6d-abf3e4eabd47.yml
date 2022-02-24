@@ -11,20 +11,17 @@ platforms:
       command: netstat -l
       variants:
       - command: lsof -i -P -n | grep -i "listen"
-        id: 2be4fcc7-4bb2-4c31-8af1-c76817390500
   darwin:
     sh:
       command: netstat -l
       variants:
       - command: lsof -i -P -n | grep -i "listen"
-        id: e921596f-fce4-42e0-bca5-db42c3e54443
   windows:
     pwsh:
       command: netstat -an | select-string -pattern "listening"
       variants:
       - command: get-nettcpconnection | where {($_.State -eq "Listen") -and ($_.RemoteAddress
           -eq "0.0.0.0")}
-        id: d60bcedb-5ad2-4d20-a853-02b9bbd707a2
 metadata:
   authors:
   - dkoch144

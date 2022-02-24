@@ -16,10 +16,8 @@ platforms:
       variants:
       - command: Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn; Get-MailboxExportRequest
           –ResultSize 100
-        id: 9258543f-0082-45e3-93a6-02a770b96bee
       - command: Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn; Get-MailboxExportRequest
           | RemoveMailboxExportRequest –Confirm:$false
-        id: 97575b86-0306-4a88-b8ed-d8ce05b339f2
 tactic: collection
 technique:
   id: T1114

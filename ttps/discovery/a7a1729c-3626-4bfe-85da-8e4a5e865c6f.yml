@@ -22,7 +22,6 @@ platforms:
       command: df -h
       variants:
       - command: df -i
-        id: 4c9c289d-8c63-47a6-be69-fd2d0ecb032a
   windows:
     pwsh:
       command: wmic diskdrive get size

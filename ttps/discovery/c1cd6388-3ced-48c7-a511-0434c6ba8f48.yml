@@ -28,4 +28,3 @@ platforms:
         cut -d: -f1 /etc/passwd | grep -v '_' | grep -v '#'
       variants:
       - command: getent passwd
-        id: 939fd498-925b-4c43-9a84-111aa648d05d

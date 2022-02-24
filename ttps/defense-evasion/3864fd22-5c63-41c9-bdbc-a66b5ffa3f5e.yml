@@ -20,4 +20,3 @@ platforms:
       variants:
       - command: $shell = New-Object -ComObject Wscript.Shell Set-ExecutionPolicy
           Bypass | echo $shell.sendkeys("Y`r`n");
-        id: be0cdd58-6aed-4391-adf9-477bd63ccab3

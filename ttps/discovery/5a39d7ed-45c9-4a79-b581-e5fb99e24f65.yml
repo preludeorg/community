@@ -24,17 +24,14 @@ platforms:
       - command: |
           $ps = get-process;
           write-output $ps;
-        id: e28c4c40-38ad-4855-8462-cfea9225ee09
     cmd:
       command: tasklist
       variants:
       - command: tasklist /v
-        id: 871f03de-054e-4ae5-bab7-0f8bf6d42031
     exec:
       command: tasklist
       variants:
       - command: tasklist /v
-        id: 1a76865a-6b0b-452f-b2eb-88a3deb2c593
   darwin:
     pwsh:
       command: Get-Process

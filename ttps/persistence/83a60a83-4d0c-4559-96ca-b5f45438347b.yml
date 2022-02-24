@@ -23,12 +23,10 @@ platforms:
           "Authentication Packages" /t REG_MULTI_SZ /d "msv1_0"\0"package.dll"
           /f
         payload: package.dll
-        id: c7dce87f-fb66-46c8-9e47-19d5c775bcb6
       - command: >-
           # Cleanup
           reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa" /v
           "Authentication Packages" /t REG_MULTI_SZ /d "msv1_0" /f
-        id: 0cc9805c-8f3f-435e-90cc-c06569167b08
 metadata:
   authors:
   - tr4cefl0w
