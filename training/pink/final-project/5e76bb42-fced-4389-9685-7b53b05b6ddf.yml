@@ -10,7 +10,7 @@ context: |
   attached to your test environment, then write the following TTPs based on the mitigations section of the report:
   <ol>
       <li>
-        Check if the computer is up-to-date with its security settings and patches.
+        Check if the computer is up-to-date with its security settings and patches. (Exection: T1005)
       </li>
       <li>
         Check if RDP or SSH is installed and/or running on the computer.
@@ -22,7 +22,7 @@ context: |
         Look for plain-text passwords held in text or CSV files on the computer.
       </li>
       <li>
-        List all file shares the computer is connected to, like SMB or even iCloud.
+        Check if the computer has an antivirus installed and that it is running.
       </li>
   </ol>
   Once you've written the TTPs, create a chain and attach them to it. You can have more than one TTP per category above,
@@ -43,5 +43,17 @@ blocks:
     Once you complete your final project, the Prelude team will be notified and you will receive an email containing
     your Pink Badge certificate.
 answer:
-  script: $('#answer').val()
-  value: instructions.txt
+  script: 
+      const adversary = Object.values(Adversary.adversaries).filter(a => a.name === $('#answer').val())[0]
+      const ttps = adversary.ttps.map(ttp => Attack.attack[ttp]);
+      const rules = [
+        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1082" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
+        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1057" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
+        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1046" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
+        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1518" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
+        (ttp) => ttp.tactic === "Collection" && ttp.technique.id.split('.') == "T1005" && ttp.platforms.darwin.sh.command.toLowerCase().includes('')
+      ];
+      rules.filter(rule => {
+        return !ttps.filter(ttp => rule(ttp)).length;
+      }).length === 0
+  value: true
