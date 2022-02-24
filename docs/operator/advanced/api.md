@@ -90,6 +90,7 @@ Alternatively, if you want to select individual agents, swap "ranges" for "agent
 
 Using the schedule endpoint deploys the chain 10 seconds after the request is received. You can delay this by passing
 an epoch time that you want the chain to run.
+
 ```bash
 curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
     '{"agents": ["red", "blue", "green"]}, "epoch": 1708531792' | json_pp
@@ -99,6 +100,7 @@ curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json'
 
 You can link chains together through the itinerary argument. Pass in an ordered list of chain identifiers and they will
 run one after the other, with a 10-second delay between.
+
 ```bash
 curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
     '{"ranges": [home"]}, "itinerary": ["ransom note", "89f19f8d-f299-448c-81b3-9ba8c6ee67d2"]' | json_pp
