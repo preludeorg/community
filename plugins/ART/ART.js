@@ -22,7 +22,7 @@ const initFacts = () => {
 };
 
 const fetchTTPs = () => {
-  return Promise.resolve(Requests.hq.getAttackSchema().catch(err => ({})))
+  return Promise.resolve({})
     .then(schema => Object.entries(schema).reduce((acc, [tactic, techniques]) =>
       Object.keys(techniques).reduce((acc, technique) => ({
         ...acc,
