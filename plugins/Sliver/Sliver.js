@@ -39,10 +39,10 @@ class mTLS extends Listener {
                      });
 
                      let size = 0;
-                     let envelope;
                      let operatorAgent = null;
                      let sliverAgent = null;
                      let beacon;
+                     let buff = new Buffer(0);
                      let queue = [];
                      let lock = Promise.resolve(true);
                      let pop = () => {};
@@ -50,13 +50,18 @@ class mTLS extends Listener {
                          lock = lock.then(() => new Promise((resolve, reject) => {
                              pop = (data) => {
                                  let link = queue.shift();
-                                 const resp = link.results(data);
+                                 let resp = {};
+                                 try {
+                                     resp = link.results(data);
+                                     link.Response = JSON.stringify(resp, null, 2);
+                                     link.Status = 0;
+                                 } catch (e) {
+                                     link.Response = 'Could not decode buffer message.';
+                                     link.Status = 1;
+                                 }
                                  const beacon = self.mapBeaconProperties(resp, operatorAgent);
-                                 link.Response = JSON.stringify(resp, null, 2);
-                                 link.Status = 0;
                                  link.Pid = sliverAgent.Pid;
                                  beacon.links.push(link);
-                                 console.log('Logging')
                                  operatorAgent.handle(beacon).then(resolve);
                              }
 
@@ -79,32 +84,37 @@ class mTLS extends Listener {
                          if (data.length === 4) {
                              size = self.getSocketBeaconSize(data);
                          } else {
-                             envelope = self.sliverpb.Envelope.decode(data);
-                             if (envelope.Type === 0) {
-                                 pop(envelope.Data);
-                             } else {
-                                 let messageType = Object.keys(this.constants)[envelope.Type - 1].split('Msg')[1];
-                                 let data = self.sliverpb[messageType].decode(envelope.Data);
-                                 if (messageType === 'Register') sliverAgent = data;
-                                 beacon = self.mapBeaconProperties(data, operatorAgent);
-                                 Agent.findAgent(beacon.name).then(agent => {
-                                     socket.agent_resolve(agent);
-                                     agent.socket = socket;
+                             buff = Buffer.concat([buff, data]);
+                             if (buff.length >= size) {
+                                 let envelope = self.sliverpb.Envelope.decode(buff);
+                                 if (envelope.Type === 0) {
+                                     pop(envelope.Data);
+                                 } else {
+                                     let messageType = Object.keys(this.constants)[envelope.Type - 1].split('Msg')[1];
+                                     let data = self.sliverpb[messageType].decode(envelope.Data);
+                                     if (messageType === 'Register') sliverAgent = data;
+                                     beacon = self.mapBeaconProperties(data, operatorAgent);
+                                     Agent.findAgent(beacon.name).then(agent => {
+                                         socket.agent_resolve(agent);
+                                         agent.socket = socket;
 
-                                     agent.closeConnection = () => {
-                                         socket.end();
-                                     }
-
-                                     agent.handler = {
-                                         name: 'mTLS', active: true, function: (o) => {
-                                             queue = JSON.parse(o).links;
-                                             queue.map(push);
+                                         agent.closeConnection = () => {
+                                             socket.end();
                                          }
-                                     };
 
-                                     operatorAgent = agent;
-                                     operatorAgent.handle(beacon);
-                                 });
+                                         agent.handler = {
+                                             name: 'mTLS', active: true, function: (o) => {
+                                                 queue = JSON.parse(o).links;
+                                                 queue.map(push);
+                                             }
+                                         };
+
+                                         operatorAgent = agent;
+                                         operatorAgent.handle(beacon);
+                                     });
+                                 }
+                                 buff = new Buffer(0);
+                                 size = 0;
                              }
                          }
                      });
