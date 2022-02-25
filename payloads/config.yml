@@ -2,8 +2,6 @@ translators:
   metadata:
     description: An extra Operator listening post for redirectors
     purpose: redirector
-    build: |
-      tar zcf DST.PATH/ftp.tar.gz -C SRC.PATH ftp && tar zcf DST.PATH/grpc.tar.gz -C SRC.PATH grpc
   payloads:
     ftp.tar.gz:
       install: |
@@ -25,10 +23,6 @@ pneuma:
     description: The default open-source agent written in GoLang
     purpose: agent
     zip: 1
-    build: |
-      GOOS=darwin go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-darwin SRC.PATH/main.go && \
-      GOOS=linux go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-linux SRC.PATH/main.go && \
-      GOOS=windows go build -ldflags="-s -w -X main.randomHash=$(openssl rand -base64 16)" -o DST.PATH/pneuma-windows.exe SRC.PATH/main.go
     platforms:
       - linux
       - windows
@@ -57,8 +51,6 @@ schism:
     description: Simple Python agent (FTP requires a translator)
     purpose: agent
     zip: 1
-    build: |
-      cp SRC.PATH/schism-* DST.PATH
     platforms: 
       - windows
       - linux
@@ -79,9 +71,6 @@ nicodemus:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
     purpose: agent
     zip: 1
-    build: |
-      docker run --rm -v REPO.CWD:/usr/local/src -w /usr/local/src/payloads/src/nicodemus chrishellerappsian/docker-nim-cross:latest ./build-docker.sh;
-      cp SRC.PATH/payloads/* DST.PATH;
     platforms:
       - windows
       - linux
@@ -99,8 +88,6 @@ ctf:
   metadata:
     description: Create a vulnerable environment to practice against
     purpose: virtualmachine
-    build: |
-      cp SRC.PATH/vulnerable.sh DST.PATH
     platforms: 
       - linux
   payloads:
@@ -113,9 +100,6 @@ headless:
     purpose: redirector
     required: team
     default: team
-    build: |
-      cp SRC.PATH/modes/headless/package.json SRC.PATH/package.json && cd SRC.PATH && \
-      npm install && npm run package && cp SRC.PATH/dist/headless-linux DST.PATH/headless
   payloads:
     headless:
       install: |
@@ -125,10 +109,6 @@ plugins:
   metadata:
     description: Prelude Operator Community Plugins
     purpose: plugin
-    build: |
-      npm install && \
-      PLUGIN=editor npm run build:plugin && cp SRC.PATH/build/package/Editor/Editor.html DST.PATH/Editor.html && cp DST.PATH/Editor.html DST.PATH/../../../plugins/Editor/Editor.html && \
-      PLUGIN=connect npm run build:plugin && cp SRC.PATH/build/package/Connect/Connect.html DST.PATH/Connect.html && cp DST.PATH/Connect.html DST.PATH/../../../plugins/Connect/Connect.html
   payloads:
     Editor.html: {}
     Connect.html: {}
@@ -136,6 +116,5 @@ plugins:
 CVE-2021-4034:
   metadata:
     description: CVE-2021-4034 payloads
-    build: cp -r SRC.PATH/* DST.PATH;
     payloads:
       blasty-vs-pkexec.c: {}
