@@ -23,22 +23,21 @@ context: |
         Look for plain-text passwords held in text or CSV files on the computer. (Collection: T1005)
       </li>
       <li>
-        Check if the computer has an antivirus installed and that it is running.
+        Check if the computer has an antivirus installed and that it is running.  (Discovery: T1518)
       </li>
   </ol>
-  Once you've written the four TTPs, create a chain and attach them to it. When you're finished, enter the name of the chain to 
-  see if Operator can validate your results. If you would like to test your work further, then deploy the chain against your test 
-  agent and collect the results. Ideally all TTPs must successfully complete. 
+  Once you've written the four TTPs, create a chain and attach them to it. When you've created the chain, deploy it against your
+  target agent and see if Operator can validate your results.
 template:
-  name: input
+  name: submit
   data: []
 resources:
-  audio:
-    link: https://s3.amazonaws.com/operator.recordings/protect-mode.m4a
+  audio: []
   links:
     CISA report: https://www.cisa.gov/uscert/ncas/alerts/aa22-040a
 hints:
   - Did you add the proper Tactic and Technique to the TTPs
+  - Did all TTPs within the chain successfully deploy
 blocks:
   What happens when I finish?: |
     Once you complete your final project, the Prelude team will be notified and you will receive an email containing
@@ -48,13 +47,19 @@ answer:
       const adversary = Object.values(Adversary.adversaries).filter(a => a.name === $('#answer').val())[0]
       const ttps = adversary.ttps.map(ttp => Attack.attack[ttp]);
       const rules = [
-        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1082" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
-        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1057" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
-        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1046" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
-        (ttp) => ttp.tactic === "Discovery" && ttp.technique.id.split('.') == "T1518" && ttp.platforms.darwin.sh.command.toLowerCase().includes(''),
-        (ttp) => ttp.tactic === "Collection" && ttp.technique.id.split('.') == "T1005" && ttp.platforms.darwin.sh.command.toLowerCase().includes('')
+        (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1082" && ttp.platforms.darwin || ttp.platforms.windows,
+        (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1057" && ttp.platforms.darwin || ttp.platforms.windows,
+        (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1046" && ttp.platforms.darwin || ttp.platforms.windows,
+        (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1518" && ttp.platforms.darwin || ttp.platforms.windows,
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1005" && ttp.platforms.darwin || ttp.platforms.windows
       ];
-      rules.filter(rule => {
-        return !ttps.filter(ttp => rule(ttp)).length;
-      }).length === 0
+      const validRules = rules.filter(rule => {
+          return ttps.filter(ttp => rule(ttp)).length;
+      });
+      if (validRules.length === rules.length) {
+        if (Agent.agents.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.unique).length).length === ttps.length).length) {
+          return true;
+        }
+      }
+      return false;
   value: true
