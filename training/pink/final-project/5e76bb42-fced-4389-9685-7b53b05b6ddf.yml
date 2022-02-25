@@ -23,11 +23,11 @@ context: |
         Look for plain-text passwords held in text or CSV files on the computer. (Collection: T1005)
       </li>
       <li>
-        Check if an antivirus installed and/or is running.  (Discovery: T1518)
+        Check if an antivirus is installed and/or is running.  (Discovery: T1518)
       </li>
   </ol>
   Once you've written the five TTPs, create a chain and attach them to it. Once you've created the chain, deploy it against your
-  target agent. Then enter the chain name within the input box and see if Operator can validate your results.
+  target agent, then enter the chain name within the input box and see if Operator can validate your results.
 template:
   name: input
   data: []
