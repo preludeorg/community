@@ -11,7 +11,7 @@ context: |
   based on the mitigations section of the report:
   <ol>
       <li>
-        Check if the computer is up-to-date with its security settings and patches. (Discovery: T1082)
+        Check if the computer is up-to-date with its security settings and/or patches. (Discovery: T1082)
       </li>
       <li>
         Check if RDP or SSH is installed and/or running on the computer. (Discovery: T1057)
@@ -23,10 +23,10 @@ context: |
         Look for plain-text passwords held in text or CSV files on the computer. (Collection: T1005)
       </li>
       <li>
-        Check if the computer has an antivirus installed and that it is running.  (Discovery: T1518)
+        Check if an antivirus installed and/or is running.  (Discovery: T1518)
       </li>
   </ol>
-  Once you've written the four TTPs, create a chain and attach them to it. When you've created the chain, deploy it against your
+  Once you've written the five TTPs, create a chain and attach them to it. Once you've created the chain, deploy it against your
   target agent and see if Operator can validate your results.
 template:
   name: submit
