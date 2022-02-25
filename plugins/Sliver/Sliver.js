@@ -16,7 +16,7 @@ class mTLS extends Listener {
         this.commonpb = this.loadProto('commonpb', 'common.proto').commonpb;
         this.sliverpb = this.loadProto('sliverpb', 'sliver.proto').sliverpb;
         this.constants = this.generateMessageConstants();
-        this.executors = Object.key(this.constants).filter(c => c.endsWith('Req')).map(c => c.split('Msg')[1].split('Req')[0].toLowerCase());
+        this.executors = Object.keys(this.constants).filter(c => c.endsWith('Req')).map(c => c.split('Msg')[1].split('Req')[0].toLowerCase());
         this.mtls_port = 8888;
     }
     init() {
