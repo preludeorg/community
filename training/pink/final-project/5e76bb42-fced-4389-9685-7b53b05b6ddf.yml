@@ -27,9 +27,9 @@ context: |
       </li>
   </ol>
   Once you've written the five TTPs, create a chain and attach them to it. Once you've created the chain, deploy it against your
-  target agent and see if Operator can validate your results.
+  target agent. Then enter the chain name within the input box and see if Operator can validate your results.
 template:
-  name: submit
+  name: input
   data: []
 resources:
   audio: []
