@@ -2,6 +2,7 @@ translators:
   metadata:
     description: An extra Operator listening post for redirectors
     purpose: redirector
+    build: echo
   payloads:
     ftp.tar.gz:
       install: |
@@ -23,6 +24,7 @@ pneuma:
     description: The default open-source agent written in GoLang
     purpose: agent
     zip: 1
+    build: echo
     platforms:
       - linux
       - windows
@@ -51,6 +53,7 @@ schism:
     description: Simple Python agent (FTP requires a translator)
     purpose: agent
     zip: 1
+    build: echo
     platforms: 
       - windows
       - linux
@@ -71,6 +74,7 @@ nicodemus:
     description: Nicodemus is a cross-platform Nim implant written by Roger Johnston (VVX7 - https://github.com/VVX7/nicodemus).
     purpose: agent
     zip: 1
+    build: echo
     platforms:
       - windows
       - linux
@@ -88,6 +92,7 @@ ctf:
   metadata:
     description: Create a vulnerable environment to practice against
     purpose: virtualmachine
+    build: echo
     platforms: 
       - linux
   payloads:
@@ -100,6 +105,7 @@ headless:
     purpose: redirector
     required: team
     default: team
+    build: echo
   payloads:
     headless:
       install: |
@@ -109,6 +115,7 @@ plugins:
   metadata:
     description: Prelude Operator Community Plugins
     purpose: plugin
+    build: echo
   payloads:
     Editor.html: {}
     Connect.html: {}
@@ -116,5 +123,6 @@ plugins:
 CVE-2021-4034:
   metadata:
     description: CVE-2021-4034 payloads
+    build: echo
     payloads:
       blasty-vs-pkexec.c: {}
