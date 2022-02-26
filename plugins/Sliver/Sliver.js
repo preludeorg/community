@@ -13,11 +13,7 @@ const Listener = require('../objects/listener');
 class mTLS extends Listener {
     constructor() {
         super('mtls', {});
-        this.commonpb = this.loadProto('commonpb', 'common.proto').commonpb;
-        this.sliverpb = this.loadProto('sliverpb', 'sliver.proto').sliverpb;
-        this.constants = this.generateMessageConstants();
-        this.executors = ['executeAssembly'];
-        //this.executors = Object.keys(this.constants).filter(c => c.endsWith('Req')).map(c => c.split('Msg')[1].split('Req')[0].toLowerCase());
+        this.sliver = new Sliver();
         this.mtls_port = 8888;
     }
     init() {
@@ -26,11 +22,11 @@ class mTLS extends Listener {
                 let self = this;
                 const sockets = new Set();
                 const opts = {
-                    cert: fs.readFileSync(path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs', 'mtls-server-ca-cert.pem')),
-                    key: fs.readFileSync(path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs', 'mtls-server-ca-key.pem')),
+                    cert: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-cert.pem')),
+                    key: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-key.pem')),
                     requestCert: true,
                     rejectUnauthorized: true,
-                    ca: fs.readFileSync(path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs', 'mtls-implant-ca-cert.pem'))
+                    ca: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-implant-ca-cert.pem'))
                 };
                 this.listening.mtls = tls.createServer(opts, (socket) => {
                     sockets.add(socket);
@@ -39,43 +35,35 @@ class mTLS extends Listener {
                         socket.agent_resolve = resolve;
                     });
 
-                    let size = 0;
                     let operatorAgent = null;
                     let sliverAgent = null;
-                    let beacon;
-                    let buff = new Buffer(0);
                     let queue = [];
                     let lock = Promise.resolve(true);
                     let pop = () => {};
                     let push = (link) => {
                         lock = lock.then(() => new Promise((resolve, reject) => {
-                            pop = (data) => {
-                                let link = queue.shift();
-                                let resp = {};
-                                try {
-                                    resp = link.results(data);
-                                    link.Response = JSON.stringify(resp, null, 2);
-                                    link.Status = 0;
-                                } catch (e) {
-                                    link.Response = 'Could not decode buffer message.';
-                                    link.Status = 1;
-                                }
-                                const beacon = self.mapBeaconProperties(resp, operatorAgent);
+                            const recordResults = (body, response, status) => {
+                                link.Response = response;
+                                link.Status = status;
+                                let beacon = self.mapBeaconProperties(body, operatorAgent);
                                 link.Pid = sliverAgent.Pid;
                                 beacon.links.push(link);
-                                operatorAgent.handle(beacon).then(resolve);
+                                operatorAgent.handle(beacon).then(resolve)
+                            }
+
+                            pop = (data) => {
+                                let link = queue.shift();
+                                let body = {};
+                                try {
+                                    body = link.results(data);
+                                    recordResults(body, JSON.stringify(link.decode ? link.decode(body) : body, null, 2), 0);
+                                } catch (e) {
+                                    recordResults(body, 'Could not decode buffer message.', 1);
+                                }
                             }
 
                             const sendTask = (body) => {
-                                let executor = self.capitalizeFirstLetter(link.Executor);
-                                let req = `${executor}Req`;
-                                let callbacks = self.generateCallbacks(req, executor);
-                                link['results'] = callbacks.resp;
-                                let env = self.sliverpb.Envelope.create({
-                                    Type: self.constants[`Msg${req}`],
-                                    Data: self.sliverpb[req].encode(callbacks.req(body)).finish()
-                                });
-                                let task = self.sliverpb.Envelope.encode(env).finish();
+                                let task = self.sliver.buildEnvelope(link, body);
                                 socket.write(Buffer.concat([Buffer.from(self.toBytesInt32(task.length)), task]));
                             }
 
@@ -84,32 +72,33 @@ class mTLS extends Listener {
                             if (link.Payload === '') {
                                 sendTask(body)
                             } else {
-                                Requests.hq.getPayload(link.Payload.split('/payloads/')[1]).then(buff => {
+                                Workspace.dir.downloadPayload(link.Payload.split('/payloads/')[1]).then(buff => {
                                     Object.entries(body).filter(([key, value]) => value === 'PAYLOAD.BYTES').map(([key, value]) => {
                                         body[key] = buff;
                                     });
                                     sendTask(body);
                                 }).catch(e => {
-                                    console.log('Payload error');
+                                    recordResults(body, `Payload error: ${e}.`, 1);
                                 });
                             }
                         }))
                     }
 
+                    let buff = new Buffer(0);
+                    let size = 0;
                     socket.on('data', (data) => {
                         if (data.length === 4) {
                             size = self.getSocketBeaconSize(data);
                         } else {
                             buff = Buffer.concat([buff, data]);
                             if (buff.length >= size) {
-                                let envelope = self.sliverpb.Envelope.decode(buff);
+                                let envelope = this.sliver.unpackEnvelope(buff);
                                 if (envelope.Type === 0) {
                                     pop(envelope.Data);
                                 } else {
-                                    let messageType = Object.keys(this.constants)[envelope.Type - 1].split('Msg')[1];
-                                    let data = self.sliverpb[messageType].decode(envelope.Data);
-                                    if (messageType === 'Register') sliverAgent = data;
-                                    beacon = self.mapBeaconProperties(data, operatorAgent);
+                                    let message = this.sliver.decodeMessage(envelope.Type, envelope.Data);
+                                    if (envelope.Type === 1) sliverAgent = message;
+                                    let beacon = this.mapBeaconProperties(message, operatorAgent);
                                     Agent.findAgent(beacon.name).then(agent => {
                                         socket.agent_resolve(agent);
                                         agent.socket = socket;
@@ -162,38 +151,13 @@ class mTLS extends Listener {
             }
         });
     }
-    capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-    loadProto(dir, proto) {
-        const root = new protoBuf.Root();
-        root.resolvePath = ((origin, target) => {
-            return path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'proto', target);
-        })
-        return root.loadSync(path.join(dir, proto)).root.nested;
-    }
-    generateCallbacks(req, resp) {
-        const toObjOpts = {
-            enums: String,
-            longs: String,
-            bytes: String,
-            defaults: true,
-            arrays: true,
-            objects: true,
-            oneofs: true
-        };
-        return {
-            req: (p) => this.sliverpb[req].create({...p, ...{Request: this.commonpb.Request.create({Timeout: 1000})}}),
-            resp: (d) => this.sliverpb[resp].toObject(this.sliverpb[resp].decode(d), toObjOpts)
-        }
-    }
     mapBeaconProperties(register, agent){
         return {
             name: register?.Name || agent.name,
             target: register.ActiveC2 || agent.target,
             location: register.Filename || agent.location,
             platform: register.Os || agent.platform,
-            executors: this.executors,
+            executors: this.sliver.executors(),
             range: 'Sliver',
             sleep: 0,
             links: [],
@@ -216,202 +180,205 @@ class mTLS extends Listener {
         view.setUint32(0, num, true);
         return arr;
     }
-    generateMessageConstants() {
+}
+
+class Sliver {
+
+    #commonpb
+    #sliverpb;
+    #messageTypes;
+    #executors;
+
+    constructor() {
+        this.protocolDir = path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'proto');
+        this.certificateDir = path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs');
+        this.#messageTypes = Sliver.#generateMessageConstants();
+        this.#executors = Sliver.#generateExecutorMap();
+        this.#commonpb = this.#loadProto('commonpb', 'common.proto').commonpb;
+        this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
+        this.#buildDirectories()
+    }
+    buildEnvelope(link, data) {
+        const [req, resp, post] = this.#executors[link.Executor];
+        let callbacks = this.callbacks(req, resp);
+        link['results'] = callbacks.resp;
+        if (post) {
+            link['decode'] = post;
+        }
+        let env = this.#sliverpb.Envelope.create({
+            Type: this.#messageTypes[`Msg${req}`],
+            Data: this.#sliverpb[req].encode(callbacks.req(data)).finish()
+        });
+        return this.#sliverpb.Envelope.encode(env).finish();
+    }
+    unpackEnvelope(data) {
+        return this.#sliverpb.Envelope.decode(data);
+    }
+    decodeMessage(type, data) {
+        return this.#sliverpb[Object.keys(this.#messageTypes)[type - 1].split('Msg')[1]].decode(data);
+    }
+    executors() {
+        return Object.keys(this.#executors);
+    }
+    callbacks(req, resp) {
+        const toObjOpts = {
+            enums: String,
+            longs: String,
+            bytes: String,
+            defaults: true,
+            arrays: true,
+            objects: true,
+            oneofs: true
+        };
         return {
-            // MsgRegister - Initial message from sliver with metadata
+            req: (p) => this.#sliverpb[req].create({...p, ...{Request: this.#commonpb.Request.create({Timeout: 1000})}}),
+            resp: (d) => this.#sliverpb[resp].toObject(this.#sliverpb[resp].decode(d), toObjOpts)
+        }
+    }
+    #buildDirectories() {
+        Basic.createStorage([this.protocolDir, this.certificateDir]);
+    }
+    #loadProto(dir, proto) {
+        const root = new protoBuf.Root();
+        root.resolvePath = ((origin, target) => {
+            return path.join(this.protocolDir, target);
+        })
+        return root.loadSync(path.join(dir, proto)).root.nested;
+    }
+    static #generateExecutorMap() {
+        return {
+            envinfo: ['EnvInfo', 'EnvInfo'],
+            unsetenv: ['UnsetEnvReq', 'UnsetEnv'],
+            'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', (d) => {d.Output = atob(d.Output); return d;}],
+            task: ['TaskReq', 'Task'],
+            execute: ['ExecuteReq', 'Execute'],
+            'execute-token': ['ExecuteTokenReq', 'Execute'],
+            sideload: ['SideloadReq', 'Sideload'],
+            spawndll: ['SpawnDllReq', 'SpawnDll'],
+            ssh: ['SSHCommandReq', 'SSHCommand'],
+            cd: ['CdReq', 'Pwd'],
+            download: ['Download', 'Download'],
+            ls: ['LsReq', 'Ls'],
+            mkdir: ['MkdirReq', 'Mkdir'],
+            pwd: ['PwdReq', 'Pwd'],
+            rm: ['RmReq', 'Rm'],
+            upload: ['Upload', 'Upload'],
+            ifconfig: ['IfconfigReq', 'Ifconfig'],
+            netstat: ['NetstatReq', 'Netstat'],
+            getprivs: ['GetPrivsReq', 'GetPrivs'],
+            getsystem: ['InvokeGetSystemReq', 'GetSystem'],
+            impersonate: ['ImpersonateReq', 'Impersonate'],
+            maketoken: ['MakeTokenReq', 'MakeToken'],
+            runas: ['RunAsReq', 'RunAs'],
+            processdump: ['ProcessDumpReq', 'ProcessDump'],
+            ps: ['PsReq', 'Ps'],
+            terminate: ['TerminateReq', 'Terminate'],
+            registrycreatekey: ['RegistryCreateKeyReq', 'RegistryCreateKey'],
+            registrydeletekey: ['RegistryDeleteKeyReq', 'RegistryDeleteKey'],
+            registrylistvalues: ['RegistryListValuesReq', 'RegistryListValues'],
+            registrysubkeyslist: ['RegistrySubKeysListReq', 'RegistrySubKeysList'],
+            registryread: ['RegistryReadReq', 'RegistryRead'],
+            registrywrite: ['RegistryWriteReq', 'RegistryWrite'],
+        }
+    }
+    static #generateMessageConstants() {
+        return {
             MsgRegister: 1,
-            // MsgTaskReq - A local shellcode injection task
             MsgTaskReq: 2,
-            // MsgPing - Confirm connection is open used as req/resp
             MsgPing: 3,
-            // MsgKillSessionReq - Kill request to the sliver process
             MsgKillSessionReq: 4,
-            // MsgLsReq - Request a directory listing from the remote system
             MsgLsReq: 5,
-            // MsgLs - Directory listing (resp to MsgDirListReq)
             MsgLs: 6,
-            // MsgDownloadReq - Request to download a file from the remote system
             MsgDownloadReq: 7,
-            // MsgDownload - File contents for download (resp to DownloadReq)
             MsgDownload: 8,
-            // MsgUploadReq - Upload a file to the remote file system
             MsgUploadReq: 9,
-            // MsgUpload - Confirms the success/failure of the file upload (resp to MsgUploadReq)
             MsgUpload: 10,
-            // MsgCdReq - Request a change directory on the remote system
             MsgCdReq: 11,
-            // MsgPwdReq - A request to get the CWD from the remote process
             MsgPwdReq: 12,
-            // MsgPwd - The CWD of the remote process (resp to MsgPwdReq)
             MsgPwd: 13,
-            // MsgRmReq - Request to delete remote file
             MsgRmReq: 14,
-            // MsgRm - Confirms the success/failure of delete request (resp to MsgRmReq)
             MsgRm: 15,
-            // MsgMkdirReq - Request to create a directory on the remote system
             MsgMkdirReq: 16,
-            // MsgMkdir - Confirms the success/failure of the mkdir request (resp to MsgMkdirReq)
             MsgMkdir: 17,
-            // MsgPsReq - List processes req
             MsgPsReq: 18,
-            // MsgPs - List processes resp
             MsgPs: 19,
-            // MsgShellReq - Request to open a shell tunnel
             MsgShellReq: 20,
-            // MsgShell - Response on starting shell
             MsgShell: 21,
-            // MsgTunnelData - Data for duplex tunnels
             MsgTunnelData: 22,
-            // MsgTunnelClose - Close a duplex tunnel
             MsgTunnelClose: 23,
-            // MsgProcessDumpReq - Request to create a process dump
             MsgProcessDumpReq: 24,
-            // MsgProcessDump - Dump of process)
             MsgProcessDump: 25,
-            // MsgImpersonateReq - Request for process impersonation
             MsgImpersonateReq: 26,
-            // MsgImpersonate - Output of the impersonation command
             MsgImpersonate: 27,
-            // MsgRunAsReq - Request to run process as user
             MsgRunAsReq: 28,
-            // MsgRunAs - Run process as user
             MsgRunAs: 29,
-            // MsgRevToSelf - Revert to self
             MsgRevToSelf: 30,
-            // MsgRevToSelfReq - Request to revert to self
             MsgRevToSelfReq: 31,
-            // MsgInvokeGetSystemReq - Elevate as SYSTEM user
             MsgInvokeGetSystemReq: 32,
-            // MsgGetSystem - Response to getsystem request
             MsgGetSystem: 33,
-            // MsgInvokeExecuteAssemblyReq - Request to load and execute a .NET assembly
             MsgInvokeExecuteAssemblyReq: 34,
-            // MsgExecuteAssemblyReq - Request to load and execute a .NET assembly
             MsgExecuteAssemblyReq: 35,
-            // MsgExecuteAssembly - Output of the assembly execution
             MsgExecuteAssembly: 36,
-            // MsgInvokeMigrateReq - Spawn a new sliver in a designated process
             MsgInvokeMigrateReq: 37,
-            // MsgSideloadReq - request to sideload a binary
             MsgSideloadReq: 38,
-            // MsgSideload - output of the binary
             MsgSideload: 39,
-            // MsgSpawnDllReq - Reflective DLL injection request
             MsgSpawnDllReq: 40,
-            // MsgSpawnDll - Reflective DLL injection output
             MsgSpawnDll: 41,
-            // MsgIfconfigReq - Ifconfig (network interface config) request
             MsgIfconfigReq: 42,
-            // MsgIfconfig - Ifconfig response
             MsgIfconfig: 43,
-            // MsgExecuteReq - Execute a command on the remote system
             MsgExecuteReq: 44,
-            // MsgTerminateReq - Request to kill a remote process
             MsgTerminateReq: 45,
-            // MsgTerminate - Kill a remote process
             MsgTerminate: 46,
-            // MsgScreenshotReq - Request to take a screenshot
             MsgScreenshotReq: 47,
-            // MsgScreenshot - Response with the screenshots
             MsgScreenshot: 48,
-            // MsgNetstatReq - Netstat request
             MsgNetstatReq: 49,
-            // *** Pivots ***
-            // MsgPivotStartListenerReq - Start a listener
             MsgPivotStartListenerReq: 50,
-            // MsgPivotStopListenerReq - Stop a listener
             MsgPivotStopListenerReq: 51,
-            // MsgPivotListenersReq - List listeners request
             MsgPivotListenersReq: 52,
-            // MsgPivotListeners - List listeners response
             MsgPivotListeners: 53,
-            // MsgPivotPeerPing - Pivot peer ping message
             MsgPivotPeerPing: 54,
-            // MsgPivotServerPing - Pivot peer ping message
             MsgPivotServerPing: 55,
-            // PivotServerKeyExchange - Pivot to server key exchange
             MsgPivotServerKeyExchange: 56,
-            // MsgPivotPeerEnvelope - An envelope from a pivot peer
             MsgPivotPeerEnvelope: 57,
-            // MsgPivotPeerFailure - Failure to send an envelope to a pivot peer
             MsgPivotPeerFailure: 58,
-            // MsgPivotSessionEnvelope
             MsgPivotSessionEnvelope: 59,
-            // MsgStartServiceReq - Request to start a service
             MsgStartServiceReq: 60,
-            // MsgStartService - Response to start service request
             MsgStartService: 61,
-            // MsgStopServiceReq - Request to stop a remote service
             MsgStopServiceReq: 62,
-            // MsgRemoveServiceReq - Request to remove a remote service
             MsgRemoveServiceReq: 63,
-            // MsgMakeTokenReq - Request for MakeToken
             MsgMakeTokenReq: 64,
-            // MsgMakeToken - Response for MakeToken
             MsgMakeToken: 65,
-            // MsgEnvReq - Request to get environment variables
             MsgEnvReq: 66,
-            // MsgEnvInfo - Response to environment variable request
             MsgEnvInfo: 67,
-            // MsgSetEnvReq
             MsgSetEnvReq: 68,
-            // MsgSetEnv
             MsgSetEnv: 69,
-            // MsgExecuteTokenReq - Execute request executed with the current (Windows) token
             MsgExecuteTokenReq: 70,
-            // MsgRegistryReadReq
             MsgRegistryReadReq: 71,
-            // MsgRegistryWriteReq
             MsgRegistryWriteReq: 72,
-            // MsgRegistryCreateKeyReq
             MsgRegistryCreateKeyReq: 73,
-            // MsgWGStartPortFwdReq - Request to start a port forwarding in a WG transport
             MsgWGStartPortFwdReq: 74,
-            // MsgWGStopPortFwdReq - Request to stop a port forwarding in a WG transport
             MsgWGStopPortFwdReq: 75,
-            // MsgWGStartSocks - Request to start a socks server in a WG transport
             MsgWGStartSocksReq: 76,
-            // MsgWGStopSocks - Request to stop a socks server in a WG transport
             MsgWGStopSocksReq: 77,
-            // MsgWGListForwarders
             MsgWGListForwardersReq: 78,
-            // MsgWGListSocks
             MsgWGListSocksReq: 79,
-            // MsgPortfwdReq - Establish a port forward
             MsgPortfwdReq: 80,
-            // MsgPortfwd - Response of port forward
             MsgPortfwd: 81,
-            // MsgSocksData - Response of SocksData
             MsgSocksData: 82,
-            // MsgReconfigureReq
             MsgReconfigureReq: 83,
-            // MsgReconfigure - Set Reconfigure
             MsgReconfigure: 84,
-            // MsgUnsetEnvReq
             MsgUnsetEnvReq: 85,
-            // MsgSSHCommandReq - Run a SSH command
             MsgSSHCommandReq: 86,
-            // MsgGetPrivsReq - Get privileges (Windows)
             MsgGetPrivsReq: 87,
-            // MsgRegistryListReq - List registry sub keys
             MsgRegistrySubKeysListReq: 88,
-            // MsgRegistryListValuesReq - List registry values
             MsgRegistryListValuesReq: 89,
-            // MsgRegisterExtensionReq - Register a new extension
             MsgRegisterExtensionReq: 90,
-            // MsgCallExtensionReq - Run an extension command
             MsgCallExtensionReq: 91,
-            // MsgListExtensionsReq - List loaded extensions
             MsgListExtensionsReq: 92,
-            // MsgBeaconRegister - Register a new beacon
             MsgBeaconRegister: 93,
-            // MsgBeaconTasks - Send/recv batches of beacon tasks
             MsgBeaconTasks: 94,
-            // MsgOpenSession - Open a new session
             MsgOpenSession: 95,
-            // MsgCloseSession - Close the active session
             MsgCloseSession: 96,
-            // MsgRegistryDeleteKeyReq
             MsgRegistryDeleteKeyReq: 97
         };
     }
