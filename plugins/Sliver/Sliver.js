@@ -16,7 +16,8 @@ class mTLS extends Listener {
         this.commonpb = this.loadProto('commonpb', 'common.proto').commonpb;
         this.sliverpb = this.loadProto('sliverpb', 'sliver.proto').sliverpb;
         this.constants = this.generateMessageConstants();
-        this.executors = Object.keys(this.constants).filter(c => c.endsWith('Req')).map(c => c.split('Msg')[1].split('Req')[0].toLowerCase());
+        this.executors = ['executeAssembly'];
+        //this.executors = Object.keys(this.constants).filter(c => c.endsWith('Req')).map(c => c.split('Msg')[1].split('Req')[0].toLowerCase());
         this.mtls_port = 8888;
     }
     init() {
@@ -31,94 +32,108 @@ class mTLS extends Listener {
                     rejectUnauthorized: true,
                     ca: fs.readFileSync(path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs', 'mtls-implant-ca-cert.pem'))
                 };
-                 this.listening.mtls = tls.createServer(opts, (socket) => {
-                     sockets.add(socket);
+                this.listening.mtls = tls.createServer(opts, (socket) => {
+                    sockets.add(socket);
 
-                     socket.agent = new Promise((resolve, reject) => {
-                         socket.agent_resolve = resolve;
-                     });
+                    socket.agent = new Promise((resolve, reject) => {
+                        socket.agent_resolve = resolve;
+                    });
 
-                     let size = 0;
-                     let operatorAgent = null;
-                     let sliverAgent = null;
-                     let beacon;
-                     let buff = new Buffer(0);
-                     let queue = [];
-                     let lock = Promise.resolve(true);
-                     let pop = () => {};
-                     let push = (link) => {
-                         lock = lock.then(() => new Promise((resolve, reject) => {
-                             pop = (data) => {
-                                 let link = queue.shift();
-                                 let resp = {};
-                                 try {
-                                     resp = link.results(data);
-                                     link.Response = JSON.stringify(resp, null, 2);
-                                     link.Status = 0;
-                                 } catch (e) {
-                                     link.Response = 'Could not decode buffer message.';
-                                     link.Status = 1;
-                                 }
-                                 const beacon = self.mapBeaconProperties(resp, operatorAgent);
-                                 link.Pid = sliverAgent.Pid;
-                                 beacon.links.push(link);
-                                 operatorAgent.handle(beacon).then(resolve);
-                             }
+                    let size = 0;
+                    let operatorAgent = null;
+                    let sliverAgent = null;
+                    let beacon;
+                    let buff = new Buffer(0);
+                    let queue = [];
+                    let lock = Promise.resolve(true);
+                    let pop = () => {};
+                    let push = (link) => {
+                        lock = lock.then(() => new Promise((resolve, reject) => {
+                            pop = (data) => {
+                                let link = queue.shift();
+                                let resp = {};
+                                try {
+                                    resp = link.results(data);
+                                    link.Response = JSON.stringify(resp, null, 2);
+                                    link.Status = 0;
+                                } catch (e) {
+                                    link.Response = 'Could not decode buffer message.';
+                                    link.Status = 1;
+                                }
+                                const beacon = self.mapBeaconProperties(resp, operatorAgent);
+                                link.Pid = sliverAgent.Pid;
+                                beacon.links.push(link);
+                                operatorAgent.handle(beacon).then(resolve);
+                            }
 
-                             let body = {};
-                             try { body = JSON.parse(link.Request); } catch (e) {}
-                             let executor = self.capitalizeFirstLetter(link.Executor);
-                             let req = `${executor}Req`;
-                             let callbacks = self.generateCallbacks(req, executor);
-                             link['results'] = callbacks.resp;
-                             let env = self.sliverpb.Envelope.create({
-                                 Type: self.constants[`Msg${req}`],
-                                 Data: self.sliverpb[req].encode(callbacks.req(body)).finish()
-                             });
-                             let task = self.sliverpb.Envelope.encode(env).finish();
-                             socket.write(Buffer.concat([Buffer.from(self.toBytesInt32(task.length)), task]));
-                         }))
-                     }
+                            const sendTask = (body) => {
+                                let executor = self.capitalizeFirstLetter(link.Executor);
+                                let req = `${executor}Req`;
+                                let callbacks = self.generateCallbacks(req, executor);
+                                link['results'] = callbacks.resp;
+                                let env = self.sliverpb.Envelope.create({
+                                    Type: self.constants[`Msg${req}`],
+                                    Data: self.sliverpb[req].encode(callbacks.req(body)).finish()
+                                });
+                                let task = self.sliverpb.Envelope.encode(env).finish();
+                                socket.write(Buffer.concat([Buffer.from(self.toBytesInt32(task.length)), task]));
+                            }
 
-                     socket.on('data', (data) => {
-                         if (data.length === 4) {
-                             size = self.getSocketBeaconSize(data);
-                         } else {
-                             buff = Buffer.concat([buff, data]);
-                             if (buff.length >= size) {
-                                 let envelope = self.sliverpb.Envelope.decode(buff);
-                                 if (envelope.Type === 0) {
-                                     pop(envelope.Data);
-                                 } else {
-                                     let messageType = Object.keys(this.constants)[envelope.Type - 1].split('Msg')[1];
-                                     let data = self.sliverpb[messageType].decode(envelope.Data);
-                                     if (messageType === 'Register') sliverAgent = data;
-                                     beacon = self.mapBeaconProperties(data, operatorAgent);
-                                     Agent.findAgent(beacon.name).then(agent => {
-                                         socket.agent_resolve(agent);
-                                         agent.socket = socket;
+                            let body = {};
+                            try { body = JSON.parse(link.Request); } catch (e) {}
+                            if (link.Payload === '') {
+                                sendTask(body)
+                            } else {
+                                Requests.hq.getPayload(link.Payload.split('/payloads/')[1]).then(buff => {
+                                    Object.entries(body).filter(([key, value]) => value === 'PAYLOAD.BYTES').map(([key, value]) => {
+                                        body[key] = buff;
+                                    });
+                                    sendTask(body);
+                                }).catch(e => {
+                                    console.log('Payload error');
+                                });
+                            }
+                        }))
+                    }
 
-                                         agent.closeConnection = () => {
-                                             socket.end();
-                                         }
+                    socket.on('data', (data) => {
+                        if (data.length === 4) {
+                            size = self.getSocketBeaconSize(data);
+                        } else {
+                            buff = Buffer.concat([buff, data]);
+                            if (buff.length >= size) {
+                                let envelope = self.sliverpb.Envelope.decode(buff);
+                                if (envelope.Type === 0) {
+                                    pop(envelope.Data);
+                                } else {
+                                    let messageType = Object.keys(this.constants)[envelope.Type - 1].split('Msg')[1];
+                                    let data = self.sliverpb[messageType].decode(envelope.Data);
+                                    if (messageType === 'Register') sliverAgent = data;
+                                    beacon = self.mapBeaconProperties(data, operatorAgent);
+                                    Agent.findAgent(beacon.name).then(agent => {
+                                        socket.agent_resolve(agent);
+                                        agent.socket = socket;
 
-                                         agent.handler = {
-                                             name: 'mTLS', active: true, function: (o) => {
-                                                 queue = JSON.parse(o).links;
-                                                 queue.map(push);
-                                             }
-                                         };
+                                        agent.closeConnection = () => {
+                                            socket.end();
+                                        }
 
-                                         operatorAgent = agent;
-                                         operatorAgent.handle(beacon);
-                                     });
-                                 }
-                                 buff = new Buffer(0);
-                                 size = 0;
-                             }
-                         }
-                     });
-                 });
+                                        agent.handler = {
+                                            name: 'mTLS', active: true, function: (o) => {
+                                                queue = JSON.parse(o).links;
+                                                queue.map(push);
+                                            }
+                                        };
+
+                                        operatorAgent = agent;
+                                        operatorAgent.handle(beacon);
+                                    });
+                                }
+                                buff = new Buffer(0);
+                            }
+                        }
+                    });
+                });
 
                 this.listening.mtls_sockets = sockets;
                 this.listening.mtls.listen(this.mtls_port, Settings.settings.local.server, ()=> {
@@ -201,7 +216,7 @@ class mTLS extends Listener {
         view.setUint32(0, num, true);
         return arr;
     }
-   generateMessageConstants() {
+    generateMessageConstants() {
         return {
             // MsgRegister - Initial message from sliver with metadata
             MsgRegister: 1,
