@@ -43,10 +43,16 @@ class mTLS extends Listener {
                     let push = (link) => {
                         lock = lock.then(() => new Promise((resolve, reject) => {
                             const recordResults = (body, response, status) => {
-                                link.Response = response;
-                                link.Status = status;
+                                if (self.checkForOperatorExecutor(link.Executor)) {
+                                    link.Response = response?.Stdout + response?.Stderr;
+                                    link.Status = response?.Status;
+                                    link.Pid = response?.Pid;
+                                } else {
+                                    link.Response = JSON.stringify(response, null, 2);
+                                    link.Status = status;
+                                    link.Pid = sliverAgent.Pid;
+                                }
                                 let beacon = self.mapBeaconProperties(body, operatorAgent);
-                                link.Pid = sliverAgent.Pid;
                                 beacon.links.push(link);
                                 operatorAgent.handle(beacon).then(resolve)
                             }
@@ -56,7 +62,7 @@ class mTLS extends Listener {
                                 let body = {};
                                 try {
                                     body = link.results(data);
-                                    recordResults(body, JSON.stringify(link.decode ? link.decode(body) : body, null, 2), 0);
+                                    recordResults(body, link.decode ? link.decode(body) : body, 0);
                                 } catch (e) {
                                     recordResults(body, 'Could not decode buffer message.', 1);
                                 }
