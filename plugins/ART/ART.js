@@ -39,8 +39,9 @@ const fetchTTPs = () => {
                 const technique = el.path.split('/')[1];
                 const checksum = Encryption.checksum(data);
                 const payload = path.basename(el.path);
+                const filename = path.join(dest, checksum, payload);
                 const encryptedPayload = Encryption.encryptBuffer(data);
-                Basic.storeData(encryptedPayload, path.join(dest, checksum, payload));
+                Basic.storeData(encryptedPayload, filename);
                 fs.chmodSync(filename, '755');
                 return {
                   technique: technique,
@@ -52,14 +53,13 @@ const fetchTTPs = () => {
           const payloads_by_technique = payloads.reduce((acc, payload) => ({
             ...acc,
             [payload.technique]: (acc[payload.technique] || []).concat(payload)
-          }));
-
+          }), {});
           return Promise.all(res.tree.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml')).map(file => {
             const technique = file.path.split('/')[1];
             const payloads = (payloads_by_technique[technique] || []).reduce((acc, payload) => ({
               ...acc,
               [payload.payload]: payload.checksum
-            }));
+            }), {});
             return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`)
               .then(res => res.text())
               .then(yaml.safeLoad)
