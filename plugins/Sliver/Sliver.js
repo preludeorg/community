@@ -199,11 +199,11 @@ class Sliver {
         this.#buildDirectories()
     }
     buildEnvelope(link, data) {
-        const [req, resp, post] = this.#executors[link.Executor];
+        const [req, resp, decode] = this.#executors[link.Executor];
         let callbacks = this.callbacks(req, resp);
         link['results'] = callbacks.resp;
-        if (post) {
-            link['decode'] = post;
+        if (decode) {
+            link['decode'] = decode;
         }
         let env = this.#sliverpb.Envelope.create({
             Type: this.#messageTypes[`Msg${req}`],
