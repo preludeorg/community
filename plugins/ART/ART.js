@@ -87,7 +87,7 @@ function convertRedCanary(data, schema, facts) {
           platforms: {}
         };
         const replacements = Object.keys(ttp?.input_arguments || {}).map(arg => {
-          const key = `${data.attack_technique}.${idx}.${arg}`
+          const key = `ART.${data.attack_technique}.${arg}`;
           facts[key] = ttp.input_arguments[arg].default;
           return [`#{${arg}}`, `#{${key}}`];
         });
