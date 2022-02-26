@@ -73,7 +73,7 @@ const fetchTTPs = () => {
               .catch(err => null);
           }));
         });
-      });
+      })
       .then(() => {
         return Requests.fetchOperator('/v1/plugin/ART', {
           method: 'GET'
