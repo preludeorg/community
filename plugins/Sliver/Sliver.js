@@ -11,10 +11,10 @@ const Listener = require('../objects/listener');
 
 
 class mTLS extends Listener {
-    constructor() {
+    constructor(config) {
         super('mtls', {});
         this.sliver = new Sliver();
-        this.mtls_port = 8888;
+        this.mtls_port = config?.mtls_port || 8888;
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -63,23 +63,27 @@ class mTLS extends Listener {
                             }
 
                             const sendTask = (body) => {
-                                let task = self.sliver.buildEnvelope(link, body);
+                                let task = self.sliver.buildEnvelope(link, body, operatorAgent.platform);
                                 socket.write(Buffer.concat([Buffer.from(self.toBytesInt32(task.length)), task]));
                             }
 
-                            let body = {};
-                            try { body = JSON.parse(link.Request); } catch (e) {}
-                            if (link.Payload === '') {
-                                sendTask(body)
+                            if (self.checkForOperatorExecutor(link.Executor)) {
+                                sendTask(self.sliver.buildShellExecutor(link.Executor, link.Request));
                             } else {
-                                Workspace.dir.downloadPayload(link.Payload.split('/payloads/')[1]).then(buff => {
-                                    Object.entries(body).filter(([key, value]) => value === 'PAYLOAD.BYTES').map(([key, value]) => {
-                                        body[key] = buff;
+                                let body = {};
+                                try { body = JSON.parse(link.Request); } catch (e) {}
+                                if (link.Payload === '') {
+                                    sendTask(body)
+                                } else {
+                                    Workspace.dir.downloadPayload(link.Payload.split('/payloads/')[1]).then(buff => {
+                                        Object.entries(body).filter(([key, value]) => value === 'PAYLOAD.BYTES').map(([key, value]) => {
+                                            body[key] = buff;
+                                        });
+                                        sendTask(body);
+                                    }).catch(e => {
+                                        recordResults(body, `Payload error: ${e}.`, 1);
                                     });
-                                    sendTask(body);
-                                }).catch(e => {
-                                    recordResults(body, `Payload error: ${e}.`, 1);
-                                });
+                                }
                             }
                         }))
                     }
@@ -151,13 +155,16 @@ class mTLS extends Listener {
             }
         });
     }
+    checkForOperatorExecutor(executor) {
+        return ['sh', 'bash', 'psh', 'cmd', 'exec', 'zsh', 'pwsh'].includes(executor);
+    }
     mapBeaconProperties(register, agent){
         return {
             name: register?.Name || agent.name,
             target: register.ActiveC2 || agent.target,
             location: register.Filename || agent.location,
             platform: register.Os || agent.platform,
-            executors: this.sliver.executors(),
+            executors: this.sliver.executors(register.Os || agent.platform),
             range: 'Sliver',
             sleep: 0,
             links: [],
@@ -198,8 +205,8 @@ class Sliver {
         this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
         this.#buildDirectories()
     }
-    buildEnvelope(link, data) {
-        const [req, resp, decode] = this.#executors[link.Executor];
+    buildEnvelope(link, data, platform) {
+        const [req, resp, decode] = {...this.#executors, ...Sliver.#generateShellExecutorMap(platform)}[link.Executor];
         let callbacks = this.callbacks(req, resp);
         link['results'] = callbacks.resp;
         if (decode) {
@@ -211,14 +218,33 @@ class Sliver {
         });
         return this.#sliverpb.Envelope.encode(env).finish();
     }
+    buildShellExecutor(executor, request) {
+        let task = {Output: true}
+        switch (executor) {
+            case 'psh':
+                task = {...task, ...{Path: 'powershell.exe', Args: ['-execu', '-C', request]}};
+                break;
+            case 'cmd':
+                task = {...task, ...{Path: 'cmd.exe', Args: ['/S', '/C', request]}};
+                break;
+            case 'exec':
+                let args = request.split(' ');
+                task = {...task, ...{Path: args[0], Args: args.slice(1)}};
+                break;
+            default:
+                task = {...task, ...{Path: executor, Args: ['-c', request]}};
+                break;
+        }
+        return task;
+    }
     unpackEnvelope(data) {
         return this.#sliverpb.Envelope.decode(data);
     }
     decodeMessage(type, data) {
         return this.#sliverpb[Object.keys(this.#messageTypes)[type - 1].split('Msg')[1]].decode(data);
     }
-    executors() {
-        return Object.keys(this.#executors);
+    executors(platform) {
+        return Object.keys(this.#executors).concat(Object.keys(Sliver.#generateShellExecutorMap(platform)));
     }
     callbacks(req, resp) {
         const toObjOpts = {
@@ -245,13 +271,16 @@ class Sliver {
         })
         return root.loadSync(path.join(dir, proto)).root.nested;
     }
+    static #generateShellExecutorMap(platform) {
+        let executors = (platform === 'windows') ? ['cmd', 'psh', 'exec'] : ['sh', 'bash', 'zsh', 'exec'];
+        return executors.reduce((acc, executor) => ({...acc, [executor]: ['ExecuteReq', 'Execute', (d) => {d.Stdout = atob(d.Stdout); return d;}]}), {})
+    }
     static #generateExecutorMap() {
         return {
             envinfo: ['EnvInfo', 'EnvInfo'],
             unsetenv: ['UnsetEnvReq', 'UnsetEnv'],
             'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', (d) => {d.Output = atob(d.Output); return d;}],
             task: ['TaskReq', 'Task'],
-            execute: ['ExecuteReq', 'Execute'],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
             spawndll: ['SpawnDllReq', 'SpawnDll'],
@@ -396,7 +425,7 @@ cleanupListeners(['plugin:config', 'plugin:delete']);
 
 Events.bus.on('plugin:config', Object.assign((name, config) => {
     if (name === PLUGIN_NAME) {
-        Listen.listeners.add(mTLS);
+        Listen.listeners.add(new mTLS(config));
     }
 }, {[`${PLUGIN_NAME}_LISTENER`]: true}));
 
@@ -406,8 +435,6 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
     }
 }, {[`${PLUGIN_NAME}_LISTENER`]: true}));
 
-try{
-    setTimeout(() => Listen.listeners.add(mTLS), 1000);
-} catch(e) {
-    console.log(e)
-}
+Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
+    Listen.listeners.add(new mTLS(config))
+});
