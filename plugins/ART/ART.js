@@ -8,14 +8,11 @@ const initFacts = () => {
         let temp = res.facts[name];
         res.facts[name] = temp;
       })
-      return Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
+      return Requests.fetchOperator(`/v1/agents/${agents[0].name}/facts`, {
         method: 'POST',
-        body: JSON.stringify({
-          name: 'art',
-          facts: Object.entries(res.facts).map(([key, value]) => ({
-            key: key, value: value, scope: 'global'
-          }))
-        })
+        body: JSON.stringify(Object.entries(res.facts).map(([key, value]) => ({
+          key: key, value: value, scope: 'global'
+        })))
       });
     }
   });
