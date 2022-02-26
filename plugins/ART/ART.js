@@ -30,48 +30,58 @@ const fetchTTPs = () => {
       const facts = {};
       return fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).then(res => { 
         const dest = path.join(Settings.settings.local.workspace, 'payloads');
-        return Promise.all(res.tree.filter(el => el.type === 'blob' && el.path.match(/\/bin\//gi)).map(el => {
-          return fetch(el.url)
-            .then((res) => res.blob())
-            .then((blob) => blob.arrayBuffer())
-            .then((bytes) => Buffer.from(bytes))
-            .then((data) => {
-                const technique = el.path.split('/')[1];
-                const checksum = Encryption.checksum(data);
-                const payload = path.basename(el.path);
-                const filename = path.join(dest, checksum, payload);
-                const encryptedPayload = Encryption.encryptBuffer(data);
-                Basic.storeData(encryptedPayload, filename);
-                fs.chmodSync(filename, '755');
-                return {
-                  technique: technique,
-                  checksum: checksum,
-                  payload: payload
-                };
+        return Promise.all(res.tree?.filter(el => el.type === 'blob' && el.path.match(/\/bin\//gi))?.map(el => {
+          return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${el.path}`)
+            .then((res) => {
+              if (res.status === 200) {
+                return res.blob()
+                  .then((blob) => blob.arrayBuffer())
+                  .then((bytes) => Buffer.from(bytes))
+                  .then((data) => {
+                      const technique = el.path.split('/')[1];
+                      const checksum = Encryption.checksum(data);
+                      const payload = path.basename(el.path);
+                      const filename = path.join(dest, checksum, payload);
+                      const encryptedPayload = Encryption.encryptBuffer(data);
+                      Basic.storeData(encryptedPayload, filename);
+                      fs.chmodSync(filename, '755');
+                      return {
+                        technique: technique,
+                        checksum: checksum,
+                        payload: payload
+                      };
+                  });
+              }
             });
-        })).then((payloads) => {
-          const payloads_by_technique = payloads.reduce((acc, payload) => ({
+        }) || []).then((payloads) => {
+          const payloads_by_technique = payloads.filter(p => p?.payload).reduce((acc, payload) => ({
             ...acc,
             [payload.technique]: (acc[payload.technique] || []).concat(payload)
           }), {});
-          return Promise.all(res.tree.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml')).map(file => {
+          return Promise.all(res.tree?.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml'))?.map(file => {
             const technique = file.path.split('/')[1];
             const payloads = (payloads_by_technique[technique] || []).reduce((acc, payload) => ({
               ...acc,
               [payload.payload]: payload.checksum
             }), {});
             return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`)
-              .then(res => res.text())
-              .then(yaml.safeLoad)
               .then(res => {
-                return convertRedCanary(res, payloads, schema, facts);
-              })
-              .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttps', {
-                method: 'POST',
-                body: JSON.stringify(ttp)
-              }))))
-              .catch(err => null);
-          }));
+                if (res.status === 200) {
+                  return res.text()
+                    .then(yaml.safeLoad)
+                    .then(res => {
+                      return convertRedCanary(res, payloads, schema, facts);
+                    })
+                    .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttps', {
+                      method: 'POST',
+                      body: JSON.stringify(ttp)
+                    }))))
+                    .then(() => {
+                      return file;
+                    });
+                }
+              });
+          }) || []);
         });
       })
       .then(() => {
