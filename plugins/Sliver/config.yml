@@ -1,2 +1,4 @@
 name: Sliver
 description: Connect Sliver implants over mTLS
+params:
+- mtls_port
