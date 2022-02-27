@@ -419,6 +419,33 @@ class Sliver {
     }
 }
 
+const cleanupListeners = (topics) => {
+    topics.map(topic => Events.bus.listeners(topic).map(listener => {
+        if (listener[`${PLUGIN_NAME}_LISTENER`]) {
+            Events.bus.off(topic, listener);
+        }
+    }));
+};
+
+cleanupListeners(['plugin:config', 'plugin:delete']);
+
+Events.bus.on('plugin:config', Object.assign((name, config) => {
+    if (name === PLUGIN_NAME) {
+        Listen.listeners.protocols.filter(p => p.name === 'mtls').map(p => {
+            p.mtls_port = config?.mtls_port;
+            p.init();
+        });
+    }
+}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
+
+Events.bus.on('plugin:delete', Object.assign((name) => {
+    if (name === PLUGIN_NAME) {
+        const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
+        listener[0].destroy();
+        cleanupListeners(['plugin:config', 'plugin:delete']);
+    }
+}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
+
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
     Listen.listeners.add(new mTLS(config))
 });
