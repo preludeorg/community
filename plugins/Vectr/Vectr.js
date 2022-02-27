@@ -84,6 +84,7 @@ const  createTestCase = (link, ttp, campaignId) => {
 const fetchVectr = (params) => {
     return new Promise(((resolve, reject) => {
         fetch(`${vectr.url}/sra-purpletools-rest/graphql`, {
+            agent: Requests.insecure,
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
