@@ -24,9 +24,9 @@ of a listener would only implement the `init()` function and leverage the existi
 It is possible to extend Operator to have custom listeners. This example shows how to add a very simple HTTP server endpoint
 using the available express library.
 
-#### Example: Save this plugin as HTTP.js and add it to your workspace plugin directory
+#### Example: Save this plugin as HTTP.js inside an HTTP directory in your workspace plugin directory
 
-A plugin javascript file.
+A plugin javascript file:
 
 ```javascript
 const PLUGIN_NAME = 'HTTP';
@@ -61,7 +61,7 @@ Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res =>
 });
 ```
 
-A corresponding configuration file for this plugin:
+A corresponding configuration file for this plugin that you need to add to that folder as `config.yml`:
 
 ```yml
 name: HTTP
