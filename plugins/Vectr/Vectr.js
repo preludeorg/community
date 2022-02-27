@@ -136,7 +136,7 @@ const publishCampaign = (operation) => {
 let PUBLISH_LINK_LOCK = Promise.resolve(true);
 const publishLinkData = (link, campaignId) => {
     return PUBLISH_LINK_LOCK = PUBLISH_LINK_LOCK.then(() => new Promise((resolve, reject) => {
-        Requests.fetchOperator(`/attack/${link.ttp}`)
+        Requests.fetchOperator(`/v1/ttps/${link.ttp}`)
             .then(res => res.json())
             .then(ttp => {
                 createTestCase(link, ttp, campaignId).then(resolve).catch((err) => console.log(err))
@@ -203,7 +203,7 @@ const removeConnection = () => {
 const configureConnection = (config) => {
     Events.bus.removeAllListeners('publish:vectr');
     vectr = config;
-    if (vectr?.url && vectr?.database && vectr?.org_name && vectr.key_id && vectr.secret_key) {
+    if (vectr?.url && vectr?.database && vectr?.org_name && vectr?.key_id && vectr?.secret_key && vectr?.campaign) {
         initializeVectrAssessment()
             .then(assessment => {
                 baseAssessment = assessment;
@@ -261,7 +261,7 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'})
     .then(res => res.json()).then(config => {
-        if (vectr?.url && vectr?.database && vectr?.org_name && vectr.key_id && vectr.secret_key) {
+        if (config?.url && config?.database && config?.org_name && config?.key_id && config?.secret_key && config?.campaign) {
             saveConnection(config);
         } else {
             removeConnection();
