@@ -279,7 +279,7 @@ class Sliver {
     }
     static #generateShellExecutorMap(platform) {
         let executors = (platform === 'windows') ? ['cmd', 'psh', 'exec'] : ['sh', 'bash', 'zsh', 'exec'];
-        return executors.reduce((acc, executor) => ({...acc, [executor]: ['ExecuteReq', 'Execute', (d) => {d.Stdout = atob(d.Stdout); return d;}]}), {})
+        return executors.reduce((acc, executor) => ({...acc, [executor]: ['ExecuteReq', 'Execute', (d) => {d.Stdout = atob(d.Stdout); d.Stderr = atob(d.Stderr); return d;}]}), {})
     }
     static #generateExecutorMap() {
         return {
