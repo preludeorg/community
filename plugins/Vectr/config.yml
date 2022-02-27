@@ -6,3 +6,4 @@ params:
 - org_name
 - key_id
 - secret_key
+- campaign
