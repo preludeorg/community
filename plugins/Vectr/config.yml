@@ -1,2 +1,8 @@
 name: Vectr
-description: Automatically export data to Vectr
+description: Publish agent results in real-time to Vectr
+params:
+- url
+- database
+- org_name
+- key_id
+- secret_key
