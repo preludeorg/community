@@ -419,28 +419,6 @@ class Sliver {
     }
 }
 
-const cleanupListeners = (topics) => {
-    topics.map(topic => Events.bus.listeners(topic).map(listener => {
-        if (listener[`${PLUGIN_NAME}_LISTENER`]) {
-            Events.bus.off(topic, listener);
-        }
-    }));
-};
-
-cleanupListeners(['plugin:config', 'plugin:delete']);
-
-Events.bus.on('plugin:config', Object.assign((name, config) => {
-    if (name === PLUGIN_NAME) {
-        Listen.listeners.add(new mTLS(config));
-    }
-}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
-
-Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === PLUGIN_NAME) {
-        cleanupListeners(['plugin:config', 'plugin:delete']);
-    }
-}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
-
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
     Listen.listeners.add(new mTLS(config))
 });
