@@ -29,18 +29,18 @@ Operator -> Settings -> Network -> Token. Set the variable $TOKEN to your token.
 #### Get all chains loaded in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chain" | json_pp
 ```
 
 #### Get a specific chain by identifier
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chains/printnightmare" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chain/printnightmare" | json_pp
 ```
 #### Create a new chain
 
 ```bash
-curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains" -d '{
+curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chain" -d '{
     "name": "my_new_adversary",
     "ttps": [
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
@@ -56,7 +56,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' 
 You can modify an existing chain by sending an updated chain body to the `/chains/YourChainID` endpoint:
 
 ```bash
-curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/51154993-dabe-4999-94a9-9e81b781ecd8" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/chain/51154993-dabe-4999-94a9-9e81b781ecd8" -d '{
     "name": "my_newer_adversary",
     "ttps": [
         "5c4dd985-89e3-4590-9b57-71fed66ff4e2",
@@ -80,7 +80,7 @@ A cURL command for queueing an operation that runs the File Hunter chain against
 ID is used (not name) in the URI:
 
 ```bash
-curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
+curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chain/File%20Hunter/schedule" -d
     '{"ranges": ["home"]}' | json_pp
 ```
 
@@ -100,7 +100,7 @@ curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json'
 You can link chains together through the itinerary argument. Pass in an ordered list of chain identifiers and they will
 run one after the other, with a 10-second delay between.
 ```bash
-curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chains/File%20Hunter/schedule" -d
+curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json' "https://localhost:8888/v1/chain/File%20Hunter/schedule" -d
     '{"ranges": [home"]}, "itinerary": ["ransom note", "89f19f8d-f299-448c-81b3-9ba8c6ee67d2"]' | json_pp
 ```
 
@@ -111,13 +111,13 @@ curl -X POST -sk -H 'Authorization: "$TOKEN' -H 'Content-Type: application/json'
 #### Get all Agents in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN"  "https://localhost:8888/v1/agents" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN"  "https://localhost:8888/v1/agent" | json_pp
 ```
 
 #### Get a specific Agent in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/test" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agent/test" | json_pp
 ```
 
 #### Update an Agent's configuration
@@ -125,7 +125,7 @@ curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/tes
 You can update your agent's configuration by passing it updated fields.
 
 ```bash
-curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/agents/test" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/agent/test" -d '{
     "range": "new_range",
     "label": "new_agent_name"
 }' | json_pp
@@ -136,7 +136,7 @@ curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "
 You can add multiple facts to an agent by passing facts. Replace agent_name with the name of the agent.
 
 ```bash
-curl -X POST -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/agent_name/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
+curl -X POST -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agent/agent_name/facts" -d '[{"key":"hello", "value":"world", "scope":"agent"},{"key":"fourth"}]' -H 'Content-Type: application/json'
 ```
 
 ### TTPs
@@ -145,13 +145,13 @@ curl -X POST -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agents/ag
 #### Get all TTPs in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp" | json_pp
 ```
 
 #### Get a specific TTP in Operator
 
 ```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp/ff9bbd7f-871e-4db4-bedb-4e7a64a309bf" | json_pp
 ```
 
 #### Create a new TTP in Operator
@@ -159,7 +159,7 @@ curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bb
 Create a new TTP by posting a TTP body to the endpoint:
 
 ```bash
-curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps" -d '{
+curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttp" -d '{
     "id" : "ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf",
     "name" : "Who Dat",
     "description" : "Get the current username",
@@ -187,7 +187,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' 
 #### Modify a TTP in Operator
 
 ```bash
-curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf" -d '{
+curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "https://localhost:8888/v1/ttp/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf" -d '{
     "name" : "Who is That",
     "metadata" : {
         "version" : 2,
@@ -202,7 +202,7 @@ curl -X PUT -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' "
 #### Delete a TTP in Operator
 
 ```bash
-curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttps/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
+curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
 ```
 
 ### Settings
