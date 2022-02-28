@@ -207,9 +207,11 @@ class Sliver {
         this.certificateDir = path.join(Settings.appUserDir(), 'plugins', 'Sliver', 'certs');
         this.#messageTypes = Sliver.#generateMessageConstants();
         this.#executors = Sliver.#generateExecutorMap();
+        this.#buildDirectories()
+    }
+    loadProtocolBuffers() {
         this.#commonpb = this.#loadProto('commonpb', 'common.proto').commonpb;
         this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
-        this.#buildDirectories()
     }
     buildEnvelope(link, data, platform) {
         const [req, resp, decode] = {...this.#executors, ...Sliver.#generateShellExecutorMap(platform)}[link.Executor];
@@ -268,7 +270,7 @@ class Sliver {
         }
     }
     #buildDirectories() {
-        Basic.createStorage([this.protocolDir, this.certificateDir]);
+        Basic.createStorage([this.protocolDir, path.join(this.protocolDir, 'commonpb'), path.join(this.protocolDir, 'sliverpb'), this.certificateDir]);
     }
     #loadProto(dir, proto) {
         const root = new protoBuf.Root();
@@ -447,5 +449,17 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 }, {[`${PLUGIN_NAME}_LISTENER`]: true}));
 
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
-    Listen.listeners.add(new mTLS(config))
+    Promise.all([
+        'https://raw.githubusercontent.com/preludeorg/community/f78d4227d94a05b92875a70a082327819baf9067/plugins/Sliver/proto/commonpb/common.proto',
+        'https://raw.githubusercontent.com/preludeorg/community/f78d4227d94a05b92875a70a082327819baf9067/plugins/Sliver/proto/sliverpb/sliver.proto'
+        //'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/commonpb/common.proto',
+        //'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/sliverpb/sliver.proto'
+    ].map(url => fetch(url).then(res => res.text())))
+        .then(texts => {
+            const listener = new mTLS(config);
+            fs.writeFileSync(path.join(listener.sliver.protocolDir, 'commonpb', 'common.proto'), texts[0]);
+            fs.writeFileSync(path.join(listener.sliver.protocolDir, 'sliverpb', 'sliver.proto'), texts[1]);
+            listener.sliver.loadProtocolBuffers();
+            Listen.listeners.add(listener);
+        });
 });
