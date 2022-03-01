@@ -11,7 +11,7 @@ Sliver ([github](https://github.com/BishopFox/sliver)) is an open source cross-p
 
 ---
 
-Using the Sliver plugin allows you to directly attach Sliver implants over mTLS protocol. You are able to generate new implants in Sliver, then leverage the mTLS certificates to connect the agents to Operator. The plugin defaults to listening on port 8080, but you can configure it to be any port.
+Using the Sliver plugin allows you to directly attach Sliver implants over the mTLS protocol. You are able to generate new implants in Sliver, then leverage the mTLS certificates to connect the agents to Operator. The plugin defaults to listening on port 8080, but you can configure it to be any port.
 
 ### Configuring the plugin
 
@@ -26,8 +26,8 @@ First, go the setting and click on Sliver plugin to install it. Next, you must i
 Copy those certificates to the following folder (depending on platform):
 
 - **macOS:** ~/Library/Application\ Support/Operator/portal.prelude.org/plugins/Sliver/certs
-- **linux:** ~/.config/Operator/login.prelude.org/portal.prelude.org/plugins/Sliver/certs
-- **Windows:** %APPDATA%\Operator\login.prelude.org/portal.prelude.org/plugins/Sliver/certs
+- **linux:** ~/.config/Operator/portal.prelude.org/plugins/Sliver/certs
+- **Windows:** %APPDATA%\Operator\portal.prelude.org\plugins\Sliver\certs
 
 Restart Operator to reload the certificates (or change the listening port, which reloads the listener as well).
 
