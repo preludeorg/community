@@ -44,7 +44,7 @@ blocks:
 answer:
   script: 
       new Promise((resolve, reject) => {
-      const adversary = Object.values(Adversary.adversaries).filter(a => a.name === $('#answer').val())[0]
+      const adversary = Object.values(Adversary.adversaries).filter(a => a.name === $('#answer').val())[0];
       const ttps = adversary.ttps.map(ttp => Attack.attack[ttp]);
       const rules = [
         (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1082" && ttp.platforms.darwin || ttp.platforms.windows,
