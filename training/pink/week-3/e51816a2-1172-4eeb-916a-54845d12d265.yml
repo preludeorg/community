@@ -25,7 +25,7 @@ blocks:
     However, a modern report can come in many formats and displayed in many ways, such as websites. Operator has two
     ways of creating dynamic reports for you, including recommendations. The first is through a Reports plugin (available
     to Professional license holders) which compiles red team reports for you inside Operator itself. The second is through
-    a web portal at <a href="https://login.prelude.org">login.prelude.org</a> (available to Enterprise license holders)
+    a web portal at <a href="https://portal.prelude.org">login.prelude.org</a> (available to Enterprise license holders)
     which displays a high-level view of all the Operator instances in your organization.
 answer:
   script: $('#answer').val()
