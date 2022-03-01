@@ -2,7 +2,8 @@ id: 6ef19cb1-f8e5-4cdb-b3f1-98953174375f
 name: Run AS-REP roasting assembly
 description: |
   Run the Rubeus assembly with the arguments "asreproast /format:hashcat /outfile:C:\ProgramData\asrephashes.txt"
-  via execute-assembly.
+  via execute-assembly. The PAYLOAD.BYTES magic word will let plugins optionally render a byte buffer for the payload at
+  the specified field.
 tactic: credential-access
 technique:
   id: T1558.004
