@@ -32,7 +32,6 @@ template:
   name: input
   data: []
 resources:
-  audio: []
   links:
     CISA report: https://www.cisa.gov/uscert/ncas/alerts/aa22-040a
 hints:
@@ -59,9 +58,9 @@ answer:
       });
       if (validRules.length === rules.length) {
         if (Agent.agents.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
-          return resolve(true);
+          return resolve(1);
         }
       }
-      return resolve(false);
+      return resolve(0);
       });
-  value: true
+  value: 1
