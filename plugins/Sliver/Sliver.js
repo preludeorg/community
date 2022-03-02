@@ -14,7 +14,7 @@ class mTLS extends Listener {
     constructor(config) {
         super('mtls', {});
         this.sliver = new Sliver();
-        this.mtls_port = config?.mtls_port || 8888;
+        this.mtls_port = config?.mtls_port || 8080;
     }
     init() {
         return new Promise((resolve, reject) => {
