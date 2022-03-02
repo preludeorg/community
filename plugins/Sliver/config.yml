@@ -1,0 +1,5 @@
+name: Sliver
+description: Connect Sliver implants over mTLS
+mtls_port: 8080
+params:
+- mtls_port

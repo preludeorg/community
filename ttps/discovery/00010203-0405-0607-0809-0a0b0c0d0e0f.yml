@@ -14,3 +14,6 @@ platforms:
   linux:
     sh:
       command: ls -a
+  global:
+    ls:
+      command: '{"Path":"."}'

@@ -1,0 +1,19 @@
+id: 44f36223-767e-4b93-bdee-eef03d244f98
+name: Print working directory
+description: |
+  Print the agents current working directory
+tactic: discovery
+technique:
+  id: T1083
+  name: File and Directory Discovery
+metadata:
+  authors:
+    - khyberspache
+  tags: []
+  payloads: {}
+platforms:
+  global:
+    sh:
+      command: pwd
+    pwd:
+      command: ''
