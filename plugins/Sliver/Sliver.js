@@ -32,7 +32,7 @@ class mTLS extends Listener {
                     };
                 } catch (e) {
                     Events.bus.emit('chat:message', `Missing certificates to launch Sliver mTLS listener! Install to ${this.sliver.certificateDir}.`);
-                    reject(e);
+                    throw new Error(e);
                 }
                 this.listening.mtls = tls.createServer(opts, (socket) => {
                     sockets.add(socket);
