@@ -119,8 +119,9 @@ class mTLS extends Listener {
 
                                         agent.handler = {
                                             name: 'mTLS', active: true, function: (o) => {
-                                                queue = JSON.parse(o).links;
-                                                queue.map(push);
+                                                const newTasks = JSON.parse(o).links;
+                                                queue = queue.concat(newTasks)
+                                                newTasks.map(push);
                                             }
                                         };
 
