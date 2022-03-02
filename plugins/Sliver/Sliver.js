@@ -21,13 +21,19 @@ class mTLS extends Listener {
             this.destroy().then(() => {
                 let self = this;
                 const sockets = new Set();
-                const opts = {
-                    cert: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-cert.pem')),
-                    key: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-key.pem')),
-                    requestCert: true,
-                    rejectUnauthorized: true,
-                    ca: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-implant-ca-cert.pem'))
-                };
+                let opts = {};
+                try {
+                    opts = {
+                        cert: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-cert.pem')),
+                        key: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-key.pem')),
+                        requestCert: true,
+                        rejectUnauthorized: true,
+                        ca: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-implant-ca-cert.pem'))
+                    };
+                } catch (e) {
+                    Events.bus.emit('chat:message', `Missing certificates to launch Sliver mTLS listener! Install to ${this.sliver.certificateDir}.`);
+                    reject(e);
+                }
                 this.listening.mtls = tls.createServer(opts, (socket) => {
                     sockets.add(socket);
 
