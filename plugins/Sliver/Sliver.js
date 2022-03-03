@@ -303,7 +303,7 @@ class Sliver {
                     const addString = (str) => Buffer.concat([Buffer.from(mTLS.toBytesInt32(str.length+1)), Buffer.from(str), new Buffer(1)]);
                     const addWString = (str) => {
                         let buf = Buffer.from(Buffer.concat([Buffer.from(str,  'utf16le'), new Buffer(1)]));
-                        Buffer.concat([Buffer.from(mTLS.toBytesInt32(buf.length+1)), buf]);
+                        return Buffer.concat([Buffer.from(mTLS.toBytesInt32(buf.length)), buf]);
                     };
                     const args = {"int": addInt, "short": addShort, "string": addString, "wstring": addWString};
                     p.Args = addData(Buffer.concat([addString('go'), addData(p.Args), addData(addData(Buffer.concat(p?.arguments ? p.arguments.map(arg => args[arg?.type](arg?.value)) : [new Buffer(4)])))]));
