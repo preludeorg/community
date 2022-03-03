@@ -15,5 +15,5 @@ metadata:
 platforms:
   windows:
     bof:
-      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES", "Export":"LoadAndRun", "arguments": [{"type": "string", "value": "#{file.path}"}]}'
+      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES", "Export":"LoadAndRun", "arguments": [{"type": "wstring", "value": "#{file.path}"}]}'
       payload: cacls.x64.o
