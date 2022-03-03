@@ -22,7 +22,6 @@ class mTLS extends Listener {
                 let self = this;
                 const sockets = new Set();
                 let opts = {};
-                debugger;
                 try {
                     opts = {
                         cert: fs.readFileSync(path.join(this.sliver.certificateDir, 'mtls-server-ca-cert.pem')),
