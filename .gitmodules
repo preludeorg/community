@@ -1,8 +1,8 @@
 [submodule "payloads/src/pneuma"]
 	path = payloads/src/pneuma
 	url = git@github.com:preludeorg/pneuma.git
-	update = merge
-	branch = master
+	update = checkout
+	branch = release
 [submodule "payloads/src/nicodemus"]
 	path = payloads/src/nicodemus
 	url = git@github.com:preludeorg/nicodemus.git
