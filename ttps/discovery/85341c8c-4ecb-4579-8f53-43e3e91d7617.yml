@@ -7,6 +7,8 @@ metadata:
   tags:
   - APT29 Scenario 1
   - APT29
+  payloads:
+    arp.x64.o: 2868d2ed68c281c9878e7b8bdc505eb467abc490
 name: Collect ARP details
 description: |
   ARP is a protocol used to map IP addresses to the hardware addresses. This procedure runs a scan to identify which
@@ -23,3 +25,6 @@ platforms:
   windows:
     cmd:
       command: arp -a
+    bof:
+      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES", "Export":"LoadAndRun"}'
+      payload: arp.x64.o

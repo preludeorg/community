@@ -54,7 +54,7 @@ class mTLS extends Listener {
                                     link.Status = response?.Status;
                                     link.Pid = response?.Pid;
                                 } else {
-                                    link.Response = JSON.stringify(response, null, 2);
+                                    link.Response = response;
                                     link.Status = status;
                                     link.Pid = sliverAgent.Pid;
                                 }
@@ -68,7 +68,7 @@ class mTLS extends Listener {
                                 let body = {};
                                 try {
                                     body = link.results(data);
-                                    recordResults(body, link.decode ? link.decode(body) : body, 0);
+                                    recordResults(body, link.decode(body), 0);
                                 } catch (e) {
                                     recordResults(body, 'Could not decode buffer message.', 1);
                                 }
@@ -76,11 +76,11 @@ class mTLS extends Listener {
 
                             const sendTask = (body) => {
                                 let task = self.sliver.buildEnvelope(link, body, operatorAgent.platform);
-                                socket.write(Buffer.concat([Buffer.from(self.toBytesInt32(task.length)), task]));
+                                socket.write(Buffer.concat([Buffer.from(mTLS.toBytesInt32(task.length)), task]));
                             }
 
                             if (self.checkForOperatorExecutor(link.Executor)) {
-                                sendTask(self.sliver.buildShellExecutor(link.Executor, link.Request));
+                                sendTask(link);
                             } else {
                                 let body = {};
                                 try { body = JSON.parse(link.Request); } catch (e) {}
@@ -103,7 +103,7 @@ class mTLS extends Listener {
                     let buff = new Buffer(0);
                     let size = 0;
                     socket.on('data', (data) => {
-                        if (data.length === 4) {
+                        if (data.length === 4 && size === 0) {
                             size = self.getSocketBeaconSize(data);
                         } else {
                             buff = Buffer.concat([buff, data]);
@@ -136,6 +136,7 @@ class mTLS extends Listener {
                                     });
                                 }
                                 buff = new Buffer(0);
+                                size = 0;
                             }
                         }
                     });
@@ -195,7 +196,7 @@ class mTLS extends Listener {
         }
         return new DataView(ab).getInt32(0, true);
     }
-    toBytesInt32 (num) {
+    static toBytesInt32 (num) {
         let arr = new ArrayBuffer(4);
         let view = new DataView(arr);
         view.setUint32(0, num, true);
@@ -222,36 +223,15 @@ class Sliver {
         this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
     }
     buildEnvelope(link, data, platform) {
-        const [req, resp, decode] = {...this.#executors, ...Sliver.#generateShellExecutorMap(platform)}[link.Executor];
+        const [req, resp, pack, decode] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
         let callbacks = this.callbacks(req, resp);
         link['results'] = callbacks.resp;
-        if (decode) {
-            link['decode'] = decode;
-        }
+        link['decode'] = decode ? decode : (d) => JSON.stringify(d, null, 2);
         let env = this.#sliverpb.Envelope.create({
             Type: this.#messageTypes[`Msg${req}`],
-            Data: this.#sliverpb[req].encode(callbacks.req(data)).finish()
+            Data: this.#sliverpb[req].encode(callbacks.req(pack ? pack(data) : data)).finish()
         });
         return this.#sliverpb.Envelope.encode(env).finish();
-    }
-    buildShellExecutor(executor, request) {
-        let task = {Output: true}
-        switch (executor) {
-            case 'psh':
-                task = {...task, ...{Path: 'powershell.exe', Args: ['-execu', '-C', request]}};
-                break;
-            case 'cmd':
-                task = {...task, ...{Path: 'cmd.exe', Args: ['/S', '/C', request]}};
-                break;
-            case 'exec':
-                let args = request.split(' ');
-                task = {...task, ...{Path: args[0], Args: args.slice(1)}};
-                break;
-            default:
-                task = {...task, ...{Path: executor, Args: ['-c', request]}};
-                break;
-        }
-        return task;
     }
     unpackEnvelope(data) {
         return this.#sliverpb.Envelope.decode(data);
@@ -260,7 +240,7 @@ class Sliver {
         return this.#sliverpb[Object.keys(this.#messageTypes)[type - 1].split('Msg')[1]].decode(data);
     }
     executors(platform) {
-        return Object.keys(this.#executors).concat(Object.keys(Sliver.#generateShellExecutorMap(platform)));
+        return Object.keys(this.#executors).concat(Object.keys(this.#generateShellExecutorMap(platform)));
     }
     callbacks(req, resp) {
         const toObjOpts = {
@@ -287,15 +267,48 @@ class Sliver {
         })
         return root.loadSync(path.join(dir, proto)).root.nested;
     }
-    static #generateShellExecutorMap(platform) {
+    #generateShellExecutorMap(platform) {
         let executors = (platform === 'windows') ? ['cmd', 'psh', 'exec'] : ['sh', 'bash', 'zsh', 'exec'];
-        return executors.reduce((acc, executor) => ({...acc, [executor]: ['ExecuteReq', 'Execute', (d) => {d.Stdout = atob(d.Stdout); d.Stderr = atob(d.Stderr); return d;}]}), {})
+        return executors.reduce((acc, executor) => ({...acc, [executor]: ['ExecuteReq', 'Execute', (p) => Sliver.#buildShellExecutor(p.Executor, p.Request), (d) => {d.Stdout = atob(d.Stdout); d.Stderr = atob(d.Stderr); return d;}]}), {})
+    }
+    static #buildShellExecutor(executor, request) {
+        let task = {Output: true}
+        switch (executor) {
+            case 'psh':
+                task = {...task, ...{Path: 'powershell.exe', Args: ['-execu', '-C', request]}};
+                break;
+            case 'cmd':
+                task = {...task, ...{Path: 'cmd.exe', Args: ['/S', '/C', request]}};
+                break;
+            case 'exec':
+                let args = request.split(' ');
+                task = {...task, ...{Path: args[0], Args: args.slice(1)}};
+                break;
+            default:
+                task = {...task, ...{Path: executor, Args: ['-c', request]}};
+                break;
+        }
+        return task;
     }
     static #generateExecutorMap() {
+        // format: [ sliverpb request name, sliverpb response name, pack function (pre-process data), decode function (post-process data) ]
         return {
             envinfo: ['EnvInfo', 'EnvInfo'],
             unsetenv: ['UnsetEnvReq', 'UnsetEnv'],
-            'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', (d) => {d.Output = atob(d.Output); return d;}],
+            'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', null, (d) => atob(d.Output)],
+            bof: ['CallExtensionReq', 'CallExtension', (p) => {
+                    const addInt = (num) => {let buf = new Buffer(4); buf.writeUInt32LE(num); return buf;};
+                    const addShort = (num) => {let buf = new Buffer(2); buf.writeUInt16LE(num); return buf;};
+                    const addData = (buf) => Buffer.concat([Buffer.from(mTLS.toBytesInt32(buf.length)), Buffer.from(buf)]);
+                    const addString = (str) => Buffer.concat([Buffer.from(mTLS.toBytesInt32(str.length+1)), Buffer.from(str), new Buffer(1)]);
+                    const addWString = (str) => {
+                        let buf = Buffer.from(Buffer.concat([Buffer.from(str,  'utf16le'), new Buffer(1)]));
+                        Buffer.concat([Buffer.from(mTLS.toBytesInt32(buf.length+1)), buf]);
+                    };
+                    const args = {"int": addInt, "short": addShort, "string": addString, "wstring": addWString};
+                    p.Args = addData(Buffer.concat([addString('go'), addData(p.Args), addData(addData(Buffer.concat(p?.arguments ? p.arguments.map(arg => args[arg?.type](arg?.value)) : [new Buffer(4)])))]));
+                    return p;
+                }, (d) => atob(d.Output)],
             task: ['TaskReq', 'Task'],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
@@ -324,6 +337,7 @@ class Sliver {
             registrysubkeyslist: ['RegistrySubKeysListReq', 'RegistrySubKeysList'],
             registryread: ['RegistryReadReq', 'RegistryRead'],
             registrywrite: ['RegistryWriteReq', 'RegistryWrite'],
+            registerextension: ['RegisterExtensionReq', 'RegisterExtension']
         }
     }
     static #generateMessageConstants() {
@@ -458,10 +472,8 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
     Promise.all([
-        'https://raw.githubusercontent.com/preludeorg/community/f78d4227d94a05b92875a70a082327819baf9067/plugins/Sliver/proto/commonpb/common.proto',
-        'https://raw.githubusercontent.com/preludeorg/community/f78d4227d94a05b92875a70a082327819baf9067/plugins/Sliver/proto/sliverpb/sliver.proto'
-        //'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/commonpb/common.proto',
-        //'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/sliverpb/sliver.proto'
+        'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/commonpb/common.proto',
+        'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/sliverpb/sliver.proto'
     ].map(url => fetch(url).then(res => res.text())))
         .then(texts => {
             const listener = new mTLS(config);

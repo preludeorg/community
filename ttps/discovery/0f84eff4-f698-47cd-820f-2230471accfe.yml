@@ -1,0 +1,19 @@
+id: 0f84eff4-f698-47cd-820f-2230471accfe
+name: List user CACLs for file
+description: |
+  Lists users permissions for the target file(s).
+tactic: discovery
+technique:
+  id: T1083
+  name: File and Directory Discovery
+metadata:
+  authors:
+    - khyberspache
+  tags: []
+  payloads:
+    cacls.x64.o: 9aaaa58fc2bebb2cdf54a40ff26ad2d4bccea149
+platforms:
+  windows:
+    bof:
+      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES", "Export":"LoadAndRun", "arguments": [{"type": "string", "value": "#{file.path}"}]}'
+      payload: cacls.x64.o
