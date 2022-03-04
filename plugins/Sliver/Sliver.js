@@ -68,9 +68,9 @@ class mTLS extends Listener {
                                 let body = {};
                                 try {
                                     body = link.results(data);
-                                    recordResults(body, link.decode(body), 0);
+                                    recordResults(body, link.decode(body, operatorAgent), 0);
                                 } catch (e) {
-                                    recordResults(body, 'Could not decode buffer message.', 1);
+                                    recordResults(body, `${e}`, 1);
                                 }
                             }
 
@@ -143,6 +143,14 @@ class mTLS extends Listener {
                                 size = 0;
                             }
                         }
+                    });
+                    socket.on('error', (e) => {console.log(e)});
+                    socket.on('close', () => {
+                        sockets.delete(socket);
+                        socket.agent.then((agent) => {
+                            agent.state = Agent.StateEnum.offline;
+                            Agent.dropSocket(socket);
+                        });
                     });
                 });
 
@@ -230,7 +238,7 @@ class Sliver {
         const [req, resp, pack, decode] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
         let callbacks = this.callbacks(req, resp);
         if (resp) link['results'] = callbacks.resp;
-        link['decode'] = decode ? decode : (d) => JSON.stringify(d, null, 2);
+        link['decode'] = decode ? decode : (d, agent) => JSON.stringify(d, null, 2);
         let env = this.#sliverpb.Envelope.create({
             Type: this.#messageTypes[`Msg${req}`],
             Data: this.#sliverpb[req].encode(callbacks.req(pack ? pack(data) : data)).finish()
@@ -299,7 +307,7 @@ class Sliver {
         return {
             envinfo: ['EnvInfo', 'EnvInfo'],
             unsetenv: ['UnsetEnvReq', 'UnsetEnv'],
-            'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', null, (d) => atob(d.Output)],
+            'execute-assembly': ['InvokeExecuteAssemblyReq', 'ExecuteAssembly', null, (d, agent) => atob(d.Output)],
             bof: ['CallExtensionReq', 'CallExtension', (p) => {
                     const addInt = (num) => {let buf = new Buffer(4); buf.writeUInt32LE(num); return buf;};
                     const addShort = (num) => {let buf = new Buffer(2); buf.writeUInt16LE(num); return buf;};
@@ -312,8 +320,14 @@ class Sliver {
                     const args = {"int": addInt, "short": addShort, "string": addString, "wstring": addWString};
                     p.Args = addData(Buffer.concat([addString('go'), addData(p.Args), addData(addData(Buffer.concat(p?.arguments ? p.arguments.map(arg => args[arg?.type](arg?.value)) : [new Buffer(4)])))]));
                     return p;
-                }, (d) => atob(d.Output)],
+                }, (d, agent) => atob(d.Output)],
             exit: ['KillReq'],
+            screenshot: ['ScreenshotReq', 'Screenshot', null, (d, agent) => {
+                if (!d.Data) return 'No data returned from screenshot'
+                const artifact = path.join(Settings.appUserDir(), 'results', agent.name, 'artifacts', `screenshot_${Date.now()}.png`);
+                Basic.storeData(atob(d.Data), artifact);
+                return `Screenshot saved to artifacts: ${artifact}`;
+            }],
             task: ['TaskReq', 'Task'],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
