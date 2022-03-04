@@ -77,6 +77,10 @@ class mTLS extends Listener {
                             const sendTask = (body) => {
                                 let task = self.sliver.buildEnvelope(link, body, operatorAgent.platform);
                                 socket.write(Buffer.concat([Buffer.from(mTLS.toBytesInt32(task.length)), task]));
+                                if(!link.results) {
+                                    queue.shift();
+                                    recordResults({}, 'No output expected from the agent.', 0);
+                                }
                             }
 
                             if (self.checkForOperatorExecutor(link.Executor)) {
@@ -225,7 +229,7 @@ class Sliver {
     buildEnvelope(link, data, platform) {
         const [req, resp, pack, decode] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
         let callbacks = this.callbacks(req, resp);
-        link['results'] = callbacks.resp;
+        if (resp) link['results'] = callbacks.resp;
         link['decode'] = decode ? decode : (d) => JSON.stringify(d, null, 2);
         let env = this.#sliverpb.Envelope.create({
             Type: this.#messageTypes[`Msg${req}`],
@@ -309,6 +313,7 @@ class Sliver {
                     p.Args = addData(Buffer.concat([addString('go'), addData(p.Args), addData(addData(Buffer.concat(p?.arguments ? p.arguments.map(arg => args[arg?.type](arg?.value)) : [new Buffer(4)])))]));
                     return p;
                 }, (d) => atob(d.Output)],
+            exit: ['KillReq'],
             task: ['TaskReq', 'Task'],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
@@ -345,7 +350,7 @@ class Sliver {
             MsgRegister: 1,
             MsgTaskReq: 2,
             MsgPing: 3,
-            MsgKillSessionReq: 4,
+            MsgKillReq: 4,
             MsgLsReq: 5,
             MsgLs: 6,
             MsgDownloadReq: 7,
