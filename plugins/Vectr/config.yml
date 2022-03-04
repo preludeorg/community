@@ -1,5 +1,6 @@
 name: Vectr
 description: Publish agent results in real-time to Vectr
+campaign: automatic
 params:
 - url
 - database
