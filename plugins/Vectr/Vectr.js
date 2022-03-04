@@ -74,9 +74,9 @@ const  createTestCase = (link, ttp, campaignId) => {
       }
     }`;
     const testCase = {name: ttp.name, description: ttp.description, phase: normalizePhase(ttp.tactic), technique: link.technique,
-        tags: [link.tag, link.host, link.platform, link.executor], organization: vectr.org_name, status: "COMPLETED", outcome: "TBD",
+        tags: [link.tag, link.platform, link.executor], organization: vectr.org_name, status: "COMPLETED", outcome: "TBD",
         outcomeNotes: link.response, redTools: [{name: 'Operator', vendor: 'Prelude'}], operatorGuidance: link.request,
-        attackStart: link.timestamp, attackStop: link.timestamp};
+        attackStart: link.timestamp, attackStop: link.timestamp, targets: [link.host]};
     const variables = {input: {db: vectr.database, campaignId: campaignId, createTestCaseInputs: [{testCaseData: testCase}]}}
     return fetchVectr({body: JSON.stringify({query: query, variables: variables})});
 }
