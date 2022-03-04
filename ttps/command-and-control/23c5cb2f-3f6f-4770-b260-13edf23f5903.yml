@@ -12,23 +12,23 @@ technique:
   name: 'Encrypted Channel: Symmetric Cryptography'
 platforms:
   windows:
-    keyword:
-      command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
+    config:
+      command: '{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
-      - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-      - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-      - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
+      - command: '{"Contact": "tcp", "Address": "#{operator.tcp}"}'
+      - command: '{"Contact": "http", "Address": "#{operator.http}"}'
+      - command: '{"Contact": "grpc", "Address": "#{operator.grpc}"}'
   darwin:
-    keyword:
-      command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
+    config:
+      command: '{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
-      - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-      - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-      - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
+      - command: '{"Contact": "tcp", "Address": "#{operator.tcp}"}'
+      - command: '{"Contact": "http", "Address": "#{operator.http}"}'
+      - command: '{"Contact": "grpc", "Address": "#{operator.grpc}"}'
   linux:
-    keyword:
-      command: 'config.{"Contact": "udp", "Address": "#{operator.udp}"}'
+    config:
+      command: '{"Contact": "udp", "Address": "#{operator.udp}"}'
       variants:
-      - command: 'config.{"Contact": "tcp", "Address": "#{operator.tcp}"}'
-      - command: 'config.{"Contact": "http", "Address": "#{operator.http}"}'
-      - command: 'config.{"Contact": "grpc", "Address": "#{operator.grpc}"}'
+      - command: '{"Contact": "tcp", "Address": "#{operator.tcp}"}'
+      - command: '{"Contact": "http", "Address": "#{operator.http}"}'
+      - command: '{"Contact": "grpc", "Address": "#{operator.grpc}"}'

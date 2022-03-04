@@ -12,5 +12,5 @@ technique:
   name: Execution Guardrails
 platforms:
   global:
-    keyword:
-      command: exit
+    exit:
+      command: '{"Force":true}'

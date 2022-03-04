@@ -8,9 +8,10 @@ technique:
   name: Non-Application Layer Protocol
 platforms:
   global:
-    keyword:
-      command: shell.["#{operator.tcp_shell}"]
+    shell:
+      command: '{"Target":"#{operator.tcp_shell}"}'
 metadata:
   authors:
   - khyberspache
   tags: []
+  chains: []
