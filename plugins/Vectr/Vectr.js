@@ -124,7 +124,7 @@ const publishCampaign = (operation) => {
         if(operationsToCampaign.hasOwnProperty(operation)) {
             resolve(operationsToCampaign[operation]);
         } else {
-            createCampaign(vectr.campaign === 'automatic' ? `Prelude Operation - ${new Date().toLocaleString()}` : operation, operation, baseAssessment.id, orgId)
+            createCampaign((!vectr.campaign || vectr.campaign.toLowerCase() === 'automatic') ? `Prelude Operation - ${new Date().toLocaleString()}` : operation, operation, baseAssessment.id, orgId)
                 .then(res => {
                     operationsToCampaign[operation] = res.data.campaign.create.campaigns[0].id;
                     resolve(operationsToCampaign[operation]);
@@ -145,7 +145,7 @@ const publishLinkData = (link, campaignId) => {
 }
 
 const publishLink = (link) => {
-    publishCampaign(vectr.campaign === 'automatic' ? link.operation : vectr.campaign)
+    publishCampaign((!vectr.campaign || vectr.campaign.toLowerCase() === 'automatic') ? link.operation : vectr.campaign)
         .then(campaignId => {
             publishLinkData(link, campaignId)
         });
@@ -203,7 +203,7 @@ const removeConnection = () => {
 const configureConnection = (config) => {
     Events.bus.removeAllListeners('publish:vectr');
     vectr = config;
-    if (vectr?.url && vectr?.database && vectr?.org_name && vectr?.key_id && vectr?.secret_key && vectr?.campaign) {
+    if (vectr?.url && vectr?.database && vectr?.org_name && vectr?.key_id && vectr?.secret_key) {
         initializeVectrAssessment()
             .then(assessment => {
                 baseAssessment = assessment;
@@ -261,7 +261,7 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 
 Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'})
     .then(res => res.json()).then(config => {
-        if (config?.url && config?.database && config?.org_name && config?.key_id && config?.secret_key && config?.campaign) {
+        if (config?.url && config?.database && config?.org_name && config?.key_id && config?.secret_key) {
             saveConnection(config);
         } else {
             removeConnection();
