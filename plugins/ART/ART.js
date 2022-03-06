@@ -1,14 +1,14 @@
 const initFacts = () => {
   return Promise.all([
     Requests.fetchOperator('/v1/plugin/ART').then(res => res.json()),
-    Requests.fetchOperator('/v1/agents').then(res => res.json())
+    Requests.fetchOperator('/v1/agent').then(res => res.json())
   ]).then(([res, agents]) => {
     if (res.facts){
       Object.keys(res.facts).forEach(name => {
         let temp = res.facts[name];
         res.facts[name] = temp;
       })
-      return Requests.fetchOperator(`/v1/agents/${agents[0].name}/facts`, {
+      return Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
         method: 'POST',
         body: JSON.stringify(Object.entries(res.facts).map(([key, value]) => ({
           key: key, value: value, scope: 'global'
@@ -72,7 +72,7 @@ const fetchTTPs = () => {
                     .then(res => {
                       return convertRedCanary(res, payloads, schema, facts);
                     })
-                    .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttps', {
+                    .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttp', {
                       method: 'POST',
                       body: JSON.stringify(ttp)
                     }))))
@@ -191,12 +191,12 @@ const cleanupListeners = () => {
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
-    Requests.fetchOperator('/v1/ttps')
+    Requests.fetchOperator('/v1/ttp')
       .then(res => res.json())
       .then(res => {
         const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
         return Promise.all(ttps.map(ttp =>
-          Requests.fetchOperator(`/v1/ttps/${ttp.id}`, {
+          Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {
             method: 'DELETE'
           })))
       })
