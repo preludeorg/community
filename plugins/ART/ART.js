@@ -101,7 +101,7 @@ const fetchTTPs = () => {
     });
 };
 
-Requests.fetchOperator('/v1/ttps')
+Requests.fetchOperator('/v1/ttp')
   .then(res => res.json())
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
