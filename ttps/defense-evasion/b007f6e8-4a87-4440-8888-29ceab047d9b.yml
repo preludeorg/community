@@ -1,12 +1,11 @@
 id: b007f6e8-4a87-4440-8888-29ceab047d9b
 metadata:
+  state: 2
   authors:
   - privateducky
   - MITRE
   - w0rk3r
   - austinsonger
-  tags:
-  - destructive
   release_date: 2021-06-15
 name: Disable Windows Defender
 description: |

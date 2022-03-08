@@ -4,10 +4,9 @@ description: |
   Module logging records pipeline execution details as PowerShell executes, including variable initialization and command invocations.
   Attackers can disable logging to cover their activities on the host.
 metadata:
+  state: 2
   authors:
   - w0rk3r
-  tags:
-  - destructive
   release_date: 2021-06-24
 tactic: defense-evasion
 technique:
