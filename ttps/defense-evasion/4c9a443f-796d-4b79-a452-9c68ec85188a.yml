@@ -11,7 +11,6 @@ platforms:
       command: |
         defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist CriticalUpdateInstall -bool NO
 metadata:
+  state: 2
   authors:
   - bfuzzy1
-  tags:
-  - destructive

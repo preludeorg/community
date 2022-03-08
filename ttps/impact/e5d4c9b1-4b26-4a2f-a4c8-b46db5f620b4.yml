@@ -12,7 +12,6 @@ platforms:
     cmd:
       command: wbadmin.exe delete catalog -quiet
 metadata:
+  state: 2
   authors:
   - bfuzzy1
-  tags:
-  - destructive

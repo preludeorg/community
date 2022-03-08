@@ -1,9 +1,8 @@
 id: e4209652-91f4-4c7b-8b5d-db246bb08764
 metadata:
+  state: 2
   authors:
   - Archie Pocsedio
-  tags:
-  - destructive
 name: Disable Windows EventLog via MiniNt Entry via Reg Command
 description: |
   This procedure will add the MiniNt registry key, making various Windows components think they’re running in the

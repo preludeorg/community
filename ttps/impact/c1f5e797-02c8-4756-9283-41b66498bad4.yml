@@ -13,8 +13,7 @@ platforms:
     cmd:
       command: shutdown /r /t 8640000
 metadata:
+  state: 2
   authors:
   - bfuzzy1
   - '@cryps1s'
-  tags:
-  - destructive

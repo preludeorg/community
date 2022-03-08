@@ -18,9 +18,8 @@ platforms:
       variants:
       - command: Get-WmiObject Win32_Shadowcopy | ForEach-Object {$_.Delete();}
 metadata:
+  state: 2
   authors:
   - bfuzzy1
   - w0rk3r
-  tags:
-  - destructive
   release_date: 2021-05-24

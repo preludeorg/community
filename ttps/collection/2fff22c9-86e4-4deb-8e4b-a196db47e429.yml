@@ -3,11 +3,11 @@ description: This procedure will add a PowerShell Exchange snap-in to the curren
   objects residing on the Exchange server.
 id: 2fff22c9-86e4-4deb-8e4b-a196db47e429
 metadata:
+  state: 2
   authors:
   - bfuzzy1
   tags:
   - hafnium
-  - destructive
 name: Collect Microsoft Exchange mailbox data
 platforms:
   windows:

@@ -12,7 +12,6 @@ platforms:
       command: |
         Set-Service EventLog -StartupType Disabled
 metadata:
+  state: 2
   authors:
   - w0rk3r
-  tags:
-  - destructive

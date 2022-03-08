@@ -1,9 +1,8 @@
 id: 8feb27ce-63db-472f-b8e9-038134e9d79a
 metadata:
+  state: 2
   authors:
   - Archie Pocsedio
-  tags:
-  - destructive
   release_date: 2021-08-25
 name: Disable Windows EventLog via EventCleaner
 description: |

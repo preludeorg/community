@@ -2,10 +2,9 @@ id: dc6a04c2-535d-4593-b7e4-ff226a449c67
 name: Create Domain User
 description: Creates a new Domain User using the creds of the Current User
 metadata:
+  state: 2
   authors:
   - w0rk3r
-  tags:
-  - destructive
 tactic: persistence
 technique:
   id: T1136.002
