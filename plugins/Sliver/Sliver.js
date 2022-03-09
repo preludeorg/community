@@ -155,7 +155,7 @@ class mTLS extends Listener {
                 });
 
                 this.listening.mtls_sockets = sockets;
-                this.listening.mtls.listen(this.mtls_port, Settings.settings.local.server, ()=> {
+                this.listening.mtls.listen(this.mtls_port, Settings.s.local.server, ()=> {
                     Events.bus.emit('chat:message', `Attached mTLS listener on ${this.mtls_port}.`);
                 });
                 resolve();
