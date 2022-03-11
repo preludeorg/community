@@ -26,10 +26,10 @@ const fetchTTPs = () => {
         [technique]: tactic
       }), acc), {}))
     .then(schema => {
-      const yaml = Basic.require('js-yaml');
+      const yaml = require('js-yaml');
       const facts = {};
       return fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).then(res => { 
-        const dest = path.join(Settings.settings.local.workspace, 'payloads');
+        const dest = path.join(Settings.s.private.workspace, 'payloads');
         return Promise.all(res.tree?.filter(el => el.type === 'blob' && el.path.match(/\/bin\//gi))?.map(el => {
           return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${el.path}`)
             .then((res) => {
@@ -37,19 +37,20 @@ const fetchTTPs = () => {
                 return res.blob()
                   .then((blob) => blob.arrayBuffer())
                   .then((bytes) => Buffer.from(bytes))
-                  .then((data) => {
-                      const technique = el.path.split('/')[1];
-                      const checksum = Encryption.checksum(data);
-                      const payload = path.basename(el.path);
-                      const filename = path.join(dest, checksum, payload);
-                      const encryptedPayload = Encryption.encryptBuffer(data);
-                      Basic.storeData(encryptedPayload, filename);
-                      fs.chmodSync(filename, '755');
-                      return {
-                        technique: technique,
-                        checksum: checksum,
-                        payload: payload
-                      };
+                  .then((data) => {        
+                    console.log(data);
+                    const technique = el.path.split('/')[1];
+                    const checksum = Encryption.checksum(data);
+                    const payload = path.basename(el.path);
+                    const filename = path.join(dest, checksum, payload);
+                    const encryptedPayload = Encryption.encryptBuffer(data);
+                    Basic.storeData(encryptedPayload, filename);
+                    fs.chmodSync(filename, '755');
+                    return {
+                      technique: technique,
+                      checksum: checksum,
+                      payload: payload
+                    };
                   });
               }
             });
