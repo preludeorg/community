@@ -38,7 +38,6 @@ const fetchTTPs = () => {
                   .then((blob) => blob.arrayBuffer())
                   .then((bytes) => Buffer.from(bytes))
                   .then((data) => {        
-                    console.log(data);
                     const technique = el.path.split('/')[1];
                     const checksum = Encryption.checksum(data);
                     const payload = path.basename(el.path);
