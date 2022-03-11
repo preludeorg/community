@@ -1,2 +1,3 @@
 name: ART
-description: Import Atomic Red Team attack files 
+description: Import Atomic Red Team attack files
+params: []
