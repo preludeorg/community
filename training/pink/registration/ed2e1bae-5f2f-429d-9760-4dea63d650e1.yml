@@ -5,7 +5,7 @@ challenge: |
 context: |
   In order for us to provide the best training experience, we request a few details about you and your professional background.
   This not only helps us adjust our curriculum moving forward, we will reference your profile in future conversations
-  with you. Head to https://login.prelude.org and fill out your personal profile to get started.
+  with you. Head to https://portal.prelude.org and fill out your personal profile to get started.
 template:
   name: submit
   data: []
@@ -16,7 +16,7 @@ resources:
     YouTube library: https://www.youtube.com/channel/UCZyx-PDZ_k7Vuzyqr4-qK9A
     Blog: https://feed.prelude.org
 hints:
-  - Ensure your profile is saved at login.prelude.org
+  - Ensure your profile is saved at portal.prelude.org
 blocks:
   What will this program teach me?: |
     By taking the Pink Badge training program, you will learn the basic components that make up cybersecurity. You will

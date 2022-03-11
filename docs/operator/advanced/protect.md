@@ -14,9 +14,9 @@ not be able to decrypt your data without the key.
 
 #### Your Prelude workspace
 
-- **macOS:** ~/Library/Application\ Support/Operator/login.prelude.org
-- **linux:** ~/.config/Operator/login.prelude.org
-- **Windows:** %APPDATA%\Operator\login.prelude.org
+- **macOS:** ~/Library/Application\ Support/Operator/portal.prelude.org
+- **linux:** ~/.config/Operator/portal.prelude.org
+- **Windows:** %APPDATA%\Operator\portal.prelude.org
 
 ### Publishers
 

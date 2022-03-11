@@ -37,6 +37,6 @@ will automatically sync across your team.
 
 ---
 
-Operator uses a backend web stack to manage authentication called [Headquarters](https://login.prelude.org) (HQ).
+Operator uses a backend web stack to manage authentication called [Headquarters](https://portal.prelude.org) (HQ).
 HQ supplies team management features for Enterprise accounts. You can add/remove seats on your account and keep an eye on the 
 training progress of your team.
