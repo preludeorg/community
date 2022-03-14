@@ -181,30 +181,17 @@ const escapeTtpCommand = function(executor, command, replacements) {
   }, '');
 };
 
-const cleanupListeners = () => {
-  Events.bus.listeners('plugin:delete').map(listener => {
-    if (listener.ART_PLUGIN_LISTENER) {
-      Events.bus.off('plugin:delete', listener);
-    }
-  });
-};
-
-Events.bus.on('plugin:delete', Object.assign((name) => {
-  if (name === 'ART') {
-    Requests.fetchOperator('/v1/ttp')
-      .then(res => res.json())
-      .then(res => {
-        const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-        return Promise.all(ttps.map(ttp =>
-          Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {
-            method: 'DELETE'
-          })))
-      })
-      .then(res => {
-        Events.bus.emit('chat:message', `All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts`);
-      });
-    cleanupListeners();
-  }
-}, {
-  ART_PLUGIN_LISTENER: true
-}));
+Plugin.current.addCleanupHandler(() => {
+  Requests.fetchOperator('/v1/ttp')
+    .then(res => res.json())
+    .then(res => {
+      const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
+      return Promise.all(ttps.map(ttp =>
+        Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {
+          method: 'DELETE'
+        })))
+    })
+    .then(res => {
+      Events.bus.emit('chat:message', `All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts`);
+    });
+});
