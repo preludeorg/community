@@ -1,6 +1,6 @@
 id: 894a2682-9023-4956-b6fd-47200759bd2c
 name: Spawn elevated Pneuma via CVE-2022-0847
-description: Compiles and executes a local privilege escalation exploit (CVE-2022-0847) to spawn a root shell and changes the root password to "operator".
+description: Compiles and executes a local privilege escalation exploit (CVE-2022-0847) to spawn a root shell and changes the root password to "operator". A pneuma agent is then spawned through a root shell.
 tactic: privilege-escalation
 technique:
   id: T1068
