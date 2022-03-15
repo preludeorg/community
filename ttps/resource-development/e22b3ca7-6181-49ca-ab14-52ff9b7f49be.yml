@@ -7,7 +7,7 @@ metadata:
   - required
   chains: []
   payloads:
-    headless: cb01547d2ad40c544cfbb69e6f08158a312256eb
+    headless: 1da1f2d18c658ac2815ff7546c28d34014730661
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
