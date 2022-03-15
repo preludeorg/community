@@ -20,8 +20,7 @@ platforms:
     sh:
       command: |
         mkdir -p /tmp/headless && 
-        curl #{payload.url} > /tmp/headless/bin && 
+        curl "#{payload.url}" > /tmp/headless/bin && 
         chmod +x /tmp/headless/bin && 
-        ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && 
-        nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &
+        nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}' >/tmp/headless/headless.log 2>&1  &
       payload: headless
