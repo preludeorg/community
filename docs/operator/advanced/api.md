@@ -51,7 +51,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" -H 'Content-Type: application/json' 
     ],
     "summary": "A set of ttps that checks for user groups and identifies the users home directory",
     "ordered": true
-}' | json_pp
+}'
 ```
 
 #### Modify an existing chain
