@@ -181,14 +181,6 @@ const escapeTtpCommand = function(executor, command, replacements) {
   }, '');
 };
 
-const cleanupListeners = () => {
-  Events.bus.listeners('plugin:delete').map(listener => {
-    if (listener.ART_PLUGIN_LISTENER) {
-      Events.bus.off('plugin:delete', listener);
-    }
-  });
-};
-
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
     Requests.fetchOperator('/v1/ttp')
@@ -203,7 +195,11 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
       .then(res => {
         Events.bus.emit('chat:message', `All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts`);
       });
-    cleanupListeners();
+    Events.bus.listeners('plugin:delete').map(listener => {
+      if (listener.ART_PLUGIN_LISTENER) {
+        Events.bus.off('plugin:delete', listener);
+      }
+    });
   }
 }, {
   ART_PLUGIN_LISTENER: true
