@@ -464,13 +464,13 @@ class Sliver {
 }
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === PLUGIN_NAME) {
+    if (name === 'Sliver') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
         listener[0].destroy();
         Events.bus.listeners('plugin:delete').map(listener => {
-            if (listener[`SLIVER_LISTENER`]) {
+            if (listener.SLIVER_LISTENER) {
                 Events.bus.off('plugin:delete', listener);
             }
         });
     }
-}, {[`SLIVER_LISTENER`]: true}));
+}, {SLIVER_LISTENER: true}));
