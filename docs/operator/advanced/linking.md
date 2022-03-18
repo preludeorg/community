@@ -22,17 +22,19 @@ variables inside each command (seen by the #{} syntax) with matching facts.
 
 ### Types of facts
 
+---
+
 There are three types of facts:
 
-1. Automatic facts. These start with either operator or agent and are immutable - they are not designed to be modified
+- Automatic facts. These start with either operator or agent and are immutable - they are not designed to be modified
 by hand. Operator facts represent the state of your Operator app and agent facts represent the state of a particular 
 agent. Examples are ```agent.name```, which will be replaced with the agent name in context and ```operator.callback```
 which will be replaced by the Operator FQDN/IP address. If you see automatic facts inside TTP commands, you can ignore
 them, as they'll be handled automatically. 
-2. Discovered facts. These facts are also generated automatically. As you run TTPs, each result is passed through a
+- Discovered facts. These facts are also generated automatically. As you run TTPs, each result is passed through a
 series of regex statements which parses out found indicators of compromise into facts - so they can
 automatically be used in TTPs later in the chain.
-3. Custom facts. You can define your own facts for agents and scope them to either the particular agent, the entire 
+- Custom facts. You can define your own facts for agents and scope them to either the particular agent, the entire 
 range the agent belongs to, or to all agents. For example, you may want to create a fact called ```my.password```
 with a value of ```password123```. By scoping this fact to all agents, you can use this password as a variable across
 any TTP you run.
@@ -65,10 +67,10 @@ If you're interested in the regex used to do the parsing, reach out to the Prelu
 
 Discovered fact keys come in four flavors:
 
-1. IoC. Use any IoC on its own to pipe it into a command. Example: ```file```.
-2. IoC.tactic. Add a tactic to the IoC to specify you only want to use facts discovered by that tactic. Example: ```file.discovery```.
-3. IoC.technique. Add a technique to the IoC to specify you only want to use facts discovered by that technique. Example: ```file.T1005```.
-4. IoC.procedure. Add a procedure ID to the IoC to specify you only want to use facts discovered by that TTP. Example: ```file.fa6e8607-e0b1-425d-8924-9b894da5a002```.
+- IoC. Use any IoC on its own to pipe it into a command. Example: ```file```.
+- IoC.tactic. Add a tactic to the IoC to specify you only want to use facts discovered by that tactic. Example: ```file.discovery```.
+- IoC.technique. Add a technique to the IoC to specify you only want to use facts discovered by that technique. Example: ```file.T1005```.
+- IoC.procedure. Add a procedure ID to the IoC to specify you only want to use facts discovered by that TTP. Example: ```file.fa6e8607-e0b1-425d-8924-9b894da5a002```.
 
 Take this example key: ```file.T1005```. When Operator is given a command with this variable in its command, it will 
 replace ```file.T1005``` with any files found (if any) from running a T1005 classified procedure earlier in the chain.
