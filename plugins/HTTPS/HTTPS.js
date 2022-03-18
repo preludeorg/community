@@ -31,13 +31,13 @@ class HTTPS extends HTTP {
 Listen.listeners.add(new HTTPS());
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === PLUGIN_NAME) {
+    if (name === 'HTTPS') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'https'), 1);
         listener[0].destroy();
         Events.bus.listeners('plugin:delete').map(listener => {
-            if (listener[`HTTPS_LISTENER`]) {
+            if (listener.HTTPS_LISTENER) {
                 Events.bus.off('plugin:delete', listener);
             }
         });
     }
-}, {[`HTTPS_LISTENER`]: true}));
+}, {HTTPS_LISTENER: true}));
