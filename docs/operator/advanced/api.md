@@ -216,15 +216,7 @@ You can delete an existing TTP by inputting the desired TTP's ID to the `/ttp/tt
 curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp/ff9bbd7f-871e-4db4-bsdb-4e7a64a309bf"
 ```
 
-### Settings
-
----
-
-#### Get Operator's Local Settings
-
-```bash
-curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/settings" | json_pp
-```
+### Payloads
 
 ---
 
