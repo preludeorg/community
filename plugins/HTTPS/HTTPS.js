@@ -1,5 +1,6 @@
 const Events = require('../lib/events');
 const Listen = require('../lib/listen');
+const HTTP = require('../objects/listeners/http');
 
 class HTTPS extends HTTP {
     constructor() {
