@@ -70,9 +70,9 @@ Requests.fetchOperator('/v1/ttp')
   .then(res => res.json())
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-    //if (!ttps.length) {
+    if (!ttps.length) {
       return ingestAtomicRedTeamRepository();
-    //}
+    }
   });
 
 const convertRedCanary = (data, schema) => {
