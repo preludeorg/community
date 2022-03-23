@@ -1,4 +1,4 @@
-const initFacts = () => {
+const handleFacts = (action='POST') => {
   return Promise.all([
     Requests.fetchOperator('/v1/plugin/ART').then(res => res.json()),
     Requests.fetchOperator('/v1/agent').then(res => res.json())
@@ -9,7 +9,7 @@ const initFacts = () => {
         res.facts[name] = temp;
       })
       return Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
-        method: 'POST',
+        method: action,
         body: JSON.stringify(Object.entries(res.facts).map(([key, value]) => ({
           key: key, value: value, scope: 'global'
         })))
@@ -18,99 +18,52 @@ const initFacts = () => {
   });
 };
 
-const fetchTTPs = () => {
-  return Promise.resolve({})
-    .then(schema => Object.entries(schema).reduce((acc, [tactic, techniques]) =>
-      Object.keys(techniques).reduce((acc, technique) => ({
-        ...acc,
-        [technique]: tactic
-      }), acc), {}))
-    .then(schema => {
-      const yaml = require('js-yaml');
-      const facts = {};
-      return fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).then(res => { 
-        const dest = path.join(Settings.s.private.workspace, 'payloads');
-        return Promise.all(res.tree?.filter(el => el.type === 'blob' && el.path.match(/\/bin\//gi))?.map(el => {
-          return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${el.path}`)
-            .then((res) => {
-              if (res.status === 200) {
-                return res.blob()
-                  .then((blob) => blob.arrayBuffer())
-                  .then((bytes) => Buffer.from(bytes))
-                  .then((data) => {        
-                    const technique = el.path.split('/')[1];
-                    const checksum = Encryption.checksum(data);
-                    const payload = path.basename(el.path);
-                    const filename = path.join(dest, checksum, payload);
-                    const encryptedPayload = Encryption.encryptBuffer(data);
-                    Basic.storeData(encryptedPayload, filename);
-                    fs.chmodSync(filename, '755');
-                    return {
-                      technique: technique,
-                      checksum: checksum,
-                      payload: payload
-                    };
-                  });
-              }
-            });
-        }) || []).then((payloads) => {
-          const payloads_by_technique = payloads.filter(p => p?.payload).reduce((acc, payload) => ({
-            ...acc,
-            [payload.technique]: (acc[payload.technique] || []).concat(payload)
-          }), {});
-          return Promise.all(res.tree?.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml'))?.map(file => {
-            const technique = file.path.split('/')[1];
-            const payloads = (payloads_by_technique[technique] || []).reduce((acc, payload) => ({
-              ...acc,
-              [payload.payload]: payload.checksum
-            }), {});
-            return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`)
-              .then(res => {
-                if (res.status === 200) {
-                  return res.text()
-                    .then(yaml.safeLoad)
-                    .then(res => {
-                      return convertRedCanary(res, payloads, schema, facts);
-                    })
-                    .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttp', {
-                      method: 'POST',
-                      body: JSON.stringify(ttp)
-                    }))))
-                    .then(() => {
-                      return file;
-                    });
-                }
-              });
-          }) || []);
-        });
-      })
-      .then(() => {
-        return Requests.fetchOperator('/v1/plugin/ART', {
-          method: 'GET'
-        }).then(res => res.json()).then(res => {
-          res['facts'] = Object.assign({}, res.facts, facts);
-          Requests.fetchOperator('/v1/plugin/ART', {
-            method: 'POST',
-            body: JSON.stringify(res)
-          }).then(initFacts)
-        });
-      })
-      .then(() => {
-        Events.bus.emit('chat:message', `Your ART TTPs are now accessible.`);
-      });
-    });
+
+
+const fetchARTRepoAllFiles = () => fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json())
+const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.json())
+const fetchGetOperatorARTFacts = () => Requests.fetchOperator('/v1/plugin/ART').then(res => res.json());
+const fetchUpdateOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => {
+  return Requests.fetchOperator('/v1/plugin/ART', {
+      method: 'POST',
+      body: JSON.stringify(facts)
+    }).then(res => res.json())
+});
+const fetchGetOperatorTTPs = () => Requests.fetchOperator('/v1/ttp').then(res => res.json());
+const fetchUpdateOperatorTTP = (ttp) => Requests.fetchOperator('/v1/ttp', {
+  method: 'POST',
+  body: JSON.stringify(ttp)
+}).then(res => res.json());
+
+const ingestAtomicRedTeamRepository = () => {
+  /*
+    1. Fetch top level ART repo information: https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3
+    2. Fetch each TTP info for .yaml: `https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`
+    3. Convert to Operator TTP
+    4. Ingest Facts
+  */
+
+  const resolveAllTTPFiles = (repoData) => {
+    const ttps = repoData?.tree.filter(file => file.type === 'blob' && file.path.includes('.yaml'));
+    let operatorTTPs = ttps.map(ttp => fetchArtRepoFile(ttp).then(fileData => {
+      console.log(fileData);
+    }))
+  }
+
+  fetchARTRepoAllFiles()
+      .then(data => resolveAllTTPFiles(data));
 };
 
 Requests.fetchOperator('/v1/ttp')
   .then(res => res.json())
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-    if (!ttps.length) {
-      return fetchTTPs();
-    }
-  }).then(initFacts);
+    //if (!ttps.length) {
+      return ingestAtomicRedTeamRepository();
+    //}
+  });
 
-function convertRedCanary(data, payloads, schema, facts) {
+const convertRedCanary = (data, payloads, schema, facts) => {
   return new Promise((resolve, reject) => {
     try {
       let procedures = [];
@@ -146,7 +99,7 @@ function convertRedCanary(data, payloads, schema, facts) {
   });
 }
 
-function normalize(n) {
+const normalize = (n) => {
   const mapper = {macos: 'darwin', command_prompt: 'cmd', powershell: 'psh'};
   return mapper.hasOwnProperty(n) ? mapper[n] : n;
 }
@@ -193,7 +146,7 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
           })))
       })
       .then(res => {
-        Events.bus.emit('chat:message', `All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts`);
+          Events.bus.emit('chat:message', `All Atomic Red Team TTPs and Facts have been deleted from your workspace.`);
       });
     Events.bus.listeners('plugin:delete').map(listener => {
       if (listener.ART_PLUGIN_LISTENER) {
