@@ -66,8 +66,7 @@ const ingestAtomicRedTeamRepository = () => {
     .then(([data, index]) => resolveAllTTPFiles(data, index));
 };
 
-Requests.fetchOperator('/v1/ttp')
-  .then(res => res.json())
+fetchGetOperatorTTPs()
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
     if (!ttps.length) {
@@ -144,8 +143,7 @@ const escapeTtpCommand = function(executor, command, replacements) {
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
-    Requests.fetchOperator('/v1/ttp')
-      .then(res => res.json())
+    fetchGetOperatorTTPs()
       .then(res => {
         const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
         return Promise.all(ttps.map(ttp =>
