@@ -7,7 +7,7 @@ metadata:
   - required
   chains: []
   payloads:
-    headless: 1da1f2d18c658ac2815ff7546c28d34014730661
+    headless: cb01547d2ad40c544cfbb69e6f08158a312256eb
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
@@ -20,7 +20,8 @@ platforms:
     sh:
       command: |
         mkdir -p /tmp/headless && 
-        curl "#{payload.url}" > /tmp/headless/bin && 
+        curl #{payload.url} > /tmp/headless/bin && 
         chmod +x /tmp/headless/bin && 
-        nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}' >/tmp/headless/headless.log 2>&1  &
+        ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N '' && 
+        nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --sshKey /tmp/headless/ssh_key --hostName $(curl http://169.254.169.254/latest/meta-data/public-hostname) >/tmp/headless/headless.log 2>&1  &
       payload: headless
