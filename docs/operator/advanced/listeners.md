@@ -5,7 +5,7 @@
 ---
 
 Operator provides an extensible way to build listener interfaces for various protocols and beacons. Each listener is a simple
-super class of the base Listener class which consists of 2 core functions: `init()` and `destroy()`. A minimal implementation
+super-class of the base Listener class which consists of 2 core functions: `init()` and `destroy()`. A minimal implementation
 of a listener would only implement the `init()` function and leverage the existing `destroy()` implementation.
 
 #### Available built-in listeners
