@@ -1,14 +1,14 @@
 id: fc7e65a1-7c08-4aec-a247-aefe15477b98
 name: A common security language
-challenge: Fill in the blank. The MITRE __ framework is a classification system used to describe tactics, techniques and procedures.
+challenge: Fill in the blank. The MITRE __ framework is a classification system used to describe Tactics, Techniques and Procedures.
 context: |
-  For years, Cyber Threat Intelligence (CTI) analysts used Indicators of Compromise (IOC) - think an IP address, website
+  For years, Cyber Threat Intelligence (CTI) analysts used Indicators of Compromise (IOC) - an IP address, website
   or other objective piece of data - to determine who was attacking them. For example, if they knew the IP address 1.2.3.4
   was owned by the FIN6 hacking group and they saw an attack originating from that address, they could draw the conclusion
   that FIN6 was behind the attack. This was not foolproof however, as IOCs can be spoofed. Behavior-driven attribution, or
   the analysis of what an attacker intrinsically does, emerged as a popular alternative when the Lockheed Martin Cyber Kill
   Chain appeared in public. Shortly after that, the MITRE ATT&CK framework became known as the standard behavior-driven
-  classification system for its simplicity.
+  classification system for its simplicity and comprehensiveness.
 template:
   name: input
   data: []
