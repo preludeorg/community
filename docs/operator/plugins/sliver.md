@@ -17,7 +17,7 @@ Using the Sliver plugin allows you to directly attach Sliver implants over the m
 
 ---
  
-First, go the setting and click on Sliver plugin to install it. Next, you must install the mTLS certificates from Sliver. Grab the 3 required certificates from the system where you've installed Sliver:
+First, go Settings and click on Sliver plugin to install it. Next, you must install the mTLS certificates from Sliver. Grab the 3 required certificates from the system where you've installed Sliver:
 
 - ~/.sliver/certs/mtls-server-ca-cert.pem
 - ~/.sliver/certs/mtls-server-ca-key.pem
