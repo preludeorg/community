@@ -7,7 +7,7 @@ context: |
   Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, 
   and can be thought of as malware. A payload can be written in any computer language and is commonly compiled into a 
   single executable file or designed to be loaded into memory (to avoid detection). By default, Operator provides a variety
-  of payloads within the Editor's 'manage payloads' window, some of which include: translators, agents, and more.
+  of payloads - some of which include: translators, agents, and more.
   Instead of writing TTPs which contain numerous lines of code, consider attaching a payload that contains the bulk of
   instructions and ordering your TTP to execute the payload file.
 template:
