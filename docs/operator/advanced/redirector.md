@@ -11,8 +11,8 @@ cloud host. Alternatively, you can provision a redirector manually on a server o
 
 ### Cloud provisioning
 
-We recommend using Connect to provision redirectors because it is point-and-click. Simply head into the Connect 
-plugin, attach your AWS or GCP account, and provision a new redirector. When you're done, you can point your agents
+We recommend using Connect to provision redirectors because it is point-and-click. Head to the Connect 
+section, attach your AWS or GCP account, and provision a new redirector. When you're done, you can point your agents
 to your redirector instead of your Operator IP address.
 
 ### Manual provisioning
@@ -40,9 +40,9 @@ ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N
 Once the prelude-headless-linux file is in the desired location you can now start it through the following command, 
 after inputting your proper hostName, sessionToken and newly created SSH key. 
 
-> Note: When inputting the hostName, use the DNS not IP address.
+> Note: When inputting the hostName, use the DNS, not IP address.
 
-#### Example: Start your headless operator
+#### Example: Start your headless Operator
 
 ```shell
 nohup sudo /tmp/headless/bin --sessionToken 'random character string' --sshKey /tmp/headless/ssh_key --hostName 'valid.domain.tld' >/tmp/headless/headless.log 2>&1  &
