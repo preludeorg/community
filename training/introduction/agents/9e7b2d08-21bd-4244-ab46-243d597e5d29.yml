@@ -18,7 +18,7 @@ hints:
   - After deploying a chain, check the agent's queue.
 blocks:
   Human-in-the-loop: |
-    Human-in-the-loop is a branch of artificial intelligence that creates machine learning models by combining
+    Human-in-the-loop combines
     human and machine intelligence. People are involved in a virtuous circle where they train, tune, and test a particular
     algorithm in a classic human-in-the-loop technique. To begin, humans assign labels to data. This provides a model
     with a large quantity of high-quality training data from which a machine learning system can use to learn to make decisions.
