@@ -1,6 +1,6 @@
 # Operator API
 
-#### Interact with the underlying Operator functionality
+#### Interact with underlying Operator functionality
 
 ---
 
@@ -11,7 +11,7 @@ The Operator platform is built on top of an internal API.
 
 ---
 The internal API uses a self-signed certificate by default, as it is only accessible on localhost. Since
-you own both sides of the connection (client and server) we are optimizing for preventing network sniffing, 
+you own both sides of the connection (client and server), we are optimizing for preventing network sniffing, 
 not trust between the client and server.
 
 ### Authentication 
