@@ -6,7 +6,7 @@ context: |
   When a hacker, using their command-and-control (C2) center launches commands against connected (i.e., pwned)
   computers it is known as an attack, or operation. Operator allows you to launch such attacks.
   Furthermore, when an adversary launches an attack with intelligence bundled in, this is known as autonomous hacking.
-  Otherwise known as machine learning, intelligence allows the hacker to leverage automated decision-making to offload the
+  Intelligence allows the hacker to leverage automated decision-making to offload the
   normally manual process. This could be for efficiency or speed.
 template:
   name: input
@@ -17,7 +17,7 @@ hints:
   - Did you read the documentation about how the decision making works?
 blocks:
   Automated planning: |
-    Automated planning and scheduling, sometimes denoted as simply AI planning, is a branch of artificial intelligence
+    Automated planning and scheduling, sometimes denoted as AI planning, is a branch of artificial intelligence
     that concerns the realization of strategies or action sequences, typically for execution by intelligent agents,
     autonomous robots and unmanned vehicles.
   Manual vs Automated Hacking: |
