@@ -4,7 +4,7 @@ challenge: Find the procedure named FILE.IO EXFIL. Notice how the command has a 
   the "#{variable}" syntax. What is a procedure name which could fill in this variable with a fact?
 context: In Operator, a chain is a subset of an adversary's attack. The chain is composed of links, which are individual
   procedures used in the attack. While the chain is executing, Operator continuously attempts to
-  learn about the computers it is attacking and parses out information from every executed command. These parsed results
+  learn about the endpoints it is attacking and parses out information from every executed command. These parsed results
   are called facts. Each fact could potentially unlock another procedure in the chain by matching the fact key to
   any variables in the command field. This means, the output of a procedure can be fed as input to other procedures,
   therefore creating a dynamic operation.
