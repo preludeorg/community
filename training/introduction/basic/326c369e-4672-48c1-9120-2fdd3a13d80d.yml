@@ -5,7 +5,7 @@ challenge: |
   several of them. Enter the name of one.
 context: |
   There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
-  of them all. Inside Operator, we try to use as few custom terms as possible and try to over explain terminology
+  of them all. Inside Operator, we try to use as few custom terms as possible and try to over-explain terminology
   wherever possible to make it easier to onboard and make sense of an already complex industry. Two terms come
   up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
   in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
@@ -23,7 +23,7 @@ hints:
   - Head to chains.prelude.org and look around
 blocks:
   CALDERA: |
-    The CALDERA framework is an open-source C2 framework, supported by the MITRE Corporation, to conduct research in 
+    The CALDERA framework is an open-source C2 framework, supported by The MITRE Corporation, to conduct research in 
     autonomous, adversarial decision-making. Fun fact: the core developers of CALDERA version 2+ also built the Operator platform.
   An example chain: |
     We often highlight the "File Hunter" chain in Operator demonstrations because it's a cross-platform chain that highlights the
