@@ -2,7 +2,7 @@ id: 16e97188-0b7e-4a45-90f6-1c9852573944
 name: Understanding the Connect plugin
 challenge: Click into the Connect plugin and use it to deploy a redirector and virtual "compromised" machine.
 context: |
-  The Connect plugin offers three functions: deploying redirectors so agents can reach your Operator instance over 
+  The Connect plugin offers three functions: deploying redirectors so that agents can reach your Operator instance over 
   the internet, deploying test computers for you to practice attacks on and the ability to link Operator 
   to your teammates so you can share agents. In this flag, you'll experience the first two functions. 
   Head to the Connect plugin, add your GCP or AWS account and see if you can deploy a redirector and virtual 
