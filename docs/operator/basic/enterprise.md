@@ -6,7 +6,8 @@
 
 The Operator Enterprise license is designed to **automate continuous security testing for security teams (red, purple and blue)**. Features include:
 - Gaining access to an Outpost specific to your organization, which includes:
-  - A centralized place for all created TTPs, chains, training, payloads, automatically synced across team members*.
+  - A centralized place for all created TTPs, chains, training, payloads, automatically synced across team members.
+  - Cloud access for automated redirector and agent deployments.
   - Data protection and privacy
   - Individual accounts for security team members
   - Unlimited secure redirectors and up to 100 concurrent agents running on security endpoints
