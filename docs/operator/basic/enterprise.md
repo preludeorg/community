@@ -1,42 +1,17 @@
 # Enterprise license
 
-#### For those working on a team or running continuous security testing
+#### Infrastructure designed for security teams to continuously test & harden their defenses.
 
 ---
 
-The Operator Enterprise license is designed with three cases in mind:
-- Work on a red or purple team and want a "team server" environment
-- Want hands-off, API-driven continuous security testing
-- Run classroom style security training
+The Operator Enterprise license is designed to **automate continuous security testing for security teams (red, purple and blue)**. Features include:
+- Gaining access to an Outpost specific to your organization, which will allow you to:
+  - Everything in Professional for each member of your team, plus an Outpost for your organization, which gives:
+  - A centralized place for all created TTPs, chains, training, payloads, automatically synced across team members*.
+  - Data protection and privacy
+  - Individual accounts for security team members
+  - Unlimited secure redirectors and up to 100 concurrent agents running on security endpoints
+  - Publish attack data to leading defensive platforms, including Elastic, Splunk, Crowdstrike and others.
+  - Automate continuous testing through Prelude’s Headless API.
 
-The Enterprise license is a package of 5 individual Professional licenses on top of the features below.
-
-### Team server
-
----
-
-From the Connect section, you can connect multiple individual Operator instances so your team can 
-see and interact with your remote agents from their own desktop. While connected, you can also:
-
-- Schedule chains to run against your agents while you're offline. 
-- Sync TTPs, payloads, plugins and more across your team.
-- Use the self-hosted chat feature as an encrypted communication channel during a red team exercise.
-
-### Private Outpost server
-
----
-
-Every time you boot up Operator, it contacts Prelude's [Outpost servers](https://feed.prelude.org/p/a-drop-in-the-bucket)
-which are simple wrapper APIs for our community and professional git repositories. The TTPs, payloads, plugins and training 
-programs (we call this a "bucket repo") available to you load into your app. Enterprise license holders 
-get a copy of the Outpost source code and the ability to attach it to their account. This allows you to host your own private
-collection of resources. Create your own TTPs or even your own training programs. Anything inside your Outpost 
-will automatically sync across your team.
-
-### Team management
-
----
-
-Operator uses a backend web stack to manage authentication called [Headquarters](https://portal.prelude.org) (HQ).
-HQ supplies team management features for Enterprise accounts. You can add/remove seats on your account and keep an eye on the 
-training progress of your team.
+You can read more about Enterprise on the http://prelude.org website. 
