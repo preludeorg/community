@@ -3,12 +3,11 @@ name: Understanding plugins
 challenge: Install the ART plugin to import all Atomic Red Team TTPs.
 context: |
   A plugin in Operator is an HTML file, containing valid JavaScript and CSS components. Plugins allow you to extend
-  or override various components within Operator, putting you in full control of the system. Cyber security engineers -
+  or override various components within Operator, putting you in full control of the system. Cybersecurity engineers -
   or those who have security and software engineering backgrounds - often want to customize and extend popular open-source
   projects. This can be a time-consuming process and any changes may get wiped out in a future update. Plugins allow a
   safe, easy alternative. Engineers can extend using defined interfaces, allowing them to create extendable components,
-  leveraging existing code to quickly iterate on new features. Clicking on a plugin will install it - clicking it again
-  will uninstall it.
+  leveraging existing code to quickly iterate on new features. 
 template:
   name: submit
   data: []
@@ -21,7 +20,7 @@ blocks:
   ART plugin: |
     The Atomic Red Team (ART) plugin provides a quick import of all attack files from the popular ART repository.
     By installing the plugin, you are importing the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) 
-    which provides numerous TTPs that will be immediately usable in an attack.
+    which provides numerous TTPs (atomic unit tests in the case of ART) that will be immediately usable in an attack.
 answer:
   script: Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
   value: 1
