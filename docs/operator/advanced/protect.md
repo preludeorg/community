@@ -24,7 +24,7 @@ not be able to decrypt your data without the key.
 
 Publishers allow you to control what you want leaving your computer. By default, Operator only saves your attack
 data locally, in your workspace. However, you can configure additional locations to publish your data - such as a SIEM
-or external database - by going to the plugins section and making selections.
+or external database - by going to the Publisher area within a redirector.
 
 ### Telemetry
 
