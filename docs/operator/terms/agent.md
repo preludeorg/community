@@ -1,7 +1,7 @@
 
 # What is an agent
 
-#### Remote access trojans
+#### Remote Access Trojans
 
 ---
 
@@ -14,16 +14,16 @@ such as TCP, UDP, or HTTP.
 
 ---
 
-ThirdEye is a NodeJS agent that is built directly into Operator. When Operator starts, ThirdEye automatically launches
+ThirdEye is a Node.js agent that is built directly into Operator. When Operator starts, ThirdEye automatically launches
 and beacons into your Home range with the username of the user running the desktop application. It only communicates
 locally to Operator and is designed for testing TTPs out before deploying them in the wild. 
-ThirdEye does not support reverse shells nor can you delete this agent.
+ThirdEye does not support reverse shells, nor can you delete this agent.
 
 ### What is Pneuma?
 
 ---
 
-Our most popular open-source agent is called Pneuma, a Golang agent which supports all major operating systems 
+Our most popular open-source agent is called Pneuma, a Go agent which supports all major operating systems 
 and 3 different protocols (TCP, UDP, HTTP). Pneuma is capable of executing nearly all TTPs and chains loaded into
 Operator, along with built-in support for reverse shells (when connected over TCP).
 
