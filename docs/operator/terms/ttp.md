@@ -15,14 +15,14 @@ and non-shell executors (i.e., the things that run the commands).
 
 When you deploy a chain against a range of agents, Operator will look at each TTP inside the chain and
 match up the platforms and executors to the agent. It first checks for an exact match of platform and executor,
-if none are found, it checks the global platform for a matching executor. Only if a match is found will the TTP
+if none are found, it checks the global platform for a matching executor. Only if a match is found - will the TTP
 be sent to the agent.
 
 ### Supported platforms & executors
 
 ---
 
-There are three supported platforms: windows, linux and darwin (another word for MacOS). For each platform, there are a 
+There are three supported platforms: Windows, Linux and Darwin (another word for MacOS). For each platform, there are a 
 number of available executors. Not every executor will work on every platform. When you build a custom TTP, you can 
 assign it an existing executor or you can create a new one - your agent just needs to understand how to work with it (as the 
 executor is sent alongside the command).
