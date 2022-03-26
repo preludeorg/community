@@ -1,6 +1,6 @@
 id: 2f801418-a956-43cc-8a21-504c0ce5b602
-name: Reverse-shell interaction
-challenge: Can you open a reverse-shell to any Pneuma agent connected over TCP?
+name: Reverse shell interaction
+challenge: Can you open a reverse shell to any Pneuma agent connected over TCP?
 context: To establish a typical remote shell, a machine controlled by the attacker connects to a remote network host
   and requests a shell session – this is called a bind shell. But what if the remote host is not directly accessible,
   for example, because it has no public IP or is protected by a firewall? In this situation, a reverse shell might be
