@@ -3,14 +3,14 @@ name: Executor order
 challenge: |
   Change the order of the executors in your ThirdEye agent so either 'psh' or 'python' is last.
 context: |
-  In cyber security, the efforts to combat infiltrations are constantly evolving. Security systems recognize
+  In cybersecurity, the efforts to combat infiltrations are constantly evolving. Security systems recognize
   attack patterns and monitor network activity to identify common malicious code phrases.
   Agents can execute TTPs to avoid detection. Individual agents have preferences for
   executor order and some operating system compatibility. For example, Powershell is a common executor on Windows systems
   and may be the preferred executor if available (above other Windows executors such as cmd).
   Powershell is referred to as 'psh' inside of Operator. In a similar way, bash is a common executor on Linux and is referred to as
   'bash' within Operator. Operator also includes non-shell executors, such as Python and Node, and also includes a 'keyword'
-  executor that allow you to write malware as code. It's up to the agent to define which executors it supports and you can define
+  executor that allow you to write malware as code. It's up to the agent to define which executors it supports, and you can define
   your preferred order to use them within Operator.
 template:
   name: submit
@@ -21,19 +21,19 @@ hints:
   - Did you update the agent's configuration?
 blocks:
   Executors: |
-    In this case, executors refers to the programming language used to run a TTP. Some available executors are: sh, psh, pwsh,
+    In this case, executors refer to the programming language used to run a TTP. Some available executors are: sh, psh, pwsh,
     python, and keyword. The executor must be compatible with the agent's operating system and the TTP must list the executor
     in order for the attack to be successful. For a full list of available executors that work with the default Prelude agent
     head to the documentation section.
   Modern Securities: |
-    Large organizations (Fortune 500, government, etc.) devote millions of dollars in their defensive budgets due to the
-    costs of fixing vulnerabilities being higher than the costs of prevention. With this in mind, businesses
+    Large organizations (Fortune 500, government, etc.) devote millions of dollars in their defensive budgets to the
+    costs of fixing vulnerabilities - being higher than the costs of prevention. With this in mind, businesses
     implement defense and counter-infiltration strategies. Some of these measures are industry standard, such as antivirus,
     while others, such as script blocking, are more complicated. Script blocking helps IT workers to keep an eye on their
-    employee's 'command line' behavior in order to spot and stop any risks before they happen. Running an executor that is
+    employees 'command line' behavior in order to spot and stop any risks before they happen. Running an executor that is
     less familiar to the blue team but still compatible with the agent's OS is one technique to get around this security.
   ThirdEye: |
-    ThirdEye is a NodeJS agent that is built in Operator and beacons into your Home range with the username of the
+    ThirdEye is a Node.js agent that is built in Operator and beacons into your Home range with the username of the
     user who is operating the desktop program. It only communicates with Operator locally and is intended for testing TTPs
     before releasing them into the wild.
 answer:
