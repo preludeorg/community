@@ -34,7 +34,6 @@ The most popular parameters to use are:
 ---
 
 Professional license holders get access to PneumaEX, an extended version of the open-source Pneuma
-agent. PneumaEX can be accessed through the Editor section's payload download (both source and 
-pre-compiled options) and is a drop-in replacement of Pneuma.
+agent. PneumaEX can be accessed through the Operator application, under the Agents area towards the bottom of the UI. 
 
 
