@@ -2,7 +2,7 @@ id: 0b044323-bf6b-4856-8d70-372942983aab
 name: A (variant) attack
 challenge: |
   Locate the TTP named "Find recent files" and write a variant for your platform that searches your /tmp (or TEMP)
-  directory for recently modified files. Then deploy the TTP against your Thirdeye agent.
+  directory for recently modified files. Then deploy the TTP against your ThirdEye agent.
 context: |
   Just as there are numerable procedures for any given ATT&CK technique, each procedure may have variations itself.
   For example, a procedure that does a port scan may look like this: nmap -Pn example.com. This will scan example.com
