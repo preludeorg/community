@@ -6,7 +6,7 @@
 ---
 
 Each executed TTP in Prelude is called a link and the full set of procedures run for an agent is known as its
-chain. Prelude uses a dynamic way of chaining procedures together by linking the output of one to the input
+chain. Prelude uses a dynamic way of chaining procedures together - by linking the output of one to the input
 of another through parsing TTP output for contextual Indicators of Compromise (IoC). The concept isn't dissimilar to
 how pipes work in bash or PowerShell.
 
