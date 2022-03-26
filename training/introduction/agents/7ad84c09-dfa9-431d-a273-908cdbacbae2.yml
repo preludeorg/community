@@ -1,13 +1,13 @@
 id: 7ad84c09-dfa9-431d-a273-908cdbacbae2
 name: Get to know Pneuma
-challenge: Can you deploy 3 instances of Pneuma simultaneously, using HTTP, TCP, and UDP?
+challenge: Can you deploy three instances of Pneuma simultaneously, using HTTP, TCP, and UDP?
 context: |
   The Pneuma agent is a multi-purpose agent which is written to be a full example of how you can build your own agents.
-  Without building your own, you can still use Pneuma to run highly effective red team assessments. Written in GoLang,
+  Without building your own, you can still use Pneuma to run highly effective red team assessments. Written in Go,
   Pneuma supports all major operating systems and has a built-in TCP connector, meaning it can open up a persistent
   connection between itself and Operator. TCP is the default protocol used by Pneuma, and is arguably the most common
   protocol used by adversaries in the wild. Through TCP, Pneuma can do two things: allow a user to open reverse shells
-  to itself and allow an attacker to launch blazing-fast autonomous hacks. Aside from TCP, Pneuma offers the ability
+  to itself and allow an attacker to launch autonomous hacks. Aside from TCP, Pneuma offers the ability
   to connect to Operator over HTTP, and UDP.
 template:
   name: submit
