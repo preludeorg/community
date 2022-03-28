@@ -9,7 +9,7 @@ technique:
 platforms:
   global:
     shell:
-      command: '{"Target":"#{operator.tcp_shell}"}'
+      command: '{"Target":"#{operator.shell}"}'
 metadata:
   authors:
   - khyberspache
