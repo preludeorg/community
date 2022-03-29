@@ -15,5 +15,7 @@ platforms:
 metadata:
   authors:
     - gerbsec
+  chains:
+    - Suid Exploitation
   tags: []
   enabled: true

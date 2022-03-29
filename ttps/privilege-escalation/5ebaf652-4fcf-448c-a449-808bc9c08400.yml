@@ -38,6 +38,8 @@ platforms:
 metadata:
   authors:
     - gerbsec
+  chains:
+    - Suid Exploitation
   tags:
     - SUID GTFOBINS
   themes: []
