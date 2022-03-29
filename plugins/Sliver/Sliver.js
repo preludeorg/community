@@ -463,6 +463,8 @@ class Sliver {
     }
 }
 
+Listen.listeners.add(new mTLS());
+
 Events.bus.on('plugin:delete', Object.assign((name) => {
     if (name === 'Sliver') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
