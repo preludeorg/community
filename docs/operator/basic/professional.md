@@ -17,37 +17,18 @@ Each chain is loaded into Operator automatically and can be executed against you
 using open-source intelligence (OSINT) and often model either real world threat groups or common attack patterns seen in the wild.
 The idea is simple: by getting a continuous stream of high quality ready to run attacks, you can perform security testing more frequently.
 
-### Chains API
+### Managing tokens
 
 ---
 
-Operator is the most fluid way to ingest, manage and execute the attack chains from TTP Tuesday, but you can alternatively
-use the API directly.
+Operator also supports the use of personal tokens that can be created and linked to your account. This pairing allows you to authenticate your log in headlessly, thereby removing the need to authenticate your account upon every log in attempt.
 
-> Note: Each request should also contain a User-Agent header, left out of these examples for brevity.
+#### Create your token and secret key
 
-#### Start by logging in, which will send an email verification to your claimed account:
-
-```bash
-curl -X POST -H 'Content-Type: application/json' "https://portal.prelude.org/claim" -d '{"action":"send","claim":"example@prelude.org"}'
-```
-
-#### Use the token you received to complete the login process, which will generate you an API token you can use moving forward:
+To create your keys, log into your [Headquarters](https://login.prelude.org/#/) and navigate to your user Settings. Once there you will find the 'Manage Tokens' option at the bottom of the page. Here you can create and manage your tokens which can be used to authenticate your headless login:
 
 ```bash
-curl -X POST -H 'Content-Type: application/json' "https://portal.prelude.org/claim" -d '{"claim":"$TOKEN"}'
-```
-
-#### Using your new token, you can access the Chains API in the following ways: Get the 10 most recently released chains.
-
-```bash
-curl -X GET -H 'Content-Type: application/json' "https://portal.prelude.org/chains?count=10&email=example@prelude.org&token=$TOKEN"
-```
-
-#### Some chains contain payloads. You can download each.
-
-```bash
-curl -X GET -H 'Content-Type: application/json' "https://portal.prelude.org/chains/payload=sha1/payload?email=example@prelude.org&token=$TOKEN"
+./headless-linux --accountEmail=email@host.org --accountToken=95cdbb5d-adcd-430f-ad00-b88562f25aa5 --accountSecret=3dd6e2cf-dec9-446a-9c4a-8e31ee5414af
 ```
 
 ### Private support
