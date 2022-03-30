@@ -80,3 +80,17 @@ Now that we have our redirector added and running, refresh Operator and connect 
 ```shell
 tail -f /tmp/headless/headless.log
 ```
+
+### Managing tokens
+
+---
+
+Operator also supports the use of personal tokens that can be created and linked to your account. This pairing allows you to authenticate your log in headlessly, thereby removing the need to authenticate your account upon every log in attempt.
+
+#### Create your token and secret key
+
+To create your keys, log into your [Headquarters](https://login.prelude.org/#/) and navigate to your user Settings. Once there you will find the 'Manage Tokens' option at the bottom of the page. Here you can create and manage your tokens which can be used to authenticate your headless login:
+
+```bash
+./headless-linux --accountEmail=email@host.org --accountToken=95cdbb5d-adcd-430f-ad00-b88562f25aa5 --accountSecret=3dd6e2cf-dec9-446a-9c4a-8e31ee5414af
+```
