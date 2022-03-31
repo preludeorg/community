@@ -44,9 +44,9 @@ blocks:
     refer to it as a link. Each link is given a unique identifier which you will see next to the output of the TTP itself.
 answer:
   script: |
-    Agent.agents.filter(function(a) {
+    Agent.a.filter(function(a) {
         let links = a.links.filter(function(l) {
-            return l.unique.toLowerCase() === $('#answer').val().toLowerCase()
+            return l.ttp.toLowerCase() === $('#answer').val().toLowerCase()
         })
         return links.length > 0
     }).length
