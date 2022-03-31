@@ -1,7 +1,7 @@
 id: 3abff28a-e1c0-498f-a273-0ab8e627d122
 name: Run your first operation
 challenge: |
-  Can you deploy a chain against your ThirdEye agent? Enter the link ID of any completed TTP.
+  Can you deploy a chain against your ThirdEye agent? Enter the ID of any completed TTP.
 context: |
   Operator is a command-and-control (C2) platform that allows you to run threat assessments against any
   computer - or range of computers. This process is known as red teaming and it is the backbone of advanced
@@ -19,8 +19,8 @@ resources:
     Chain = Group: https://attack.mitre.org/groups
 hints:
   - Did you create a chain and add at least 1 TTP?
-  - Make sure at least one TTP is completed. You should see the result on the agent dashboard.
-  - You will find the link ID when you click on a completed TTP (row) in the agent dashboard.
+  - Make sure at least one TTP is completed. You should see the result on the agent logs.
+  - You will find the ttp ID when you click on a completed TTP (name) in the agent logs.
   - You should be looking for a UUID-4
 blocks:
   What is a TTP?: |
@@ -34,14 +34,16 @@ blocks:
   What is an agent?: |
     An agent, otherwise known as a Remote Access Trojan, is a piece of malicious software running on a target computer.
     The agent is responsible for executing an adversary's instructions - or TTPs. Operator includes a safe built-in
-    agent known as ThirdEye. ThirdEye will appear in your home computer range and will be labeled as the host name of your
+    agent known as ThirdEye. ThirdEye will appear in your agent dashboard and will be labeled as the host name of your
     computer.
   What is an operation: |
     In Operator lingo, an operation is a full execution of a chain. When you click "Deploy" on a chain, when
     it completes, so does the operation.
-  Understanding a link ID: |
-    We like to think of each chain as containing a set of potential TTPs to run. And when each one completes we
-    refer to it as a link. Each link is given a unique identifier which you will see next to the output of the TTP itself.
+  Filter your agent logs: |
+    When running an operation the results will appear in your agent logs. You can filter the log results further by 
+    clicking on any TTP attributes - timestamp, TTP, executor, account and operation tag. For example, you are only
+    interested in seeing the logs of TTPs that deployed with shell, you would insert `executor:"sh"` into the
+    log search bar. You can select one or more filters at a time to narrow the results down further.
 answer:
   script: |
     Agent.a.filter(function(a) {

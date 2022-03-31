@@ -33,7 +33,7 @@ blocks:
     employees 'command line' behavior in order to spot and stop any risks before they happen. Running an executor that is
     less familiar to the blue team but still compatible with the agent's OS is one technique to get around this security.
   ThirdEye: |
-    ThirdEye is a Node.js agent that is built in Operator and beacons into your Home range with the username of the
+    ThirdEye is a Node.js agent that is built into Operator and beacons in with the username of the
     user who is operating the desktop program. It only communicates with Operator locally and is intended for testing TTPs
     before releasing them into the wild.
 answer:
