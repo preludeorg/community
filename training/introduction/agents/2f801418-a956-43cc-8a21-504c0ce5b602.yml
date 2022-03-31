@@ -12,7 +12,8 @@ template:
   name: submit
   data: []
 resources:
-  links: {}
+  links:
+    Pneuma: https://github.com/preludeorg/pneuma
 hints:
   - You need to deploy a Pneuma agent over the TCP protocol to complete this challenge.
   - The reverse shell must be open when you capture this flag.
