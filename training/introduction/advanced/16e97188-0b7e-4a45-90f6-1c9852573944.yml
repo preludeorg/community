@@ -40,5 +40,5 @@ blocks:
     any agent which beacons to the redirector gets forwarded to your local Operator. Since your headless Operator is the
     same as your local Operator, you can also interact with it over the HTTPS API.
 answer:
-  script: Number(Agent.agents.filter(function(a) { return a.metadata.redirector}).length > 0)
+  script: Number(Agent.a.filter(function(a) { return a.metadata.redirector}).length > 0)
   value: 1

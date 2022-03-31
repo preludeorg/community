@@ -56,5 +56,5 @@ blocks:
     can download a copy of the agent from the Operate section (look for the agent icon in the dock). Run the agent
     with the -help parameter for more information.
 answer:
-  script: Number(Agent.agents.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
+  script: Number(Agent.a.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
   value: 1

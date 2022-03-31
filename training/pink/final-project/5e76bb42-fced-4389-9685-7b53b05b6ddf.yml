@@ -57,7 +57,7 @@ answer:
           return ttps.filter(ttp => rule(ttp)).length;
       });
       if (validRules.length === rules.length) {
-        if (Agent.agents.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
+        if (Agent.a.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
           return resolve(1);
         }
       }

@@ -44,7 +44,7 @@ answer:
   script: |
     function aPlatforms(a){ return a.platform; }
     function aProtocols(a){ return a.handler.name; }
-    let online = Agent.agents.filter(a => a.state === Agent.StateEnum.online);
+    let online = Agent.a.filter(a => a.metadata.state === Basic.StateEnum.online);
     let platforms = new Set(online.map(aPlatforms));
     let protocols = new Set(online.map(aProtocols));
     Number(online.length >= 3 && protocols.size >= 3);
