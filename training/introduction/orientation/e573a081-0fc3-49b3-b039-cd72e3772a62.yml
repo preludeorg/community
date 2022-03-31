@@ -14,7 +14,8 @@ template:
   name: input
   data: []
 resources:
-  links: {}
+  links:
+    Chains: https://chains.prelude.org
 hints:
   - Read the documentation about the Professional license
 blocks:
