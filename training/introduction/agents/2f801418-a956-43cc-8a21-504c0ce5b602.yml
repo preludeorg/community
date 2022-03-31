@@ -31,5 +31,5 @@ blocks:
     Beacon is Cobalt Strike's agent to model advanced attackers. Use Beacon to egress a network over HTTP, HTTPS, or DNS.
 answer:
   script: |
-    Number(Agent.agents.filter(function(a) { return a.shell}).length) > 0
+    Number(Agent.a.filter(function(a) { return a.shell}).length) > 0
   value: True

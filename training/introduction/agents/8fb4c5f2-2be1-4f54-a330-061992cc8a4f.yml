@@ -37,5 +37,5 @@ blocks:
     user who is operating the desktop program. It only communicates with Operator locally and is intended for testing TTPs
     before releasing them into the wild.
 answer:
-  script: Number(Agent.agents.filter(a => a.handler.name === 'THIRDEYE' && ['psh', 'python'].includes(a.executors[a.executors.length - 1])).length)
+  script: Number(Agent.a.filter(a => a.handler.name === 'THIRDEYE' && ['psh', 'python'].includes(a.executors[a.executors.length - 1])).length)
   value: 1
