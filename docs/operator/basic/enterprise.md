@@ -32,11 +32,3 @@ programs (we call this a "bucket repo") available to you load into your app. Ent
 get a copy of the Outpost source code and the ability to attach it to their account. This allows you to host your own private
 collection of resources. Create your own TTPs or even your own training programs. Anything inside your Outpost 
 will automatically sync across your team.
-
-### Team management
-
----
-
-Operator uses a backend web stack to manage authentication called [Headquarters](https://portal.prelude.org) (HQ).
-HQ supplies team management features for Enterprise accounts. You can add/remove seats on your account and keep an eye on the 
-training progress of your team.
