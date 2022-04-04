@@ -18,7 +18,7 @@ template:
 resources:
   links: {}
 hints:
-  - Did you update the agent's configuration?
+  - Did you update the agent's profile?
 blocks:
   Executors: |
     In this case, executors refer to the programming language used to run a TTP. Some available executors are: sh, psh, pwsh,
