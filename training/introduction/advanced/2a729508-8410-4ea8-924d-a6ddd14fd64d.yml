@@ -22,5 +22,5 @@ blocks:
     By installing the plugin, you are importing the popular Red Canary project (https://github.com/redcanaryco/atomic-red-team) 
     which provides numerous TTPs (atomic unit tests in the case of ART) that will be immediately usable in an attack.
 answer:
-  script: Number(Object.values(Attack.attack).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
+  script: Number(Object.values(Attack.a).filter(function (a) { return a.metadata.source === 'Red Canary' }).length > 0)
   value: 1

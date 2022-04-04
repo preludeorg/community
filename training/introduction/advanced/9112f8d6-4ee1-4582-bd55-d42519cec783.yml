@@ -25,5 +25,7 @@ blocks:
     your payloads directory. Then Operator ships the TTP to the receiving agent, along with the URL of where to find the 
     payload. The agent makes an HTTP request back to Operator to download the payload before executing the TTP itself.
 answer:
-  script: Listen.resolvePayloads("/payloads/hello.txt").filter(p => Encryption.decryptBuffer(fs.readFileSync(p)).toString() == "world").length
+  script: 
+    let payload = Object.values(Attack.a).filter(function (a) {return a.name.toLowerCase() === 'hello world'})
+    Number(payload[0].metadata.payloads["hello.txt"].length > 0)
   value: 1
