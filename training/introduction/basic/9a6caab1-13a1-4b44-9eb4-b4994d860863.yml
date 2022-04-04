@@ -2,7 +2,7 @@ id: 9a6caab1-13a1-4b44-9eb4-b4994d860863
 name: Locate a procedure
 challenge: Can you find the TTP named "Credentials in Registry" and enter its TTP ID?
 context: |
-  A TTP in Operator is really the procedure, in the Tactics Techniques and Procedures acronym. Tactics are
+  A TTP in Operator is typically the procedure in the Tactics Techniques and Procedures acronym. Tactics are
   top-level goals. Techniques are specific categories of implementation to accomplish the goal and procedures are
   the actual commands to execute, achieving the technique. There are likely thousands of procedure variations for each
   technique, as hackers will often modify and craft variations of commands to avoid detection. Learning how to

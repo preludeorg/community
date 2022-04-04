@@ -1,10 +1,11 @@
 # Meet Prelude Operator
 
-#### Where manual security testing meets automation
+#### Operator is an application providing realistic infrastructure for continuously testing your security environment. Free & open source.
+
 
 ---
 
-Prelude Operator is an automated red teaming platform, packed into a desktop application. Operator is
+Everything you need to perform realistic offensive security assessments against your cyber defenses. Operator is
 free to use and has open-sourced the components you should expect out of a security tool: the attacks
 you run (TTPs) and the things that run the attacks (agents). This is an actively supported project
 with the technical team available on the [Discord server](https://discord.gg/NWURE99JzE).

@@ -6,7 +6,7 @@ context: |
   interface is generally a network interface card (NIC), but does not have to have a physical form.
   Instead, the network interface can be implemented in software. By default, Prelude serves the desktop application
   only on localhost, which means the listening posts (tcp/udp/http) can only be accessed by processes on the computer
-  itself. By serving on all interfaces, Prelude Operator is able to accept connections from other computers. This is a
+  itself. By serving on all interfaces, Operator is able to accept connections from other computers. This is a
   requirement if you plan on running agents on computers that are different from the one running this application.
 template:
   name: submit

@@ -8,13 +8,14 @@ context: |
   - or write your own - to create custom chains, which you can then deploy into your environment. 
   Upgrading to a professional license gets you a subscription to the chains the Prelude security team publishes each
   week. Internally, we design and build attack chains that are ready out-of-the-box for red and purple team exercises.
-  Head to chains.prelude.org to see some past chains. While chains are built to sync with Operator seamlessly
+  Head to chains.prelude.org to see some past chains. While chains are built to sync with Operator seamlessly,
   you can also access the chains over the API directly.
 template:
   name: input
   data: []
 resources:
-  links: {}
+  links:
+    Chains: https://chains.prelude.org
 hints:
   - Read the documentation about the Professional license
 blocks:
@@ -31,5 +32,5 @@ blocks:
     within Operator or over our API.
 answer:
   script: 
-    Requests.hq.getChains().then(chains => Number(chains[0].ttps.length === parseInt($('#answer').val())))
+    Requests.outpost.getChains().then(chains => Number(chains[0].ttps.length === parseInt($('#answer').val())))
   value: 1

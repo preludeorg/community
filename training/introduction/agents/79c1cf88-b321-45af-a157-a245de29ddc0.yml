@@ -1,9 +1,9 @@
 id: 79c1cf88-b321-45af-a157-a245de29ddc0
 name: Port check
 challenge: Which port is being used as the default TCP listening post?
-context: Prelude Operator serves several listening posts on the computer where it is running. A listening post is simply an
-  open port which accepts traffic over a specific protocol. Listening posts are the connection points that remote
-  access trojans use to talk to the command-and-control center. TCP is one of the most popular
+context: Prelude Operator serves several listening posts on the computer where it is running. A listening post is an
+  open port which accepts traffic over a specific protocol. Listening posts are the connection points that Remote
+  Access Trojans use to talk to the command-and-control center. TCP is one of the most popular
   connection-based protocols and as such, Operator opens a port for this protocol. Aside from TCP, the app
   also opens up UDP and HTTP ports for agents to communicate over.
 template:

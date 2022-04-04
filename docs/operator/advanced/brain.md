@@ -17,7 +17,7 @@ When a chain executes, it collects information which Operator can learn from. As
 processed, it is fed back into the planner, often opening up a previously closed state. For example, say the planner
 is currently busy executing decisions for a chain, which has completed the first two tactical states above,
 and it is executing procedures under Discovery. If the planner learns something which can unlock a "defense evasion"
-procedure it will instruct the chain to drop out of the discovery state and into the defense evasion one in
+procedure, it will instruct the chain to drop out of the discovery state and into the defense evasion one in
 order to do the newly discovered action.
 
 ### Continued research

@@ -1,6 +1,6 @@
 id: c276c08c-2eb0-4dfe-b542-91e8409c60ab
 name: Understanding encryption
-challenge: Change the Pneuma encryption key in the GoLang code, then compile the agent and start it normally,
+challenge: Change the Pneuma encryption key in the Go code, then compile the agent and start it normally,
   ensuring it connects to Operator successfully.
 context: |
   When you start Pneuma, it fires off a beacon to Operator as a "hello" message. This beacon contains several properties,
@@ -56,5 +56,5 @@ blocks:
     can download a copy of the agent from the Operate section (look for the agent icon in the dock). Run the agent
     with the -help parameter for more information.
 answer:
-  script: Number(Agent.agents.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
+  script: Number(Agent.a.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
   value: 1

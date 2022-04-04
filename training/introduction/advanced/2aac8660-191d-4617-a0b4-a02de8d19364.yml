@@ -4,10 +4,10 @@ challenge: |
   Create a new TTP named 'My First TTP' and deploy it against one of your connected agents.
 context: |
   One of the unique aspects of Operator is the ability to quickly create your own TTPs and load them in the system.
-  By simply creating a new YML file and ensuring the format matches that of other files in the Community repository, you
+  By creating a new YML file and ensuring the format matches that of other files in the Community repository, you
   are able to add them to Operator. The easiest way to create TTPs is through the Launch Chain sidebar, which will create
   a structured YML file and allow you to just fill in the blanks. In your new TTP, you can create any type of attack 
-  you want - just be sure that it is valid YML and it contains at least 1 platform and 1 executor so it can run.
+  you want - just be sure that it is valid YML and it contains at least 1 platform and 1 executor, so it can run.
 template:
   name: submit
   data: []
@@ -19,7 +19,7 @@ hints:
 blocks:
   Choosing a platform & executor: |
     Each TTP requires a platform (operating system) and executor (program the agent uses to run the TTP). There are 3 supported
-    platforms in Operator today: windows, linux and darwin (another word for MacOS). By default, each platform can use
+    platforms in Operator today: Windows, Linux and Darwin (another word for MacOS). By default, each platform can use
     a specific set of executors. Check the documentation around TTPs for a list of options.
 answer:
   script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)

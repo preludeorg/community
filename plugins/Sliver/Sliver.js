@@ -1,5 +1,3 @@
-const PLUGIN_NAME = "Sliver";
-
 const fs = require('fs');
 const path = require('path');
 const protoBuf = require("protobufjs");
@@ -11,10 +9,13 @@ const Listener = require('../objects/listener');
 
 
 class mTLS extends Listener {
-    constructor(config) {
-        super('mtls', {});
+    constructor() {
+        super('mtls', 8080);
         this.sliver = new Sliver();
-        this.mtls_port = config?.mtls_port || 8080;
+        this.listening = {
+            mtls: null,
+            mtls_sockets: null
+        };
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -155,8 +156,8 @@ class mTLS extends Listener {
                 });
 
                 this.listening.mtls_sockets = sockets;
-                this.listening.mtls.listen(this.mtls_port, Settings.s.local.server, ()=> {
-                    Events.bus.emit('chat:message', `Attached mTLS listener on ${this.mtls_port}.`);
+                this.listening.mtls.listen(this.port, this.server, () => {
+                    Events.bus.emit('chat:message', `Attached mTLS listener on ${this.port}.`);
                 });
                 resolve();
             }).catch((e) => reject(e));
@@ -462,43 +463,16 @@ class Sliver {
     }
 }
 
-const cleanupListeners = (topics) => {
-    topics.map(topic => Events.bus.listeners(topic).map(listener => {
-        if (listener[`${PLUGIN_NAME}_LISTENER`]) {
-            Events.bus.off(topic, listener);
-        }
-    }));
-};
-
-cleanupListeners(['plugin:config', 'plugin:delete']);
-
-Events.bus.on('plugin:config', Object.assign((name, config) => {
-    if (name === PLUGIN_NAME) {
-        Listen.listeners.protocols.filter(p => p.name === 'mtls').map(p => {
-            p.mtls_port = config?.mtls_port;
-            p.init();
-        });
-    }
-}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
+Listen.listeners.add(new mTLS());
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === PLUGIN_NAME) {
+    if (name === 'Sliver') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
         listener[0].destroy();
-        cleanupListeners(['plugin:config', 'plugin:delete']);
-    }
-}, {[`${PLUGIN_NAME}_LISTENER`]: true}));
-
-Requests.fetchOperator(`/v1/plugin/${PLUGIN_NAME}`, {method: 'GET'}).then(res => res.json()).then(config => {
-    Promise.all([
-        'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/commonpb/common.proto',
-        'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/sliverpb/sliver.proto'
-    ].map(url => fetch(url).then(res => res.text())))
-        .then(texts => {
-            const listener = new mTLS(config);
-            fs.writeFileSync(path.join(listener.sliver.protocolDir, 'commonpb', 'common.proto'), texts[0]);
-            fs.writeFileSync(path.join(listener.sliver.protocolDir, 'sliverpb', 'sliver.proto'), texts[1]);
-            listener.sliver.loadProtocolBuffers();
-            Listen.listeners.add(listener);
+        Events.bus.listeners('plugin:delete').map(listener => {
+            if (listener.SLIVER_LISTENER) {
+                Events.bus.off('plugin:delete', listener);
+            }
         });
-});
+    }
+}, {SLIVER_LISTENER: true}));
