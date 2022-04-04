@@ -90,7 +90,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" -H "Content-Type: application/json" 
     \"ordered\": false}"
 ```
 
-Alternatively, if you want to select multiple agents pass in more agent names.
+Alternatively, if you want to select multiple agents pass in additional agent names.
 
 #### Optional: delay deployment
 
@@ -104,7 +104,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" -H "Content-Type: application/json" 
     \"ordered\": false}"
 ```
 
-Alternatively, if you want to select multiple agents pass in more agent names.
+Alternatively, if you want to select multiple agents pass in additional agent names.
 
 ### Agents
 
