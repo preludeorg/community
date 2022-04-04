@@ -1,96 +1,85 @@
 # Learn about redirectors
 
-### Provision and connect
+### Get started
 
 ---
 
 A redirector is a Linux server running a headless version of Operator - meaning Operator without Electron. 
 
-You can provision new redirectors from the Connect plugin. You can choose either AWS or GCP as your redirector 
-cloud host. Alternatively, you can provision a redirector manually on a server of your choice.
+You can provision new redirectors from the Connect section. The process is simple:
+1. Download a headless version of Operator.
+2. Run it on any Linux server, ensuring your desktop has access to port 50051 and 8888.
+3. Enter the host and token for the redirector (it will print to console) into the Connect section.
+4. You will now be connected.
 
-### Cloud provisioning
+At this point, Operator will "transport" you into the redirector view. All local
+listening posts (on your desktop) will turn off and all local agents will be replaced with those
+running on the redirector. 
 
-We recommend using Connect to provision redirectors because it is point-and-click. Head to the Connect 
-section, attach your AWS or GCP account, and provision a new redirector. When you're done, you can point your agents
-to your redirector instead of your Operator IP address.
-
-### Manual provisioning
-
-If you want to manually provision a redirector, follow these steps.
-
-#### The Setup
+### Your redirector panel
 
 ---
 
-Start by downloading a headless version of Operator from the [Prelude website](https://www.prelude.org/download/current) 
-to the location of your desired server. Once you have accomplished this, next you will have to create a compatible SSH key 
-for your redirector.
+The redirector panel you connect/disconnect from is broken down into the following sections:
+- Endpoints: these are the agents currently connected (online) to the redirector.
+- Redirector: this offers an introduction to your redirector.
+- Outpost: statistics about what is available on the redirector, per the Outpost servers it is connected to.
+- Publishers: the EDR/SIEM dashboards enabled on your Outpost server and in effect, available to your redirector.
 
-#### Example: Generating SSH key
+#### Endpoints
 
-```shell
-ssh-keygen -t rsa -f /tmp/headless/ssh_key -q -N
-```
+Each Operator instance can have up to 5 (Community) or 50 (Professional) agents connected to it simultaneously.
+Use more redirectors to support additional agents.
 
-#### Starting your redirector
+#### Redirector
 
----
+Aside from the informational panel here, you can perform two actions: copy creds and join chat. 
 
-Once the prelude-headless-linux file is in the desired location you can now start it through the following command, 
-after inputting your proper hostName, sessionToken and newly created SSH key. 
+Each redirector has a host/token pair which you use to connect. If you are part of an enterprise account, 
+you can pass these to a teammate (copy creds), and they can share a redirector with you. Joining the chat will 
+open a new window, exposing an encrypted chat channel running on your redirector. Here, you can communicate 
+with any teammates also connected.
 
-> Note: When inputting the hostName, use the DNS, not IP address.
+When multiple teammates are connected to the same redirector, it will act as a "team server". Every agent, TTP, 
+chain, schedule, settings update, etc., will be mirrored across all connected Operators. 
 
-#### Example: Start your headless Operator
+#### Outpost
 
-```shell
-nohup sudo /tmp/headless/bin --sessionToken 'random character string' --sshKey /tmp/headless/ssh_key --hostName 'valid.domain.tld' >/tmp/headless/headless.log 2>&1  &
-```
+Outpost is a remote server hosting Operator content, such as TTPs, payloads and plugins. Prelude supplies 
+an open-source Outpost serving https://github.com/preludeorg/community and a closed-source Outpost for 
+license holders. Enterprise accounts can host their own.
 
-#### Adding your redirector
+In the Outpost panel of a redirector, you can see its number of Outposts and available TTPs. 
 
----
+#### Publishers
 
-Now on your system that you wish to use Operator desktop app, we will add this new redirector into your workspace. 
-Open your workspace settings.yml (see docs) and add information about your remote system in the following format:
+Outposts can be backed by a publisher - a connection to an EDR or SIEM dashboard - that forwards your 
+result (meta)data to a central location. If you have an enterprise account, you can set up any publisher to 
+direct data to your environment. If you are a community or professional user, the metadata is sent to the 
+default Prelude publisher (which does not store the data).
 
-#### Example redirector format
-
-```yaml
-redirectors:
-    valid.domain.tld:
-        key: /full/path/.ssh/operator_key
-        user: ubuntu
-        password: 'random character string'
-        availableAt: '2022-01-11T01:13:51.701Z'
-        tools:
-        - headless/headless
-        aws: {}
-```
-
-### Using your redirector
+### Enterprise
 
 ---
 
-Now that we have our redirector added and running, refresh Operator and connect to it from the Connect plugin.
+An enterprise license to Operator enables you to run large-scale automated security testing
+inside your cloud environment. 
 
-#### Example: how to view headless logs
+When it comes to redirectors, an enterprise license opens up three new panels in the Connect
+section:
 
-```shell
-tail -f /tmp/headless/headless.log
-```
+#### Attach a cloud account
 
-### Managing tokens
+Link either an AWS or GCP account to your Operator instance. Additional cloud providers coming
+in the future.
 
----
+#### Provision a cloud redirector
 
-Operator also supports the use of personal tokens that can be created and linked to your account. This pairing allows you to authenticate your log in headlessly, thereby removing the need to authenticate your account upon every log in attempt.
+Instead of manually setting up a server to run headless Operator, you can create new 
+fully-functional redirectors in your own cloud environment at the click of a button.
 
-#### Create your token and secret key
+#### Provision a cloud VM
 
-To create your keys, log into your [Headquarters](https://login.prelude.org/#/) and navigate to your user Settings. Once there you will find the 'Manage Tokens' option at the bottom of the page. Here you can create and manage your tokens which can be used to authenticate your headless login:
-
-```bash
-./headless-linux --accountEmail=email@host.org --accountToken=95cdbb5d-adcd-430f-ad00-b88562f25aa5 --accountSecret=3dd6e2cf-dec9-446a-9c4a-8e31ee5414af
-```
+Create newly compromised servers - either Linux or Windows - in your own cloud environment. 
+These servers will have an agent dropped on them, which will connect to the redirector of your
+choice. Use these cloud VMs to test your TTPs and chains.
