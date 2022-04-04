@@ -1,13 +1,14 @@
 id: 2080e0e3-f107-418d-8a9f-773fe2d7fb04
 name: Understanding agents
-challenge: In Operator, what is a group of agents called?
+challenge: In Operator, how many agents can you connect at a single time?
 context: |
   When performing a command-and-control attack, you need two parts, a command center (this application) and
   agents running on target systems. Pneuma is the default open-source agent which can connect to the C2 over
   several communication protocols. Headquarters (HQ), the Prelude authentication server, hosts precompiled versions of
   the Pneuma agent for all supported operating systems. You can download these directly to your computer, then move
   them to computers you want to run security assessments on. Pneuma can run on any operating system (Linux, MacOS and
-  Windows), requires no administrative privileges and does not need to be installed.
+  Windows), requires no administrative privileges and does not need to be installed. Depending on your license,
+  the number of maximum agents that can be connected differ. Read more about limits and agent capabilities in the agent docs.
 template:
   name: input
   data: []
@@ -40,5 +41,5 @@ blocks:
     your application and requires no additional installation steps. Because it is written in NodeJS, ThirdEye is able
     to run commands using the node executor.
 answer:
-  script: $('#answer').val().toLowerCase()
-  value: range
+  script: Number($('#answer').val() === "5" || $('#answer').val() === "50")
+  value: 1
