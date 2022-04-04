@@ -1,4 +1,4 @@
-# Everything to know about redirectors
+# Learn about redirectors
 
 ### Get started
 
