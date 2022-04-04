@@ -9,7 +9,7 @@ context: |
   for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
   of this command may be: nmap -Pn -sV example.com. Instead of creating a new TTP for each of these variations you can
   outline each variant in a single TTP file. To start, find and edit the exisiting "Find recent files" TTP which will create
-  a modified version of said TTP. Next follow the syntaxing for variants which can be found in through the example TTP: 
+  a modified version of said TTP. Next follow the syntaxing for variants which can be found in the example TTP: 
   'Update agent beacon protocol'. Finally, once you have created and appended your variations to the new TTP, verify 
   your work by entering in the TTP ID. 
 template:
