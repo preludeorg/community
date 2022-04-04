@@ -8,7 +8,7 @@ context: |
   For example, a procedure that does a port scan may look like this: nmap -Pn example.com. This will scan example.com
   for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
   of this command may be: nmap -Pn -sV example.com. Instead of creating a new TTP for each of these variations you can
-  outline each variant in a single TTP file.
+  outline each variant in a single TTP file. Follow the example formatting in the 'Update agent beacon protocol' TTP.
 template:
   name: submit
   data: []
@@ -26,7 +26,7 @@ blocks:
 answer:
   script: 
     let attack = Object.values(Attack.a).filter(function (a) {return a.name === 'Find recent files (Modified)'})
-    Number(Attack.a[attack[0].id].platforms.darwin.sh.variants.toLowerCase().includes('tmp') || 
-    Attack.a[attack[0].id].platforms.linux.sh.variants.toLowerCase().includes('tmp') ||
-    Attack.a[attack[0].id].platforms.windows.psh.variants.toLowerCase().includes('temp'))
+    Number(Attack.a[attack[0].id].platforms.darwin.config.variants[0].command.toLowerCase().includes('tmp') || 
+    Attack.a[attack[0].id].platforms.linux.config.variants[0].command.toLowerCase().includes ||
+    Attack.a[attack[0].id].platforms.windows.config.variants[0].command.toLowerCase().includes('temp'))
   value: 1
