@@ -220,6 +220,14 @@ curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp/ff9
 
 ---
 
+#### List available payloads
+
+A cURL command for listing the local payloads in Operator.
+
+```bash
+curl -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/payload"
+```
+
 #### Upload a new payload
 
 A cURL command for uploading local payloads to Operator. Note that you must be in the location of the file prior to sending the request.
