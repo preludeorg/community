@@ -13,7 +13,7 @@ template:
 resources:
   links: {}
 hints:
-  - You can change an agent's mode from their Config sidebar.
+  - You can change an agent's mode from their profile.
   - Did you deploy a chain against the locked agent?
   - After deploying a chain, check the agent's queue.
 blocks:

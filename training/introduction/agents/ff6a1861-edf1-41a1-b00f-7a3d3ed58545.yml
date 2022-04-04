@@ -25,5 +25,5 @@ blocks:
     All computers use this address as their own, but it doesn't let computers communicate with other devices as a real
     IP address does.
 answer:
-  script: Settings.settings.local.server
-  value: 0.0.0.0
+  script: Number(Settings.s.public.server === '0.0.0.0')
+  value: 1

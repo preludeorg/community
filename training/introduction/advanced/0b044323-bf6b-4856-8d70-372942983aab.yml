@@ -24,7 +24,9 @@ blocks:
     system over time or after a reboot. Adversaries will often store malicious code here or use it as a "home base" of 
     sorts because it's an often overlooked directory.
 answer:
-  script: Number(Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.darwin.sh.command.toLowerCase().includes('tmp') || 
-          Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.linux.sh.command.toLowerCase().includes('tmp') ||
-          Attack.attack['90c2efaa-8205-480d-8bb6-61d90dbaf81b'].platforms.windows.psh.command.toLowerCase().includes('temp'))
+  script: 
+    let attack = Object.values(Attack.a).filter(function (a) {return a.name === 'Find recent files (Modified)'})
+    Number(Attack.a[attack[0].id].platforms.darwin.sh.variants.toLowerCase().includes('tmp') || 
+    Attack.a[attack[0].id].platforms.linux.sh.variants.toLowerCase().includes('tmp') ||
+    Attack.a[attack[0].id].platforms.windows.psh.variants.toLowerCase().includes('temp'))
   value: 1
