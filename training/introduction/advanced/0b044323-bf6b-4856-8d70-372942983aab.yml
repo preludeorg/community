@@ -8,16 +8,19 @@ context: |
   For example, a procedure that does a port scan may look like this: nmap -Pn example.com. This will scan example.com
   for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
   of this command may be: nmap -Pn -sV example.com. Instead of creating a new TTP for each of these variations you can
-  outline each variant in a single TTP file. Follow the example formatting in the 'Update agent beacon protocol' TTP.
+  outline each variant in a single TTP file. To start, find and edit the exisiting "Find recent files" TTP which will create
+  a modified version of said TTP. Next follow the syntaxing for variants which can be found in the example TTP: 
+  'Update agent beacon protocol'. Finally, once you have created and appended your variations to the new TTP, verify 
+  your work by entering in the TTP ID. 
 template:
-  name: submit
+  name: input
   data: []
 resources:
-  links: []
+  links:
+    Update agent beacon protocol: https://github.com/preludeorg/community/blob/master/ttps/command-and-control/23c5cb2f-3f6f-4770-b260-13edf23f5903.yml
 hints:
   - Use the search feature in Launch Chain to locate the TTP
   - You may want to search other TTPs to find examples of variants so you can copy the syntax.
-  - Note that each variant has its own unique identifier
 blocks:
   The /tmp directory: |
     The /tmp (or TEMP) directory on a computer stores temporary files that will be removed automatically by your operating
@@ -25,8 +28,7 @@ blocks:
     sorts because it's an often overlooked directory.
 answer:
   script: 
-    let attack = Object.values(Attack.a).filter(function (a) {return a.name === 'Find recent files (Modified)'})
-    Number(Attack.a[attack[0].id].platforms.darwin.config.variants[0].command.toLowerCase().includes('tmp') || 
-    Attack.a[attack[0].id].platforms.linux.config.variants[0].command.toLowerCase().includes ||
-    Attack.a[attack[0].id].platforms.windows.config.variants[0].command.toLowerCase().includes('temp'))
+    Number(Attack.a[$('#answer').val()].platforms.darwin.config.variants[0].command.toLowerCase().includes('tmp') || 
+    Attack.a[$('#answer').val()].platforms.linux.config.variants[0].command.toLowerCase().includes ||
+    Attack.a[$('#answer').val()].platforms.windows.config.variants[0].command.toLowerCase().includes('temp'))
   value: 1
