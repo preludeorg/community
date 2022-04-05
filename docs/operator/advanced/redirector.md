@@ -7,10 +7,10 @@
 A redirector is a Linux server running a headless version of Operator - meaning Operator without Electron. 
 
 You can provision new redirectors from the Connect section. The process is simple:
-1. Download a headless version of Operator.
-2. Run it on any Linux server, ensuring your desktop has access to port 50051 and 8888.
-3. Enter the host and token for the redirector (it will print to console) into the Connect section.
-4. You will now be connected.
+- Download a headless version of Operator.
+- Run it on any Linux server, ensuring your desktop has access to port 50051 and 8888.
+- Enter the host and token for the redirector (it will print to console) into the Connect section.
+- You will now be connected.
 
 At this point, Operator will "transport" you into the redirector view. All local
 listening posts (on your desktop) will turn off and all local agents will be replaced with those
@@ -28,10 +28,14 @@ The redirector panel you connect/disconnect from is broken down into the followi
 
 #### Endpoints
 
+---
+
 Each Operator instance can have up to 5 (Community) or 50 (Professional) agents connected to it simultaneously.
 Use more redirectors to support additional agents.
 
 #### Redirector
+
+---
 
 Aside from the informational panel here, you can perform two actions: copy creds and join chat. 
 
@@ -45,6 +49,8 @@ chain, schedule, settings update, etc., will be mirrored across all connected Op
 
 #### Outpost
 
+---
+
 Outpost is a remote server hosting Operator content, such as TTPs, payloads and plugins. Prelude supplies 
 an open-source Outpost serving https://github.com/preludeorg/community and a closed-source Outpost for 
 license holders. Enterprise accounts can host their own.
@@ -52,6 +58,8 @@ license holders. Enterprise accounts can host their own.
 In the Outpost panel of a redirector, you can see its number of Outposts and available TTPs. 
 
 #### Publishers
+
+---
 
 Outposts can be backed by a publisher - a connection to an EDR or SIEM dashboard - that forwards your 
 result (meta)data to a central location. If you have an enterprise account, you can set up any publisher to 
@@ -70,15 +78,21 @@ section:
 
 #### Attach a cloud account
 
+---
+
 Link either an AWS or GCP account to your Operator instance. Additional cloud providers coming
 in the future.
 
 #### Provision a cloud redirector
 
+---
+
 Instead of manually setting up a server to run headless Operator, you can create new 
 fully-functional redirectors in your own cloud environment at the click of a button.
 
 #### Provision a cloud VM
+
+---
 
 Create newly compromised servers - either Linux or Windows - in your own cloud environment. 
 These servers will have an agent dropped on them, which will connect to the redirector of your
