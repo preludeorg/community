@@ -18,7 +18,7 @@ Some of these attributes are captured by the agent itself, and persisted immedia
 
 #### Attributes
 
-- **unique**: every link has a unique identifier used to differentiate it from other executions, which may even share almost every other attribute in common.
+- **id**: every link has a unique id used to differentiate it from other executions, which may even share almost every other attribute in common.
 - **operation**: every link belongs to an operation, which is the total set of every TTP, and all of the requests it generates, when when you decide to run a chain.
 - **agent**: we collect the name of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense.
 - **account**: we collect the account details of the user originating each request, this is an object with the following attributes:
