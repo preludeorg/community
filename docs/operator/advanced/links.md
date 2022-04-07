@@ -31,8 +31,8 @@ Some of these attributes are captured by the agent itself, and persisted immedia
 - **payload**: if your TTP required a payload as part of its request, we store the specific payload name and version used.
 - **request**: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain.
 - **response**: this is the result of running your command. if your command provides incremental results, you'll receive multiple links that belong to the same `operation` with the same `request` body, but have different `timelines` and responses. we capture:
-	- `stdout`: the regular output stream of the request, which is where data gets parsed out of for downstream commands.
-	- `stderr`: the error stream of the request, which is returned for diagnostic information, with no parsing and data extraction performed.
+	- `output`: the regular output stream (stdout) of the request, which is where data gets parsed out of for downstream commands.
+	- `error`: the error stream (stderr) of the request, which is returned for diagnostic information, with no parsing and data extraction performed.
 - **status**: the status code of the request.
 - **pid**: the process ID of the executed task.
 - **timeline**: if you're trying to correlate tasks that got executed by operator with the raw results you see in your logs, one of the most important heuristics you'll depend on is the time that each event was recorded to try to tell a story of what corresponds with what. however, since timestamps as a single moment don't capture the fact that instructions can take several milliseconds to hours to run, we capture each edge of the execution to give you a full window to relate your downstream events to:
