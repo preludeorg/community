@@ -14,7 +14,7 @@ When run, each of those requests is captured by a `Link`: an independent unit of
 
 When a request is executed by an agent, we capture as many contextual attributes about the command being run as we can, not just so we can extract data from each output, in order to sequence future TTPs in the chain currently being run, but so you can use that context try and make sense of what happened yourself, either by enriching the results you already see in your logs, SIEM, or defensive/observability platform of choice, with the inputs used to drive those results by Operator, or simply by reading over the results generated manually.
 
-Some of these attributes are captured by the agent itself, and persisted immediately as it sends its results back to Operator (such as your raw results and execution timeline). Others are attached to the `Link` after the fact, augmented to the result by Operator, right before it gets published to your outpost (such as the tactic/technique/ttp and account information).
+Some of these attributes are captured by the agent itself, and persisted immediately as it sends its results back to Operator (such as your raw results and execution timeline). Others are attached to the `Link` after the fact, augmented to the result by Operator and HQ, right before it gets published to your outpost (such as the tactic/technique/ttp and account information).
 
 #### Attributes
 
