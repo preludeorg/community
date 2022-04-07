@@ -1,0 +1,19 @@
+id: e53b67e8-5fd5-4ad6-aeee-8c6e720a715b
+name: Get shell payload
+description: ' Get shell payload so that it can be compiled elevated.'
+tactic: privilege-escalation
+technique:
+  id: T1548
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    bash:
+      command: mv shell.c /tmp/shell.c
+      payload: '#{operator.payloads}/uploads/shell.c'
+metadata:
+  authors: 
+    - gerbsec
+  chains:
+    - Suid Exploitation
+  tags: []
+  enabled: true

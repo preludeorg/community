@@ -1,0 +1,46 @@
+id: 5ebaf652-4fcf-448c-a449-808bc9c08400
+name: Find SUID Binaries
+description: 'A not so simple way to find suid binaries that are eligible to exploitation. '
+tactic: privilege-escalation
+technique:
+  id: T1548
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    bash:
+      command: >-
+        mv payload.txt /tmp/payload.txt
+
+        eval "suidGTFO=($(cat /tmp/payload.txt | tr '\n' ' '))"
+
+        eval "suidOM=($(find / -perm -4000 -type f 2>/dev/null | sed
+        's:.*/\(.*\):"\1":' | tr '\n' ' '))"
+
+        exploitables=()
+
+        for eSuid in ${suidGTFO[@]};do
+            for suid in ${suidOM[@]};do
+                if [[ "$eSuid" == *"$suid"* ]];then
+                    exploitables+=("$suid")
+                    fi
+                done;
+            done;
+        uniq=($(printf "%s\n" "${exploitables[@]}" | sort -u ))
+
+        echo "["
+
+        printf -v x "{ \"suid\": \"%s\" }, " "${uniq[@]}"
+
+        x=${x%, }
+
+        echo "$x ]"
+      payload: '#{operator.payloads}/uploads/payload.txt'
+metadata:
+  authors:
+    - gerbsec
+  chains:
+    - Suid Exploitation
+  tags:
+    - SUID GTFOBINS
+  themes: []
+  enabled: true
