@@ -39,8 +39,9 @@ Some of these attributes are captured by the agent itself, and persisted immedia
     - `hostname`: this is the network hostname of the machine the agent is currently executing on, as of the moment the command ran. *(source: Agent)*
     - `mac`: this is the mac address of the machine at moment of execution. *(source: Agent)*
     - `ip`: this is the internal IP of the machine at moment of execution. *(source: Agent)*
-- `payload`: if your TTP required a payload as part of its request, we store the specific payload name and version used. *(source: Operator)*
-- `request`: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain. *(source: Operator)*
+- `request`: the actual request that got executed.
+    - `command`: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain. *(source: Operator)*
+    - `payload`: if your TTP required a payload as part of its request, we store the specific payload name and version used. *(source: Operator)*
 - `response`: this is the result of running your command. if your command provides incremental results, you'll receive multiple links that belong to the same `operation` with the same `request` body, but have different `timelines` and responses. we capture:
     - `output`: the regular output stream (stdout) of the request, which is where data gets parsed out of for downstream commands. *(source: Agent)*
     - `error`: the error stream (stderr) of the request, which is returned for diagnostic information, with no parsing and data extraction performed. *(source: Agent)*
