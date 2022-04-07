@@ -48,7 +48,10 @@ Some of these attributes are captured by the agent itself, and persisted immedia
     - `status`: the status code of the request. *(source: Agent)*
 - `process`: the process ID and parent of the executed task.
     - `id`: the raw process ID. *(source: Agent)*
-    - `parent_id`: the process's parent ID (ie: the current process ID of the executing agent). *(source: Agent)*
+    - `guid`: the guid of the process (if supported, otherwise a unique identifier). *(source: Agent)*
+    - `parent`: the process's parent. 
+        - `id`: the raw process ID of the parent (ie: the current process ID of the executing agent). *(source: Agent)*
+        - `guid`: the guid of the process (if supported, otherwise a unique identifier). *(source: Agent)*
 - `timeline`: if you're trying to correlate tasks that got executed by operator with the raw results you see in your logs, one of the most important heuristics you'll depend on is the time that each event was recorded to try to tell a story of what corresponds with what. however, since timestamps as a single moment don't capture the fact that instructions can take several milliseconds to hours to run, we capture each edge of the execution to give you a full window to relate your downstream events to:
     - `generated`: the moment the command was generated in queue by Operator (relative to Operator's local time). *(source: Operator)*
     - `sent`: the moment the command was sent from Operator to the agent (relative to Operator's local time). *(source: Operator)*
