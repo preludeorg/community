@@ -35,8 +35,10 @@ Some of these attributes are captured by the agent itself, and persisted immedia
             - `technique`: the TTP's technique. *(source: Operator)*
 - `host`:
     - `agent`: we collect the identity header of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense. *(source: Operator)*
-    - `username`: this is the system level account that the agent used to execute the command: whether impersonated or not, this will help you determine, among other things, the privileges and access levels that the agent had access to when executing each command.
-    - `hostname`: this is the network hostname of the machine the agent is currently executing on, as of the moment the command ran.
+    - `username`: this is the system level account that the agent used to execute the command: whether impersonated or not, this will help you determine, among other things, the privileges and access levels that the agent had access to when executing each command. *(source: Agent)*
+    - `hostname`: this is the network hostname of the machine the agent is currently executing on, as of the moment the command ran. *(source: Agent)*
+    - `mac`: this is the mac address of the machine at moment of execution. *(source: Agent)*
+    - `ip`: this is the internal IP of the machine at moment of execution. *(source: Agent)*
 - `payload`: if your TTP required a payload as part of its request, we store the specific payload name and version used. *(source: Operator)*
 - `request`: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain. *(source: Operator)*
 - `response`: this is the result of running your command. if your command provides incremental results, you'll receive multiple links that belong to the same `operation` with the same `request` body, but have different `timelines` and responses. we capture:
