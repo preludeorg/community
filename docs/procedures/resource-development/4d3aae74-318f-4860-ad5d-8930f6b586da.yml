@@ -1,0 +1,45 @@
+
+# Launch a gost server
+
+---
+
+### Metadata
+
+This is a man page for a TTP available in Operator. Man pages provide additional context around procedures and should be consulted if you are looking to learn about a particular chain.
+
+- *TTP Identifier*: 4d3aae74-318f-4860-ad5d-8930f6b586da
+- *MITRE Technique ID*: [T1544](https://attack.mitre.org/techniques/T1608/002/)
+
+---
+
+### A hacker's perspective
+
+---
+
+Proxies are intermediaries applications that route traffic between a client and a server.  They're used primarily for network monitoring and filtering, and to improve performance (as with a caching proxy that stores commonly requested data).  For an attacker, proxies may be deployed on compromised hosts to; consolidate network traffic through a single egress, avoid network detection and prevention controls, or to tunnel network traffic between hosts when direct routes are not available.  
+
+Go Simple Tunnel (gost) is a tunnel written in Go that includes many networking capabilities such as support for several network protocols, encryption and authentication, multi-level proxy, and more.
+
+### Expected output
+
+---
+
+None. No usable output should be printed to console but this procedure should result in a new gost SOCKS5 proxy server.
+
+### Basic variations
+
+---
+
+Gost configuration may change the port, protocol, encryption methods, multi-level proxy, and more.  Configuration is controlled via command-line arguments to the application at runtime. Alternative proxy applications with similar functionality, such as Chisel, may be used.
+
+### Prevent + Detect
+
+---
+
+To get a proxy server running the hacker will first need to stage the binary. Consider detecting based on file hash, file download, or YARA signatures. Open ports on a host may indicate a running proxy server and checking which applications are using the assigned port can help identify this.  Proxy traffic may be detected by networking devices with logging, and by correlation of network traffic between hosts and sub-nets.
+
+### How it is chained
+
+---
+
+A SOCKS5 proxy may be used for network scanning, or using network tools through a proxy to avoid staging them in the victim network.  The use of proxy servers for tunneling is common, tools like socat and Chisel are often used to tunnel network traffic between hosts when direct routes are not otherwise available.
