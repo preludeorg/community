@@ -28,5 +28,5 @@ blocks:
     but well worth getting familiar with.
 answer:
   script: |
-    Object.values(Attack.attack).filter(atk => atk.technique.id === 'T1560.001' && atk.name.toLowerCase() === $('#answer').val().toLowerCase()).length
+    Object.values(Attack.a).filter(atk => atk.technique.id === 'T1560.001' && atk.name.toLowerCase() === $('#answer').val().toLowerCase()).length
   value: 1

@@ -35,13 +35,13 @@ Prelude supports multiple script agents written in various languages.
 Some agents are designed for specific operating systems while others are multi-platform. 
 You can find details about these agents in the main section, including download options to start using them.
 
-### Agent ranges
+### Agent limits
 
 ---
 
-Ranges are logical groupings of agents. For example, a range can be used to cluster agents from various platforms (darwin, 
-linux, windows) in order to run a cross-platform chain against all the agents. Agents can be moved between ranges using 
-either command line flags or the Update Config sidebar in the main section.
+Operators are logical groupings of agents. For example, an Operator can be used to cluster agents from various platforms (darwin, 
+linux, windows) in order to run a cross-platform chain against all the agents. Agents can be moved between Operators using 
+either command line flags or the Update Config sidebar in the main section. Depending on the license level the maximum number of agents that can be connected at a single time differ - with 5 being the most for community members and 50 for professional and enterprise users.
 
 ### Locking an agent
 

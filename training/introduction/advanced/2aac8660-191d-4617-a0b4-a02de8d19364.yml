@@ -13,14 +13,12 @@ template:
   data: []
 resources:
   links: {}
-hints:
-  - Look for the + button inside the Editor section
-  - Did you save the TTP after creating it?
+hints: {}
 blocks:
   Choosing a platform & executor: |
     Each TTP requires a platform (operating system) and executor (program the agent uses to run the TTP). There are 3 supported
     platforms in Operator today: Windows, Linux and Darwin (another word for MacOS). By default, each platform can use
     a specific set of executors. Check the documentation around TTPs for a list of options.
 answer:
-  script: Number(Object.values(Attack.attack).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)
+  script: Number(Object.values(Attack.a).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)
   value: 1

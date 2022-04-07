@@ -7,7 +7,8 @@ context: |
   help you achieve the following tasks, we provide in-depth documentation on built-in TTPs. Within
   the reference manual pages you will find a TTP's context, output, use, and known detection and 
   preventation information. Once you find and read the desired documentation - leave it open - and come back here
-  to verify.
+  to verify. Open panels in Operator are indicated with a green dot next to the section icon, ensure that indicator
+  is present when verifying this flag.
 template:
   name: submit
   data: []
