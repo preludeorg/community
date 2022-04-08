@@ -39,4 +39,4 @@ platforms:
   windows:
     psh:
       command: |
-        Set-Content -Path '$HOME\Desktop\instructions.txt' -Value 'Please pay me to unlock all the files I encrypted.'
+        Set-Content -Path $HOME'\Desktop\instructions.txt' -Value 'Please pay me to unlock all the files I encrypted.'
