@@ -12,14 +12,18 @@ template:
   name: submit
   data: []
 resources:
-  links: {}
+  links:
+    Pneuma: https://github.com/preludeorg/pneuma
 hints:
   - You need to deploy a Pneuma agent over the TCP protocol to complete this challenge.
   - The reverse shell must be open when you capture this flag.
 blocks:
   Download Pneuma: |
-    There are two ways you can download Pneuma. Through the links available in the agent sidebar (easy) and compiling your
-    own agent from the GitHub source code (medium).
+    There are two ways you can download Pneuma. You can download Pneuma and other available agents via the 'Add agent' button 
+    at the bottom of your agent dashboard. The second option is to compile your own agent from the GitHub source code.
+  Agent limit: |
+    There can only be at most 15 active, non thirdEye agents, that can be beaconed into a single target, with non-active agents
+    uninvolved in the count. New beacon targets can be created in the Connect panel, through the form of redirectors.
   Meterpreter (Metasploit): |
     Meterpreter is a Metasploit attack payload that provides an interactive shell from which an attacker can explore
     the target machine and execute code. Meterpreter is deployed using in-memory DLL injection. As a result,
@@ -31,5 +35,5 @@ blocks:
     Beacon is Cobalt Strike's agent to model advanced attackers. Use Beacon to egress a network over HTTP, HTTPS, or DNS.
 answer:
   script: |
-    Number(Agent.agents.filter(function(a) { return a.shell}).length) > 0
+    Number(Agent.a.filter(function(a) { return a.shell}).length) > 0
   value: True

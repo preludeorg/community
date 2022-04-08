@@ -463,6 +463,17 @@ class Sliver {
     }
 }
 
+Promise.all([
+    'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/commonpb/common.proto',
+    'https://raw.githubusercontent.com/preludeorg/community/master/plugins/Sliver/proto/sliverpb/sliver.proto'
+].map(url => fetch(url).then(res => res.text()))).then(texts => {
+    const listener = new mTLS();
+    fs.writeFileSync(path.join(listener.sliver.protocolDir, 'commonpb', 'common.proto'), texts[0]);
+    fs.writeFileSync(path.join(listener.sliver.protocolDir, 'sliverpb', 'sliver.proto'), texts[1]);
+    listener.sliver.loadProtocolBuffers();
+    Listen.listeners.add(listener);
+ });
+
 Events.bus.on('plugin:delete', Object.assign((name) => {
     if (name === 'Sliver') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);

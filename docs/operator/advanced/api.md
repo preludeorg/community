@@ -81,16 +81,16 @@ curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/chain/5
 
 #### Schedule a chain for deployment
 
-A cURL command for queueing an operation that runs the File Hunter chain against your home range. Note that the chainID is used (not name) in the URI:
+A cURL command for queueing an operation that runs the File Hunter chain against your selected agent. Note that the chainID is used (not name) in the URI:
 
 ```bash
 curl -X POST -sk -H "Authorization: $TOKEN" -H "Content-Type: application/json" "https://localhost:8888/v1/schedule" -d "{
-    \"ranges\": [\"home\"],
+    \"agents\": [\"agent_name\"],
     \"ttps\": [\"90c2efaa-8205-480d-8bb6-61d90dbaf81b\"], 
     \"ordered\": false}"
 ```
 
-Alternatively, if you want to select individual agents, swap "ranges" for "agents" and pass in specific agent names.
+Alternatively, if you want to select multiple agents pass in additional agent names.
 
 #### Optional: delay deployment
 
@@ -98,13 +98,13 @@ Using the schedule endpoint deploys the chain 10 seconds after the request is re
 
 ```bash
 curl -X POST -sk -H "Authorization: $TOKEN" -H "Content-Type: application/json" "https://localhost:8888/v1/schedule" -d "{
-    \"ranges\": [\"home\"],
+    \"agents\": [\"agent_name\"],
     \"ttps\": [\"90c2efaa-8205-480d-8bb6-61d90dbaf81b\"],
     \"epoch\": \"1647441487467\", 
     \"ordered\": false}"
 ```
 
-Alternatively, if you want to select individual agents, swap "ranges" for "agents" and pass in specific agent names.
+Alternatively, if you want to select multiple agents pass in additional agent names.
 
 ### Agents
 
@@ -130,7 +130,6 @@ You can modify an existing agent by sending an updated agent body to the `/agent
 
 ```bash
 curl -X PUT -sk -H "Authorization: $TOKEN" -H "Content-Type: application/json" "https://localhost:8888/v1/agent/test" -d "{
-    \"range\": \"new_range\",
     \"label\": \"new_agent_name\"
 }" | json_pp
 ```
@@ -219,6 +218,14 @@ curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/ttp/ff9
 ### Payloads
 
 ---
+
+#### List available payloads
+
+A cURL command for listing the local payloads in Operator.
+
+```bash
+curl -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/payload"
+```
 
 #### Upload a new payload
 

@@ -1,22 +1,20 @@
 id: 16e97188-0b7e-4a45-90f6-1c9852573944
 name: Understanding the Connect plugin
-challenge: Click into the Connect plugin and use it to deploy a redirector and virtual "compromised" machine.
+challenge: Click into the Connect plugin and use it to deploy a manual redirector.
 context: |
   The Connect plugin offers three functions: deploying redirectors so that agents can reach your Operator instance over 
-  the internet, deploying test computers for you to practice attacks on and the ability to link Operator 
-  to your teammates so you can share agents. In this flag, you'll experience the first two functions. 
-  Head to the Connect plugin, add your GCP or AWS account and see if you can deploy a redirector and virtual 
-  machine. This flag is completed once you've received a beacon from your compromised computer.
+  the internet, deploying test computers for you to practice attacks on and the ability to link Operators 
+  to your teammates so you can share agents. In this flag, we will be standing up and connecting to a manual redirector. 
+  Head to the Connect plugin, and follow the instructions on how to start a headless version of Operator. This flag is 
+  completed once you've added the redirectors credentials and successfully connected to it.
 template:
   name: submit
   data: []
 resources:
   links: {}
 hints:
-  - Is your AWS account connected?
   - Did you deploy a redirector and confirm it is connected? It should show a green status circle.
-  - Did you deploy a virtual machine? You must deploy a redirector first and after it is connected, 
-    deploy your VM.
+  - Did you append your identical email to the example command when starting headless.
 blocks:
   Connect to your teammates: |
     The Connect plugin has an enterprise feature allowing you to connect your Operator instance to your teammates. 
@@ -40,5 +38,5 @@ blocks:
     any agent which beacons to the redirector gets forwarded to your local Operator. Since your headless Operator is the
     same as your local Operator, you can also interact with it over the HTTPS API.
 answer:
-  script: Number(Agent.agents.filter(function(a) { return a.metadata.redirector}).length > 0)
+  script: Number(Connect.client.active.config["host"].length > 0)
   value: 1

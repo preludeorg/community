@@ -44,8 +44,8 @@ blocks:
 answer:
   script: 
       new Promise((resolve, reject) => {
-      const adversary = Object.values(Adversary.adversaries).filter(a => a.name === $('#answer').val())[0];
-      const ttps = adversary.ttps.map(ttp => Attack.attack[ttp]);
+      const chain = Object.values(Chain.c).filter(a => a.name === $('#answer').val())[0];
+      const ttps = chain.ttps.map(ttp => Attack.a[ttp]);
       const rules = [
         (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1082" && ttp.platforms.darwin || ttp.platforms.windows,
         (ttp) => ttp.tactic.toLowerCase() === "discovery" && ttp.technique.id.split('.') == "T1057" && ttp.platforms.darwin || ttp.platforms.windows,
@@ -57,7 +57,7 @@ answer:
           return ttps.filter(ttp => rule(ttp)).length;
       });
       if (validRules.length === rules.length) {
-        if (Agent.agents.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
+        if (Agent.a.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
           return resolve(1);
         }
       }

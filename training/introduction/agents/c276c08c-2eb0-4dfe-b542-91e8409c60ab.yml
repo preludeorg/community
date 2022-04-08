@@ -25,7 +25,6 @@ hints:
   - Did you change the AESKey in pneuma/util/config.go. It can be anything - but it must be 32-characters.
   - Did you add your new key to Operator? Check the Settings section.
   - Did Operator receive a beacon notification when you started the agent?
-  - You may want to finish the rest of the flags in this section and come back to this one.
 blocks:
   Compile code: |
     Compiling is the transformation from Source Code (human readable) into machine code (computer executable). A
@@ -56,5 +55,5 @@ blocks:
     can download a copy of the agent from the Operate section (look for the agent icon in the dock). Run the agent
     with the -help parameter for more information.
 answer:
-  script: Number(Agent.agents.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
+  script: Number(Agent.a.filter(function (a) { return a.key != 'abcdefghijklmnopqrstuvwxyz012345' }).length > 0)
   value: 1
