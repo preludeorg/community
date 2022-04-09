@@ -24,9 +24,7 @@ const batchFetchTTPs = (ttps, callback, batchSize=20, batchTimeout=250) => {
     const next = () => {
       if (idx < chunks.length) {
         Promise.all(chunks[idx++].map(ttp => callback(ttp)))
-            .then(() => {
-              setTimeout(next, batchTimeout)
-            }, reject)
+            .then(() => setTimeout(next, batchTimeout), reject)
       } else {
         resolve();
       }
