@@ -25,9 +25,13 @@ Some of these attributes are captured by the agent itself, and persisted immedia
         - `email`: the users' email. *(source: HQ)*
     - `operation`: every link belongs to an operation, which is the total set of every TTP, and all of the requests it generates, when when you decide to run a chain.
         - `id`: the id of the operation itself. *(source: Operator)*
-        - `chain_id`: if the operation was spawned by a chain, the id of the chain. *(source: Operator)*
+        - `schedule`: if the operation was spawned by a schedule, the id of the schedule. *(source: Operator)* 
+        - `chain`: if the operation was spawned by a chain, the details of the chain itself.
+          - `id`: the chain id. *(source: Operator)*
+          - `name`: the chain name (in order to make results immediately usable when published end consumers). *(source: Operator/HQ/Outpost)*
     - `ttp`: the TTP and classification of the attack being executed.
         - `id`: the TTP id. *(source: Operator)*
+        - `name`: the TTP name (in order to make results immediately usable when published end consumers). *(source: Operator/HQ/Outpost)*
         - `platform`: since each operation can span multiple machines each running a different operating system, it's important to store the platform to help you distinguish your results at the environment level (this corresponds to the platform used to select the command out of the TTP, and could map to the host's acutal operating system, or global). *(source: Operator)*
         - `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
         - `attack`: the TTP's ATT&CK classification.
