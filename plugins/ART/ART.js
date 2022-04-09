@@ -56,8 +56,8 @@ const ingestAtomicRedTeamRepository = () => {
                         .catch(e => {})
       )).then(() =>
           Promise.all([
-              fetchPostOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
-              batchFetchTTPs(preludeFormattedData.procedures, fetchPostOperatorTTP)
+            fetchPostOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
+            batchFetchTTPs(preludeFormattedData.procedures, fetchPostOperatorTTP)
           ])
       ).then(resolve).catch(reject)
     })
@@ -139,8 +139,9 @@ const convertRedCanary = (data, schema) => {
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
-    Promise.all([fetchGetOperatorARTFacts().then(facts => fetchHandleFacts(facts, 'DELETE')),
-    fetchGetOperatorTTPs()
+    Promise.all([
+      fetchGetOperatorARTFacts().then(facts => fetchHandleFacts(facts, 'DELETE')),
+      fetchGetOperatorTTPs()
     ]).then(([res, ttps]) => {
         const redCanaryTTPs = Object.values(ttps).filter(r => r?.metadata?.source === 'Red Canary');
         return Promise.resolve(batchFetchTTPs(redCanaryTTPs, fetchDeleteARTTTP))
