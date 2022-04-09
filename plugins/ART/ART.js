@@ -2,9 +2,9 @@ const fetchARTRepoAllFiles = () => fetch(`https://api.github.com/repos/redcanary
 const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.text())
 const fetchARTRepoIndexFile = () => fetchArtRepoFile('atomics/Indexes/index.yaml')
 const fetchGetOperatorARTFacts = () => Requests.fetchOperator('/v1/plugin/ART').then(res => res.json());
-const fetchUpdateOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => Requests.fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
+const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => Requests.fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
 const fetchGetOperatorTTPs = () => Requests.fetchOperator('/v1/ttp').then(res => res.json());
-const fetchUpdateOperatorTTP = (ttp) => Requests.fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
+const fetchPostOperatorTTP = (ttp) => Requests.fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
 const fetchDeleteARTTTP = (ttp) => Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
 const fetchHandleFacts = (facts, action='POST') => {
   return Requests.fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
@@ -58,8 +58,8 @@ const ingestAtomicRedTeamRepository = () => {
                         .catch(e => {})
       )).then(() =>
           Promise.all([
-              fetchUpdateOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
-              batchFetchTTPs(preludeFormattedData.procedures, fetchUpdateOperatorTTP)
+              fetchPostOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
+              batchFetchTTPs(preludeFormattedData.procedures, fetchPostOperatorTTP)
           ])
       ).then(resolve).catch(reject)
     })
