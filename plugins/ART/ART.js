@@ -6,6 +6,16 @@ const fetchUpdateOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(da
 const fetchGetOperatorTTPs = () => Requests.fetchOperator('/v1/ttp').then(res => res.json());
 const fetchUpdateOperatorTTP = (ttp) => Requests.fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
 const fetchDeleteARTTTP = (ttp) => Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
+const fetchHandleFacts = (facts, action='POST') => {
+  return Requests.fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
+    Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
+      method: action,
+      body: JSON.stringify(Object.entries(facts).filter(([key, value]) => key.startsWith('art.')).map(([key, value]) => ({
+        key: key, value: value, scope: 'global'
+      })))
+    })
+  );
+};
 
 const batchFetchTTPs = (ttps, callback, batchSize=20, batchTimeout=250) => {
   const chunks = Array(Math.ceil(ttps.length / batchSize)).fill().map((n, idx) => ttps.slice(idx * batchSize, idx * batchSize + batchSize));
@@ -24,17 +34,6 @@ const batchFetchTTPs = (ttps, callback, batchSize=20, batchTimeout=250) => {
     next();
   });
 }
-
-const handleFacts = (facts, action='POST') => {
-  return Requests.fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
-    Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
-      method: action,
-      body: JSON.stringify(Object.entries(facts).filter(([key, value]) => key.startsWith('art.')).map(([key, value]) => ({
-        key: key, value: value, scope: 'global'
-      })))
-    })
-  );
-};
 
 const ingestAtomicRedTeamRepository = () => {
   const yaml = require('js-yaml');
@@ -59,7 +58,7 @@ const ingestAtomicRedTeamRepository = () => {
                         .catch(e => {})
       )).then(() =>
           Promise.all([
-              fetchUpdateOperatorARTFact(preludeFormattedData.facts).then(facts => handleFacts(facts)),
+              fetchUpdateOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
               batchFetchTTPs(preludeFormattedData.procedures, fetchUpdateOperatorTTP)
           ])
       ).then(resolve).catch(reject)
@@ -142,7 +141,7 @@ const convertRedCanary = (data, schema) => {
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
-    Promise.all([fetchGetOperatorARTFacts().then(facts => handleFacts(facts, 'DELETE')),
+    Promise.all([fetchGetOperatorARTFacts().then(facts => fetchHandleFacts(facts, 'DELETE')),
     fetchGetOperatorTTPs()
     ]).then(([res, ttps]) => {
         const redCanaryTTPs = Object.values(ttps).filter(r => r?.metadata?.source === 'Red Canary');
