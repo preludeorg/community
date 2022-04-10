@@ -1,11 +1,10 @@
 id: ed2e1bae-5f2f-429d-9760-4dea63d650e1
 name: Register for the course
 challenge: |
-  Fill out your profile details to register for this course
+  Log into Operator to register for this course
 context: |
-  In order for us to provide the best training experience, we request a few details about you and your professional background.
-  This not only helps us adjust our curriculum moving forward, we will reference your profile in future conversations
-  with you. Head to https://portal.prelude.org and fill out your personal profile to get started.
+  Operator training programs require you to log in. When using Operator normally, logging in is optional, but we 
+  require it when taking training programs so we can track training progress per email account.
 template:
   name: submit
   data: []
@@ -16,7 +15,7 @@ resources:
     YouTube library: https://www.youtube.com/channel/UCZyx-PDZ_k7Vuzyqr4-qK9A
     Blog: https://feed.prelude.org
 hints:
-  - Ensure your profile is saved at portal.prelude.org
+  - Please log into Operator to begin.
 blocks:
   What will this program teach me?: |
     By taking the Pink Badge training program, you will learn the basic components that make up cybersecurity. You will
@@ -26,11 +25,6 @@ blocks:
     results of a red team exercise into action. The program is geared toward existing IT or InfoSec professionals, who are
     charged with securing organizations but may not have access or education in the cutting-edge tools and processes used
     by larger enterprises or governments. Our goal is that you can use your new skills to secure your organization.
-  What is login.prelude.org? : |
-    The Operator platform leverages login.prelude.org as an authentication server and content provider. We call this server
-    Headquarters. Aside from verifying your login info, Headquarters supplies all training modules and keeps your TTP
-    database up-to-date by automatically pulling down TTPs from the Community and Professional repositories. Within
-    the Headquarters UI, you can manage several personal details, such as your profile and what organizations you belong to.
   What should I expect?: |
     Each week, you will face multiple challenges in a capture-the-flag style. You will need to prove your knowledge by
     "capturing" each flag. Some will be easy, and test your reading comprehension, others will be difficult and will
