@@ -23,10 +23,13 @@ blocks:
   Compiling data:  |
     A traditional red team report is a written document that outlines the found issues and recommended improvements.
     However, a modern report can come in many formats and displayed in many ways, such as websites. Operator has two
-    ways of creating dynamic reports for you, including recommendations. The first is through a Reports plugin (available
-    to Professional license holders) which compiles red team reports for you inside Operator itself. The second is through
-    a web portal at <a href="https://portal.prelude.org">portal.prelude.org</a> (available to Enterprise license holders)
-    which displays a high-level view of all the Operator instances in your organization.
+    ways of creating dynamic reports. The first is inside the app itself. As you launch chains, the results stream 
+    into each agent dashboard in real-time so you can see what worked - and what didn't. The process of compiling this
+    data into an aggregate is manual however and requires more in-depth knowledge of understanding the impact of 
+    various procedures and the context of the result data. The second way to create reports is automatic: publishers.
+    Enterprise accounts can attach the SIEM or EDR of their choice to Operator and all results will be published 
+    to the corresponding dashboard. This allows you to house all your result data next to your already-collected log
+    data, so you can see what you detected and what you did not. 
 answer:
   script: $('#answer').val()
   value: 6
