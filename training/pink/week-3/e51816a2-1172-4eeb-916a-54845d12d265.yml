@@ -29,7 +29,7 @@ blocks:
     various procedures and the context of the result data. The second way to create reports is automatic: publishers.
     Enterprise accounts can attach the SIEM or EDR of their choice to Operator and all results will be published 
     to the corresponding dashboard. This allows you to house all your result data next to your already-collected log
-    data, so you can see what you detected and what you did not. 
+    data, so you can see what you detected and what you did not.
 answer:
   script: $('#answer').val()
   value: 6
