@@ -1,0 +1,43 @@
+
+# Execute an HTA payload using MShta
+
+---
+
+### Metadata
+
+This is a man page for a TTP available in Operator. Man pages provide additional context around procedures and should be consulted if you are looking to learn about a particular chain.
+
+- *TTP Identifier*: 0593b78b-b225-40aa-81b9-2455021d51c6
+- *MITRE Technique ID*: [T1218.005](https://attack.mitre.org/techniques/T1218/005)
+
+---
+
+### A hacker's perspective
+
+---
+
+MShta, a Miscrosfot signed binary used to execute HTML application (HTA) files, can be used to download and execute code in an HTA file.  The use of native operating system binaries and libaries for post-exploitation activity is commonly reffered to as "living-off-the-land".  For an attacker, using MShta to download and execute HTA files may help avoid detection.
+
+### Expected output
+
+---
+
+No console output should come from running this command.
+
+### Basic variations
+
+---
+
+MShta may be used to download a HTA from a web server, a file share, a file's alternate data stream (ADS), or to execute VBScript.
+
+### Prevent + Detect
+
+---
+
+Command line process auditing may be used to view the mshta.exe command line. Compare this result to known examples of mshta abuse, such as JS or VBScript execution.  Examine the mshta.exe process tree and search for suspicious child-processes, such as PowerShell, cmd, or processes with network activity.  HTA files are often used in phishing emails - if possible, filter HTA files from mailboxes.
+
+### How it is chained
+
+---
+
+Mshta.exe can be used whenever is download or code execution is required. APT40 is known to have used MShta in macro-enabled Office documents to download malware.
