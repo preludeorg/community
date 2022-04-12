@@ -3,9 +3,13 @@ const path = require('path');
 const protoBuf = require("protobufjs");
 const tls = require('tls');
 
+const Basic = require('../lib/basic')
 const Events = require('../lib/events');
 const Listen = require('../lib/listen');
+const Agent = require('../objects/agent');
 const Listener = require('../objects/listener');
+const Settings = require('../objects/settings');
+const Workspace = require('../objects/workspace');
 
 
 class mTLS extends Listener {
