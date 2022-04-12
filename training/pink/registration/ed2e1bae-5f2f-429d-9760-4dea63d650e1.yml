@@ -35,8 +35,8 @@ answer:
   script: |
     new Promise((resolve, reject) =>
         Requests.fetchGatekeeper(Basic.constructEndpoint('/profile', {
-            email: Settings.settings.account.email,
-            token: Settings.settings.account.token
+            email: Settings.s.account.email,
+            token: Settings.s.account.token
         }), {
             method: 'GET'
         })
