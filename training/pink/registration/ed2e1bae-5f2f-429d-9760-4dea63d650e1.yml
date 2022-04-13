@@ -33,13 +33,5 @@ blocks:
     accounts of red team work in the field by experienced professionals.
 answer:
   script: |
-    new Promise((resolve, reject) =>
-        Requests.fetchGatekeeper(Basic.constructEndpoint('/profile', {
-            email: Settings.s.account.email,
-            token: Settings.s.account.token
-        }), {
-            method: 'GET'
-        })
-        .then(res => res.json())
-        .then(res => resolve(Number(Boolean(res.title)))))
-  value: 1
+    Number(Settings.isDemoAccount())
+  value: 0    
