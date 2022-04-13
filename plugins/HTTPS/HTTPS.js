@@ -1,3 +1,4 @@
+const Encryption = require('../lib/encryption');
 const Events = require('../lib/events');
 const Listen = require('../lib/listen');
 const HTTP = require('../objects/listeners/http');
@@ -9,16 +10,15 @@ class HTTPS extends HTTP {
     init() {
         return new Promise((resolve, reject) => {
             this.destroy().then(() => {
-                Operator.api.buildCertificate().then(cert => {
-                    const server = require('https').createServer({
-                       key: cert.private,
-                       cert: cert.cert
-                    }, this.buildExpressApp())
-                    this.listening = server.listen(this.port, this.server, () => {
-                        Events.bus.emit('chat:message', `Attached HTTPS listener on ${this.port}.`);
-                    });
-                    resolve();
+                const cert = Encryption.loadCertificates();
+                const server = require('https').createServer({
+                   key: cert.key,
+                   cert: cert.cert
+                }, this.buildExpressApp())
+                this.listening = server.listen(this.port, this.server, () => {
+                    Events.bus.emit('chat:message', `Attached HTTPS listener on ${this.port}.`);
                 });
+                resolve();
             }).catch(e => {
                 reject(e)
             });
