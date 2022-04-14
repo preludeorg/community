@@ -172,7 +172,6 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 fetchGetOperatorTTPs()
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-    console.log(ttps);
     if (!ttps.length) {
       return ingestAtomicRedTeamRepository();
     }
