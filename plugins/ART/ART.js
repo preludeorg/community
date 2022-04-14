@@ -1,6 +1,6 @@
 const fetchOperator = (endpoint, options) => fetch(`https://${Settings.s.public.server}:${Settings.s.public.api}${endpoint}`, {
-            method: options.method,
-            body: options.body,
+            method: options?.method || 'GET',
+            body: options?.body || '',
             headers: {
                 ...options?.headers,
                 authorization: Settings.s.public.token
