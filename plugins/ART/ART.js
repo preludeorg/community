@@ -1,14 +1,14 @@
 const fetchARTRepoAllFiles = () => fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).catch(console.log)
-const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.text())
+const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.text()).catch(console.log)
 const fetchARTRepoIndexFile = () => fetchArtRepoFile('atomics/Indexes/index.yaml')
-const fetchGetOperatorARTFacts = () => Requests.fetchOperator('/v1/plugin/ART').then(res => res.json());
-const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => Requests.fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
-const fetchGetOperatorTTPs = () => Requests.fetchOperator('/v1/ttp').then(res => res.json());
-const fetchPostOperatorTTP = (ttp) => Requests.fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
-const fetchDeleteARTTTP = (ttp) => Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
+const fetchGetOperatorARTFacts = () => Requests.local.fetchOperator('/v1/plugin/ART').then(res => res.json());
+const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => Requests.local.fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
+const fetchGetOperatorTTPs = () => Requests.local.fetchOperator('/v1/ttp').then(res => res.json());
+const fetchPostOperatorTTP = (ttp) => Requests.local.fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
+const fetchDeleteARTTTP = (ttp) => Requests.local.fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
 const fetchHandleFacts = (facts, action='POST') => {
-  return Requests.fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
-    Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
+  return Requests.local.fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
+    Requests.local.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
       method: action,
       body: JSON.stringify(Object.entries(facts).filter(([key, value]) => key.startsWith('art.')).map(([key, value]) => ({
         key: key, value: value, scope: 'global'
