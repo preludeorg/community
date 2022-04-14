@@ -10,17 +10,18 @@ const fetchARTRepoAllFiles = () => fetch(`https://api.github.com/repos/redcanary
 const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.text()).catch(console.log)
 const fetchARTRepoIndexFile = () => fetchArtRepoFile('atomics/Indexes/index.yaml')
 const fetchGetOperatorARTFacts = () => fetchOperator('/v1/plugin/ART').then(res => res.json());
-const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
+const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts), headers: { 'Content-Type': 'application/json' }}).then(res => res.json()));
 const fetchGetOperatorTTPs = () => fetchOperator('/v1/ttp').then(res => res.json());
-const fetchPostOperatorTTP = (ttp) => fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
+const fetchPostOperatorTTP = (ttp) => fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp), headers: { 'Content-Type': 'application/json' }}).then(res => res.json());
 const fetchDeleteARTTTP = (ttp) => fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
 const fetchHandleFacts = (facts, action='POST') => {
   return fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
     fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
+      headers: { 'Content-Type': 'application/json' },
       method: action,
       body: JSON.stringify(Object.entries(facts).filter(([key, value]) => key.startsWith('art.')).map(([key, value]) => ({
         key: key, value: value, scope: 'global'
-      })))
+      }))),
     })
   );
 };
@@ -171,6 +172,7 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 fetchGetOperatorTTPs()
   .then(res => {
     const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
+    console.log(ttps);
     if (!ttps.length) {
       return ingestAtomicRedTeamRepository();
     }
