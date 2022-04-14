@@ -1,199 +1,161 @@
-const initFacts = () => {
-  return Promise.all([
-    Requests.fetchOperator('/v1/plugin/ART').then(res => res.json()),
-    Requests.fetchOperator('/v1/agent').then(res => res.json())
-  ]).then(([res, agents]) => {
-    if (res.facts){
-      Object.keys(res.facts).forEach(name => {
-        let temp = res.facts[name];
-        res.facts[name] = temp;
-      })
-      return Requests.fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
-        method: 'POST',
-        body: JSON.stringify(Object.entries(res.facts).map(([key, value]) => ({
-          key: key, value: value, scope: 'global'
-        })))
-      });
-    }
-  });
+const fetchOperator = (endpoint, options) => fetch(`https://${Settings.s.public.server}:${Settings.s.public.api}${endpoint}`, {
+            method: options.method,
+            body: options.body,
+            headers: {
+                ...options?.headers,
+                authorization: Settings.s.public.token
+            }
+        });
+const fetchARTRepoAllFiles = () => fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).catch(console.log)
+const fetchArtRepoFile = (file) => fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file}`).then(res => res.text()).catch(console.log)
+const fetchARTRepoIndexFile = () => fetchArtRepoFile('atomics/Indexes/index.yaml')
+const fetchGetOperatorARTFacts = () => fetchOperator('/v1/plugin/ART').then(res => res.json());
+const fetchPostOperatorARTFact = (facts) => fetchGetOperatorARTFacts().then(data => fetchOperator('/v1/plugin/ART', { method: 'POST', body: JSON.stringify(facts) }).then(res => res.json()));
+const fetchGetOperatorTTPs = () => fetchOperator('/v1/ttp').then(res => res.json());
+const fetchPostOperatorTTP = (ttp) => fetchOperator('/v1/ttp', { method: 'POST', body: JSON.stringify(ttp) }).then(res => res.json());
+const fetchDeleteARTTTP = (ttp) => fetchOperator(`/v1/ttp/${ttp.id}`, {method: 'DELETE'});
+const fetchHandleFacts = (facts, action='POST') => {
+  return fetchOperator('/v1/agent').then(res => res.json()).then(agents =>
+    fetchOperator(`/v1/agent/${agents[0].name}/facts`, {
+      method: action,
+      body: JSON.stringify(Object.entries(facts).filter(([key, value]) => key.startsWith('art.')).map(([key, value]) => ({
+        key: key, value: value, scope: 'global'
+      })))
+    })
+  );
 };
 
-const fetchTTPs = () => {
-  return Promise.resolve({})
-    .then(schema => Object.entries(schema).reduce((acc, [tactic, techniques]) =>
+const batchFetchTTPs = (ttps, callback, batchSize=20, batchTimeout=250) => {
+  const chunks = Array(Math.ceil(ttps.length / batchSize)).fill().map((n, idx) => ttps.slice(idx * batchSize, idx * batchSize + batchSize));
+  return new Promise((resolve, reject) => {
+    let idx = 0;
+    const next = () => {
+      if (idx < chunks.length) {
+        Promise.all(chunks[idx++].map(ttp => callback(ttp)))
+            .then(() => setTimeout(next, batchTimeout), reject)
+      } else {
+        resolve();
+      }
+    }
+    next();
+  });
+}
+
+const ingestAtomicRedTeamRepository = () => {
+  const yaml = require('js-yaml');
+
+  const createSchemaIndex = (index) => Object.entries(index).reduce((acc, [tactic, techniques]) =>
       Object.keys(techniques).reduce((acc, technique) => ({
         ...acc,
         [technique]: tactic
-      }), acc), {}))
-    .then(schema => {
-      const yaml = require('js-yaml');
-      const facts = {};
-      return fetch(`https://api.github.com/repos/redcanaryco/atomic-red-team/git/trees/master?recursive=3`).then(res => res.json()).then(res => { 
-        const dest = path.join(Settings.s.private.workspace, 'payloads');
-        return Promise.all(res.tree?.filter(el => el.type === 'blob' && el.path.match(/\/bin\//gi))?.map(el => {
-          return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${el.path}`)
-            .then((res) => {
-              if (res.status === 200) {
-                return res.blob()
-                  .then((blob) => blob.arrayBuffer())
-                  .then((bytes) => Buffer.from(bytes))
-                  .then((data) => {        
-                    const technique = el.path.split('/')[1];
-                    const checksum = Encryption.checksum(data);
-                    const payload = path.basename(el.path);
-                    const filename = path.join(dest, checksum, payload);
-                    const encryptedPayload = Encryption.encryptBuffer(data);
-                    Basic.storeData(encryptedPayload, filename);
-                    fs.chmodSync(filename, '755');
-                    return {
-                      technique: technique,
-                      checksum: checksum,
-                      payload: payload
-                    };
-                  });
-              }
-            });
-        }) || []).then((payloads) => {
-          const payloads_by_technique = payloads.filter(p => p?.payload).reduce((acc, payload) => ({
-            ...acc,
-            [payload.technique]: (acc[payload.technique] || []).concat(payload)
-          }), {});
-          return Promise.all(res.tree?.filter(el => el.path.endsWith('.yml') || el.path.endsWith('.yaml'))?.map(file => {
-            const technique = file.path.split('/')[1];
-            const payloads = (payloads_by_technique[technique] || []).reduce((acc, payload) => ({
-              ...acc,
-              [payload.payload]: payload.checksum
-            }), {});
-            return fetch(`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/${file.path}`)
-              .then(res => {
-                if (res.status === 200) {
-                  return res.text()
-                    .then(yaml.safeLoad)
-                    .then(res => {
-                      return convertRedCanary(res, payloads, schema, facts);
-                    })
-                    .then(res => Promise.all(res.map(ttp => Requests.fetchOperator('/v1/ttp', {
-                      method: 'POST',
-                      body: JSON.stringify(ttp)
-                    }))))
-                    .then(() => {
-                      return file;
-                    });
-                }
-              });
-          }) || []);
-        });
-      })
-      .then(() => {
-        return Requests.fetchOperator('/v1/plugin/ART', {
-          method: 'GET'
-        }).then(res => res.json()).then(res => {
-          res['facts'] = Object.assign({}, res.facts, facts);
-          Requests.fetchOperator('/v1/plugin/ART', {
-            method: 'POST',
-            body: JSON.stringify(res)
-          }).then(initFacts)
-        });
-      })
-      .then(() => {
-        Events.bus.emit('chat:message', `Your ART TTPs are now accessible.`);
-      });
-    });
+      }), acc), {});
+
+  const resolveAllTTPFiles = (repoData, index) => {
+    return new Promise((resolve, reject) => {
+      const schema = createSchemaIndex(yaml.safeLoad(index));
+      let preludeFormattedData = {procedures: [], facts: {}};
+      Promise.all(repoData?.tree.filter(file => file.type === 'blob' && file.path.includes('.yaml'))
+          .map(ttp => fetchArtRepoFile(ttp.path)
+                        .then(fileData => {
+                            let results = convertRedCanary(yaml.safeLoad(fileData), schema);
+                            preludeFormattedData.procedures = preludeFormattedData.procedures.concat(results.procedures);
+                            preludeFormattedData.facts = {...preludeFormattedData.facts, ...results.facts};
+                          })
+                        .catch(e => {})
+      )).then(() =>
+          Promise.all([
+            fetchPostOperatorARTFact(preludeFormattedData.facts).then(facts => fetchHandleFacts(facts)),
+            batchFetchTTPs(preludeFormattedData.procedures, fetchPostOperatorTTP)
+          ])
+      ).then(resolve).catch(reject)
+    })
+  }
+
+  return Promise.all([fetchARTRepoAllFiles(), fetchARTRepoIndexFile()])
+    .then(([data, index]) => resolveAllTTPFiles(data, index));
 };
 
-Requests.fetchOperator('/v1/ttp')
-  .then(res => res.json())
-  .then(res => {
-    const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-    if (!ttps.length) {
-      return fetchTTPs();
-    }
-  }).then(initFacts);
+const convertRedCanary = (data, schema) => {
 
-function convertRedCanary(data, payloads, schema, facts) {
-  return new Promise((resolve, reject) => {
-    try {
-      let procedures = [];
-      data.atomic_tests.forEach((ttp, idx) => {
-        let atk = {
-          id: ttp.auto_generated_guid,
-          name: ttp.name,
-          description: ttp.description,
-          metadata: {version: 1, authors: ['Atomic Red Team'], tags: ['ART'], source: 'Red Canary', payloads: payloads},
-          tactic: schema[data.attack_technique] || 'ART',
-          technique: {id: data.attack_technique, name: data.display_name},
-          platforms: {}
+  const normalize = (n) => {
+    const mapper = {macos: 'darwin', command_prompt: 'cmd', powershell: 'psh'};
+    return mapper.hasOwnProperty(n) ? mapper[n] : n;
+  }
+
+  const escapeTtpCommand = function(executor, command, replacements) {
+    const DELIMITERS = {
+      "psh": ";\n",
+      "pwsh": ";\n",
+      "cmd": " &\n",
+      "sh": ";\n",
+      "bash": ";\n",
+      "python": "\n",
+      "manual": ";\n"
+    };
+    const CONTINUATIONS = {
+      "psh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
+      "pwsh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
+      "cmd": [new RegExp(`[\\^&]\\s*$`)],
+      "sh": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
+      "bash": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
+      "python": [],
+      "manual": []
+    };
+    command = replacements.reduce((command, [match, replacement]) =>
+      command.replaceAll(match, replacement), command).replaceAll(/#{([a-zA-Z0-9_\.\|]+)}/g, "#{$1}");
+    return command.trim().split('\n').reduce((acc, part, idx) => {
+      if (!idx || CONTINUATIONS[executor].filter(r => r.exec(acc.trim())).length) {
+        return acc + (idx ? "\n" : "") + part;
+      } else {
+        return acc + DELIMITERS[executor] + part;
+      }
+    }, '');
+  };
+
+  let redCanaryData = {procedures: [], facts: {}};
+  try {
+    data.atomic_tests.forEach((ttp, idx) => {
+      let atk = {
+        id: ttp.auto_generated_guid,
+        name: ttp.name,
+        description: ttp.description,
+        metadata: {version: 1, authors: ['Atomic Red Team'], tags: ['ART'], source: 'Red Canary'},
+        tactic: schema[data.attack_technique] || 'ART',
+        technique: {id: data.attack_technique, name: data.display_name},
+        platforms: {}
+      };
+      const replacements = Object.keys(ttp?.input_arguments || {}).map(arg => {
+        const key = `art.${data.attack_technique}.${arg}`;
+        redCanaryData.facts[key] = ttp.input_arguments[arg].default;
+        return [`#{${arg}}`, `#{${key}}`];
+      });
+      ttp.supported_platforms.forEach(p => {
+        const platform = normalize(p);
+        const executor = normalize(ttp.executor.name);
+        atk.platforms[platform] = atk.platforms[platform] || {};
+        atk.platforms[platform][executor] = {
+          command: escapeTtpCommand(executor, ttp.executor.command ? ttp.executor.command : ttp.executor.steps, replacements)
         };
-        const replacements = Object.keys(ttp?.input_arguments || {}).map(arg => {
-          const key = `ART.${data.attack_technique}.${arg}`;
-          facts[key] = ttp.input_arguments[arg].default;
-          return [`#{${arg}}`, `#{${key}}`];
-        });
-        ttp.supported_platforms.forEach(p => {
-          const platform = normalize(p);
-          const executor = normalize(ttp.executor.name)
-          atk.platforms[platform] = atk.platforms[platform] || {};
-          atk.platforms[platform][executor] = {
-            command: escapeTtpCommand(executor, ttp.executor.command ? ttp.executor.command : ttp.executor.steps, replacements)
-          };
-        });
-        procedures.push(atk);
       });
-      resolve(procedures);
-    } catch (e) {
-      reject()
-    }
-  });
+      if (atk.id) {
+        redCanaryData.procedures.push(atk);
+      }
+    });
+  } catch (e) {}
+  return redCanaryData;
 }
-
-function normalize(n) {
-  const mapper = {macos: 'darwin', command_prompt: 'cmd', powershell: 'psh'};
-  return mapper.hasOwnProperty(n) ? mapper[n] : n;
-}
-
-const escapeTtpCommand = function(executor, command, replacements) {
-  const DELIMITERS = {
-    "psh": ";\n",
-    "pwsh": ";\n",
-    "cmd": " &\n",
-    "sh": ";\n",
-    "bash": ";\n",
-    "python": "\n",
-    "manual": ";\n"
-  };
-  const CONTINUATIONS = {
-    "psh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
-    "pwsh": [new RegExp(`^#(?!{)`), new RegExp(`[\`\\{\\};]\\s*$`)],
-    "cmd": [new RegExp(`[\\^&]\\s*$`)],
-    "sh": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
-    "bash": [new RegExp(`^#(?!{)`), new RegExp(`[\\\\;]\\s*$`), new RegExp(`\\bthen\\s*$`)],
-    "python": [],
-    "manual": []
-  };
-  command = replacements.reduce((command, [match, replacement]) =>
-    command.replaceAll(match, replacement), command).replaceAll(/#{([a-zA-Z0-9_\.\|]+)}/g, "#{art.$1}");
-  return command.trim().split('\n').reduce((acc, part, idx) => {
-    if (!idx || CONTINUATIONS[executor].filter(r => r.exec(acc.trim())).length) {
-      return acc + (idx ? "\n" : "") + part;
-    } else {
-      return acc + DELIMITERS[executor] + part;
-    }
-  }, '');
-};
 
 Events.bus.on('plugin:delete', Object.assign((name) => {
   if (name === 'ART') {
-    Requests.fetchOperator('/v1/ttp')
-      .then(res => res.json())
-      .then(res => {
-        const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
-        return Promise.all(ttps.map(ttp =>
-          Requests.fetchOperator(`/v1/ttp/${ttp.id}`, {
-            method: 'DELETE'
-          })))
+    Promise.all([
+      fetchGetOperatorARTFacts().then(facts => fetchHandleFacts(facts, 'DELETE')),
+      fetchGetOperatorTTPs()
+    ]).then(([res, ttps]) => {
+        const redCanaryTTPs = Object.values(ttps).filter(r => r?.metadata?.source === 'Red Canary');
+        return Promise.resolve(batchFetchTTPs(redCanaryTTPs, fetchDeleteARTTTP))
       })
-      .then(res => {
-        Events.bus.emit('chat:message', `All Atomic Red Team TTPs have been deleted from your workspace. Please restart Operator in order to remove all ART facts`);
+      .then(() => {
+          Events.bus.emit('chat:message', `All Atomic Red Team TTPs and Facts have been deleted from your workspace.`);
       });
     Events.bus.listeners('plugin:delete').map(listener => {
       if (listener.ART_PLUGIN_LISTENER) {
@@ -204,3 +166,12 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 }, {
   ART_PLUGIN_LISTENER: true
 }));
+
+
+fetchGetOperatorTTPs()
+  .then(res => {
+    const ttps = Object.values(res).filter(r => r?.metadata?.source === 'Red Canary');
+    if (!ttps.length) {
+      return ingestAtomicRedTeamRepository();
+    }
+  }).then(() => Events.bus.emit('chat:message', `All Atomic Red Team TTPs and Facts have been added to your workspace`));
