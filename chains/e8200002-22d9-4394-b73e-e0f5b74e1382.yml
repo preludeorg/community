@@ -1,0 +1,18 @@
+id: e8200002-22d9-4394-b73e-e0f5b74e1382
+metadata:
+  flavor: Allows an attacker to modify arbitrary read-only files.
+  release_date: '2022-03-14'
+  resources:
+    - https://www.tomshardware.com/news/dirty-pipe-linux-exploit
+    - https://dirtypipe.cm4all.com/
+    - https://github.com/Arinerron/CVE-2022-0847-DirtyPipe-Exploit
+name: Dirty Pipe (CVE-2022-0847)
+description:
+  This exploit enables an attacker to modify an arbitrary read-only file. The technique modifies /etc/passwd to elevate 
+  privilege and spawn a root shell. The vulnerability is present in the Linux kernel since 5.8.
+ttps:
+  - 894a2682-9023-4956-b6fd-47200759bd2c
+platforms:
+  - linux
+executors:
+  - sh

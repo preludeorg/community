@@ -1,0 +1,18 @@
+id: bdf01868-33fb-494c-a87c-59332ca8762a
+metadata:
+  agents:
+    - sliver
+name: Sliver BOF and Execute-Assembly
+description: |
+  This is an example of how you can attach a sliver agent directly, then run BOF and .NET Assemblies through Operator.
+ttps:
+  - 06543a80-1b92-4281-ac8d-cb59f6c708a4
+  - 85341c8c-4ecb-4579-8f53-43e3e91d7617
+  - 0f84eff4-f698-47cd-820f-2230471accfe
+  - 6ef19cb1-f8e5-4cdb-b3f1-98953174375f
+platforms:
+  - windows
+executors:
+  - registerextension
+  - bof
+  - execute-assembly
