@@ -1,0 +1,17 @@
+id: a00a1c4f-771c-4c0f-bf4b-149dd087e835
+metadata:
+  flavor: An LPE in polkit's pkexec affecting all major distros since May 2009.
+  release_date: '2022-01-26'
+  resources:
+    - https://www.bleepingcomputer.com/news/security/linux-system-service-bug-gives-root-on-all-major-distros-exploit-released/
+    - https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+name: LPE in polkit (CVE-2021-4034)
+description: |
+  This technique is a Local Privilege Escalation in polkit's pkexec enabling a user to spawn a root shell. The vulnerability 
+  is present in all major distros since May 2009.  PoC by @bl4sty - https://haxx.in/files/blasty-vs-pkexec.c
+ttps:
+  - d43a4a1e-1134-4853-9fc7-39bcc181e85c
+platforms:
+  - linux
+executors:
+  - sh
