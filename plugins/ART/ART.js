@@ -46,6 +46,6 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
 Requests.hq.getOutposts()
   .then(outposts => {
     if (!outposts.find(t => t.name === 'ART')) {
-      return Promise.resolve(Requests.hq.postOutpost({name: 'ART', address: 'http://ec2-18-190-28-232.us-east-2.compute.amazonaws.com:9753', token: '533fdf08-9571-4396-9d37-d51aa9f265be'}))
+      return Promise.resolve(Requests.hq.postOutpost({name: 'ART', address: 'https://redcanary.outposts-lateralus.prelude.org'}))
     }
   }).then(() => Events.bus.emit('chat:message', `Attached a the Atomic Red Team Outpost`));
