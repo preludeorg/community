@@ -29,11 +29,11 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
     Requests.hq.deleteOutpost({name: 'ART'})
         .then(() => {
             fetchGetOperatorTTPs().then(ttps =>
-                Promise.resolve(batchFetchTTPs(ttps, fetchDeleteARTTTP))
+                Promise.resolve(batchFetchTTPs(Object.values(ttps).filter(r => r?.metadata?.source === 'Red Canary'), fetchDeleteARTTTP))
             ).then(() => Events.bus.emit('chat:message', `Detached the Atomic Red Team Outpost and removed TTPs`))
         })
     Events.bus.listeners('plugin:delete').map(listener => {
-      if (listener.ART_PLUGIN_LISTENER) {``
+      if (listener.ART_PLUGIN_LISTENER) {
         Events.bus.off('plugin:delete', listener);
       }
     });
