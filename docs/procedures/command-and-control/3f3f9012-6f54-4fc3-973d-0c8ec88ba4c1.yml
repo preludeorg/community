@@ -1,0 +1,46 @@
+
+# BITSadmin file download
+
+---
+
+### Metadata
+
+This is a man page for a TTP available in Operator. Man pages provide additional context around procedures and should be consulted if you are looking to learn about a particular chain.
+
+- *TTP Identifier*: 3f3f9012-6f54-4fc3-973d-0c8ec88ba4c1
+- *MITRE Technique ID*: [T1544](https://attack.mitre.org/techniques/T1105/)
+
+---
+
+### A hacker's perspective
+
+---
+
+BITSAdmin is a Microsoft tool for managing Background Intelligent Transfer Service that is used to download or upload files from HTTP servers, SMB shares, and Windows updates.  BITSAdmin is notable because an attacker may use this signed binary to download their payloads, or even execute code, and potentially evade detection or prevention.
+
+
+### Expected output
+
+---
+
+None. No usable output should be printed to console but this procedure should result in a file download to the staging directory.
+
+### Basic variations
+
+---
+
+This procedure may be modified to download a file from an SMB share instead of an HTTP server.
+
+
+### Prevent + Detect
+
+---
+
+To hunt for suspicious BITSadmin use inspect bitsamin.exe process command line arguments for URLs and SMB paths. Alerting on command line arguments used to download a file, such as `/transfer` and `/Download` may be used to define the query.
+
+
+### How it is chained
+
+---
+
+BITSadmin may be used to download secondary malware following initial access, or to stage additional files for future post-secondary activity. BITSadmin may also be used to exfiltrate data and for code execution.
