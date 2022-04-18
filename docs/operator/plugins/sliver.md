@@ -1,5 +1,4 @@
-
-# Sliver Implant plugin
+# Sliver plugin
 
 ### What is Sliver?
 
