@@ -1,0 +1,44 @@
+
+# Disarmed WellMess malware
+
+---
+
+### Metadata
+
+This is a man page for a TTP available in Operator. Man pages provide additional context around procedures and should be consulted if you are looking to learn about a particular chain.
+
+- *TTP Identifier*: 03fe8210-7e81-4a86-b667-a2c2b2ffb618
+- *MITRE Technique ID*: [T1204.002](https://attack.mitre.org/techniques/T1204/002/)
+
+---
+
+### A hacker's perspective
+
+---
+
+WellMess malware, used by APT 29, is a remote access tool that provides basic command execution and encrypted command and control. The sample provided in this TTP has been disarmed - the malware's main event loop exits immediately and does not run any of the malware's core logic.  Additional information on WellMess can be found on the [CISA bulletin](https://www.cisa.gov/uscert/ncas/analysis-reports/ar20-198b).
+
+
+### Expected output
+
+---
+
+No usable shell output anticipated.
+
+### Basic variations
+
+---
+
+No significant variations will exist for this.
+
+### Prevent + Detect
+
+---
+
+Standard malware detection and prevention practices apply such use of AV or EDR. Additonally, CISA has published multiple YARA rules targeting WellMess.
+
+### How it is chained
+
+---
+
+After gaining initial access via exploitation, WellMess is staged and used to establish an encrypted channel.  The adversary may then deploy post-exploitation scripts, use the built-in bot commands for command execution and file upload/download, or deploy Go Simple Tunnel (Gost) to establish a SOCKS5 proxy (T1572).
