@@ -16,7 +16,7 @@ This is a man page for a TTP available in Operator. Man pages provide additional
 
 ---
 
-MShta, a Miscrosfot signed binary used to execute HTML application (HTA) files, can be used to download and execute code in an HTA file.  The use of native operating system binaries and libaries for post-exploitation activity is commonly reffered to as "living-off-the-land".  For an attacker, using MShta to download and execute HTA files may help avoid detection.
+MShta, a Microsoft signed binary used to execute HTML application (HTA) files, can be used to download and execute code in an HTA file.  The use of native operating system binaries and libaries for post-exploitation activity is commonly reffered to as "living-off-the-land".  For an attacker, using MShta to download and execute HTA files may help avoid detection.
 
 ### Expected output
 
