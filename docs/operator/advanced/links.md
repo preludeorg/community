@@ -25,7 +25,6 @@ Some of these attributes are captured by the agent itself, and persisted immedia
         - `email`: the users' email. *(source: HQ)*
     - `operation`: every link belongs to an operation, which is the total set of every TTP, and all of the requests it generates, when when you decide to run a chain.
         - `id`: the id of the operation itself. *(source: Operator)*
-        - `schedule`: if the operation was spawned by a schedule, the id of the schedule. *(source: Operator)* 
         - `chain`: if the operation was spawned by a chain, the details of the chain itself.
           - `id`: the chain id. *(source: Operator)*
     - `ttp`: the TTP and classification of the attack being executed.
