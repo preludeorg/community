@@ -29,7 +29,6 @@ Some of these attributes are captured by the agent itself, and persisted immedia
           - `id`: the chain id. *(source: Operator)*
     - `ttp`: the TTP and classification of the attack being executed.
         - `id`: the TTP id. *(source: Operator)*
-        - `platform`: since each operation can span multiple machines each running a different operating system, it's important to store the platform to help you distinguish your results at the environment level (this corresponds to the platform used to select the command out of the TTP, and could map to the host's acutal operating system, or global). *(source: Operator)*
         - `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
 - `host`:
     - `agent`: we collect the identity header of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense. *(source: Operator)*
@@ -37,6 +36,7 @@ Some of these attributes are captured by the agent itself, and persisted immedia
     - `hostname`: this is the network hostname of the machine the agent is currently executing on, as of the moment the command ran. *(source: Agent)*
     - `mac`: this is the mac address of the machine at moment of execution. *(source: Agent)*
     - `ip`: this is the internal IP of the machine at moment of execution. *(source: Agent)*
+    - `platform`: this is the platform agent is currently executing on, as of the moment the command ran. *(source: Agent)*
 - `request`: the actual request that got executed.
     - `command`: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain. *(source: Operator)*
     - `payload`: if your TTP required a payload as part of its request, we store the specific payload name and version used. *(source: Operator)*
