@@ -28,15 +28,10 @@ Some of these attributes are captured by the agent itself, and persisted immedia
         - `schedule`: if the operation was spawned by a schedule, the id of the schedule. *(source: Operator)* 
         - `chain`: if the operation was spawned by a chain, the details of the chain itself.
           - `id`: the chain id. *(source: Operator)*
-          - `name`: the chain name (in order to make results immediately usable when published end consumers). *(source: Operator/HQ/Outpost)*
     - `ttp`: the TTP and classification of the attack being executed.
         - `id`: the TTP id. *(source: Operator)*
-        - `name`: the TTP name (in order to make results immediately usable when published end consumers). *(source: Operator/HQ/Outpost)*
         - `platform`: since each operation can span multiple machines each running a different operating system, it's important to store the platform to help you distinguish your results at the environment level (this corresponds to the platform used to select the command out of the TTP, and could map to the host's acutal operating system, or global). *(source: Operator)*
         - `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
-        - `attack`: the TTP's ATT&CK classification.
-            - `tactic`: the TTP's tactic. *(source: Operator)*
-            - `technique`: the TTP's technique. *(source: Operator)*
 - `host`:
     - `agent`: we collect the identity header of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense. *(source: Operator)*
     - `username`: this is the system level account that the agent used to execute the command: whether impersonated or not, this will help you determine, among other things, the privileges and access levels that the agent had access to when executing each command. *(source: Agent)*
@@ -65,4 +60,4 @@ Some of these attributes are captured by the agent itself, and persisted immedia
 - `facts`: after each command gets run, Operator will parse data out of it's standard output to incrementally learn more about the operation and sequence future TTPs as part of the chain being executed. we store two types of facts:
     - `input`: a list of all the facts (as key-value pairs) that were used to fill in the open variables when generating the request in question
     - `output`: a list of all the facts (also as key-value pairs) that were learned from running the command after it got executed.
-- `metadata`: though we try to be exhaustive and capture as much as we can about each execution, there may be extra information that you'll want to store with each `link` for doing analysis of your own. for instance, some users may want to correlate requests by some other network interface than the one captured by default, rather than the hostname, while others may wish to tag each request with a vector clock determined by some external oracle that they have a custom agent integrated to work with. all of these use cases and more can be supported by having agents that write custom attributes to each links' metadata, which will be seamlessly passed through by Operator to your outpost/publisher of choice.
+- `metadata`: though we try to be exhaustive and capture as much as we can about each execution, there may be extra information that you'll want to store with each `link` for doing analysis of your own. for instance, some users may want to correlate requests by some other network interface than the one captured by default, rather than the hostname, while others may wish to tag each request with a vector clock determined by some external oracle that they have a custom agent integrated to work with, or the status of an endpoint side detection via EDR, etc. all of these use cases and more can be supported by having agents that write custom attributes to each links' metadata, which will be seamlessly passed through by Operator to your outpost/publisher of choice.
