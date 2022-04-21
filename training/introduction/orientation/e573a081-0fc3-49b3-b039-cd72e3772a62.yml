@@ -32,5 +32,5 @@ blocks:
     within Operator or over our API.
 answer:
   script: 
-    Requests.outpost.getChains().then(chains => Number(chains[0].ttps.length === parseInt($('#answer').val())))
+    Requests.outpost.getChains().then(chains => Number(chains[0].procedures.length === parseInt($('#answer').val())))
   value: 1
