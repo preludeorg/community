@@ -24,9 +24,8 @@ Some of these attributes are captured by the agent itself, and persisted immedia
     - `email`: the users' email. *(source: HQ)*
 - `operation`: every link belongs to an operation, which is the total set of every TTP, and all of the requests it generates, when when you decide to run a chain. this is the id of the operation itself. *(source: Operator)*
 - `chain`: if the operation was spawned by a chain, the id of the chain itself. *(source: Operator)*
-- `ttp`: the TTP and classification of the attack being executed.
-    - `id`: the TTP id. *(source: Operator)*
-    - `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
+- `ttp`: the TTP id of the attack being executed. *(source: Operator)*
+- `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
 - `host`:
     - `agent`: we collect the identity header of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense. *(source: Operator)*
     - `username`: this is the system level account that the agent used to execute the command: whether impersonated or not, this will help you determine, among other things, the privileges and access levels that the agent had access to when executing each command. *(source: Agent)*
