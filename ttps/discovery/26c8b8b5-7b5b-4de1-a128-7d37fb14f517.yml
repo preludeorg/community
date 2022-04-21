@@ -25,6 +25,4 @@ metadata:
   - bfuzzy1
   tags:
   - hafnium
-  chains:
-  - Conti (Discovery)
   release_date: 2021-08-19

@@ -10,7 +10,7 @@ technique:
   name: 'Steal or Forge Kerberos Tickets: AS-REP Roasting'
 metadata:
   authors:
-    - khyberspache
+  - khyberspache
   tags: []
   payloads:
     rubeus_donut.bin: c56f7d7aaa1e37e7e45163fa5a4660dc6deb4215

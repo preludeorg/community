@@ -6,8 +6,6 @@ metadata:
   - w0rk3r
   tags:
   - Conti
-  chains:
-  - Conti (Discovery)
   release_date: 2021-08-19
 name: Permission Groups Discovery
 description: |

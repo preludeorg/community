@@ -26,5 +26,6 @@ platforms:
     cmd:
       command: arp -a
     bof:
-      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES", "Export":"LoadAndRun"}'
+      command: '{"Name":"coff-loader", "ServerStore":false, "Args":"PAYLOAD.BYTES",
+        "Export":"LoadAndRun"}'
       payload: arp.x64.o

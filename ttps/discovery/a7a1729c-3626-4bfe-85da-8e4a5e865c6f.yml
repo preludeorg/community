@@ -4,8 +4,6 @@ metadata:
   - Vivek Kamisetty (Mr@UnKnOwN)
   - Xanthonus
   tags: []
-  chains:
-  - sequoia
 name: Fetch Disk Space
 description: |
   Displays the free space on the machine.
