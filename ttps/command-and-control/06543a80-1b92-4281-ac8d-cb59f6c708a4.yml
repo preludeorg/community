@@ -8,7 +8,7 @@ technique:
   name: Ingress Tool Transfer
 metadata:
   authors:
-    - khyberspache
+  - khyberspache
   tags: []
   payloads:
     COFFLoader.x64.dll: c63af2b0a0a95cb7bff819a2cda481abab48ad07

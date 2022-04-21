@@ -4,8 +4,6 @@ metadata:
   - privateducky
   tags:
   - agent
-  chains:
-  - JXA access
   release_date: 2021-08-25
   payloads:
     pneuma-linux: cea74c95ce1366db3d0d8fb1fc2f9b871fdd1e92

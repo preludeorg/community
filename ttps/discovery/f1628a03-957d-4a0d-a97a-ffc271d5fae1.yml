@@ -4,8 +4,6 @@ metadata:
   - 231tr0n
   tags:
   - B1-66ER
-  chains:
-  - B1-66ER (Discovery)
   release_date: 2021-09-14
 name: View Basic OS Properties
 description: |

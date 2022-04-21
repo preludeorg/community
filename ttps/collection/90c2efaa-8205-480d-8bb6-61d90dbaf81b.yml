@@ -6,8 +6,6 @@ metadata:
   tags:
   - Crown Jewels
   - Ransomware
-  chains:
-  - File Hunter
   release_date: 2021-08-19
 name: Find recent files
 description: |

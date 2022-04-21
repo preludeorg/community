@@ -5,7 +5,6 @@ metadata:
   tags:
   - connect
   - required
-  chains: []
   payloads:
     headless: cb01547d2ad40c544cfbb69e6f08158a312256eb
 name: Install Headless Operator
