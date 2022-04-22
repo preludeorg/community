@@ -1,6 +1,7 @@
 id: bdf01868-33fb-494c-a87c-59332ca8762a
 metadata:
   flavor: Add a COFF loader, run BOFs and execute-assembly ttps.
+  release_date: '2022-03-01'
   agents:
     - sliver
 name: Sliver BOF and Execute-Assembly
