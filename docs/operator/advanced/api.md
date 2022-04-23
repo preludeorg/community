@@ -234,3 +234,13 @@ A cURL command for uploading local payloads to Operator. Note that you must be i
 ```bash
 curl -X PUT -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/payload" -F upload=@payload.txt -X PUT
 ```
+
+### Other
+
+---
+
+#### Get local settings
+
+```bash
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/settings"
+```
