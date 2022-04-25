@@ -239,6 +239,7 @@ curl -X PUT -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/payload" -
 
 ---
 
+Note that plugin names are case-sensitive.
 
 #### Get all installed plugins
 
