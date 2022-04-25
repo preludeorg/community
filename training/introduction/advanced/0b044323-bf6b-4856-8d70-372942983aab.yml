@@ -28,7 +28,7 @@ blocks:
     sorts because it's an often overlooked directory.
 answer:
   script: 
-    Number(Attack.a[$('#answer').val()].platforms.darwin.config.variants[0].command.toLowerCase().includes('tmp') || 
-    Attack.a[$('#answer').val()].platforms.linux.config.variants[0].command.toLowerCase().includes ||
-    Attack.a[$('#answer').val()].platforms.windows.config.variants[0].command.toLowerCase().includes('temp'))
+    Number(Attack.a[$('#answer').val()].platforms.darwin.sh.variants[0].command.toLowerCase().includes('tmp') || 
+    Attack.a[$('#answer').val()].platforms.linux.sh.variants[0].command.toLowerCase().includes('tmp') ||
+    Attack.a[$('#answer').val()].platforms.windows.psh.variants[0].command.toLowerCase().includes('temp'))
   value: 1
