@@ -252,3 +252,13 @@ curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin"
 ```bash
 curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin/HTTPS"
 ```
+
+### Other
+
+---
+
+#### Get local settings
+
+```bash
+curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/settings"
+```
