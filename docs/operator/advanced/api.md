@@ -252,15 +252,3 @@ curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin"
 ```bash
 curl -X GET -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin/HTTPS"
 ```
-
-#### Install a plugin
-
-```bash
-curl -X PUT -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin/HTTPS"
-```
-
-#### Delete a plugin
-
-```bash
-curl -X DELETE -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/plugin/HTTPS"
-```
