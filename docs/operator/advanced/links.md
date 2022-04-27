@@ -23,13 +23,10 @@ Some of these attributes are captured by the agent itself, and persisted immedia
 - `operation`: every link belongs to an operation, which is the total set of every TTP, and all of the requests it generates, when when you decide to run a chain. this is the id of the operation itself. *(source: Operator)*
 - `chain`: if the operation was spawned by a chain, the id of the chain itself. *(source: Operator)*
 - `ttp`: the TTP id of the attack being executed. *(source: Operator)*
-- `host`:
-    - `agent`: we collect the identity header of the agent that executed the command itself, if you have multiple agents all running on the same host, you can use this value to differentiate between which agent ran what, though you'll have to be careful about naming your agents appropriately to use this value in a way that makes sense. *(source: Operator)*
-    - `username`: this is the system level account that the agent used to execute the command: whether impersonated or not, this will help you determine, among other things, the privileges and access levels that the agent had access to when executing each command. *(source: Agent)*
-    - `hostname`: this is the network hostname of the machine the agent is currently executing on, as of the moment the command ran. *(source: Agent)*
-    - `mac`: this is the mac address of the machine at moment of execution. *(source: Agent)*
-    - `ip`: this is the internal IP of the machine at moment of execution. *(source: Agent)*
+- `agent`:
+    - `name`: the unique name of the agent *(source: Operator)*
     - `platform`: this is the platform agent is currently executing on, as of the moment the command ran. *(source: Agent)*
+    - `metadata`: this is a generic dictionary of optional params passed from the agent to operator at the top level of its beacon. some default parameters include the username and hostname of the machine the agent is currently running on. *(source: Agent)*
 - `request`: the actual request that got executed.
     - `executor`: since each TTP can be executed using a variety of different executors (ie: bash, powershell, python, etc.), we store the executor selected to run the individual instruction to help you distinguish that too. *(source: Operator)*
     - `command`: this is the raw command body that got executed by the agent's executor, after all open variables have been filled by Operator, as it determined how to run your chain. *(source: Operator)*
