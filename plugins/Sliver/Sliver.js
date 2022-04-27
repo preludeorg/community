@@ -20,7 +20,6 @@ class mTLS extends Listener {
             mtls: null,
             mtls_sockets: null
         };
-        Settings.s.public.ports[this.name] = this.port;
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -483,7 +482,6 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
     if (name === 'Sliver') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
         listener[0].destroy();
-        delete Settings.s.public.ports.mtls;
         Events.bus.listeners('plugin:delete').map(listener => {
             if (listener.SLIVER_LISTENER) {
                 Events.bus.off('plugin:delete', listener);
