@@ -7,7 +7,6 @@ const Settings = require('../objects/settings');
 class HTTPS extends HTTP {
     constructor() {
         super('https', 8443);
-        Settings.s.public.ports[this.name] = this.port;
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -37,7 +36,6 @@ Events.bus.on('plugin:delete', Object.assign((name) => {
     if (name === 'HTTPS') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'https'), 1);
         listener[0].destroy();
-        delete Settings.s.public.ports.https;
         Events.bus.listeners('plugin:delete').map(listener => {
             if (listener.HTTPS_LISTENER) {
                 Events.bus.off('plugin:delete', listener);
