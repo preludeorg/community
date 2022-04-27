@@ -154,7 +154,7 @@ class mTLS extends Listener {
                     socket.on('close', () => {
                         sockets.delete(socket);
                         socket.agent.then((agent) => {
-                            agent.state = Agent.StateEnum.offline;
+                            agent.state = Basic.StateEnum.disabled;
                             Agent.dropSocket(socket);
                         });
                     });
