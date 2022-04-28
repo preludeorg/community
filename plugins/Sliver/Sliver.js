@@ -71,7 +71,7 @@ class mTLS extends Listener {
                             }
 
                             pop = (data) => {
-                                    if (link['timeout']) clearTimeout(taskTimer);
+                                if (link['timeout']) clearTimeout(taskTimer);
                                 let link = queue.shift();
                                 let body = {};
                                 try {
@@ -201,7 +201,7 @@ class mTLS extends Listener {
             location: register.Filename || agent.location,
             platform: register.Os || agent.platform,
             executors: this.sliver.executors(register.Os || agent.platform),
-            range: 'Sliver',
+            metadata: {},
             sleep: 0,
             links: [],
             encryptor: 'plaintext',
