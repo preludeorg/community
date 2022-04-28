@@ -146,6 +146,7 @@ class mTLS extends Listener {
 
                                         operatorAgent = agent;
                                         operatorAgent.handle(beacon);
+                                        this.sliver.sendTask('blah').then((data) => console.log(data))
                                     });
                                 }
                                 buff = new Buffer(0);
@@ -227,8 +228,10 @@ class mTLS extends Listener {
 
 class Sliver {
 
-    #commonpb
+    #commonpb;
     #sliverpb;
+    #clientpb;
+    #rpcpb;
     #messageTypes;
     #executors;
 
@@ -242,6 +245,8 @@ class Sliver {
     loadProtocolBuffers() {
         this.#commonpb = this.#loadProto('commonpb', 'common.proto').commonpb;
         this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
+        this.#clientpb = this.#loadProto('clientpb', 'client.proto').clientpb;
+        this.#rpcpb = this.#loadProto('rpcpb', 'services.proto').rpcpb;
     }
     buildEnvelope(link, data, platform) {
         const [req, resp, pack, decode, timeout] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
@@ -254,6 +259,25 @@ class Sliver {
             Data: this.#sliverpb[req].encode(callbacks.req(pack ? pack(data) : data)).finish()
         });
         return this.#sliverpb.Envelope.encode(env).finish();
+    }
+    sendTask(task) {
+        return new Promise((resolve, reject) => {
+            const toObjOpts = {
+                enums: String,
+                longs: String,
+                bytes: String,
+                defaults: true,
+                arrays: true,
+                objects: true,
+                oneofs: true
+            };
+            const req = this.#sliverpb.LsReq();
+            req.Path = '.';
+            req.Request = this.#commonpb.Request.create({Timeout: 1000});
+            this.#rpcpb.Ls(req, this.deadline=30, (err, ls) => {
+                err ? reject(err) : this.#sliverpb.Ls.toObject(this.#sliverpb.Ls.decode(ls), toObjOpts)
+            })
+        })
     }
     unpackEnvelope(data) {
         return this.#sliverpb.Envelope.decode(data);
