@@ -2,9 +2,7 @@ id: e22b3ca7-6181-49ca-ab14-52ff9b7f49be
 metadata:
   authors:
   - privateducky
-  tags:
-  - connect
-  - required
+  tags: []
   payloads:
     headless: 48edbbb38d51c6c68a52ca9049553f4de6bc272d
 name: Install Headless Operator
