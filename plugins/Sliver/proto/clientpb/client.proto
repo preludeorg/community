@@ -1,0 +1,617 @@
+syntax = "proto3";
+package clientpb;
+option go_package = "github.com/bishopfox/sliver/protobuf/clientpb";
+
+import "commonpb/common.proto";
+
+
+// [ Version ] ----------------------------------------
+message Version {
+  int32 Major = 1;
+  int32 Minor = 2;
+  int32 Patch = 3;
+
+  string Commit = 4;
+  bool Dirty = 5;
+  int64 CompiledAt = 6;
+
+  string OS = 7;
+  string Arch = 8;
+}
+
+// [ Core ] ----------------------------------------
+message Session {
+  string ID = 1;
+  string Name = 2;
+  string Hostname = 3;
+  string UUID = 4;
+  string Username = 5;
+  string UID = 6;
+  string GID = 7;
+  string OS = 8;
+  string Arch = 9;
+  string Transport = 10;
+  string RemoteAddress = 11;
+  int32 PID = 12;
+  string Filename = 13; // Argv[0]
+  int64 LastCheckin = 14;
+  string ActiveC2 = 15;
+  string Version = 16;
+  bool Evasion = 17;
+  bool IsDead = 18;
+  int64 ReconnectInterval = 19;
+  string ProxyURL = 20;
+  bool Burned = 22;
+  repeated string Extensions = 23;
+  // string ConfigID = 24;
+  int64 PeerID = 25;
+}
+
+message Beacon {
+  string ID = 1;
+  string Name = 2;
+  string Hostname = 3;
+  string UUID = 4;
+  string Username = 5;
+  string UID = 6;
+  string GID = 7;
+  string OS = 8;
+  string Arch = 9;
+  string Transport = 10;
+  string RemoteAddress = 11;
+  int32 PID = 12;
+  string Filename = 13; // Argv[0]
+  int64 LastCheckin = 14;
+  string ActiveC2 = 15;
+  string Version = 16;
+  bool Evasion = 17;
+  bool IsDead = 18;
+
+  string ProxyURL = 20;
+  int64 ReconnectInterval = 21;
+  int64 Interval = 22;
+  int64 Jitter = 23;
+  bool Burned = 24;
+  int64 NextCheckin = 25;
+
+  int64 TasksCount = 26;
+  int64 TasksCountCompleted = 27;
+}
+
+message Beacons {
+  repeated Beacon Beacons = 2;
+}
+
+message BeaconTask {
+  string ID = 1;
+  string BeaconID = 2;
+  int64 CreatedAt = 3;
+  string State = 4;
+  int64 SentAt  = 5;
+  int64 CompletedAt = 6;
+  bytes Request = 7;
+  bytes Response = 8;
+  string Description = 9;
+}
+
+message BeaconTasks {
+  string BeaconID = 1;
+  repeated BeaconTask Tasks = 2;
+}
+
+message ImplantC2 {
+  uint32 Priority = 1;
+  string URL = 2;
+  string Options = 3; // Protocol specific options
+}
+
+enum OutputFormat {
+  SHARED_LIB = 0;
+  SHELLCODE = 1;
+  EXECUTABLE = 2;
+  SERVICE = 3;
+}
+
+message ImplantConfig {
+  string ID = 1;
+  bool IsBeacon = 2;
+  int64 BeaconInterval = 3;
+  int64 BeaconJitter = 4;
+
+  string GOOS = 5;
+  string GOARCH = 6;
+  string Name = 7;
+
+  bool Debug = 8;
+  bool Evasion = 9;
+  bool ObfuscateSymbols = 10;
+
+  string MtlsCACert = 20;
+  string MtlsCert = 21;
+  string MtlsKey = 22;
+
+  string ECCPublicKey = 23;
+  string ECCPrivateKey = 24;
+  string ECCPublicKeySignature = 25;
+  string MinisignServerPublicKey = 26;
+
+  string WGImplantPrivKey = 30;
+  string WGServerPubKey = 31;
+  string WGPeerTunIP = 32;
+  uint32 WGKeyExchangePort = 33;
+  uint32 WGTcpCommsPort = 34;
+
+  int64 ReconnectInterval = 40;
+  uint32 MaxConnectionErrors = 41;
+  int64 PollTimeout = 42;
+
+  // c2
+  repeated ImplantC2 C2 = 50;
+  repeated string CanaryDomains = 51;
+  string ConnectionStrategy = 52;
+
+  bool LimitDomainJoined = 60;
+  string LimitDatetime = 61;
+  string LimitHostname = 62;
+  string LimitUsername = 63;
+  string LimitFileExists = 64;
+
+  OutputFormat Format = 100;
+  bool IsSharedLib = 101;
+  string FileName = 102;
+  bool IsService = 103;
+  bool IsShellcode = 104;
+}
+
+// Configs of previously built implants
+message ImplantBuilds {
+  map<string, ImplantConfig> Configs = 1;
+}
+
+message CompilerTarget {
+  string GOOS = 1;  // The server's OS
+  string GOARCH = 2;  // The server's Arch
+  OutputFormat Format = 3;
+}
+
+message CrossCompiler {
+  string TargetGOOS = 1;  // The server's OS
+  string TargetGOARCH = 2;  // The server's Arch
+  string CCPath = 3;
+  string CXXPath = 4;
+}
+
+message Compiler {
+  string GOOS = 1;  // The server's OS
+  string GOARCH = 2;  // The server's Arch
+  repeated CompilerTarget Targets = 3;
+  repeated CrossCompiler CrossCompilers = 4;
+  repeated CompilerTarget UnsupportedTargets = 5;
+}
+
+message DeleteReq {
+  string Name = 1;
+}
+
+// DNSCanary - Single canary and metadata
+message DNSCanary {
+  string ImplantName = 1;
+  string Domain = 2;
+  bool Triggered = 3;
+  string FirstTriggered = 4;
+  string LatestTrigger = 5;
+  uint32 Count = 6;
+}
+
+message Canaries {
+  repeated DNSCanary Canaries = 1;
+}
+
+// UniqueWGIP - Unique wireguard IP
+message UniqueWGIP {
+  string IP = 1;
+}
+
+message ImplantProfile {
+  string Name = 1;
+  ImplantConfig Config = 2;
+}
+
+message ImplantProfiles {
+  repeated ImplantProfile Profiles = 1;
+}
+
+message RegenerateReq {
+  string ImplantName = 1;
+}
+
+message Job {
+  uint32 ID = 1;
+  string Name = 2;
+  string Description = 3;
+  string Protocol = 4;
+  uint32 Port = 5;
+
+  repeated string Domains = 6;
+}
+
+
+// [ Jobs ]  ----------------------------------------
+message Jobs {
+  repeated Job Active = 1;
+}
+
+message KillJobReq {
+  uint32 ID = 1;
+}
+
+message KillJob {
+  uint32 ID = 1;
+  bool Success = 2;
+}
+
+// [ Listeners ] ----------------------------------------
+message MTLSListenerReq {
+  string Host = 1;
+  uint32 Port = 2;
+  bool Persistent = 3;
+}
+
+message MTLSListener {
+  uint32 JobID = 1;
+}
+
+message WGListenerReq {
+  string Host = 6;
+  uint32 Port = 1;
+  string TunIP = 2;
+  uint32 NPort = 3;
+  uint32 KeyPort = 4;
+  bool Persistent = 5;
+}
+
+message WGListener {
+  uint32 JobID = 1;
+}
+
+message DNSListenerReq {
+  repeated string Domains = 1;
+  bool Canaries = 2;
+  string Host = 3;
+  uint32 Port = 4;
+  bool Persistent = 5;
+}
+
+message DNSListener {
+  uint32 JobID = 1;
+}
+
+message HTTPListenerReq {
+  string Domain = 1;
+  string Host = 2;
+  uint32 Port = 3;
+  bool Secure = 4; // Enable HTTPS
+  string Website = 5;
+  bytes Cert = 6;
+  bytes Key = 7;
+  bool ACME = 8;
+  bool Persistent = 9;
+  bool EnforceOTP = 10;
+  int64 LongPollTimeout = 11;
+  int64 LongPollJitter = 12;
+}
+
+// Named Pipes Messages for pivoting
+message NamedPipesReq {
+  string PipeName = 16;
+
+  commonpb.Request Request = 9;
+}
+
+message NamedPipes {
+  bool Success = 1;
+  string Err = 2;
+
+  commonpb.Response Response = 9;
+}
+
+// TCP Messages for pivoting
+message TCPPivotReq {
+  string Address = 16;
+
+  commonpb.Request Request = 9;
+}
+
+message TCPPivot {
+  bool Success = 1;
+  string Err = 2;
+
+  commonpb.Response Response = 9;
+}
+
+message HTTPListener {
+  uint32 JobID = 1;
+}
+
+// [ commands ] ----------------------------------------
+message Sessions {
+  repeated Session Sessions = 1;
+}
+
+message RenameReq {
+  string SessionID = 1;
+  string BeaconID = 2;
+  string Name = 3;
+}
+
+message GenerateReq {
+  ImplantConfig Config = 1;
+}
+
+message Generate {
+  commonpb.File File = 1;
+}
+
+message MSFReq {
+  string Payload = 1;
+  string LHost = 2;
+  uint32 LPort = 3;
+  string Encoder = 4;
+  int32 Iterations = 5;
+
+  commonpb.Request Request = 9;
+}
+
+message MSFRemoteReq {
+  string Payload = 1;
+  string LHost = 2;
+  uint32 LPort = 3;
+  string Encoder = 4;
+  int32 Iterations = 5;
+  uint32 PID = 8;
+
+  commonpb.Request Request = 9;
+}
+
+enum StageProtocol {
+  TCP = 0;
+  HTTP = 1;
+  HTTPS = 2;
+}
+
+message StagerListenerReq {
+  StageProtocol Protocol = 1;
+  string Host = 2;
+  uint32 Port = 3;
+  bytes Data = 4;
+  bytes Cert = 5;
+  bytes Key = 6;
+  bool ACME = 7;
+}
+
+message StagerListener {
+  uint32 JobID = 1;
+}
+
+message ShellcodeRDIReq {
+  bytes Data = 1;
+  string FunctionName = 2;
+  string Arguments = 3;
+}
+
+message ShellcodeRDI {
+  bytes Data = 1;
+}
+
+message MsfStagerReq {
+  string Arch = 1;
+  string Format = 2;
+  uint32 Port = 3;
+  string Host = 4;
+  string OS = 5; // reserved for future usage
+  StageProtocol Protocol = 6;
+  repeated string BadChars = 7;
+}
+
+message MsfStager {
+  commonpb.File File = 1;
+}
+
+// GetSystemReq - Client request to the server which is translated into
+//                InvokeSystemReq when sending to the implant.
+message GetSystemReq {
+  string HostingProcess = 1;
+  ImplantConfig Config = 2;
+
+  commonpb.Request Request = 9;
+}
+
+// MigrateReq - Client request to the server which is translated into
+//              InvokeMigrateReq when sending to the implant.
+message MigrateReq {
+  uint32 Pid = 1;
+  ImplantConfig Config = 2;
+
+  commonpb.Request Request = 9;
+}
+
+// [ Tunnels ] ----------------------------------------
+message CreateTunnelReq {
+
+  commonpb.Request Request = 9;
+}
+
+message CreateTunnel {
+  uint32 SessionID = 1;
+
+  uint64 TunnelID = 8 [jstype = JS_STRING];
+}
+
+message CloseTunnelReq {
+  uint64 TunnelID = 8 [jstype = JS_STRING];
+
+  commonpb.Request Request = 9;
+}
+
+// [ Pivots ] ----------------------------------------
+message PivotGraphEntry {
+  int64 PeerID = 1;
+  Session Session = 2;
+  string Name = 3;
+  repeated PivotGraphEntry Children = 4;
+}
+
+message PivotGraph {
+  repeated PivotGraphEntry Children = 1;
+}
+
+// [ Events ] ----------------------------------------
+message Client {
+  uint32 ID = 1;
+  string Name = 2;
+
+  Operator Operator = 3;
+}
+
+message Event {
+  string EventType = 1;
+  Session Session = 2;
+  Job Job = 3;
+  Client Client = 4;
+  bytes Data = 5;
+
+  string Err = 6; // Can't trigger normal gRPC error
+}
+
+message Operators { 
+  repeated Operator Operators = 1;
+}
+
+message Operator {
+  bool Online = 1;
+  string Name = 2;
+}
+
+// [ Websites ] ----------------------------------------
+message WebContent {
+  string Path = 1;
+  string ContentType = 2;
+  uint64 Size = 3 [jstype = JS_STRING];
+
+  bytes Content = 9;
+}
+
+message WebsiteAddContent {
+  string Name = 1;
+  map<string, WebContent> Contents = 2;
+}
+
+message WebsiteRemoveContent { 
+  string Name = 1;
+  repeated string Paths = 2;
+}
+
+message Website {
+  string Name = 1;
+  map<string, WebContent> Contents = 2;
+}
+
+message Websites {
+  repeated Website Websites = 1;
+}
+
+
+// [ Wireguard ] ----------------------------------------
+
+message WGClientConfig {
+  string ServerPubKey = 1;
+  string ClientPrivateKey = 2;
+  string ClientPubKey = 3;
+  string ClientIP = 4;
+}
+
+
+// [ Loot ] ----------------------------------------
+enum LootType {
+  LOOT_FILE = 0;
+  LOOT_CREDENTIAL = 1;
+}
+
+enum CredentialType {
+  NO_CREDENTIAL = 0;
+  USER_PASSWORD = 1;
+  API_KEY = 2;
+  FILE = 3;
+}
+
+enum FileType {
+  NO_FILE = 0;
+  BINARY = 1;
+  TEXT = 2;
+}
+
+message Credential {
+  
+  // USER_PASSWORD
+  string User = 2;
+  string Password = 3;
+
+  // API_KEY
+  string APIKey = 4;
+}
+
+message Loot {
+  LootType Type = 1;
+
+  string LootID = 2;
+  string Name = 3;
+
+  CredentialType CredentialType = 4;
+  Credential Credential = 5;
+  FileType FileType = 6;
+
+  commonpb.File File = 9;
+}
+
+message AllLoot {
+  repeated Loot Loot = 1;
+}
+
+// [ Hosts ] ----------------------------------------
+message IOC {
+  string Path = 1;
+  string FileHash = 2;
+  string ID = 3;
+}
+
+message ExtensionData {
+  string Output = 1;
+}
+
+message Host {
+  string Hostname = 1;
+  string HostUUID = 2;
+  string OSVersion = 3;
+
+  repeated IOC IOCs = 4;
+  map<string, ExtensionData> ExtensionData = 5;
+}
+
+message AllHosts {
+  repeated Host Hosts = 1;
+}
+
+// [ Dll Hijack ] ----------------------------------------
+message DllHijackReq {
+  string ReferenceDLLPath = 1;
+  string TargetLocation = 2;
+  bytes ReferenceDLL = 3;
+  bytes TargetDLL = 4;
+  string ProfileName = 5;
+
+  commonpb.Request Request = 9;
+}
+
+message DllHijack {
+  commonpb.Response Response = 9;
+}
