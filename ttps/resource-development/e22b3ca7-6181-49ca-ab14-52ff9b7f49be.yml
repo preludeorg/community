@@ -23,3 +23,12 @@ platforms:
         chmod +x /tmp/headless/bin && 
         nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}' >/tmp/headless/headless.log 2>&1  &
       payload: headless
+      variants:
+        - command: |
+            curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash
+            sudo apt install immortal
+            mkdir -p /tmp/headless && 
+            curl "#{payload.url}" > /tmp/headless/bin && 
+            chmod +x /tmp/headless/bin && 
+            immortal -l headless.log /bin/sh -c "sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
+          payload: headless
