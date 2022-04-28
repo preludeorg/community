@@ -1,4 +1,4 @@
-const fetchOperator = (endpoint, options) => fetch(`https://${Settings.s.public.server}:${Settings.s.public.api}${endpoint}`, {
+const fetchOperator = (endpoint, options) => fetch(`https://${Settings.s.private.server}:${Settings.s.public.api}${endpoint}`, {
             method: options?.method || 'GET',
             body: options?.body || '',
             headers: {
