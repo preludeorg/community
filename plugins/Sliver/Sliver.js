@@ -71,8 +71,8 @@ class mTLS extends Listener {
                             }
 
                             pop = (data) => {
-                                if (link['timeout']) clearTimeout(taskTimer);
                                 let link = queue.shift();
+                                if (link['timeout']) clearTimeout(taskTimer);
                                 let body = {};
                                 try {
                                     body = link.results(data);
