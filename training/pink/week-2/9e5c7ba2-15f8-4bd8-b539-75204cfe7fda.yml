@@ -28,5 +28,5 @@ blocks:
     addition, look for the Q&A schedule where you can hop on video calls with the Prelude team and interface directly
     with us.
 answer:
-  script: Object.values(Program.programs).filter(p => p.id === 'introduction').reduce((acc, program) => acc + program.challengesRemaining(), 0)
+  script: Object.values(Program.p).filter(p => p.id === 'introduction').reduce((acc, program) => acc + program.challengesRemaining(), 0)
   value: 0
