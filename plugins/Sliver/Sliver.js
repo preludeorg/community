@@ -50,6 +50,7 @@ class mTLS extends Listener {
                     let operatorAgent = null;
                     let sliverAgent = null;
                     let queue = [];
+                    let taskTimer = null;
                     let lock = Promise.resolve(true);
                     let pop = () => {};
                     let push = (link) => {
@@ -82,6 +83,7 @@ class mTLS extends Listener {
 
                             const sendTask = (body) => {
                                 let task = self.sliver.buildEnvelope(link, body, operatorAgent.platform);
+                                if (link['timeout']) taskTimer = setTimeout(pop(), 10000);
                                 socket.write(Buffer.concat([Buffer.from(mTLS.toBytesInt32(task.length)), task]));
                                 if(!link.results) {
                                     queue.shift();
@@ -241,9 +243,10 @@ class Sliver {
         this.#sliverpb = this.#loadProto('sliverpb', 'sliver.proto').sliverpb;
     }
     buildEnvelope(link, data, platform) {
-        const [req, resp, pack, decode] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
+        const [req, resp, pack, decode, timeout] = {...this.#executors, ...this.#generateShellExecutorMap(platform)}[link.Executor];
         let callbacks = this.callbacks(req, resp);
         if (resp) link['results'] = callbacks.resp;
+        link['timeout'] = timeout || false;
         link['decode'] = decode ? decode : (d, agent) => JSON.stringify(d, null, 2);
         let env = this.#sliverpb.Envelope.create({
             Type: this.#messageTypes[`Msg${req}`],
@@ -309,7 +312,7 @@ class Sliver {
         return task;
     }
     static #generateExecutorMap() {
-        // format: [ sliverpb request name, sliverpb response name, pack function (pre-process data), decode function (post-process data) ]
+        // format: [ sliverpb request name, sliverpb response name, pack function (pre-process data), decode function (post-process data), timeout handler]
         return {
             envinfo: ['EnvInfo', 'EnvInfo'],
             unsetenv: ['UnsetEnvReq', 'UnsetEnv'],
@@ -334,7 +337,7 @@ class Sliver {
                 Basic.storeData(atob(d.Data), artifact);
                 return `Screenshot saved to artifacts: ${artifact}`;
             }],
-            task: ['TaskReq', 'Task'],
+            'execute-shellcode': ['TaskReq', 'Task', null, (d, agent) => d ? d : "Shellcode executed successfully.", true],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
             spawndll: ['SpawnDllReq', 'SpawnDll'],
