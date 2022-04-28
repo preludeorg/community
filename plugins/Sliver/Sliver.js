@@ -145,6 +145,8 @@ class mTLS extends Listener {
                                         };
 
                                         operatorAgent = agent;
+                                        operatorAgent.key = beacon.key;
+                                        operatorAgent.encryptor = beacon.encryptor;
                                         operatorAgent.handle(beacon);
                                     });
                                 }
