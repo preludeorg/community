@@ -20,7 +20,7 @@ class mTLS extends Listener {
             mtls: null,
             mtls_sockets: null
         };
-        Settings.s.public.ports[this.name] = this.port;
+        Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ class mTLS extends Listener {
                                 if (link['timeout']) clearTimeout(taskTimer);
                                 let body = {};
                                 try {
-                                    body = link.results(data);
+                                    body = data ? link.results(data) : body;
                                     recordResults(body, link.decode(body, operatorAgent), 0);
                                 } catch (e) {
                                     recordResults(body, `${e}`, 1);
@@ -340,7 +340,7 @@ class Sliver {
                 Basic.storeData(atob(d.Data), artifact);
                 return `Screenshot saved to artifacts: ${artifact}`;
             }],
-            'execute-shellcode': ['TaskReq', 'Task', null, (d, agent) => d ? d : "Shellcode executed successfully.", true],
+            'execute-shellcode': ['TaskReq', 'Task', null, (d, agent) => Object.keys(d).length !== 0 ? d : "Shellcode executed successfully.", true],
             'execute-token': ['ExecuteTokenReq', 'Execute'],
             sideload: ['SideloadReq', 'Sideload'],
             spawndll: ['SpawnDllReq', 'SpawnDll'],

@@ -7,7 +7,7 @@ const Settings = require('../objects/settings');
 class HTTPS extends HTTP {
     constructor() {
         super('https', 8443);
-        Settings.s.public.ports[this.name] = this.port;
+        Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
     }
     init() {
         return new Promise((resolve, reject) => {
