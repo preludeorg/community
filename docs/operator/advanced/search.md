@@ -34,7 +34,6 @@ When searching for TTPs, you can use the following filters:
 - command
 
 For example, this search will return all TTPs which have a tactic=discovery and use the fact file.T1005:
-file.T1005:
 ```
 tactic:discovery command:#{file.T1005}
 ```
