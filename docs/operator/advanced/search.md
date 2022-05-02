@@ -6,7 +6,9 @@ Inside Operator's Launch Chain section there's a search bar to find TTPs or chai
 application. By default, the search will only look at each TTP or chain name. However, there are advanced
 filtering options available to help you discover attacks more effectively.
 
-Note that all searches will return a combination of TTPs and chains. Each result is tagged with which it is.
+Two notes before we get started:
+1. All searches will return a combination of TTPs and chains. Each result is tagged with which it is.
+2. Each search value can only be one word. For example, you can search for "python" but not "python is great". However, you can use as multiple advanced filters.
 
 #### Special characters
 
