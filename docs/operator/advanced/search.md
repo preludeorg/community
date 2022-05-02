@@ -1,4 +1,4 @@
-# Advanced search
+# Advanced filtering
 
 ---
 
