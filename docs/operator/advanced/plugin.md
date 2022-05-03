@@ -46,7 +46,7 @@ methods are shown below.
 - Basic.nullValues(array)
 - Requests.fetchOperator(endpoint, parameters)
 - Requests.fetchGatekeeper(endpoint, parameters)
-    
+
 ### Hello world plugin
 
 ---
