@@ -1,5 +1,5 @@
 
-# How linking works
+# How chaining works
 
 #### Use facts to build chained attacks
 
