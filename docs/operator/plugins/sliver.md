@@ -16,7 +16,13 @@ Using the Sliver plugin allows you to directly attach Sliver implants over the m
 
 ---
  
-First, go Settings and click on Sliver plugin to install it. Next, you must install the mTLS certificates from Sliver. Grab the 3 required certificates from the system where you've installed Sliver:
+First, go Settings and click on Sliver plugin to install it.
+Next, you need generate a Sliver implant (this is done by running the following command from Sliver server instance)
+```shell
+sliver > generate --mtls 127.0.0.1:8080 --save /tmp --os darwin --debug
+```
+After running the command you must copy the mTLS certificates created from Sliver server. 
+Grab the 3 required certificates from the system you ran the previous command, these certificates can be found in:
 
 - ~/.sliver/certs/mtls-server-ca-cert.pem
 - ~/.sliver/certs/mtls-server-ca-key.pem
@@ -30,11 +36,7 @@ Copy those certificates to the following folder (depending on platform):
 
 Restart Operator to reload the certificates (or change the listening port, which reloads the listener as well).
 
-Now you can generate Sliver implants and connect them to the server:
-
-```shell
-sliver > generate --mtls 127.0.0.1:8080 --save /tmp --os darwin --debug
-```
+Now you can connect the Sliver implants to the server, by running the following command on the target box:
 
 ```shell
 ./TOUGH_CITY
