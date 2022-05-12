@@ -20,6 +20,7 @@ not trust between the client and server.
 The API requires a token to be passed with the request. Your token can be found in:
 Operator -> Settings -> Network -> Token. Set the variable $TOKEN to your token.
 
+> If you are using the Headless version of Operator, your token can be found in the settings.yml file that is generated when you first start the application.
 
 ## Endpoints 
 
