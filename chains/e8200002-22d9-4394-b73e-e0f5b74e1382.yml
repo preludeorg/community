@@ -6,8 +6,7 @@ metadata:
     - https://www.tomshardware.com/news/dirty-pipe-linux-exploit
     - https://dirtypipe.cm4all.com/
     - https://github.com/Arinerron/CVE-2022-0847-DirtyPipe-Exploit
-  themes:
-    - n-day
+  theme: n-day
 name: Dirty Pipe (CVE-2022-0847)
 description:
   This exploit enables an attacker to modify an arbitrary read-only file. The technique modifies /etc/passwd to elevate 
