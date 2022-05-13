@@ -5,6 +5,8 @@ metadata:
   resources:
     - https://www.nytimes.com/2021/07/26/technology/cyberattacks-security-investors.html
     - https://www.paloaltonetworks.com/resources/whitepapers/ransomwares-new-trend-exfiltration-and-extortion
+  themes:
+    - themeless
 name: File Hunter
 description: |
   Discover recently used files on a system and prepare a staging directory. Copy all of those 

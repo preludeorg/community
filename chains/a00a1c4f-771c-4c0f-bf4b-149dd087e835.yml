@@ -5,6 +5,8 @@ metadata:
   resources:
     - https://www.bleepingcomputer.com/news/security/linux-system-service-bug-gives-root-on-all-major-distros-exploit-released/
     - https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+  themes:
+    - n-day
 name: LPE in polkit (CVE-2021-4034)
 description: |
   This technique is a Local Privilege Escalation in polkit's pkexec enabling a user to spawn a root shell. The vulnerability 
