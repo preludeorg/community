@@ -33,14 +33,14 @@ class HTTPS extends HTTP {
 
 Listen.listeners.add(new HTTPS());
 
-Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === 'HTTPS') {
+Events.bus.on('destroy:resource', Object.assign((resource, identifier) => {
+    if (resource == 'plugin' && identifier === 'HTTPS') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'https'), 1);
         listener[0].destroy();
         delete Settings.s.public.ports.https;
-        Events.bus.listeners('plugin:delete').map(listener => {
+        Events.bus.listeners('destroy:resource').map(listener => {
             if (listener.HTTPS_LISTENER) {
-                Events.bus.off('plugin:delete', listener);
+                Events.bus.off('destroy:resource', listener);
             }
         });
     }
