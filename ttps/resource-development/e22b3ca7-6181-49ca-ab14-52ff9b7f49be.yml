@@ -3,7 +3,7 @@ metadata:
   authors:
   - privateducky
   payloads:
-    headless: 48edbbb38d51c6c68a52ca9049553f4de6bc272d
+    headless: 026069cc93c306fbfbfc26106551b9f9b8437dd0
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
