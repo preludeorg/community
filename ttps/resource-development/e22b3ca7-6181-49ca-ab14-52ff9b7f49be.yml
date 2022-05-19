@@ -22,8 +22,8 @@ platforms:
       payload: headless
       variants:
         - command: |
-            curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash
-            sudo apt install immortal
+            curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash &&
+            sudo apt install immortal &&
             mkdir -p ~/.local/share/Headless && 
             curl "#{payload.url}" > ~/.local/share/Headless/headless && 
             chmod +x ~/.local/share/Headless/headless && 
