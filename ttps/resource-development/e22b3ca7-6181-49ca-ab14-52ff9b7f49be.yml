@@ -3,7 +3,7 @@ metadata:
   authors:
   - privateducky
   payloads:
-    headless: 504784e3f4da15dccb0249e5f1ef3583a8ff2273
+    headless: e02ae8dc6b082a2a00c5e8de2e0a3b595341a92d
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
@@ -24,8 +24,8 @@ platforms:
         - command: |
             curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash &&
             sudo apt install immortal &&
-            mkdir -p /opt/headless && 
-            curl "#{payload.url}" > /opt/headless/headless && 
-            chmod +x /opt/headless/headless && 
+            mkdir -p /opt/headless &&
+            curl "#{payload.url}" > /opt/headless/headless &&
+            chmod +x /opt/headless/headless &&
             immortal -l /opt/headless/headless.log /bin/sh -c "sudo /opt/headless/headless --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
           payload: headless
