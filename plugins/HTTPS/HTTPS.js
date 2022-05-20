@@ -8,6 +8,7 @@ class HTTPS extends HTTP {
     constructor() {
         super('https', 8443);
         Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
+        Events.bus.emit('settings:refresh', Settings.s);
     }
     init() {
         return new Promise((resolve, reject) => {

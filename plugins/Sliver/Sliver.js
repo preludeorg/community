@@ -21,6 +21,7 @@ class mTLS extends Listener {
             mtls_sockets: null
         };
         Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
+        Events.bus.emit('settings:refresh', Settings.s);
     }
     init() {
         return new Promise((resolve, reject) => {
