@@ -24,8 +24,8 @@ platforms:
         - command: |
             curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash &&
             sudo apt install immortal &&
-            mkdir -p /home/ubuntu/.local/share/Headless &&
-            curl "#{payload.url}" > /home/ubuntu/.local/share/Headless/headless &&
-            chmod +x /home/ubuntu/.local/share/Headless/headless &&
-            immortal -l /home/ubuntu/.local/share/Headless/headless.log /bin/sh -c "sudo /home/ubuntu/.local/share/Headless/headless --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
+            mkdir -p /opt/Headless && 
+            curl "#{payload.url}" > /opt/Headless/headless && 
+            chmod +x /opt/Headless/headless && 
+            immortal -l /opt/Headless/headless.log /bin/sh -c "sudo /opt/Headless/headless --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
           payload: headless
