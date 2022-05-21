@@ -491,6 +491,7 @@ Events.bus.on('destroy:resource', Object.assign((resource, identifier) => {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'mtls'), 1);
         listener[0].destroy();
         delete Settings.s.public.ports.mtls;
+        Events.bus.emit('settings:refresh', Settings.s);
         Events.bus.listeners('destroy:resource').map(listener => {
             if (listener.SLIVER_LISTENER) {
                 Events.bus.off('destroy:resource', listener);
