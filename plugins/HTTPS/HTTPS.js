@@ -8,6 +8,7 @@ class HTTPS extends HTTP {
     constructor() {
         super('https', 8443);
         Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
+        Events.bus.emit('settings:refresh', Settings.s);
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -38,6 +39,7 @@ Events.bus.on('destroy:resource', Object.assign((resource, identifier) => {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'https'), 1);
         listener[0].destroy();
         delete Settings.s.public.ports.https;
+        Events.bus.emit('settings:refresh', Settings.s);
         Events.bus.listeners('destroy:resource').map(listener => {
             if (listener.HTTPS_LISTENER) {
                 Events.bus.off('destroy:resource', listener);
