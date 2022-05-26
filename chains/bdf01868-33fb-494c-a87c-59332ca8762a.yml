@@ -4,6 +4,7 @@ metadata:
   release_date: '2022-03-01'
   agents:
     - sliver
+  theme: themeless
 name: Sliver BOF and Execute-Assembly
 description: |
   This is an example of how you can attach a sliver agent directly, then run BOF and .NET Assemblies through Operator.

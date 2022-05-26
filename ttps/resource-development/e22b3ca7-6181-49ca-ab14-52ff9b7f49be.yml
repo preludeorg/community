@@ -3,7 +3,7 @@ metadata:
   authors:
   - privateducky
   payloads:
-    headless: 48edbbb38d51c6c68a52ca9049553f4de6bc272d
+    headless: c0b330df8573a3cb0a492484b6197a4e53b61611
 name: Install Headless Operator
 description: |
   The Operator C2 can be run without a UI component. This allows deploying it as an API-only C2 on any Linux server.
@@ -15,17 +15,17 @@ platforms:
   linux:
     sh:
       command: |
-        mkdir -p /tmp/headless && 
-        curl "#{payload.url}" > /tmp/headless/bin && 
-        chmod +x /tmp/headless/bin && 
+        mkdir -p /tmp/headless &&
+        curl "#{payload.url}" > /tmp/headless/bin &&
+        chmod +x /tmp/headless/bin &&
         nohup sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}' >/tmp/headless/headless.log 2>&1  &
       payload: headless
       variants:
         - command: |
-            curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash
-            sudo apt install immortal
-            mkdir -p /tmp/headless && 
-            curl "#{payload.url}" > /tmp/headless/bin && 
-            chmod +x /tmp/headless/bin && 
-            immortal -l headless.log /bin/sh -c "sudo /tmp/headless/bin --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
+            curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | sudo bash &&
+            sudo apt install immortal &&
+            mkdir -p /opt/headless &&
+            curl "#{payload.url}" > /opt/headless/headless &&
+            chmod +x /opt/headless/headless &&
+            immortal -l /opt/headless/headless.log /bin/sh -c "sudo /opt/headless/headless --sessionToken '#{operator.session}' --accountEmail '#{operator.login.email}' --accountToken '#{operator.login.token}' --accountSecret '#{operator.login.secret}'"
           payload: headless

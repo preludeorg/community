@@ -10,6 +10,7 @@ The Operator platform is built on top of an internal API.
 ### SSL
 
 ---
+
 The internal API uses a self-signed certificate by default, as it is only accessible on localhost. Since
 you own both sides of the connection (client and server), we are optimizing for preventing network sniffing, 
 not trust between the client and server.
@@ -17,15 +18,18 @@ not trust between the client and server.
 ### Authentication 
 
 ---
+
 The API requires a token to be passed with the request. Your token can be found in:
 Operator -> Settings -> Network -> Token. Set the variable $TOKEN to your token.
 
+> If you are using the Headless version of Operator, your token can be found in the settings.yml file that is generated when you first start the application.
 
 ## Endpoints 
 
 ### Chains
 
 ---
+
 #### Get all chains loaded in Operator
 
 ```bash
@@ -145,6 +149,7 @@ curl -X POST -sk -H "Authorization: $TOKEN" "https://localhost:8888/v1/agent/You
 ### TTPs
 
 ---
+
 #### Get all TTPs in Operator
 
 ```bash

@@ -7,6 +7,8 @@ const Settings = require('../objects/settings');
 class HTTPS extends HTTP {
     constructor() {
         super('https', 8443);
+        Settings.s.public.ports[this.name] = Settings.s.public.ports[this.name] || this.port;
+        Events.bus.emit('settings:refresh', Settings.s);
     }
     init() {
         return new Promise((resolve, reject) => {
@@ -32,13 +34,15 @@ class HTTPS extends HTTP {
 
 Listen.listeners.add(new HTTPS());
 
-Events.bus.on('plugin:delete', Object.assign((name) => {
-    if (name === 'HTTPS') {
+Events.bus.on('destroy:resource', Object.assign((resource, identifier) => {
+    if (resource == 'plugin' && identifier === 'HTTPS') {
         const listener = Listen.listeners.protocols.splice(Listen.listeners.protocols.findIndex(e => e.name === 'https'), 1);
         listener[0].destroy();
-        Events.bus.listeners('plugin:delete').map(listener => {
+        delete Settings.s.public.ports.https;
+        Events.bus.emit('settings:refresh', Settings.s);
+        Events.bus.listeners('destroy:resource').map(listener => {
             if (listener.HTTPS_LISTENER) {
-                Events.bus.off('plugin:delete', listener);
+                Events.bus.off('destroy:resource', listener);
             }
         });
     }

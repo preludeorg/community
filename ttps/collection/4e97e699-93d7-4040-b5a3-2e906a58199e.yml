@@ -19,7 +19,7 @@ platforms:
   global:
     sh:
       command: |
-        cp #{file.T1005} #{directory.T1074}
+        cp '#{file.T1005}' '#{directory.T1074}'
   windows:
     psh:
       command: |
