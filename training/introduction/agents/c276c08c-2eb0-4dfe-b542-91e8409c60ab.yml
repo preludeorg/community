@@ -22,7 +22,7 @@ hints:
   - You cannot use the pre-compiled Pneuma agents to complete this challenge
   - Did you download or clone the Pneuma repository and read the README about compiling the code?
   - Did you install GoLang 1.13+ on your computer?
-  - Did you change the AESKey in pneuma/util/config.go. It can be anything - but it must be 32-characters.
+  - Did you change the AESKey in pneuma/util/conf/default.json. It can be anything - but it must be 32-characters.
   - Did you add your new key to Operator? Check the Settings section.
   - Did Operator receive a beacon notification when you started the agent?
 blocks:
