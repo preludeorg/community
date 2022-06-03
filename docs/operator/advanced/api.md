@@ -15,7 +15,6 @@ The internal API uses a self-signed certificate by default, as it is only access
 you own both sides of the connection (client and server), we are optimizing for preventing network sniffing, 
 not trust between the client and server.
 
-
 #### Custom SSL certificates
 
 ---
