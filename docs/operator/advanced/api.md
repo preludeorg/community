@@ -15,6 +15,14 @@ The internal API uses a self-signed certificate by default, as it is only access
 you own both sides of the connection (client and server), we are optimizing for preventing network sniffing, 
 not trust between the client and server.
 
+
+#### Custom SSL certificates
+
+---
+
+You can install custom SSL certificates by creating a `configs` directory in your workspace folder (portal.prelude.org folder)
+and dropping a `key.pem` and `cert.pem` into the folder. Once you restart Operator, the new certificates will be loaded.
+ 
 ### Authentication 
 
 ---
