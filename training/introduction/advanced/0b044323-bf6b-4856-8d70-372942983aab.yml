@@ -28,7 +28,5 @@ blocks:
     sorts because it's an often overlooked directory.
 answer:
   script: 
-    Number(Attack.a[$('#answer').val()].platforms.darwin.sh.variants[0].command.toLowerCase().includes('tmp') || 
-    Attack.a[$('#answer').val()].platforms.linux.sh.variants[0].command.toLowerCase().includes('tmp') ||
-    Attack.a[$('#answer').val()].platforms.windows.psh.variants[0].command.toLowerCase().includes('temp'))
+    Number(!!Object.values(Attack.a[$('#answer').val()].platforms).filter(platform => Object.values(platform).filter(platform => platform.variants?.filter(variant => variant.command.match(/(tmp|temp)/gi)).length).length).length)
   value: 1
