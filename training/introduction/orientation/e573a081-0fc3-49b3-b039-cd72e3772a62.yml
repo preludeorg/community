@@ -20,6 +20,7 @@ resources:
     Chains: https://chains.prelude.org
 hints:
   - Make sure you are looking at the most recent chain for your current license
+  - The chains.prelude.org website has a filter for your license type
 blocks:
   Community license: |
     The Community repository has hundreds of TTPs, organized by ATT&CK tactics. This repository
