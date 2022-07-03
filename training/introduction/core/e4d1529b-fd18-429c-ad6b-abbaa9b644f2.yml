@@ -1,0 +1,29 @@
+id: e4d1529b-fd18-429c-ad6b-abbaa9b644f2
+name: Create a new TTP
+challenge: |
+  Create a new TTP named 'Hello World' that prints ‘hello world’ to console. Deploy it against your ThirdEye agent.
+context: |
+  One of the unique aspects of Operator is the ability to quickly create your own TTPs and load them in the system.
+  By creating a new YML file and ensuring the format matches that of other files in the Community repository, you are
+  able to add them to Operator. The easiest way to create TTPs is through the Launch Chain sidebar, which will create
+  a structured YML file and allow you to just fill in the blanks. In your new TTP, you can create any type of attack 
+  you want - just be sure that it is valid YML and it contains at least 1 platform and 1 executor, so it can run.
+template:
+  name: submit
+  data: []
+resources:
+  links: {}
+hints: {}
+blocks:
+  Choosing a platform & executor: |
+    Each TTP requires a platform (operating system) and an executor (program the agent uses to run the TTP). There are 
+    3 supported platforms in Operator today: Windows, Linux and Darwin (the Apple/Mac OS). By default, each platform
+    can use a specific set of executors. Check the documentation around TTPs for the list of options.
+  Modern securities: |
+    In cybersecurity, the efforts to combat infiltrations are constantly evolving. Security systems will try to recognize
+    attack patterns through various means like monitoring network activity to identify illicit traffic or by monitoring
+    employee command line behavior to spot and stop malicious code phrases). One strategy agents use to avoid detection
+    is to run an executor that is less familiar to the blue team (but still compatible with the agent's operating system).
+answer:
+  script: Number(Object.values(Attack.a).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)
+  value: 1

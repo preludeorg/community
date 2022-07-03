@@ -1,0 +1,59 @@
+id: bba24f1c-eeac-4ba7-99b7-677af945ca90
+name: Run your first operation
+challenge: |
+  Find and deploy the TTP named 'Find Recent files' against your ThirdEye agent. Enter the ID of the completed TTP.
+context: |
+  Operator is a command-and-control platform that allows you to run threat assessments against any computer - or range
+  of computers. This process is known as red teaming and it is the backbone of advanced cybersecurity. Operator stores
+  dozens of free TTPs in our Community repository, the open-source arm of Operator, all of which are reloaded everytime
+  you open Operator. You can use these TTPs - or write your own - to create custom chains, which you can then deploy
+  into your environment. Upgrading to a professional license gets you a subscription to extra attack chains that the
+  Prelude security team designs, builds, and publishes each week that are ready out-of-the-box for red and purple team
+  exercises.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    TTP: https://prelude-doc.readme.io/docs/ttp
+    Chain: https://prelude-doc.readme.io/docs/chain
+    TTPs can include malware: https://attack.mitre.org/software
+    Chain = Group: https://attack.mitre.org/groups
+hints:
+  - Use the search feature in Launch Chain to locate the TTP.
+  - Make sure the TTP is completed. You should see the result on the agent logs.
+  - You will find the TTP ID when you click on a completed TTP in the agent logs.
+  - You should be looking for a UUID-4.
+blocks:
+  TTP: |
+    TTP stands for Tactics, Techniques and Procedures, which is a military term used to describe different strategies
+    of an operation. Tactics are top-level goals. Techniques are specific categories of implementation to accomplish
+    the goal and procedures are the actual commands to execute, achieving the technique. A TTP in Operator is typically
+    the procedure in the Tactics Techniques and Procedures acronym. TTPs inside Operator are designed to be easy to
+    understand and work with. All TTPs inside Operator are safe to run by default; the ones that could create an
+    unintended effect on your computer are marked as "destructive" and require you to enable them before use.
+  Chain: |
+    A chain is a collection of TTPs. Sometimes a chain is designed to emulate a known Advanced Persistent Threat (APT)
+    group. Other times, a chain is simply an organized set of TTPs.
+  Agent logs: |
+    In Operator lingo, an operation is a full execution of a chain. After an operation completes, the results will 
+    appear in your agent logs. You can filter the log results further by clicking on any of the TTP's attributes - 
+    timestamp, TTP, executor, account, operation tag, etc. For example, if you are only interested in seeing the logs
+    of TTPs that deployed with shell, you would type `executor:"sh"` into the log search bar. You can select one or 
+    more filters at a time to narrow the results down further.
+  Community license: |
+    The Community repository has hundreds of TTPs, organized by ATT&CK tactics. This repository gets new additions
+    consistently and contributions are welcomed. Shortly after new TTPs get merged into Community, they will appear
+    here, in the desktop application, ready to be used.
+  Professional license: |
+    If you have a Professional license to Operator, in addition to the TTPs you get in the Community repository your
+    Operator instance will be continuously loaded with hundreds of closed-source procedures.
+answer:
+  script: |
+    Agent.a.filter(function(a) {
+        let links = a.links.filter(function(l) {
+            return l.ttp.toLowerCase() === $('#answer').val().toLowerCase()
+        })
+        return links.length > 0
+    }).length
+  value: 1

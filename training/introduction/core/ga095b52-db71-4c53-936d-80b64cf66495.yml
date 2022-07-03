@@ -1,0 +1,46 @@
+id: ga095b52-db71-4c53-936d-80b64cf66495
+name: Understanding chains
+challenge: We have written a couple of chains to emulate several N-day attacks. Enter the name of one.
+context: |
+  There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
+  of them all. Inside Operator, we try to use as few custom terms as possible and try to over-explain terminology
+  wherever possible to make it easier to onboard and make sense of an already complex industry. Two terms come
+  up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
+  in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
+  individual TTPs, which work together to achieve some type of output. The term adversary is a common cybersecurity term, 
+  often referring to the attacker overall. An adversary can be thought of as any person or group running unauthorized
+  code on a computer. Even an insider threat could be an adversary. An adversary in the real-world may know how to
+  execute dozens of chained attacks. We emulate this by allowing you to pick a prebuilt chain and then append more TTPs
+  to it.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Chains: https://chains.prelude.org
+hints:
+  - Head to chains.prelude.org and look around.
+  - Consider filtering your search by 'Theme'.
+blocks:
+  Script kiddie: |
+    In programming and hacking cultures, a script kiddie, skiddie or skid, is an unskilled individual who uses scripts
+    or programs, such as a web shell, developed by others to attack computer systems and networks and deface websites.
+    It is generally assumed that most script kiddies are juveniles who lack the ability to write sophisticated programs
+    or exploits on their own and that their objective is to try to impress their friends or gain credit in
+    computer-enthusiast communities. However, the term does not relate to the actual age of the participant.
+  Nation state actor: |
+    The Nation State Actor has a 'License to Hack'. They work for a government to disrupt or compromise target
+    governments, organizations or individuals to gain access to valuable data or intelligence, and can create incidents
+    that have international significance.
+  An example chain: |
+    We often highlight the 'File Hunter' chain in Operator demonstrations because it's a cross-platform chain that
+    highlights the concept well. In this chain, the included TTPs will locate recently-modified files, create a staging 
+    directory, copy the found files into the directory, compress the directory, and finally exfiltrate the compressed
+    file back to Operator.
+  TTP Tuesday: |
+    Every week, the Prelude security team publishes a new chain. The chain will have a handful of TTPs and will
+    automatically load into Operator, available to Professional license holders. You can read about each chain on our
+    site: https://chains.prelude.org.
+answer:
+  script: Number($('#answer').val().toLowerCase().includes('conti') || $('#answer').val().toLowerCase().includes('kaseya'))
+  value: 1

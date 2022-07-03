@@ -1,0 +1,34 @@
+id: icf003b9-1db4-4d63-8897-efdc3d12f592
+name: Build your own chain
+challenge: Practice writing your own chain.
+context: |
+  Write (or find) the following TTPs with proper Tactic and Techniques as listed below:
+  <ol>
+      <li>
+        Find all text or CSV files that might hold passwords (Collection: T1005)
+      </li>
+      <li>
+        Create a new directory in /tmp (Collection: T1074)
+      </li>
+      <li>
+        Stage (copy) the files you found in (1) into the new directory from (2) (Collection: T1074)
+      </li>
+  </ol>
+  Create a chain with the three TTPs and deploy it against your ThirdEye agent. Enter the completed chain name.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Chains: https://prelude-doc.readme.io/docs/chain
+hints:
+    - Did you add the proper Tactic and Technique to the TTPs?
+    - Did all the TTPs in the chain successfully deploy?
+blocks:
+  Read the docs!: |
+    The documentation section about chaining is a great resource on the topic of chains, links, facts and variables.
+    The topic of linking TTPs together, using the output of one TTP as the input to another, is an advanced topic 
+    but well worth getting familiar with.
+answer:
+  script: $('#answer').val().toLowerCase()
+  value: planner

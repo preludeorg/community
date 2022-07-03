@@ -1,0 +1,43 @@
+id: h7b55abe-ca34-40eb-96a7-30d52faffbd1
+name: Facts in the chain
+challenge: Find the procedure named FILE.IO EXFIL. Notice how the command has a variable inside, denoted by
+  the "#{variable}" syntax. What is a procedure name which could fill in this variable with a fact?
+context: A chain in Operator is composed of links, which are the individual TTPs used in the attack. While the chain is
+  executing, Operator continuously attempts to learn about the endpoints it is attacking and parses out information from
+  every executed command. These parsed results are called facts. Each fact could potentially unlock another procedure
+  in the chain by matching the fact key to any variables in the command field. This means, the output of a procedure can
+  be fed as input to other procedures, therefore creating a dynamic operation.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Facts in chains: https://prelude-doc.readme.io/docs/chaining
+    Operator's planner: https://prelude-doc.readme.io/docs/brain
+    CALDERA: https://github.com/mitre/caldera
+hints:
+  - Use the Launch Chain search bar to find the TTP named FILE.IO EXFIL. Locate the variable and note the technique ID required to fill it in.
+  - Search for technique T1560.001. These procedures can fill in the variable
+blocks:
+  Links: |
+    Prelude considers each attack a chain, which is composed of 1-or-many links. Each link is a TTP which was used
+    within the attack. Each link is given a unique ID, which allows Prelude to track it through the platform and 
+    determine what happened and how useful it was. As you construct adversary profiles, keep an eye on the variables
+    inside the commands. By leveraging how these can connect, you can build chained adversaries that use learned
+    information to execute.
+  Autonomous hacking: |
+    When an adversary launches an attack with intelligence bundled in, this is known as autonomous hacking. Intelligence
+    allows the hacker to leverage automated decision-making to offload the normally manual process. This could be for
+    efficiency or speed.
+  Automated planning: |
+    Automated planning and scheduling, sometimes denoted as AI planning, is a branch of artificial intelligence
+    that concerns the realization of strategies or action sequences, typically for execution by intelligent agents,
+    autonomous robots and unmanned vehicles.
+  CALDERA: |
+    The CALDERA framework is an open-source C2 framework, supported by The MITRE Corporation, to conduct research in 
+    autonomous, adversarial decision-making. Fun fact: the core developers of CALDERA version 2+ also built the Operator
+    platform.
+answer:
+  script: |
+    Object.values(Attack.a).filter(atk => atk.technique.id === 'T1560.001' && atk.name.toLowerCase() === $('#answer').val().toLowerCase()).length
+  value: 1
