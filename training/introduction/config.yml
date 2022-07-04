@@ -5,6 +5,8 @@ description: |
   The program is designed like a Capture The Flag (CTF) event - so don't expect answers to be on the page. 
   You may need to hunt around the application or perform actions to capture the flags. Good luck!
 courses:
+  - name: core
+    description: Core flows
   - name: orientation
     description: Explore and understand the terminology and Operator interface
     challenges:

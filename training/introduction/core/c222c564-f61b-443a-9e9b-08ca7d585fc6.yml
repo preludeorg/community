@@ -41,5 +41,5 @@ blocks:
     framework to identify holes in defenses, and prioritize them based on risk. Prelude organizes all tactics, 
     techniques and procedures (TTPs) according to the ATT&CK framework.
 answer:
-  script: $('#answer').val().toUpperCase()
-  value: ATT&CK
+  script: $('#answer').val().toLowerCase()
+  value: filter

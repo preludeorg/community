@@ -2,7 +2,8 @@ id: d60a36e3-9256-4722-9f3e-157cfd17ff57
 name: A (variant) attack
 challenge: |
   Locate the TTP named 'Find recent files' and write a variant for your platform that searches your /tmp (or TEMP)
-  directory for recently modified files. Then deploy the TTP against your ThirdEye agent.
+  directory for recently modified files. Then deploy the TTP against your ThirdEye agent. Enter the ID of the TTP after
+  the operation has completed.
 context: |
   Just as there are numerable procedures for any given ATT&CK technique, each procedure may have variations itself.
   For example, a procedure that does a port scan may look like this: `nmap -Pn example.com`. This will scan example.com
@@ -11,7 +12,7 @@ context: |
   technique, as hackers will often modify and craft variations of commands to avoid detection. Learning how to identify,
   write and modify procedures is a valuable skill to have.
 template:
-  name: submit
+  name: input
   data: []
 resources:
   links:
@@ -30,6 +31,9 @@ blocks:
     system over time or after a reboot. Adversaries will often store malicious code here or use it as a "home base" of 
     sorts because it's an often overlooked directory.
 answer:
-  script:
-    Number(!!Object.values(Attack.a[$('#answer').val()].platforms).filter(platform => Object.values(platform).filter(platform => platform.variants?.filter(variant => variant.command.match(/(tmp|temp)/gi)).length).length).length)
+  script: |
+    Number(!!Object.values(Attack.a[$('#answer').val()].platforms).filter(platform => 
+      Object.values(platform).filter(platform => 
+        platform.variants?.filter(variant => 
+          variant.command.match(/(tmp|temp)/gi)).length).length).length)
   value: 1

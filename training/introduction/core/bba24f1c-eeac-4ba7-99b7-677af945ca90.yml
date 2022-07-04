@@ -1,7 +1,8 @@
 id: bba24f1c-eeac-4ba7-99b7-677af945ca90
 name: Run your first operation
 challenge: |
-  Find and deploy the TTP named 'Find Recent files' against your ThirdEye agent. Enter the ID of the completed TTP.
+  Find and deploy the TTP named 'Find Recent files' against your ThirdEye agent. Enter the ID of the TTP after the
+  operation has completed.
 context: |
   Operator is a command-and-control platform that allows you to run threat assessments against any computer - or range
   of computers. This process is known as red teaming and it is the backbone of advanced cybersecurity. Operator stores

@@ -6,8 +6,8 @@ context: |
   agents running on compromised systems. An agent, otherwise known as a Remote Access Trojan, is a piece of malicious
   software running on a target computer. From the compromised device, the agent beacons into the command center
   indicating that it is ready to receive instructions (TTPs), and then executes any instructions the command center 
-  sends back. Operator includes a safe, built-in agent known as <b>ThirdEye<b>. It only communicates with Operator locally and
-  is intended for testing attacks before releasing them into the wild.
+  sends back. Operator includes a safe, built-in agent known as <b>ThirdEye</b>. It only communicates with Operator 
+  locally and is intended for testing attacks before releasing them into the wild.
 template:
   name: input
   data: []
@@ -16,6 +16,7 @@ resources:
     Agents: https://prelude-doc.readme.io/docs/agent
 hints:
   - Check out your ThirdEye agent's profile.
+  - Enter your answer as a comma separated list.
 blocks:
   Remote Access Trojan: |
     A Remote Access Trojan (RAT) is a type of malware that allows covert surveillance, a backdoor for administrative
@@ -36,5 +37,8 @@ blocks:
     the TTP must list the executor in order for the attack to be successful. For a full list of available executors
     that work with the default Prelude agent head to the documentation section.
 answer:
-  script: Number($('#answer').val() === "5" || $('#answer').val() === "50")
+  script: |
+    let a = Agent.a.filter(a => a.handler.name === 'THIRDEYE')[0].executors;
+    let b = $('#answer').val().split(',').map(el => el.trim());
+    Number(a.length === b.length && a.every(executor => b.includes(executor)));
   value: 1

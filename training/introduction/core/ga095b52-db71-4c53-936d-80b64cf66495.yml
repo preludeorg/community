@@ -20,6 +20,7 @@ resources:
     Chains: https://chains.prelude.org
 hints:
   - Head to chains.prelude.org and look around.
+  - Make sure you are looking at chains for your current license.
   - Consider filtering your search by 'Theme'.
 blocks:
   Script kiddie: |
@@ -42,5 +43,8 @@ blocks:
     automatically load into Operator, available to Professional license holders. You can read about each chain on our
     site: https://chains.prelude.org.
 answer:
-  script: Number($('#answer').val().toLowerCase().includes('conti') || $('#answer').val().toLowerCase().includes('kaseya'))
+  script: |
+    Number(Object.values(Chain.c)
+      .filter((c) => c.metadata.theme === 'n-day')
+      .map((c) => c.id.toLowerCase()).includes($('#answer').val().toLowerCase()))
   value: 1

@@ -1,8 +1,10 @@
 id: h7b55abe-ca34-40eb-96a7-30d52faffbd1
 name: Facts in the chain
-challenge: Find the procedure named FILE.IO EXFIL. Notice how the command has a variable inside, denoted by
-  the "#{variable}" syntax. What is a procedure name which could fill in this variable with a fact?
-context: A chain in Operator is composed of links, which are the individual TTPs used in the attack. While the chain is
+challenge: |
+  Find the procedure named FILE.IO EXFIL. Notice how the command has a variable inside, denoted by the "#{variable}"
+  syntax. What is a procedure name which could fill in this variable with a fact?
+context: |
+  A chain in Operator is composed of links, which are the individual TTPs used in the attack. While the chain is
   executing, Operator continuously attempts to learn about the endpoints it is attacking and parses out information from
   every executed command. These parsed results are called facts. Each fact could potentially unlock another procedure
   in the chain by matching the fact key to any variables in the command field. This means, the output of a procedure can

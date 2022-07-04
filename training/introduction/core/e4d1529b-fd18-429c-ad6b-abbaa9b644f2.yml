@@ -25,5 +25,11 @@ blocks:
     employee command line behavior to spot and stop malicious code phrases). One strategy agents use to avoid detection
     is to run an executor that is less familiar to the blue team (but still compatible with the agent's operating system).
 answer:
-  script: Number(Object.values(Attack.a).filter(atk => atk.name.toLowerCase() === 'my first ttp').length > 0)
+  script: |
+    Agent.a.filter(function(a) {
+        let links = a.links.filter(function(l) {
+            return l.response.output.toLowerCase() === 'hello world'
+        })
+        return links.length > 0
+    }).length
   value: 1

@@ -28,6 +28,6 @@ blocks:
     payload. The agent makes an HTTP request back to Operator to download the payload before executing the TTP itself.
 answer:
   script: |
-    let payload = Object.values(Attack.a).filter(function (a) {return a.name.toLowerCase() === 'hello world'});
-    Number(payload[0].metadata.payloads["hello.txt"].length > 0)
+    let payload = Object.values(Attack.a).filter(function (a) {return a.name.toLowerCase() === 'hello world with payload'});
+    Number(payload[0].metadata.payloads["test.txt"].length > 0)
   value: 1

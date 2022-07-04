@@ -30,5 +30,23 @@ blocks:
     The topic of linking TTPs together, using the output of one TTP as the input to another, is an advanced topic 
     but well worth getting familiar with.
 answer:
-  script: $('#answer').val().toLowerCase()
-  value: planner
+  script: |
+    new Promise((resolve, reject) => {
+      const chain = Object.values(Chain.c).filter(a => a.name === $('#answer').val())[0];
+      const ttps = chain.ttps.map(ttp => Attack.a[ttp]);
+      const rules = [
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1005",
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1074",
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1074"
+      ];
+      const validRules = rules.filter(rule => {
+        return ttps.filter(ttp => rule(ttp)).length;
+      });
+      if (validRules.length === rules.length) {
+        if (Agent.a.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
+          return resolve(1);
+        }
+      }
+      return resolve(0);
+    });
+  value: 1
