@@ -2,7 +2,7 @@ id: jaca7e81-3855-452e-91b0-997fd42ead4b
 name: Continuous testing
 challenge: |
   Did your password-finding chain find any susceptible files? If not, go ahead and create a file with a fake password
-  in it and re-run your chain so it finds a susceptible file. Now remove the vulnerability: go in update or delete the
+  in it and re-run your chain so it finds the susceptible file. Now remove the vulnerability: go in update or delete the
   file so it doesn’t trigger your password-finder attack. Re-run your chain and confirm that the file is no longer
   listed in the results.
 context: |

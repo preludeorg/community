@@ -1,5 +1,5 @@
 id: d60a36e3-9256-4722-9f3e-157cfd17ff57
-name: A (variant) attack
+name: Variants
 challenge: |
   Locate the TTP named 'Find recent files' and write a variant for your platform that searches your /tmp (or TEMP)
   directory for recently modified files. Then deploy the TTP against your ThirdEye agent. Enter the ID of the TTP after
@@ -18,17 +18,17 @@ resources:
   links:
     Update agent beacon protocol: https://github.com/preludeorg/community/blob/master/ttps/command-and-control/23c5cb2f-3f6f-4770-b260-13edf23f5903.yml
 hints:
-  - Use the search feature in Launch Chain to locate the TTP.
   - You may want to search other TTPs to find examples of variants so you can copy the syntax.
+  - Use the search feature in Launch Chain to locate the TTP.
 blocks:
   Variants in Operator: |
     In Operator, instead of creating a new TTP for each of these variations you can outline each variant in a single TTP
-    file. To start, find and fork the existing "Find recent files" TTP which will create a modified version of said TTP.
+    file. To start, find and fork the existing 'Find recent files' TTP which will create a modified version of said TTP.
     Next follow the syntaxing for variants which can be found in the example TTP:  'Update agent beacon protocol'. 
     Finally, once you have created and appended your variations to the new TTP, verify your work by entering in the TTP ID.
   The /tmp directory: |
     The /tmp (or TEMP) directory on a computer stores temporary files that will be removed automatically by your operating
-    system over time or after a reboot. Adversaries will often store malicious code here or use it as a "home base" of 
+    system over time or after a reboot. Adversaries will often store malicious code here or use it as a home base of 
     sorts because it's an often overlooked directory.
 answer:
   script: |

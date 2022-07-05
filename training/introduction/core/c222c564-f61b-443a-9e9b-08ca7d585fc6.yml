@@ -4,7 +4,7 @@ challenge: |
   According to its man page, one common variation for the TTP named 'Find recent files' is to vary the __ by which an
   adversary locates recent files.
 context: |
-  It's often useful to understand the context around a TTP. Prelude writes "man pages" for our TTPs that convey extra
+  It's often useful to understand the context around a TTP. Prelude writes 'man pages' for our TTPs that convey extra
   information about a TTP: why a hacker might use a specific TTP, when to recognize that it might be part of a larger
   attack, how to prevent or detect attacks using the TTP, etc. This should go hand in hand with thinking about the
   bigger picture around who might want to attack you and how they would most likely go about it.
@@ -13,7 +13,7 @@ template:
   data: []
 resources:
   links:
-    Documentation: https://prelude-doc.readme.io/docs
+    Prelude documentation: https://prelude-doc.readme.io/docs
     Cyber Kill Chain: https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html
     MITRE ATT&CK: https://attack.mitre.org/
 hints:
@@ -22,7 +22,7 @@ blocks:
   Indicators of Compromise: |
     An IOC is often described in the forensics world as evidence on a computer that indicates that the security of the
     network has been breached. Investigators usually gather this data after being informed of a suspicious incident,
-    on a scheduled basis, or after the discovery of unusual call-outs from the network. An IoC could be an email address,
+    on a scheduled basis, or after the discovery of unusual call-outs from the network. An IOC could be an email address,
     IP address, username, website or one of many other objective pieces of data to anchor a finding. For years,
     Cyber Threat Intelligence (CTI) analysts used IOCs to determine who was attacking them. For example, if they knew
     the IP address 1.2.3.4 was owned by the FIN6 hacking group and they saw an attack originating from that address,

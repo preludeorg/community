@@ -22,12 +22,12 @@ resources:
   links:
     Chains: https://prelude-doc.readme.io/docs/chain
 hints:
-    - Did you add the proper Tactic and Technique to the TTPs?
     - Did all the TTPs in the chain successfully deploy?
+    - Did you add the proper Tactic and Technique to the TTPs?
 blocks:
   Read the docs!: |
     The documentation section about chaining is a great resource on the topic of chains, links, facts and variables.
-    The topic of linking TTPs together, using the output of one TTP as the input to another, is an advanced topic 
+    The topic of linking TTPs together (ie. using the output of one TTP as the input to another) is an advanced topic 
     but well worth getting familiar with.
 answer:
   script: |
