@@ -2,15 +2,16 @@ id: d60a36e3-9256-4722-9f3e-157cfd17ff57
 name: Variants
 challenge: |
   Locate the TTP named 'Find recent files' and write a variant for your platform that searches your /tmp (or TEMP)
-  directory for recently modified files. Then deploy the TTP against your ThirdEye agent. Enter the ID of the TTP after
-  the operation has completed.
+  directory for recently modified files. Then deploy the TTP against your ThirdEye agent. Enter the full variant ID of
+  the TTP after the operation has completed.
 context: |
   Just as there are numerable procedures for any given ATT&CK technique, each procedure may have variations itself.
-  For example, a procedure that does a port scan may look like this: `nmap -Pn example.com`. This will scan example.com
-  for open ports but avoid pinging the host. You may want to include software versions in your port scan, so a variation
-  of this command may be: `nmap -Pn -sV example.com`. There are likely thousands of procedure variations for each
-  technique, as hackers will often modify and craft variations of commands to avoid detection. Learning how to identify,
-  write and modify procedures is a valuable skill to have.
+  In Operator, instead of creating a new TTP for each of these variations you can outline each variant in a single TTP
+  file. To start, find and fork the existing 'Find recent files' TTP which will create a modified version of said TTP.
+  Next follow the syntaxing for variants which can be found in the example TTP:  'Update agent beacon protocol'. 
+  Once you have created and appended your variations to the new TTP, run your variant. To do this, you need to 'split'
+  the TTP, which will explicitly display each variant. Remove the variants you don't want to run from your chain and 
+  hit 'Deploy'. Finally, verify your work by entering the full variant ID (from the 'split' step) of the TTP.
 template:
   name: input
   data: []
@@ -18,22 +19,28 @@ resources:
   links:
     Update agent beacon protocol: https://github.com/preludeorg/community/blob/master/ttps/command-and-control/23c5cb2f-3f6f-4770-b260-13edf23f5903.yml
 hints:
+  - The variant ID should look something like `00010203-0405-0607-0809-0a0b0c0d0e0f:global:ls:0`
   - You may want to search other TTPs to find examples of variants so you can copy the syntax.
   - Use the search feature in Launch Chain to locate the TTP.
 blocks:
-  Variants in Operator: |
-    In Operator, instead of creating a new TTP for each of these variations you can outline each variant in a single TTP
-    file. To start, find and fork the existing 'Find recent files' TTP which will create a modified version of said TTP.
-    Next follow the syntaxing for variants which can be found in the example TTP:  'Update agent beacon protocol'. 
-    Finally, once you have created and appended your variations to the new TTP, verify your work by entering in the TTP ID.
+  Variants: |
+    Learning how to identify, write and modify procedures is a valuable skill to have. For example, a procedure that
+    does a port scan may look like this: `nmap -Pn example.com`. This will scan example.com for open ports but avoid
+    pinging the host. You may want to include software versions in your port scan, so a variation of this command may
+    be: `nmap -Pn -sV example.com`. There are likely thousands of procedure variations for each technique, as hackers
+    will often modify and craft variations of commands to avoid detection.
   The /tmp directory: |
     The /tmp (or TEMP) directory on a computer stores temporary files that will be removed automatically by your operating
     system over time or after a reboot. Adversaries will often store malicious code here or use it as a home base of 
     sorts because it's an often overlooked directory.
 answer:
   script: |
-    Number(!!Object.values(Attack.a[$('#answer').val()].platforms).filter(platform => 
-      Object.values(platform).filter(platform => 
-        platform.variants?.filter(variant => 
-          variant.command.match(/(tmp|temp)/gi)).length).length).length)
+    let v = $('#answer').val().split(':');
+    let run = Agent.a.filter(function(a) {
+        let links = a.links.filter(function(l) {
+            return l.ttp.toLowerCase() === v[0].toLowerCase() && l.request.command.match(/(tmp|temp)/gi)?.length
+        })
+        return links.length > 0
+    }).length;
+    v.length === 4 && v[3] > 0 && run
   value: 1

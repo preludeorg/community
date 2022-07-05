@@ -2,16 +2,12 @@ id: ga095b52-db71-4c53-936d-80b64cf66495
 name: Understanding chains
 challenge: We have written a couple of chains to emulate N-day attacks. Enter the name of one.
 context: |
-  There are many nuanced terms in cybersecurity, often overlapping with others. It can be tough to keep track
-  of them all. Inside Operator, we try to use as few custom terms as possible and try to over-explain terminology
-  wherever possible to make it easier to onboard and make sense of an already complex industry. Two terms come
-  up often in the app: adversary and chain, so let's look at them a little closer. The term chain was originally used
-  in the CALDERA framework to describe a subset of an attacker's overall operation. A chain includes n-number of
-  individual TTPs, which work together to achieve some type of output. The term adversary is a common cybersecurity term, 
-  often referring to the attacker overall. An adversary can be thought of as any person or group running unauthorized
-  code on a computer. Even an insider threat could be an adversary. An adversary in the real-world may know how to
-  execute dozens of chained attacks. We emulate this by allowing you to pick a prebuilt chain and then append more TTPs
-  to it.
+  The term chain was originally used in the CALDERA framework to describe a subset of an attacker's overall operation. 
+  A chain includes n-number of individual TTPs, which work together to achieve some type of output. At Prelude, 
+  oftentimes we'll build chains around a theme, like a particular exploit or hack. We explicitly tag our chains
+  to make it easy for users to find those that emulate a particular type of attack or adversarial group. In the 
+  real-world, adversaries may know how to execute dozens of chained attacks. We emulate this by allowing you to pick a
+  prebuilt chain and then append more TTPs to it.
 template:
   name: input
   data: []
@@ -19,6 +15,7 @@ resources:
   links:
     chains.prelude.org: https://chains.prelude.org
     CALDERA: https://github.com/mitre/caldera
+    Chain = Group: https://attack.mitre.org/groups
 hints:
   - Consider filtering your search by 'Theme'.
   - Make sure you are looking at chains for your current license.

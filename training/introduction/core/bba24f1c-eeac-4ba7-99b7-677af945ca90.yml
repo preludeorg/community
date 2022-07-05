@@ -19,7 +19,6 @@ resources:
     TTP: https://prelude-doc.readme.io/docs/ttp
     Chain: https://prelude-doc.readme.io/docs/chain
     TTPs can include malware: https://attack.mitre.org/software
-    Chain = Group: https://attack.mitre.org/groups
 hints:
   - You should be looking for a UUID-4.
   - Make sure the TTP is completed. You should see the result on the agent logs.

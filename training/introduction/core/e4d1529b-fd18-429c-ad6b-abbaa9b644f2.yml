@@ -19,11 +19,12 @@ blocks:
     Each TTP requires a platform (operating system) and an executor (program the agent uses to run the TTP). There are 
     three supported platforms in Operator today: Windows, Linux and Darwin (the Apple/Mac OS). By default, each platform
     can use a specific set of executors. Check the documentation around TTPs for the list of options.
-  Modern securities: |
-    In cybersecurity, the efforts to combat infiltrations are constantly evolving. Security systems will try to recognize
-    attack patterns through various means like monitoring network activity to identify illicit traffic or by monitoring
-    employee command line behavior to spot and stop malicious code phrases. One strategy agents use to avoid detection
-    is to run an executor that is less familiar to the blue team (but still compatible with the agent's operating system).
+  Modern security: |
+    In cybersecurity, efforts to combat infiltrations are constantly evolving. One defensive strategy is to monitor
+    all network activity in order to recognize attack patterns and illicit traffic. Another strategy calls for monitoring
+    employee command line behavior in order to detect unfamiliar and potentially malicious code phrases. Malicious
+    agents, in turn, evolve their own tactics to avoid detection. For example, to avoid this latter defense, they might
+    run an executor that is less familiar to the blue team (yet still compatible with the agent's operating system).
 answer:
   script: |
     Agent.a.filter(function(a) {
