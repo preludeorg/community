@@ -6,7 +6,7 @@ description: |
   You may need to hunt around the application or perform actions to capture the flags. Good luck!
 courses:
   - name: core
-    description: Core flows
+    description: Explore and understand the core user flows in Operator
   - name: orientation
     description: Explore and understand the terminology and Operator interface
     challenges:
