@@ -18,6 +18,7 @@ resources:
   links:
     TTP: https://prelude-doc.readme.io/docs/ttp
     Chain: https://prelude-doc.readme.io/docs/chain
+    MITRE ATT&CK: https://attack.mitre.org/
     TTPs can include malware: https://attack.mitre.org/software
 hints:
   - You should be looking for a UUID-4.
@@ -47,6 +48,12 @@ blocks:
   Professional license: |
     If you have a Professional license to Operator, in addition to the TTPs you get in the Community repository your
     Operator instance will be continuously loaded with hundreds of closed-source procedures.
+  ATT&CK: |
+    The MITRE ATT&CK framework is the standard in behavior-driven classification systems for its simplicity and
+    comprehensiveness. ATT&CK is a comprehensive matrix of tactics and techniques used by threat hunters, red teamers,
+    and defenders to better classify attacks and assess an organization's risk. Organizations can use the framework to
+    identify holes in defenses, and prioritize them based on risk. Prelude organizes all tactics, techniques and
+    procedures (TTPs) according to the ATT&CK framework.
 answer:
   script: |
     Agent.a.filter(function(a) {
