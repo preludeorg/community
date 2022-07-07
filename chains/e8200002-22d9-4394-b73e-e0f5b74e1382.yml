@@ -7,7 +7,7 @@ metadata:
     - https://dirtypipe.cm4all.com/
     - https://github.com/Arinerron/CVE-2022-0847-DirtyPipe-Exploit
   theme: n-day
-name: Dirty Pipe (CVE-2022-0847)
+name: Dirty Pipe CVE-2022-0847
 description:
   This exploit enables an attacker to modify an arbitrary read-only file. The technique modifies /etc/passwd to elevate 
   privilege and spawn a root shell. The vulnerability is present in the Linux kernel since 5.8.
