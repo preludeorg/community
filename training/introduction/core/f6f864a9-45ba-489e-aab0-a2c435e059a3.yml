@@ -1,0 +1,32 @@
+id: f6f864a9-45ba-489e-aab0-a2c435e059a3
+name: Create a new payload
+challenge: |
+  Update your 'Hello World' TTP to use a payload. Create a payload named 'hello.txt' whose contents are `echo "world"`.
+  Rename your TTP to 'Hello World with Payload' and attach your payload to it. Finally, ensure your command uses the
+  payload, and then run it!
+context: |
+  Payloads are an essential part of a red team operation. They are separate binaries, often containing extensive logic, 
+  and can be thought of as malware. A payload can be written in any computer language and is commonly compiled into a 
+  single executable file or designed to be loaded into memory to help avoid detection. By default, Operator provides a
+  variety of payloads, including translators, agents, and more. Instead of writing TTPs which contain numerous lines of
+  code, consider attaching a payload that contains the bulk of instructions and ordering your TTP to execute the payload
+  file.
+template:
+  name: submit
+  data: []
+resources:
+  links: {}
+hints:
+  - Look around for other TTPs with payloads to see how they use/refer to them.
+  - When attaching a payload it will be added to the metadata, which shows which payloads are available to the TTP.
+  - When looking at your TTP, note the upload icon at the top right. Use this to attach your payload.
+blocks:
+  How payloads work: |
+    When you deploy TTPs containing payloads, Operator first downloads them to your Prelude workspace, specifically into 
+    your payloads directory. Then Operator ships the TTP to the receiving agent, along with the URL of where to find the 
+    payload. The agent makes an HTTP request back to Operator to download the payload before executing the TTP itself.
+answer:
+  script: |
+    let payload = Object.values(Attack.a).filter(function (a) {return a.name.toLowerCase() === 'hello world with payload'});
+    Number(payload[0].metadata.payloads["test.txt"].length > 0)
+  value: 1
