@@ -135,7 +135,7 @@ curl -X POST localhost:3391 -d '{
     "Executing":"",
     "Links":[
         {
-            "ID": "c1883712-c81b-40a8-952d-a15123c034c6"
+            "ID": "c1883712-c81b-40a8-952d-a15123c034c6",
             "Executor": "sh",
             "Payload": "",
             "Request": "arp -a",
