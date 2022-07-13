@@ -1,0 +1,24 @@
+id: d471d1b5-61de-4822-9340-722bbe806336
+name: LPE in eBPF (CVE-2022-23222)
+description: >-
+  This exploit causes the eBPF verifier to lose track of register values, which
+  can be leveraged to read and write from arbitrary kernelspace memory
+  addresses. These arbitrary reads and writes can be used to escalate
+  privileges. The vulnerability was first introduced in Linux kernel 5.8, and
+  fixed in 5.16. Patches for affected versions have been released.
+ttps:
+  - 98a66759-75b7-4c98-8b5c-8b0e024ab8db
+platforms:
+  - linux
+executors:
+  - sh
+ordered: false
+metadata:
+  flavor: Allows an attacker to read and write arbitrary kernel memory.
+  release_date: '2022-07-13'
+  resources:
+    - 'https://github.com/FridayOrtiz/CVE-2022-23222'
+    - 'https://github.com/tr3ee/CVE-2022-23222'
+    - 'https://tr3e.ee/posts/cve-2022-23222-linux-kernel-ebpf-lpe.txt'
+    - 'https://www.openwall.com/lists/oss-security/2022/01/18/2'
+  theme: n-day
