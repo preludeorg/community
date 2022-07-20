@@ -1,0 +1,44 @@
+id: a51a9dfb-c23e-4bea-8b98-fe1e22690592
+name: ThirdEye
+challenge: What executors does your ThirdEye agent have?
+context: |
+  When performing a command-and-control (C2) attack, you need two parts, a command center (Operator, for example) and
+  agents running on compromised systems. An agent, otherwise known as a Remote Access Trojan, is a piece of malicious
+  software running on a target computer. From the compromised device, the agent beacons into the command center
+  indicating that it is ready to receive instructions (TTPs), and then executes any instructions the command center 
+  sends back. Operator includes a safe, built-in agent known as ThirdEye. It only communicates with Operator 
+  locally and is intended for testing attacks before releasing them into the wild.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Agents: https://doc.prelude.org/docs/agent
+hints:
+  - Check out your ThirdEye agent's profile.
+  - Enter your answer as a comma separated list.
+blocks:
+  Executors: |
+    In this case, executor refers to the programming language used to run a TTP. Some available executors are: sh, psh,
+    pwsh, python, and keyword. It's up to the agent to define which executors it supports, and you can define your
+    preferred order to use them within Operator. The executor must be compatible with the agent's operating system and
+    the TTP must list the executor in order for the attack to be successful. For a full list of available executors
+    that work with the default Prelude agent head to the documentation.
+  Remote Access Trojan: |
+    A Remote Access Trojan (RAT) is a type of malware that allows covert surveillance, a backdoor for administrative
+    control and unfettered and unauthorized remote access to a victim’s machine. The RAT is very dangerous
+    because it enables intruders to get remote control of the compromised computer. Attackers can use the exploited
+    machines to perform various malicious activities such as installing and removing programs, manipulating files,
+    hijacking the webcam, reading data from the keyboard, harvesting login credentials and monitoring the clipboard.
+  Remote Code Execution: |
+    Remote code execution (RCE) refers to the ability of a cyberattacker to access and make changes to a computer owned
+    by another, without authority and regardless of where the computer is geographically located. RCE can happen through
+    nearly any application running on a computer, through a variety of mechanisms, such as injecting code into the
+    running application or taking advantage of a security vulnerability within the app. RATs naturally provide an
+    attacker-owned application which opens up RCE on a computer as well, which gives them "ownership" of the machine.
+answer:
+  script: |
+    let a = Agent.a.filter(a => a.handler.name === 'THIRDEYE')[0].executors;
+    let b = $('#answer').val().split(',').map(el => el.trim());
+    Number(a.length === b.length && a.every(executor => b.includes(executor)));
+  value: 1

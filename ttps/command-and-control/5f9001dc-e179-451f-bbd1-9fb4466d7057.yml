@@ -6,9 +6,9 @@ metadata:
   - agent
   release_date: 2021-08-25
   payloads:
-    pneuma-linux: pneuma/v1.5
-    pneuma-darwin: pneuma/v1.5
-    pneuma-windows.exe: pneuma/v1.5
+    pneuma-linux: pneuma/v1.7
+    pneuma-darwin: pneuma/v1.7
+    pneuma-windows.exe: pneuma/v1.7
 name: Download pneuma
 description: |
   Pneuma is an open-source agent which accompanies the Prelude platform. This procedure downloads the agent to disk

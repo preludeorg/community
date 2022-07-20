@@ -5,11 +5,13 @@ context: |
   You may have read about the Community and Professional licenses by now but here's a little more information.
   The Community repository is the open-source arm of Operator. It contains dozens of free procedures, all ready to
   be used within the app. These procedures are reloaded everytime you open Operator. You can use these procedures 
-  - or write your own - to create custom chains, which you can then deploy into your environment. 
-  Upgrading to a professional license gets you a subscription to the chains the Prelude security team publishes each
-  week. Internally, we design and build attack chains that are ready out-of-the-box for red and purple team exercises.
-  Head to chains.prelude.org to see some past chains. While chains are built to sync with Operator seamlessly,
-  you can also access the chains over the API directly.
+  - or write your own - to create custom chains, which you can then deploy into your environment.
+  The most recent chain available for your license will show up when clicking "Launch Chain". Clicking on the chain
+  will show how many TTPs are included in it. Upgrading to a professional license gets you a subscription to the 
+  chains the Prelude security team publishes each week. Internally, we design and build attack chains that are ready 
+  out-of-the-box for red and purple team exercises. Head to chains.prelude.org to see some past chains 
+  (make sure to filter the chains by your current license). While chains are built to sync with Operator 
+  seamlessly, you can also access the chains over the API directly.
 template:
   name: input
   data: []
@@ -17,7 +19,8 @@ resources:
   links:
     Chains: https://chains.prelude.org
 hints:
-  - Read the documentation about the Professional license
+  - Make sure you are looking at the most recent chain for your current license
+  - The chains.prelude.org website has a filter for your license type
 blocks:
   Community license: |
     The Community repository has hundreds of TTPs, organized by ATT&CK tactics. This repository
@@ -32,5 +35,5 @@ blocks:
     within Operator or over our API.
 answer:
   script: 
-    Requests.outpost.getChains().then(chains => Number(chains[0].procedures.length === parseInt($('#answer').val())))
+    Requests.outpost.getChains().then(chains => Number(chains[0].ttps.length === parseInt($('#answer').val())))
   value: 1
