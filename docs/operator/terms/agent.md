@@ -122,7 +122,7 @@ curl -X POST localhost:3391 -d '{
 #### HTTP Agent executes instructions and sends a new beacon
 
 ```shell
-curl -X POST localhost:3391 -d '{
+curl -X POST localhost:3391 -H 'Content-Type: text/plain' -d '{
     "Name":"david",
     "Target":"127.0.0.1:3391",
     "Hostname":"whoami",
@@ -135,7 +135,7 @@ curl -X POST localhost:3391 -d '{
     "Executing":"",
     "Links":[
         {
-            "ID": "c1883712-c81b-40a8-952d-a15123c034c6"
+            "ID": "c1883712-c81b-40a8-952d-a15123c034c6",
             "Executor": "sh",
             "Payload": "",
             "Request": "arp -a",

@@ -1,0 +1,31 @@
+id: jaca7e81-3855-452e-91b0-997fd42ead4b
+name: Continuous testing
+challenge: |
+  Did your password-finding chain find any susceptible files? If not, go ahead and create a file with a fake password
+  in it and re-run your chain so it finds the susceptible file. Now remove the vulnerability: go in update or delete the
+  file so it doesn’t trigger your password-finder attack. Re-run your chain and confirm that the file is no longer
+  listed in the results.
+context: |
+  Continuous testing is an essential part of the software development lifecycle today. Testing as many parts of the
+  system as possible as often as possible ensures that new features and products are working smoothly and correctly.
+  When a test starts failing, it often means a bug has been introduced to the codebase, and engineers look for a
+  successful test run to prove that the bug has been resolved. Operator brings this type of continuous testing to the
+  security world - you can run attacks against your systems continuously to always ensure that your prevention and
+  detection mechanisms are working as intended.
+template:
+  name: submit
+  data: []
+resources:
+  links: {}
+hints: []
+blocks:
+  Manual vs Automated Hacking: |
+    Penetration testers and red team operators have historically worked in a manual way: they identify their targets,
+    determine their context and how to hack them. Then they methodically execute their attack. Automated hacking, like
+    Operator, is meant to replace the 80%+ manual work that used to be done manually. Operator brings
+    speed, consistency, automatic reporting and a large number of TTPs in a growing knowledge bank. Which is the right
+    approach, manual or automated? It depends on your use case but automated should make up the bulk of your security
+    posture.
+answer:
+  script: Number(1)
+  value: 1
