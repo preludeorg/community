@@ -1,0 +1,36 @@
+id: e4d1529b-fd18-429c-ad6b-abbaa9b644f2
+name: Create a new TTP
+challenge: |
+  Create a new TTP named 'Hello World' that prints ‘hello world’ to console. Deploy it against your ThirdEye agent.
+context: |
+  One of the unique aspects of Operator is the ability to quickly create your own TTPs and load them in the system.
+  By creating a new YML file and ensuring the format matches that of other files in the Community repository, you are
+  able to add them to Operator. The easiest way to create TTPs is through the Launch Chain sidebar, which will create
+  a structured YML file and allow you to just fill in the blanks. In your new TTP, you can create any type of attack 
+  you want - just be sure that it is valid YML and it contains at least one platform and one executor, so it can run.
+template:
+  name: submit
+  data: []
+resources:
+  links: {}
+hints: {}
+blocks:
+  Choosing a platform & executor: |
+    Each TTP requires a platform (operating system) and an executor (program the agent uses to run the TTP). There are 
+    three supported platforms in Operator today: Windows, Linux and Darwin (the Apple/Mac OS). By default, each platform
+    can use a specific set of executors. Check the documentation around TTPs for the list of options.
+  Modern security: |
+    In cybersecurity, efforts to combat infiltrations are constantly evolving. One defensive strategy is to monitor
+    all network activity in order to recognize attack patterns and illicit traffic. Another strategy calls for monitoring
+    employee command line behavior in order to detect unfamiliar and potentially malicious code phrases. Malicious
+    agents, in turn, evolve their own tactics to avoid detection. For example, to avoid this latter defense, they might
+    run an executor that is less familiar to the blue team (yet still compatible with the agent's operating system).
+answer:
+  script: |
+    Agent.a.filter(function(a) {
+        let links = a.links.filter(function(l) {
+            return l.response.output.toLowerCase() === 'hello world'
+        })
+        return links.length > 0
+    }).length
+  value: 1

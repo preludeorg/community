@@ -1,0 +1,52 @@
+id: icf003b9-1db4-4d63-8897-efdc3d12f592
+name: Build your own chain
+challenge: Practice writing your own chain.
+context: |
+  Write (or find) the following TTPs with proper Tactic and Techniques as listed below:
+  <ol>
+      <li>
+        Find all text or CSV files that might hold passwords (Collection: T1005)
+      </li>
+      <li>
+        Create a new directory in /tmp (Collection: T1074)
+      </li>
+      <li>
+        Stage (copy) the files you found in (1) into the new directory from (2) (Collection: T1074)
+      </li>
+  </ol>
+  Create a chain with the three TTPs and deploy it against your ThirdEye agent. Enter the completed chain name.
+template:
+  name: input
+  data: []
+resources:
+  links:
+    Chains: https://doc.prelude.org/docs/chain
+hints:
+    - Did all the TTPs in the chain successfully deploy?
+    - Did you add the proper Tactic and Technique to the TTPs?
+blocks:
+  Read the docs!: |
+    The documentation section about chaining is a great resource on the topic of chains, links, facts and variables.
+    The topic of linking TTPs together (ie. using the output of one TTP as the input to another) is an advanced topic 
+    but well worth getting familiar with.
+answer:
+  script: |
+    new Promise((resolve, reject) => {
+      const chain = Object.values(Chain.c).filter(a => a.name === $('#answer').val())[0];
+      const ttps = chain.ttps.map(ttp => Attack.a[ttp]);
+      const rules = [
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1005",
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1074",
+        (ttp) => ttp.tactic.toLowerCase() === "collection" && ttp.technique.id.split('.') == "T1074"
+      ];
+      const validRules = rules.filter(rule => {
+        return ttps.filter(ttp => rule(ttp)).length;
+      });
+      if (validRules.length === rules.length) {
+        if (Agent.a.filter(agent => ttps.filter(ttp => agent.links.filter(link => link.ttp === ttp.id).length).length === ttps.length).length) {
+          return resolve(1);
+        }
+      }
+      return resolve(0);
+    });
+  value: 1
