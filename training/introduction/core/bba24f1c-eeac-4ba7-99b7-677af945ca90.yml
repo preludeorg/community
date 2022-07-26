@@ -61,5 +61,5 @@ answer:
             return l.ttp.toLowerCase() === $('#answer').val().toLowerCase()
         })
         return links.length > 0
-    }).length
+    }).length > 0
   value: 1
