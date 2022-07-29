@@ -56,10 +56,10 @@ blocks:
     procedures (TTPs) according to the ATT&CK framework.
 answer:
   script: |
-    Agent.a.filter(function(a) {
+    Number(Agent.a.filter(function(a) {
         let links = a.links.filter(function(l) {
             return l.ttp.toLowerCase() === $('#answer').val().toLowerCase()
         })
         return links.length > 0
-    }).length > 0
+    }).length > 0)
   value: 1
