@@ -14,8 +14,8 @@ template:
   data: []
 resources:
   links:
-    Facts in chains: https://doc.prelude.org/docs/chaining
-    Operator's planner: https://doc.prelude.org/docs/brain
+    Facts in chains: https://docs.prelude.org/docs/chaining
+    Operator's planner: https://docs.prelude.org/docs/brain
 hints:
   - Search for technique T1560.001. These procedures can fill in the variable.
   - Use the Launch Chain search bar to find the TTP named 'File.io exfil'. Locate the variable and note the technique ID required to fill it in.
