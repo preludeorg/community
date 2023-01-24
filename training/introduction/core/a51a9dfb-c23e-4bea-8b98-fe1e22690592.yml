@@ -13,7 +13,7 @@ template:
   data: []
 resources:
   links:
-    Agents: https://docs.prelude.org/docs/agent
+    Agents: https://docs.preludesecurity.com/docs/agent
 hints:
   - Check out your ThirdEye agent's profile.
   - Enter your answer as a comma separated list.

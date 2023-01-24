@@ -20,7 +20,7 @@ template:
   data: []
 resources:
   links:
-    Chains: https://docs.prelude.org/docs/chain
+    Chains: https://docs.preludesecurity.com/docs/chain
 hints:
     - Did all the TTPs in the chain successfully deploy?
     - Did you add the proper Tactic and Technique to the TTPs?

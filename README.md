@@ -25,4 +25,4 @@ all of our closed-source resources and weekly [attack chains](https://chains.pre
 
 If you have an Enterprise license you can stand up your own private bucket, syncing your resources across your team. 
 
-Get in touch at support@prelude.org.
+Get in touch at support@preludesecurity.com.
