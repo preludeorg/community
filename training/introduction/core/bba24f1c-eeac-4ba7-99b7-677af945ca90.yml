@@ -16,8 +16,8 @@ template:
   data: []
 resources:
   links:
-    TTP: https://docs.prelude.org/docs/ttp
-    Chain: https://docs.prelude.org/docs/chain
+    TTP: https://docs.preludesecurity.com/v1/docs/ttp
+    Chain: https://docs.preludesecurity.com/v1/docs/chain
     MITRE ATT&CK: https://attack.mitre.org/
     TTPs can include malware: https://attack.mitre.org/software
 hints:

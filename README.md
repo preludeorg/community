@@ -4,7 +4,7 @@ Prelude Community holds all open-source TTPs, payloads, plugins and training mod
 
 > Prelude Operator is a command-and-control (C2) center which allows you to run manual to semi-autonomous security assessments
 > Watch our quick [introduction video](https://www.youtube.com/watch?v=Hz8K-jdqpBY)
-> You can download the latest copy of the application [here](https://www.prelude.org/download/current), for either MacOS, Windows or Linux. 
+> You can download the latest copy of the application [here](https://www.preludesecurity.com/products/operator), for either MacOS, Windows or Linux. 
 
 When you boot up Operator, it loads the resources from this repo into your application and keeps them up-to-date:
 
@@ -25,4 +25,4 @@ all of our closed-source resources and weekly [attack chains](https://chains.pre
 
 If you have an Enterprise license you can stand up your own private bucket, syncing your resources across your team. 
 
-Get in touch at support@prelude.org.
+Get in touch at support@preludesecurity.com.

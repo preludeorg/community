@@ -20,4 +20,4 @@ The Operator Enterprise license is designed to **automate continuous security te
 
 Prelude works with organizations of all sizes, including multiple Fortune 500 customers across industries including technology, retail, manufacturing and others.  
 
-You can read more about Enterprise, including our transparent pricing model, on the http://prelude.org website. 
+You can read more about Enterprise, including our transparent pricing model, on the https://www.preludesecurity.com/products/operator website. 
